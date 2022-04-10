@@ -1,0 +1,49 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Resource",
+"class": "Snippet",
+"language": "GDScript",
+"path": "res://addons/light_snippet/snippet.gd"
+} ]
+_global_script_class_icons={
+"Snippet": ""
+}
+
+[application]
+
+config/name="PROJECT TEMPLATE"
+run/main_scene="res://src/scene_manager.tscn"
+config/icon="res://icon.png"
+
+[autoload]
+
+CONFIG="*res://src/singletons/config.gd"
+LOG="*res://src/singletons/log.gd"
+UTILS="*res://src/singletons/utils.gd"
+TWEEN="*res://src/singletons/tween_manager.tscn"
+
+[debug]
+
+gdscript/warnings/treat_warnings_as_errors=true
+gdscript/warnings/unsafe_property_access=true
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/light_snippet/plugin.cfg" )
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"
