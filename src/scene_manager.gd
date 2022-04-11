@@ -9,10 +9,11 @@ extends CanvasLayer
 
 ### ENUM ###
 enum SCENE {
-	TEST
+	GAME,
 }
 
 const SCENES = {
+	SCENE.GAME : preload("res://src/game/game.tscn")
 }
 
 
@@ -22,7 +23,7 @@ const FULL_TRANSPARENT = Color(0.0, 0.0, 0.0, 0.0)
 const FADE_MIN_DELAY = 0.1
 const RECOVERY_MIN_DELAY = 0.5
 
-
+const STARTING_SCENE = SCENE.GAME
 ### EXPORT ###
 
 
@@ -40,8 +41,10 @@ onready var sceneSlot = $CurrentSceneSlot as Control
 ### VIRTUAL FUNCTIONS (_init ...) ###
 
 func _ready() -> void:
+	randomize()
 	LOG.pr(3, "READY", "SCENE_MANAGER")
 	set_foreground_color(DEFAULT_FOREGROUND_COLOR)
+	change_scene(STARTING_SCENE)
 
 
 ### PUBLIC FUNCTIONS ###

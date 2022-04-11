@@ -1,5 +1,7 @@
 extends Node
 
+const SPAWN_ENEMIES = false
+
 
 func _ready() -> void:
 	LOG.pr(3, "READY", "CONFIG")
