@@ -1,4 +1,5 @@
-extends Control
+extends Resource
+class_name Context
 
 """
 
@@ -14,7 +15,7 @@ extends Control
 
 
 ### EXPORT ###
-
+export(Array, Vector2) var lane_positions = []
 
 ### PUBLIC VAR ###
 
@@ -23,16 +24,12 @@ extends Control
 
 
 ### ONREADY VAR ###
-onready var blacksmith = $PanelContainer/HBoxContainer/Blacksmith
-onready var battle = $PanelContainer/HBoxContainer/Battle
+
+
 
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
-func _ready():
-	UTILS.bind(
-		blacksmith, "item_ready",
-		battle, "_on_item_created"
-	)
+
 
 ### PUBLIC FUNCTIONS ###
 

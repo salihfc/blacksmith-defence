@@ -1,4 +1,4 @@
-extends Control
+extends Node
 
 """
 
@@ -8,31 +8,33 @@ extends Control
 
 
 ### ENUM ###
-
+enum WEAPON {
+	SWORD,
+}
 
 ### CONST ###
-
+const WEAPONS = {
+	WEAPON.SWORD : preload("res://src/game/player_units/sword.tscn"),
+}
 
 ### EXPORT ###
 
 
 ### PUBLIC VAR ###
-
+func create_weapon(weapon):
+	return WEAPONS[weapon].instance()
+	
 
 ### PRIVATE VAR ###
 
 
 ### ONREADY VAR ###
-onready var blacksmith = $PanelContainer/HBoxContainer/Blacksmith
-onready var battle = $PanelContainer/HBoxContainer/Battle
+
+
 
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
-func _ready():
-	UTILS.bind(
-		blacksmith, "item_ready",
-		battle, "_on_item_created"
-	)
+
 
 ### PUBLIC FUNCTIONS ###
 

@@ -10,6 +10,11 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Resource",
+"class": "Context",
+"language": "GDScript",
+"path": "res://src/resource_classes/context.gd"
+}, {
+"base": "Resource",
 "class": "EnemyData",
 "language": "GDScript",
 "path": "res://src/resource_classes/enemy_data.gd"
@@ -35,6 +40,7 @@ _global_script_classes=[ {
 "path": "res://src/resource_classes/weapon.gd"
 } ]
 _global_script_class_icons={
+"Context": "",
 "EnemyData": "",
 "ItemButton": "",
 "ItemPool": "",
@@ -54,6 +60,7 @@ CONFIG="*res://src/singletons/config.gd"
 LOG="*res://src/singletons/log.gd"
 UTILS="*res://src/singletons/utils.gd"
 TWEEN="*res://src/singletons/tween_manager.tscn"
+WEAPON_FACTORY="*res://src/singletons/weapon_factory.gd"
 
 [debug]
 
@@ -64,6 +71,8 @@ gdscript/warnings/unsafe_property_access=true
 
 window/size/width=1536
 window/size/height=900
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
 
 [editor_plugins]
 

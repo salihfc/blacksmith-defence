@@ -93,7 +93,9 @@ custom_styles/normal = SubResource( 1 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = -8.0
-margin_bottom = -8.0
+margin_left = 4.0
+margin_top = 4.0
+margin_right = -4.0
+margin_bottom = -4.0
 
 [connection signal="pressed" from="TabContainer/ItemSelectionTab/MarginContainer/HBoxContainer/VBoxContainer2/SelectButton" to="." method="_on_SelectButton_pressed"]

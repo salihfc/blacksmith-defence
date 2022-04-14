@@ -3,7 +3,7 @@
 [ext_resource path="res://src/resource_classes/weapon.gd" type="Script" id=1]
 [ext_resource path="res://assets/gfx/game/0x72_16x16DungeonTileset.v4.png" type="Texture" id=2]
 
-[sub_resource type="AtlasTexture" id=1]
+[sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 2 )
 region = Rect2( 179, 10, 10, 21 )
 filter_clip = true
@@ -11,6 +11,6 @@ filter_clip = true
 [resource]
 resource_local_to_scene = true
 script = ExtResource( 1 )
-id = 1
+id = 0
 name = "sword"
-texture = SubResource( 1 )
+texture = SubResource( 3 )

@@ -1,6 +1,7 @@
 extends Node
 
-const SPAWN_ENEMIES = false
+const SPAWN_ENEMIES = true
+onready var context = Context.new()
 
 
 func _ready() -> void:
