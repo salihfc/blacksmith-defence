@@ -9,10 +9,6 @@ signal attacked_lane(damage)
 signal died()
 
 ### ENUM ###
-enum STATE {
-	MOVING,
-	ATTACKING,
-}
 
 ### CONST ###
 const MAX_Y_OFFSET = 24
@@ -36,7 +32,8 @@ var _speed
 var _velocity
 
 var _lane
-var _state
+
+var _player_units_in_range = {}
 
 ### ONREADY VAR ###
 onready var sprite = $Sprite as Sprite
@@ -46,21 +43,20 @@ onready var animPlayer = $AnimationPlayer as AnimationPlayer
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _ready():
 	add_to_group("enemy")
-	_state = STATE.MOVING
+	animPlayer.play("walk")
 
 
 func _physics_process(delta):
-	global_position += _velocity * delta * _speed
+	global_position += _velocity * delta * _speed * float(animPlayer.current_animation == "walk")
 
 
 ### PUBLIC FUNCTIONS ###
 func update_with_context(context) -> void:
 	
-	match _state:
-		STATE.MOVING:
+	match animPlayer.current_animation:
+		"walk":
 			if (global_position.distance_to(context.lane_positions[_lane])) < ATTACK_RANGE:
 				_velocity = Vector2.ZERO
-				_state = STATE.ATTACKING
 				animPlayer.play("attack")
 				LOG.pr(1, "[%s] starting to attack" % [self])
 			elif (global_position.distance_to(context.lane_positions[_lane])) < MAX_ATTACK_RANGE:
@@ -93,7 +89,20 @@ func take_damage(damage : float) -> void:
 
 ### PRIVATE FUNCTIONS ###
 func _deal_damage() -> void:
-	emit_signal("attacked_lane", _damage)
+	var closest = null
+	var min_dist = INF
+	var player_units = get_tree().get_nodes_in_group("player_unit")
+	for unit in player_units:
+		var dist = global_position.distance_to(unit.global_position)
+		if min_dist > dist:
+			closest = unit
+			min_dist = dist
+
+	if closest and min_dist <= ATTACK_RANGE:
+		if closest is PlayerBase:
+			emit_signal("attacked_lane", _damage)
+		else:
+			closest.take_damage(_damage)
 
 
 ### SIGNAL RESPONSES ###
@@ -102,9 +111,27 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 	match anim_name:
 		"attack":
 			attackCdTimer.start(ATTACK_CD)
-
+		"walk":
+#			LOG.pr(1, "WALK FINISHED [%s]" % [self])
+			if _player_units_in_range.size():
+				animPlayer.play("attack")
+			else:
+				animPlayer.play("walk")
+				
 
 func _on_AttackCdTimer_timeout():
 	
-	if _state == STATE.ATTACKING:
+	if _player_units_in_range.size():
 		animPlayer.play("attack")
+	else:
+		animPlayer.play("walk")
+
+
+func _on_AttackRange_area_entered(area):
+	var player_unit = area.get_parent()
+	_player_units_in_range[player_unit] = true
+
+
+func _on_AttackRange_area_exited(area):
+	var player_unit = area.get_parent()
+	_player_units_in_range.erase(player_unit)

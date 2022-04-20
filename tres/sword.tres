@@ -14,3 +14,4 @@ script = ExtResource( 1 )
 id = 0
 name = "sword"
 texture = SubResource( 3 )
+base_damage = 20.0

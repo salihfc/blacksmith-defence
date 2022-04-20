@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://src/game/battle/drop.gd" type="Script" id=1]
+[ext_resource path="res://assets/gfx/game/0x72_16x16DungeonTileset.v4.png" type="Texture" id=2]
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 2 )
+region = Rect2( 179, 10, 10, 21 )
+filter_clip = true
+
+[sub_resource type="Animation" id=4]
+resource_name = "dropping"
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 1, -0.25, 0.058163, 0.1, -0.0232652, -0.249663, -0.1, 0.0121326, 0.1, -0.0121326, 0.954387, -0.0849514, 0.00150014, 0.115049, -0.00203162, 1.04378, -0.0844802, 0.00812638, 0.11552, -0.0111122, 1, -0.1, -0.0110756, 0.1, 0.0110756 ),
+"times": PoolRealArray( 0, 0.2, 0.484951, 0.78448, 1 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath(".:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 1.00111, -0.25, 0.999485, 0.1, -0.399794, 1.2504, -0.0587766, -0.105665, 0.0412234, 0.0741087, 0.978693, -0.0808762, -0.000392774, 0.119124, 0.000578523, 1.09945, -0.174292, 0.0146261, 0.125708, -0.0105491, 1, -0.1, -0.0291534, 0.25, 0.0728835 ),
+"times": PoolRealArray( 0, 0.260814, 0.480876, 0.774292, 1 )
+}
+
+[node name="Drop" type="Sprite"]
+scale = Vector2( 1, 1.00111 )
+texture = SubResource( 3 )
+script = ExtResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/dropping = SubResource( 4 )

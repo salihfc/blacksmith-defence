@@ -5,7 +5,7 @@ extends Node2D
 """
 
 ### SIGNAL ###
-signal base_hp_updated(hp, max_hp)
+#signal base_hp_updated(hp, max_hp)
 signal player_base_destroyed()
 
 ### ENUM ###
@@ -15,6 +15,7 @@ signal player_base_destroyed()
 const EnemyPrefab = preload("res://src/game/enemy/enemy.tscn")
 const PlayerUnitPrefab = preload("res://src/game/player_units/player_unit.tscn")
 const SPAWN_PERIOD = 4.0
+const PLAYER_UNIT_MAX_Y_OFFSET = 20.0
 
 const enemy_data = [
 	preload("res://tres/enemies/enemy_skeleton.tres"),
@@ -44,10 +45,10 @@ func _ready():
 	
 	player_base_hp = player_base_max_hp
 	
-	call_deferred(
-		"emit_signal",
-		"base_hp_updated", player_base_max_hp, player_base_max_hp
-	)
+#	call_deferred(
+#		"emit_signal",
+#		"base_hp_updated", player_base_max_hp, player_base_max_hp
+#	)
 
 	if CONFIG.SPAWN_ENEMIES:
 		spawnTimer.start(SPAWN_PERIOD)
@@ -65,8 +66,8 @@ func spawn_player_unit_with_item(_item, _lane) -> void:
 	var new_unit = PlayerUnitPrefab.instance()
 	units.add_child(new_unit)
 	new_unit.give_item(_item)
-	new_unit.global_position = playerBase.get_child(_lane).global_position - Vector2.LEFT * 100.0
-	
+	new_unit.global_position = get_global_mouse_position()
+#	new_unit.global_position.x = playerBase.get_child(_lane).global_position.x
 
 
 func spawn_enemy() -> void:
@@ -90,8 +91,8 @@ func damage_base(damage_amount : float) -> void:
 
 	if player_base_hp <= 0.0:
 		emit_signal("player_base_destroyed")
-	else:
-		emit_signal("base_hp_updated", player_base_hp, player_base_max_hp)
+#	else:
+#		emit_signal("base_hp_updated", player_base_hp, player_base_max_hp)
 
 
 ### PRIVATE FUNCTIONS ###

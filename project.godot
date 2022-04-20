@@ -15,6 +15,11 @@ _global_script_classes=[ {
 "path": "res://src/resource_classes/context.gd"
 }, {
 "base": "Resource",
+"class": "DropItem",
+"language": "GDScript",
+"path": "res://src/resource_classes/drop_item.gd"
+}, {
+"base": "Resource",
 "class": "EnemyData",
 "language": "GDScript",
 "path": "res://src/resource_classes/enemy_data.gd"
@@ -29,6 +34,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/resource_classes/item_pool.gd"
 }, {
+"base": "Sprite",
+"class": "PlayerBase",
+"language": "GDScript",
+"path": "res://src/game/battle/player_base.gd"
+}, {
 "base": "Resource",
 "class": "Snippet",
 "language": "GDScript",
@@ -41,9 +51,11 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Context": "",
+"DropItem": "",
 "EnemyData": "",
 "ItemButton": "",
 "ItemPool": "",
+"PlayerBase": "",
 "Snippet": "",
 "Weapon": ""
 }
@@ -77,6 +89,12 @@ window/stretch/aspect="keep"
 [editor_plugins]
 
 enabled=PoolStringArray( "res://addons/light_snippet/plugin.cfg" )
+
+[layer_names]
+
+2d_physics/layer_1="world"
+2d_physics/layer_3="player"
+2d_physics/layer_6="enemy"
 
 [physics]
 

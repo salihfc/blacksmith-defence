@@ -1,16 +1,14 @@
 [gd_resource type="Resource" load_steps=4 format=2]
 
-[ext_resource path="res://src/resource_classes/enemy_data.gd" type="Script" id=1]
+[ext_resource path="res://src/resource_classes/drop_item.gd" type="Script" id=1]
 [ext_resource path="res://assets/gfx/game/0x72_16x16DungeonTileset.v4.png" type="Texture" id=2]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
-region = Rect2( 16, 144, 16, 16 )
+region = Rect2( 58, 193, 2, 6 )
 filter_clip = true
 
 [resource]
 script = ExtResource( 1 )
-max_hp = 40.0
-damage = 4.0
-speed = 100.0
+name = "Iron"
 texture = SubResource( 1 )

@@ -1,5 +1,5 @@
 extends Resource
-class_name Weapon
+class_name DropItem
 
 """
 
@@ -15,10 +15,8 @@ class_name Weapon
 
 
 ### EXPORT ###
-export(int) var id = -1
-export(String) var name = "weapon"
-export(Texture) var texture = null
-export(float) var base_damage = 20.0
+export(String) var name
+export(Texture) var texture
 
 ### PUBLIC VAR ###
 

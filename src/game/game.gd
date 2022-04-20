@@ -23,16 +23,12 @@ extends Control
 
 
 ### ONREADY VAR ###
-onready var blacksmith = $PanelContainer/HBoxContainer/Blacksmith
 onready var battle = $PanelContainer/HBoxContainer/Battle
 
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _ready():
-	UTILS.bind(
-		blacksmith, "item_ready",
-		battle, "_on_item_created"
-	)
+	pass
 
 ### PUBLIC FUNCTIONS ###
 

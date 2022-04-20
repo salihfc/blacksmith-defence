@@ -1,6 +1,6 @@
 extends Node
 
-const SPAWN_ENEMIES = true
+const SPAWN_ENEMIES = false
 onready var context = Context.new()
 
 

@@ -1,5 +1,5 @@
-extends Resource
-class_name Weapon
+extends Sprite
+class_name PlayerBase
 
 """
 
@@ -15,10 +15,7 @@ class_name Weapon
 
 
 ### EXPORT ###
-export(int) var id = -1
-export(String) var name = "weapon"
-export(Texture) var texture = null
-export(float) var base_damage = 20.0
+
 
 ### PUBLIC VAR ###
 
@@ -29,10 +26,15 @@ export(float) var base_damage = 20.0
 ### ONREADY VAR ###
 
 
-
-
 ### VIRTUAL FUNCTIONS (_init ...) ###
-
+func _ready():
+	add_to_group("player_unit")
+	
+	for child in get_children():
+		if randf() > 0.5:
+			child.visible = false
+		else:
+			child.offset += UTILS.random_unit_vec2() * rand_range(0.2, 1.6)
 
 ### PUBLIC FUNCTIONS ###
 
