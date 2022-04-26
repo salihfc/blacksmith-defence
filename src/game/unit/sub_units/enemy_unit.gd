@@ -1,5 +1,5 @@
-extends Resource
-class_name Context
+extends Unit
+class_name EnemyUnit
 
 """
 
@@ -15,7 +15,7 @@ class_name Context
 
 
 ### EXPORT ###
-var battle_world = null
+
 
 ### PUBLIC VAR ###
 
@@ -29,6 +29,8 @@ var battle_world = null
 
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
+func _ready():
+	_decider = AttackDecider.new()
 
 
 ### PUBLIC FUNCTIONS ###

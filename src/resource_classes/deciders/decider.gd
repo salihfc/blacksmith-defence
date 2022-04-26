@@ -1,8 +1,8 @@
 extends Resource
-class_name Context
+class_name Decider
 
 """
-
+	Base Class for ai
 """
 
 ### SIGNAL ###
@@ -15,7 +15,7 @@ class_name Context
 
 
 ### EXPORT ###
-var battle_world = null
+
 
 ### PUBLIC VAR ###
 
@@ -26,12 +26,21 @@ var battle_world = null
 ### ONREADY VAR ###
 
 
-
-
 ### VIRTUAL FUNCTIONS (_init ...) ###
 
 
 ### PUBLIC FUNCTIONS ###
+func decide(_caller : Unit, _context):
+	LOG.pr(3, "<ERR> Base Decider called!!", "Decider::decide")
+	match _caller.get_state():
+		Unit.STATE.IDLE:
+			pass
+		
+		_:
+			pass
+	
+	
+	return Command.new(Command.TYPE.IDLE)
 
 
 ### PRIVATE FUNCTIONS ###

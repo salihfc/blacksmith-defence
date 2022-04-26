@@ -1,5 +1,5 @@
-extends Resource
-class_name Context
+extends Decider
+class_name AttackDecider
 
 """
 
@@ -15,7 +15,7 @@ class_name Context
 
 
 ### EXPORT ###
-var battle_world = null
+
 
 ### PUBLIC VAR ###
 
@@ -32,6 +32,8 @@ var battle_world = null
 
 
 ### PUBLIC FUNCTIONS ###
+func decide(_caller, _context):
+	return Command.new(Command.TYPE.WALK, [Vector2.LEFT])
 
 
 ### PRIVATE FUNCTIONS ###

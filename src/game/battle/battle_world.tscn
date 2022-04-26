@@ -1,8 +1,12 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/game/battle/battle_world.gd" type="Script" id=1]
 [ext_resource path="res://assets/gfx/game/0x72_16x16DungeonTileset.v4.png" type="Texture" id=2]
 [ext_resource path="res://src/game/battle/player_base.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/gfx/common/64x64_white.png" type="Texture" id=4]
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
 
 [sub_resource type="TileSet" id=1]
 0/name = "0x72_16x16DungeonTileset.v4.png 0"
@@ -90,6 +94,7 @@ script = ExtResource( 1 )
 player_base_max_hp = 100.0
 
 [node name="BG" type="Sprite" parent="."]
+texture = SubResource( 2 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true
@@ -110,19 +115,19 @@ __meta__ = {
 }
 
 [node name="Position2D" type="Position2D" parent="SpawnPositions"]
-position = Vector2( 1422, 139 )
+position = Vector2( 877, 149 )
 __meta__ = {
 "_gizmo_extents_": 20.0
 }
 
 [node name="Position2D2" type="Position2D" parent="SpawnPositions"]
-position = Vector2( 1422, 413 )
+position = Vector2( 877, 423 )
 __meta__ = {
 "_gizmo_extents_": 20.0
 }
 
 [node name="Position2D3" type="Position2D" parent="SpawnPositions"]
-position = Vector2( 1422, 649 )
+position = Vector2( 877, 659 )
 __meta__ = {
 "_gizmo_extents_": 20.0
 }
@@ -147,4 +152,18 @@ position = Vector2( 57, 659 )
 [node name="SpawnTimer" type="Timer" parent="."]
 one_shot = true
 
-[connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
+color = Color( 0, 0, 0, 1 )
+
+[node name="Sun" type="Light2D" parent="."]
+position = Vector2( 0, -61 )
+texture = ExtResource( 4 )
+texture_scale = 50.0
+color = Color( 0.376471, 0.482353, 0.972549, 1 )
+energy = 0.5
+range_height = 100.0
+shadow_color = Color( 0.0862745, 0.0862745, 0.0862745, 0 )
+shadow_gradient_length = 256.0
+shadow_filter = 5
+shadow_filter_smooth = 1.0

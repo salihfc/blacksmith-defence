@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://src/resource_classes/unit_data.gd" type="Script" id=1]
+[ext_resource path="res://src/game/unit/unit_default_sprite.atlastex" type="Texture" id=2]
+
+[resource]
+script = ExtResource( 1 )
+name = "Default_Unit"
+texture = ExtResource( 2 )
+max_hp = 100.0

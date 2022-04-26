@@ -1,6 +1,5 @@
 extends Resource
-class_name Context
-
+class_name UnitData
 """
 
 """
@@ -15,7 +14,9 @@ class_name Context
 
 
 ### EXPORT ###
-var battle_world = null
+export(String) var name
+export(Texture) var texture
+export(float) var max_hp
 
 ### PUBLIC VAR ###
 

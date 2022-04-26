@@ -9,10 +9,35 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Decider",
+"class": "AttackDecider",
+"language": "GDScript",
+"path": "res://src/resource_classes/deciders/attack_decider.gd"
+}, {
+"base": "Resource",
+"class": "Command",
+"language": "GDScript",
+"path": "res://src/resource_classes/command.gd"
+}, {
 "base": "Resource",
 "class": "Context",
 "language": "GDScript",
 "path": "res://src/resource_classes/context.gd"
+}, {
+"base": "Resource",
+"class": "Damage",
+"language": "GDScript",
+"path": "res://src/resource_classes/damage.gd"
+}, {
+"base": "Resource",
+"class": "Decider",
+"language": "GDScript",
+"path": "res://src/resource_classes/deciders/decider.gd"
+}, {
+"base": "Decider",
+"class": "DefenceDecider",
+"language": "GDScript",
+"path": "res://src/resource_classes/deciders/defence_decider.gd"
 }, {
 "base": "Resource",
 "class": "DropItem",
@@ -23,6 +48,11 @@ _global_script_classes=[ {
 "class": "EnemyData",
 "language": "GDScript",
 "path": "res://src/resource_classes/enemy_data.gd"
+}, {
+"base": "Unit",
+"class": "EnemyUnit",
+"language": "GDScript",
+"path": "res://src/game/unit/sub_units/enemy_unit.gd"
 }, {
 "base": "Button",
 "class": "ItemButton",
@@ -39,10 +69,25 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/battle/player_base.gd"
 }, {
+"base": "Unit",
+"class": "PlayerUnit",
+"language": "GDScript",
+"path": "res://src/game/unit/sub_units/player_unit.gd"
+}, {
 "base": "Resource",
 "class": "Snippet",
 "language": "GDScript",
 "path": "res://addons/light_snippet/snippet.gd"
+}, {
+"base": "Node2D",
+"class": "Unit",
+"language": "GDScript",
+"path": "res://src/game/unit/unit.gd"
+}, {
+"base": "Resource",
+"class": "UnitData",
+"language": "GDScript",
+"path": "res://src/resource_classes/unit_data.gd"
 }, {
 "base": "Resource",
 "class": "Weapon",
@@ -50,19 +95,28 @@ _global_script_classes=[ {
 "path": "res://src/resource_classes/weapon.gd"
 } ]
 _global_script_class_icons={
+"AttackDecider": "",
+"Command": "",
 "Context": "",
+"Damage": "",
+"Decider": "",
+"DefenceDecider": "",
 "DropItem": "",
 "EnemyData": "",
+"EnemyUnit": "",
 "ItemButton": "",
 "ItemPool": "",
 "PlayerBase": "",
+"PlayerUnit": "",
 "Snippet": "",
+"Unit": "",
+"UnitData": "",
 "Weapon": ""
 }
 
 [application]
 
-config/name="Fragile Blacksmith"
+config/name="Blacksmith Defence"
 run/main_scene="res://src/scene_manager.tscn"
 config/icon="res://icon.png"
 
@@ -77,7 +131,6 @@ WEAPON_FACTORY="*res://src/singletons/weapon_factory.gd"
 [debug]
 
 gdscript/warnings/treat_warnings_as_errors=true
-gdscript/warnings/unsafe_property_access=true
 
 [display]
 
@@ -90,11 +143,36 @@ window/stretch/aspect="keep"
 
 enabled=PoolStringArray( "res://addons/light_snippet/plugin.cfg" )
 
+[importer_defaults]
+
+texture={
+"compress/bptc_ldr": 0,
+"compress/hdr_mode": 0,
+"compress/lossy_quality": 0.7,
+"compress/mode": 0,
+"compress/normal_map": 0,
+"detect_3d": false,
+"flags/anisotropic": false,
+"flags/filter": false,
+"flags/mipmaps": false,
+"flags/repeat": 0,
+"flags/srgb": 2,
+"process/HDR_as_SRGB": false,
+"process/fix_alpha_border": true,
+"process/invert_color": false,
+"process/normal_map_invert_y": false,
+"process/premult_alpha": false,
+"size_limit": 0,
+"stream": false,
+"svg/scale": 1.0
+}
+
 [layer_names]
 
 2d_physics/layer_1="world"
 2d_physics/layer_3="player"
-2d_physics/layer_6="enemy"
+2d_physics/layer_4="player_base"
+2d_physics/layer_5="enemy"
 
 [physics]
 

@@ -1,5 +1,5 @@
 extends Resource
-class_name Context
+class_name Command
 
 """
 
@@ -9,26 +9,28 @@ class_name Context
 
 
 ### ENUM ###
-
+enum TYPE {
+	IDLE,
+	WALK,
+	ATTACK,
+}
 
 ### CONST ###
 
 
 ### EXPORT ###
-var battle_world = null
+export(int) var type = TYPE.IDLE
 
 ### PUBLIC VAR ###
-
-
 ### PRIVATE VAR ###
+var args := []
 
 
 ### ONREADY VAR ###
-
-
-
-
 ### VIRTUAL FUNCTIONS (_init ...) ###
+func _init(_type = TYPE.IDLE, _args := []):
+	type = _type
+	args = _args
 
 
 ### PUBLIC FUNCTIONS ###

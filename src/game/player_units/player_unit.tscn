@@ -87,16 +87,6 @@ tracks/0/keys = {
 "points": PoolRealArray( 0, -0.25, -0.00239827, 0.1, 0.000959307, -0.716352, -0.2, -0.0652102, 0.2, 0.0652102, 0.870428, -0.1, -0.0434734, 0.1, 0.0434734, -0.825036, -0.100781, -0.110395, 0.0992188, 0.108684, 0, -0.1, -0.194671, 0.25, 0.486678 ),
 "times": PoolRealArray( 0, 0.15, 0.3, 0.400391, 0.5 )
 }
-tracks/1/type = "bezier"
-tracks/1/path = NodePath("Sprite:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = false
-tracks/1/keys = {
-"points": PoolRealArray( 0, -0.25, 0.107484, 0.2, -0.0859875, -0.99893, -0.2, -0.0652101, 0.25, 0.0815126, 0.913901, -0.0989006, 0.0652101, 0.101099, -0.0666599, 0, -0.3, -1.78145, 0.25, 1.48454 ),
-"times": PoolRealArray( 0, 0.15, 0.3, 0.5 )
-}
 
 [sub_resource type="CapsuleShape2D" id=6]
 radius = 14.0

@@ -1,8 +1,8 @@
-extends Resource
-class_name Context
+extends Decider
+class_name DefenceDecider
 
 """
-
+	Players Base Defender AI
 """
 
 ### SIGNAL ###
@@ -15,7 +15,7 @@ class_name Context
 
 
 ### EXPORT ###
-var battle_world = null
+
 
 ### PUBLIC VAR ###
 
@@ -32,7 +32,8 @@ var battle_world = null
 
 
 ### PUBLIC FUNCTIONS ###
-
+func decide(_caller, _context):
+	return Command.new(Command.TYPE.IDLE)
 
 ### PRIVATE FUNCTIONS ###
 

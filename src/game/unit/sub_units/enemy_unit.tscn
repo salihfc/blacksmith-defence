@@ -1,0 +1,73 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://src/game/unit/unit.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/game/unit/enemy_mock_sprite.atlastex" type="Texture" id=2]
+[ext_resource path="res://src/game/unit/sub_units/enemy_unit.gd" type="Script" id=3]
+[ext_resource path="res://assets/gfx/game/atlas_normal.png" type="Texture" id=4]
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 4 )
+region = Rect2( 16, 144, 16, 16 )
+filter_clip = true
+
+[sub_resource type="Animation" id=1]
+resource_local_to_scene = true
+resource_name = "attack"
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Sprite:offset:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.299998, -9.92679, 0.1, 3.30895, -3.525, -0.25, 0, 0.25, 0, 6, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5, 0.7, 1 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Sprite:offset:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 0, -0.25, 0.0452407, 0.110031, -0.0199115, -1, -0.25, -0.151107, 0.184013, 0.111223, 0.1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5, 0.7, 1 )
+}
+
+[sub_resource type="CapsuleShape2D" id=3]
+radius = 5.0
+height = 6.0
+
+[sub_resource type="CircleShape2D" id=4]
+radius = 32.0
+
+[sub_resource type="CircleShape2D" id=5]
+radius = 93.0
+
+[node name="EnemyUnit" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+
+[node name="Sprite" parent="." index="0"]
+position = Vector2( 0, -11 )
+texture = ExtResource( 2 )
+normal_map = SubResource( 2 )
+
+[node name="AnimationPlayer" parent="." index="1"]
+anims/attack = SubResource( 1 )
+
+[node name="Body" parent="Areas" index="0"]
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Areas/Body" index="0"]
+rotation = 1.5708
+shape = SubResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Areas/AttackRange" index="0"]
+shape = SubResource( 4 )
+
+[node name="AggroRange" parent="Areas" index="2"]
+collision_layer = 0
+collision_mask = 12
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Areas/AggroRange" index="0"]
+shape = SubResource( 5 )

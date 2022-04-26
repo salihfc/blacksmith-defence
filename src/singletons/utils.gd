@@ -5,6 +5,14 @@ func _ready() -> void:
 # warning-ignore:unsafe_method_access
 	LOG.pr(3, "READY", "UTILS")
 
+
+func get_parents(objects : Array) -> Array:
+	var parents = []
+	for obj in objects:
+		parents.append(obj.get_parent())
+	return parents
+
+
 func bind(
 		source_node : Object, signal_name : String,
 		target_node : Object, method_name : String,

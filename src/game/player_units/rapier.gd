@@ -1,5 +1,4 @@
-extends Resource
-class_name Context
+extends Node2D
 
 """
 
@@ -15,7 +14,7 @@ class_name Context
 
 
 ### EXPORT ###
-var battle_world = null
+
 
 ### PUBLIC VAR ###
 
