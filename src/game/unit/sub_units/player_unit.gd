@@ -30,7 +30,7 @@ class_name PlayerUnit
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _ready():
-	_decider = DefenceDecider.new()
+	_agent = preload("res://src/ai/infinite_axis_utility/agent_tres/agent_player_basic.tres")
 
 
 ### PUBLIC FUNCTIONS ###

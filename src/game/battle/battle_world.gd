@@ -46,7 +46,7 @@ func _ready():
 		spawnTimer, "timeout",
 		self, "_on_SpawnTimer_timeout"
 	)
-	spawnTimer.start(4.0)
+#	spawnTimer.start(4.0)
 	
 #	call_deferred(
 #		"emit_signal",
@@ -55,22 +55,33 @@ func _ready():
 
 
 func _physics_process(_delta):
-	pass
+	
+	if Input.is_action_just_pressed("ui_up"):
+		spawn_enemy()
+
+
+	for i in range(1, 4):
+		if Input.is_action_just_pressed("%s" % [i]):
+			spawn_enemy(i-1)
+
+
 
 
 ### PUBLIC FUNCTIONS ###
 func spawn_unit(unit : Unit) -> void:
 	var lane = _get_random_spawn_idx()
 	units.add_child(unit)
-	unit.position = _get_lane_spawn_pos(lane) + Vector2.LEFT * 1300.0
+	unit.global_position = playerBase.get_child(lane).global_position + Vector2.RIGHT * 50.0
 
 
-func spawn_enemy() -> void:
+func spawn_enemy(lane = null) -> void:
 	LOG.pr(1, "Spawning Enemy")
 	var enemy = EnemyUnitPrefab.instance()
-	var lane = _get_random_spawn_idx()
-	enemy.init_with_data(preload("res://src/game/unit/default_enemy_unit_data.tres"))
 	units.add_child(enemy)
+	enemy.init_with_data(preload("res://src/game/unit/default_enemy_unit_data.tres"))
+
+	if lane == null:
+		lane = _get_random_spawn_idx()
 	enemy.position = _get_lane_spawn_pos(lane)
 
 

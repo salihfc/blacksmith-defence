@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=4 format=2]
+
+[ext_resource path="res://src/ai/infinite_axis_utility/consideration.gd" type="Script" id=1]
+[ext_resource path="res://src/ai/infinite_axis_utility/utility_curve.gd" type="Script" id=2]
+
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0, 0.0636363 ), 0.0, 0.0090909, 0, 1, Vector2( 1, 0.0727272 ), 0.0090909, 0.0, 1, 0 ]
+script = ExtResource( 2 )
+
+[resource]
+script = ExtResource( 1 )
+utility_curve = SubResource( 1 )
+input_type = 0

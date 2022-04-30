@@ -24,7 +24,7 @@ const unit_data_arr = [
 	preload("res://src/game/unit/default_unit_data.tres"),
 ]
 ### EXPORT ###
-#export(NodePath) var NodepathBattle
+export(NodePath) var NodepathBattle
 export(NodePath) var NodepathMaterialList
 export(NodePath) var NodepathUnitList
 
@@ -35,7 +35,7 @@ export(NodePath) var NodepathUnitList
 
 
 ### ONREADY VAR ###
-#onready var battle = get_node(NodepathBattle)
+onready var battle = get_node(NodepathBattle)
 onready var materialList = get_node(NodepathMaterialList)
 onready var unitList = get_node(NodepathUnitList)
 
@@ -70,7 +70,5 @@ func _on_unit_view_pressed(_unit_data : UnitData) -> void:
 	LOG.pr(1, "UNIT_VIEW PRESSED WITH [%s]" % [_unit_data])
 	
 	var new_unit = prefab_player_unit.instance()
+	battle.spawn_unit(new_unit)
 	new_unit.init_with_data(_unit_data)
-	
-#	battle.battleWorld.spawn_unit(new_unit)
-	$BattleWorld.spawn_unit(new_unit)

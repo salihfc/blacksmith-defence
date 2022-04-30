@@ -1,8 +1,7 @@
 extends Resource
-class_name Decider
-
+class_name IAUSObject
 """
-	Base Class for ai
+
 """
 
 ### SIGNAL ###
@@ -26,21 +25,12 @@ class_name Decider
 ### ONREADY VAR ###
 
 
+
+
 ### VIRTUAL FUNCTIONS (_init ...) ###
 
 
 ### PUBLIC FUNCTIONS ###
-func decide(_caller : Unit, _context):
-	LOG.pr(3, "<ERR> Base Decider called!!", "Decider::decide")
-	match _caller.get_state():
-		Unit.STATE.IDLE:
-			pass
-		
-		_:
-			pass
-	
-	
-	return Command.new(Command.TYPE.IDLE)
 
 
 ### PRIVATE FUNCTIONS ###

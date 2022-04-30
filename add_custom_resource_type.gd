@@ -1,5 +1,5 @@
-extends Unit
-class_name EnemyUnit
+tool
+extends EditorScript
 
 """
 
@@ -26,12 +26,9 @@ class_name EnemyUnit
 ### ONREADY VAR ###
 
 
-
-
 ### VIRTUAL FUNCTIONS (_init ...) ###
-func _ready():
-	_agent = preload("res://src/ai/infinite_axis_utility/agent_tres/agent_enemy_basic.tres")
-
+func _run():
+	print ("running")
 
 ### PUBLIC FUNCTIONS ###
 

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://src/ai/infinite_axis_utility/action.gd" type="Script" id=1]
+[ext_resource path="res://src/ai/infinite_axis_utility/consideration_tres/c_walk_towards_enemy_base.tres" type="Resource" id=2]
+
+[resource]
+script = ExtResource( 1 )
+_considerations = [ ExtResource( 2 ) ]
+action_type = 1

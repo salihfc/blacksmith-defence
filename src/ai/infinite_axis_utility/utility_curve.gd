@@ -1,5 +1,5 @@
-extends Unit
-class_name EnemyUnit
+extends Curve
+class_name UtilityCurve
 
 """
 
@@ -27,10 +27,7 @@ class_name EnemyUnit
 
 
 
-
 ### VIRTUAL FUNCTIONS (_init ...) ###
-func _ready():
-	_agent = preload("res://src/ai/infinite_axis_utility/agent_tres/agent_enemy_basic.tres")
 
 
 ### PUBLIC FUNCTIONS ###

@@ -1,15 +1,27 @@
-extends Decider
-class_name DefenceDecider
+extends Node
 
 """
-	Players Base Defender AI
+
 """
 
 ### SIGNAL ###
 
 
 ### ENUM ###
+enum INPUT {
+	NONE,
 
+	HP_PERC,
+	ENEMY_IN_RANGE,
+	ENEMY_IN_ATTACK_RANGE,
+}
+
+enum ACTION {
+	IDLE, # Do nothing
+	WALK_TOWARDS_ENEMY_BASE,
+	WALK_TOWARDS_ENEMY,
+	ATTACK_ENEMY,
+}
 
 ### CONST ###
 
@@ -32,8 +44,7 @@ class_name DefenceDecider
 
 
 ### PUBLIC FUNCTIONS ###
-func decide(_caller, _context):
-	return Command.new(Command.TYPE.IDLE)
+
 
 ### PRIVATE FUNCTIONS ###
 
