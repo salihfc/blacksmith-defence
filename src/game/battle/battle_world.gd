@@ -50,6 +50,8 @@ func _ready():
 		spawnTimer, "timeout",
 		self, "_on_SpawnTimer_timeout"
 	)
+	
+	call_deferred("emit_signal", "material_collected", load("res://tres/materials/material_iron.tres"), 3)
 #	spawnTimer.start(4.0)
 	
 #	call_deferred(

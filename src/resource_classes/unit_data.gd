@@ -17,6 +17,7 @@ class_name UnitData
 export(String) var name
 export(Texture) var texture
 export(float) var max_hp
+export(Resource) var cost = MaterialStorage.new() # MaterialStorage
 
 ### PUBLIC VAR ###
 

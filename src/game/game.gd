@@ -5,11 +5,8 @@ extends Control
 """
 
 ### SIGNAL ###
-
-
+signal material_used(mat, count)
 ### ENUM ###
-
-
 ### CONST ###
 # UI/VIEW PREFABS
 const prefab_unit_view = preload("res://src/game/unit_list_unit_view.tscn")
@@ -17,8 +14,6 @@ const prefab_unit_view = preload("res://src/game/unit_list_unit_view.tscn")
 # GAME OBJECT PREFABS
 #const prefab_unit = preload("res://src/game/unit/unit.tscn")
 const prefab_player_unit = preload("res://src/game/unit/sub_units/player_unit.tscn")
-
-
 # PRELOADED TRES
 const unit_data_arr = [
 	preload("res://src/game/unit/default_unit_data.tres"),
@@ -61,6 +56,11 @@ func _ready():
 		battle, "material_collected",
 		materialList, "_on_material_collected"
 	)
+
+	UTILS.bind(
+		self, "material_used",
+		materialList, "_on_material_used"
+	)
 	
 	# TEMP
 	for unit_data in unit_data_arr:
@@ -76,6 +76,7 @@ func _ready():
 			self, "_on_unit_view_pressed",
 			[unit_data]
 		)
+	
 
 ### PUBLIC FUNCTIONS ###
 
@@ -84,12 +85,18 @@ func _ready():
 
 
 ### SIGNAL RESPONSES ###
-func _on_unit_view_pressed(_unit_data : UnitData) -> void:
-	LOG.pr(1, "UNIT_VIEW PRESSED WITH [%s]" % [_unit_data])
+func _on_unit_view_pressed(unit_data : UnitData) -> void:
+	LOG.pr(1, "UNIT_VIEW PRESSED WITH [%s]" % [unit_data])
 	
-	var new_unit = prefab_player_unit.instance()
-	battle.spawn_unit(new_unit)
-	new_unit.init_with_data(_unit_data)
+	if materialList.get_storage().covers_cost(unit_data.cost):
+		var new_unit = prefab_player_unit.instance()
+		battle.spawn_unit(new_unit)
+		new_unit.init_with_data(unit_data)
+		
+		var unit_cost_storage = unit_data.cost.get_materials()
+		for mat in unit_cost_storage.keys():
+			var count = unit_cost_storage.get(mat)
+			emit_signal("material_used", mat, count)
 
 
 func _on_unit_selected(unit) -> void:
