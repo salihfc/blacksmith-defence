@@ -51,7 +51,11 @@ func _ready():
 		self, "_on_SpawnTimer_timeout"
 	)
 	
-	call_deferred("emit_signal", "material_collected", load("res://tres/materials/material_iron.tres"), 3)
+	call_deferred("emit_signal",
+			"material_collected",
+			load("res://tres/materials/material_iron.tres"),
+			2)
+
 #	spawnTimer.start(4.0)
 	
 #	call_deferred(
@@ -164,4 +168,4 @@ func _on_enemy_died(enemy):
 
 func _on_mat_hovered(mat):
 	emit_signal("material_collected", mat.get_mat(), mat.get_count())
-	mat.queue_free()
+

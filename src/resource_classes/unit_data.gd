@@ -16,6 +16,7 @@ class_name UnitData
 ### EXPORT ###
 export(String) var name
 export(Texture) var texture
+export(Texture) var view_texture
 export(float) var max_hp
 export(Resource) var cost = MaterialStorage.new() # MaterialStorage
 
@@ -34,7 +35,10 @@ export(Resource) var cost = MaterialStorage.new() # MaterialStorage
 
 
 ### PUBLIC FUNCTIONS ###
-
+func get_view_texture():
+	if view_texture:
+		return view_texture
+	return texture
 
 ### PRIVATE FUNCTIONS ###
 

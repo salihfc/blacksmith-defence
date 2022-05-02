@@ -68,9 +68,7 @@ func _ready():
 
 		var new_unit_view = prefab_unit_view.instance()
 		unitList.add_child(new_unit_view)
-
-		new_unit_view.texture_normal = unit_data.texture
-		
+		new_unit_view.set_data(unit_data)
 		UTILS.bind(
 			new_unit_view, "pressed",
 			self, "_on_unit_view_pressed",
