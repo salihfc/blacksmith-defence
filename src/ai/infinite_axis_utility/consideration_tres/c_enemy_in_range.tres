@@ -4,7 +4,7 @@
 [ext_resource path="res://src/ai/infinite_axis_utility/utility_curve.gd" type="Script" id=2]
 
 [sub_resource type="Curve" id=1]
-_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.42926, 0.818182 ), -1.33923, -1.33923, 0, 0, Vector2( 1, 0.181818 ), 0.0, 0.0, 0, 0 ]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.181818 ), 0.0, 0.0, 0, 0 ]
 script = ExtResource( 2 )
 
 [resource]

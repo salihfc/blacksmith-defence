@@ -39,6 +39,9 @@ func _ready():
 
 ### PUBLIC FUNCTIONS ###
 
+func take_damage(_damage : Damage) -> void:
+	LOG.pr(3, "[%s] taking %s" % [self, _damage])
+
 
 ### PRIVATE FUNCTIONS ###
 

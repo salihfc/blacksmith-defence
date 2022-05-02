@@ -1,0 +1,42 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Control
+
+\"\"\"
+
+\"\"\"
+
+### SIGNAL ###
+### ENUM ###
+### CONST ###
+### EXPORT ###
+### PUBLIC VAR ###
+### PRIVATE VAR ###
+### ONREADY VAR ###
+### VIRTUAL FUNCTIONS (_init ...) ###
+func _ready():
+	var cache = CacheDict.new()
+	var path = [\"a\"]
+	var path2 = [\"b\"]
+	cache.cache(path, 11)
+	cache.cache(path2, 14)
+	print (cache.get_cached(path))
+	print (cache.get_cached([\"acb\"]))
+	cache.remove_cached(path)
+	print (cache.get_cached(path))
+	print (cache.get_cached(path2))
+	
+
+### PUBLIC FUNCTIONS ###
+### PRIVATE FUNCTIONS ###
+### SIGNAL RESPONSES ###
+"
+
+[node name="Test" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

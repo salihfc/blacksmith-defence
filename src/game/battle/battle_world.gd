@@ -7,6 +7,7 @@ extends Node2D
 ### SIGNAL ###
 #signal base_hp_updated(hp, max_hp)
 signal player_base_destroyed()
+signal unit_selected(unit)
 
 ### ENUM ###
 
@@ -36,6 +37,7 @@ onready var playerBase = $PlayerBase as Node2D
 
 onready var units = $Units as Node2D
 onready var spawnTimer = $SpawnTimer as Timer
+onready var mousePointerArea = $MousePointerArea as ObjectArea
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _ready():
@@ -55,7 +57,8 @@ func _ready():
 
 
 func _physics_process(_delta):
-	
+	mousePointerArea.global_position = get_global_mouse_position()
+
 	if Input.is_action_just_pressed("ui_up"):
 		spawn_enemy()
 
@@ -65,13 +68,17 @@ func _physics_process(_delta):
 			spawn_enemy(i-1)
 
 
-
-
 ### PUBLIC FUNCTIONS ###
 func spawn_unit(unit : Unit) -> void:
 	var lane = _get_random_spawn_idx()
 	units.add_child(unit)
 	unit.global_position = playerBase.get_child(lane).global_position + Vector2.RIGHT * 50.0
+
+	UTILS.bind(
+		unit, "selected",
+		self, "_on_unit_selected",
+		[unit]
+	)
 
 
 func spawn_enemy(lane = null) -> void:
@@ -83,6 +90,12 @@ func spawn_enemy(lane = null) -> void:
 	if lane == null:
 		lane = _get_random_spawn_idx()
 	enemy.position = _get_lane_spawn_pos(lane)
+
+	UTILS.bind(
+		enemy, "selected",
+		self, "_on_unit_selected",
+		[enemy]
+	)
 
 
 func damage_base(damage_amount : float) -> void:
@@ -112,3 +125,7 @@ func _get_random_spawn_idx() -> Vector2:
 func _on_SpawnTimer_timeout():
 	spawn_enemy()
 	spawnTimer.start(4.0)
+
+
+func _on_unit_selected(unit):
+	emit_signal("unit_selected", unit)

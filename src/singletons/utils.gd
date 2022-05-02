@@ -2,8 +2,14 @@ extends Node
 
 
 func _ready() -> void:
-# warning-ignore:unsafe_method_access
 	LOG.pr(3, "READY", "UTILS")
+
+
+func clear_children(node : Node) -> void:
+	var children = node.get_children()
+	for child in children:
+		node.remove_child(child)
+		child.queue_free()
 
 
 func get_parents(objects : Array) -> Array:
@@ -11,6 +17,13 @@ func get_parents(objects : Array) -> Array:
 	for obj in objects:
 		parents.append(obj.get_parent())
 	return parents
+
+
+func get_owners(objects : Array) -> Array:
+	var owners = []
+	for obj in objects:
+		owners.append(obj.get_owner())
+	return owners
 
 
 func bind(
@@ -71,3 +84,12 @@ func get_closest_node(node : Node2D, other_nodes : Array):
 			min_dist = dist
 			closest = other_node
 	return closest
+
+
+func flatten_array(arr : Array):
+	var new_arr = []
+	for item in arr:
+		if item is Array:
+			new_arr.append_array(flatten_array(item))
+		new_arr.append(item)
+	return new_arr

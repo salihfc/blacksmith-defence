@@ -1,49 +1,28 @@
-extends Unit
-class_name EnemyUnit
+extends PanelContainer
 
 """
 
 """
 
 ### SIGNAL ###
-
-
 ### ENUM ###
-
-
 ### CONST ###
-
-
 ### EXPORT ###
-
-
 ### PUBLIC VAR ###
-
-
 ### PRIVATE VAR ###
-
-
 ### ONREADY VAR ###
-
-
-
-
+onready var cols = $HBoxContainer as HBoxContainer
 ### VIRTUAL FUNCTIONS (_init ...) ###
-func _ready():
-	default_state = STATE.WALK
-
 
 
 ### PUBLIC FUNCTIONS ###
-func get_default_dir():
-	return Vector2.LEFT
-
-
-func set_direction() -> void:
-	spriteParent.scale.x = -_velocity.x / abs(_velocity.x)
+func fill_with(arr) -> void:
+	var flat_arr = UTILS.flatten_array(arr)
+	for item in flat_arr:
+		var label = Label.new()
+		label.text = str(item)
+		cols.add_child(label)
 
 
 ### PRIVATE FUNCTIONS ###
-
-
 ### SIGNAL RESPONSES ###

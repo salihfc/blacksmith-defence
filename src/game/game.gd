@@ -27,7 +27,7 @@ const unit_data_arr = [
 export(NodePath) var NodepathBattle
 export(NodePath) var NodepathMaterialList
 export(NodePath) var NodepathUnitList
-
+export(NodePath) var NodepathDebugWindow
 ### PUBLIC VAR ###
 
 
@@ -38,11 +38,24 @@ export(NodePath) var NodepathUnitList
 onready var battle = get_node(NodepathBattle)
 onready var materialList = get_node(NodepathMaterialList)
 onready var unitList = get_node(NodepathUnitList)
-
-
+onready var debugWindow = get_node(NodepathDebugWindow) as DebugWindow
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
+func _input(event):
+	
+	if event is InputEventKey and event.pressed:
+#		LOG.pr(3, "(%s) pressed" % [event.scancode])
+		if event.scancode == 96: # <`> TILDE
+#			LOG.pr(3, "TILDE PRESSED")
+			debugWindow.visible = !debugWindow.visible
+
+
 func _ready():
+	
+	UTILS.bind(
+		battle, "unit_selected",
+		self, "_on_unit_selected"
+	)
 	
 	for unit_data in unit_data_arr:
 		assert(unit_data is UnitData)
@@ -58,7 +71,6 @@ func _ready():
 			[unit_data]
 		)
 
-
 ### PUBLIC FUNCTIONS ###
 
 
@@ -72,3 +84,7 @@ func _on_unit_view_pressed(_unit_data : UnitData) -> void:
 	var new_unit = prefab_player_unit.instance()
 	battle.spawn_unit(new_unit)
 	new_unit.init_with_data(_unit_data)
+
+
+func _on_unit_selected(unit) -> void:
+	debugWindow.display_unit(unit)

@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://src/game/battle/battle_world.gd" type="Script" id=1]
 [ext_resource path="res://assets/gfx/game/0x72_16x16DungeonTileset.v4.png" type="Texture" id=2]
 [ext_resource path="res://src/game/battle/player_base.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/gfx/common/64x64_white.png" type="Texture" id=4]
+[ext_resource path="res://src/game/object_area.gd" type="Script" id=5]
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 2 )
@@ -89,6 +90,9 @@ atlas = ExtResource( 2 )
 3/shapes = [  ]
 3/z_index = 0
 
+[sub_resource type="CircleShape2D" id=3]
+radius = 4.0
+
 [node name="BattleWorld" type="Node2D"]
 script = ExtResource( 1 )
 player_base_max_hp = 100.0
@@ -167,3 +171,12 @@ shadow_color = Color( 0.0862745, 0.0862745, 0.0862745, 0 )
 shadow_gradient_length = 256.0
 shadow_filter = 5
 shadow_filter_smooth = 1.0
+
+[node name="MousePointerArea" type="Area2D" parent="."]
+collision_layer = 512
+collision_mask = 0
+script = ExtResource( 5 )
+owner_path = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MousePointerArea"]
+shape = SubResource( 3 )

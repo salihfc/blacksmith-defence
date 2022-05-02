@@ -21,7 +21,7 @@ export(Array, Resource) var _actions = []
 
 
 ### PRIVATE VAR ###
-
+var _eval_cache = CacheDict.new()
 
 ### ONREADY VAR ###
 
@@ -31,6 +31,8 @@ export(Array, Resource) var _actions = []
 
 ### PUBLIC FUNCTIONS ###
 func decide_action(context, actor, possible_targets) -> Action:
+	_eval_cache.clear()
+
 	var max_utility = -1.0
 	var best_action = null
 	
@@ -42,15 +44,18 @@ func decide_action(context, actor, possible_targets) -> Action:
 		match action.action_type:
 			IAUS.ACTION.IDLE, IAUS.ACTION.WALK_TOWARDS_ENEMY_BASE:
 				action_utility = action.score(context, actor)
+				_eval_cache.cache([action], action_utility)
 			
 			_:
 				var target_utility = -INF
 				for target in possible_targets:
 					var new_target_utility = action.score(context, actor, target)
+					_eval_cache.cache([action, target], new_target_utility)
 					LOG.pr(1, "[%s -> %s]: %f" % [actor, target, new_target_utility])
 					if new_target_utility > target_utility:
 						target_utility = new_target_utility
 						action.target = target
+				
 				action_utility = target_utility
 
 
@@ -59,7 +64,10 @@ func decide_action(context, actor, possible_targets) -> Action:
 			best_action = action
 	LOG.pr(1, "----------------")
 	return best_action
-	
+
+
+func get_eval_cache():
+	return _eval_cache
 
 
 ### PRIVATE FUNCTIONS ###

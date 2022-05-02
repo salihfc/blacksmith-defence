@@ -63,6 +63,7 @@ func execute(context, actor) -> void:
 
 
 ### PRIVATE FUNCTIONS ###
-
+func _to_string():
+	return resource_path.get_file()
 
 ### SIGNAL RESPONSES ###
