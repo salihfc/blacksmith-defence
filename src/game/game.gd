@@ -57,6 +57,12 @@ func _ready():
 		self, "_on_unit_selected"
 	)
 	
+	UTILS.bind(
+		battle, "material_collected",
+		materialList, "_on_material_collected"
+	)
+	
+	# TEMP
 	for unit_data in unit_data_arr:
 		assert(unit_data is UnitData)
 

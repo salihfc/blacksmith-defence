@@ -8,11 +8,13 @@ extends Node2D
 #signal base_hp_updated(hp, max_hp)
 signal player_base_destroyed()
 signal unit_selected(unit)
+signal material_collected(mat, count)
 
 ### ENUM ###
 
 
 ### CONST ###
+const MaterialPrefab = preload("res://src/game/material/material.tscn")
 const EnemyUnitPrefab = preload("res://src/game/unit/sub_units/enemy_unit.tscn")
 const PlayerUnitPrefab = preload("res://src/game/player_units/player_unit.tscn")
 const SPAWN_PERIOD = 4.0
@@ -96,6 +98,28 @@ func spawn_enemy(lane = null) -> void:
 		self, "_on_unit_selected",
 		[enemy]
 	)
+	
+	UTILS.bind(
+		enemy, "died",
+		self, "_on_enemy_died",
+		[enemy]
+	)
+
+
+func spawn_random_mat(spawn_pos) -> void:
+	var material_data = load("res://tres/materials/material_iron.tres")
+	var new_mat = MaterialPrefab.instance()
+	new_mat.set_data(material_data, 2)
+	
+	units.add_child(new_mat)
+	new_mat.global_position = spawn_pos
+	new_mat.play_drop_animation()
+	
+	UTILS.bind(
+		new_mat, "hovered",
+		self, "_on_mat_hovered",
+		[new_mat]
+	)
 
 
 func damage_base(damage_amount : float) -> void:
@@ -129,3 +153,13 @@ func _on_SpawnTimer_timeout():
 
 func _on_unit_selected(unit):
 	emit_signal("unit_selected", unit)
+
+
+func _on_enemy_died(enemy):
+	# spawn random materials
+	spawn_random_mat(enemy.global_position)
+
+
+func _on_mat_hovered(mat):
+	emit_signal("material_collected", mat.get_mat(), mat.get_count())
+	mat.queue_free()

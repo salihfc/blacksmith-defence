@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://my_theme.theme" type="Theme" id=1]
 [ext_resource path="res://src/debug/debug_window.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/game/game.gd" type="Script" id=3]
 [ext_resource path="res://src/game/battle/battle_world.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/ui/material_list.gd" type="Script" id=5]
 
 [sub_resource type="Environment" id=4]
 background_mode = 4
@@ -60,6 +61,7 @@ margin_right = 568.0
 margin_bottom = 78.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.1
+script = ExtResource( 5 )
 
 [node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/HBoxContainer/PanelContainer/VBoxContainer"]
 margin_top = 82.0

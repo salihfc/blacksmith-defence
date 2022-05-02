@@ -63,6 +63,32 @@ func interpolate_property(
 	tween.start()
 
 
+func interpolate_property_to_and_back(
+		object : Object, property : String,
+		start_value, mid_value,
+		part1_duration, part2_duration) -> void:
+
+	var tween : Tween = _request_worker()
+# warning-ignore:return_value_discarded
+	tween.interpolate_property(
+			object, property,
+			start_value, mid_value,
+			part1_duration, Tween.TRANS_QUART, Tween.EASE_IN_OUT
+	)
+
+# warning-ignore:return_value_discarded
+	tween.interpolate_property(
+			object, property,
+			mid_value, start_value,
+			part2_duration, Tween.TRANS_QUART, Tween.EASE_IN_OUT,
+			part1_duration
+	)
+
+# warning-ignore:return_value_discarded
+	tween.start()
+
+
+
 func interpolate_method(
 		object : Object, method : String,
 		start_value, end_value,

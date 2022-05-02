@@ -72,6 +72,10 @@ func get_random_subset(set : Array, ct : int) -> Array:
 	return set.slice(0, ct - 1)
 
 
+func get_random_from(set : Array):
+	return get_random_subset(set, 1)[0]
+
+
 func get_closest_node(node : Node2D, other_nodes : Array):
 	if node in other_nodes:
 		other_nodes.erase(node)

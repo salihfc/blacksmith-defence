@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://src/game/battle/battle_world.gd" type="Script" id=1]
-[ext_resource path="res://assets/gfx/game/0x72_16x16DungeonTileset.v4.png" type="Texture" id=2]
+[ext_resource path="res://assets/gfx/game/atlas.png" type="Texture" id=2]
 [ext_resource path="res://src/game/battle/player_base.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/gfx/common/64x64_white.png" type="Texture" id=4]
 [ext_resource path="res://src/game/object_area.gd" type="Script" id=5]
@@ -161,6 +161,7 @@ visible = false
 color = Color( 0, 0, 0, 1 )
 
 [node name="Sun" type="Light2D" parent="."]
+visible = false
 position = Vector2( 0, -61 )
 texture = ExtResource( 4 )
 texture_scale = 50.0
