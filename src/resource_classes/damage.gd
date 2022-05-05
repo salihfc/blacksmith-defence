@@ -11,7 +11,10 @@ class_name Damage
 ### ENUM ###
 enum TYPE {
 	PHYSICAL,
-	
+
+	FIRE,
+	WATER,
+	EARTH,
 	
 	COUNT,
 }
@@ -19,6 +22,9 @@ enum TYPE {
 ### CONST ###
 const TYPE_NAMES = {
 	TYPE.PHYSICAL : "PHYS",
+	TYPE.FIRE : "FIRE",
+	TYPE.WATER : "WATER",
+	TYPE.EARTH : "EARTH",
 }
 
 ### EXPORT ###
@@ -41,8 +47,12 @@ func _init(p_type : int, p_amount : float):
 
 
 ### PUBLIC FUNCTIONS ###
+func get_type():
+	return _type
 
 
+func get_amount():
+	return _amount
 ### PRIVATE FUNCTIONS ###
 func _to_string():
 	return "[%s.%s]" % [TYPE_NAMES[_type], _amount]

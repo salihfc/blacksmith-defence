@@ -15,14 +15,13 @@ const prefab_unit_view = preload("res://src/game/unit_list_unit_view.tscn")
 #const prefab_unit = preload("res://src/game/unit/unit.tscn")
 const prefab_player_unit = preload("res://src/game/unit/sub_units/player_unit.tscn")
 # PRELOADED TRES
-const unit_data_arr = [
-	preload("res://src/game/unit/default_unit_data.tres"),
-]
 ### EXPORT ###
 export(NodePath) var NodepathBattle
 export(NodePath) var NodepathMaterialList
 export(NodePath) var NodepathUnitList
 export(NodePath) var NodepathDebugWindow
+
+export(Resource) var unit_data_pool = null
 ### PUBLIC VAR ###
 
 
@@ -63,7 +62,7 @@ func _ready():
 	)
 	
 	# TEMP
-	for unit_data in unit_data_arr:
+	for unit_data in unit_data_pool.get_items():
 		assert(unit_data is UnitData)
 
 		var new_unit_view = prefab_unit_view.instance()

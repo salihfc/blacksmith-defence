@@ -72,6 +72,7 @@ owner_path = NodePath("..")
 polygon = PoolVector2Array( -15.5, -5.5, 16, -6, 16, 10, -16, 10.5 )
 
 [node name="Sprite7" type="Sprite" parent="."]
+visible = false
 position = Vector2( 8, 18 )
 z_index = 1
 texture = SubResource( 11 )

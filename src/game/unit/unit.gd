@@ -10,6 +10,16 @@ signal died()
 signal selected()
 
 ### ENUM ###
+enum COLLISION {
+	WORLD		= 0b00000000000000000001,
+	PLAYER		= 0b00000000000000000100,
+	PLAYER_BASE	= 0b00000000000000001000,
+
+	ENEMY		= 0b00000000000000010000,
+
+	MOUSE		= 0b00000000001000000000,
+}
+
 enum STATE {
 	IDLE,
 	WALK,
@@ -17,16 +27,26 @@ enum STATE {
 }
 
 ### CONST ###
-const base_speed = 100.0
-const base_damage = 20.0
+const KNOCKBACK_DAMPING = 0.9
+const BASE_SPEED = 100.0
+const BASE_DAMAGE = 20.0
 ### EXPORT ###
 ### PUBLIC VAR ###
 var default_state = STATE.IDLE
 ### PRIVATE VAR ###
 var _max_hp
 var _hp
+var _move_speed := 1.0
+var _atk_speed := 1.0
+var _damage_multi := 1.0
+#
+var _resist_phys := 0.0
+var _resist_fire := 0.0
+var _resist_water := 0.0
+var _resist_earth := 0.0
 
 var _velocity = Vector2.ZERO
+var _knockback = Vector2.ZERO
 
 var _state = default_state
 var _under_mouse = false
@@ -41,11 +61,11 @@ onready var sprite = $SpriteParent/Sprite as Sprite
 onready var stateLabel = $DEBUG/StateLabel
 onready var animPlayer = $AnimationPlayer as AnimationPlayer
 onready var hpBar = $HpBar as Control
+onready var weaponSlot = $SpriteParent/WeaponSlot as Node2D
 
 # Areas
-onready var body = $Areas/Body as Area2D
-onready var attackRange = $Areas/AttackRange as Area2D 
-
+onready var body : ObjectArea = $SpriteParent/Areas/Body as ObjectArea
+onready var attackRange : ObjectArea = $SpriteParent/Areas/AttackRange as ObjectArea 
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _ready():
@@ -56,7 +76,7 @@ func _ready():
 	)
 	hpBar.set_value(1.0)
 	
-	set_velocity(get_default_dir() * base_speed)
+	set_velocity(get_default_dir() * BASE_SPEED)
 	call_deferred("decide")
 
 
@@ -69,21 +89,36 @@ func _process(_delta):
 
 
 func _physics_process(delta):
+	_knockback *= KNOCKBACK_DAMPING 
+
 	match _state:
 		STATE.WALK:
-			global_position += _velocity * delta
-			stateLabel.text = "wlk"
+			global_position += ((_velocity) + _knockback) * delta * _move_speed
+		_:
+			global_position += (_knockback) * delta
 
 
 ### PUBLIC FUNCTIONS ###
 # INIT func
-func init_with_data(_unit_data : UnitData) -> void:
-	_max_hp = _unit_data.max_hp
+func init_with_data(unit_data : UnitData) -> void:
+	_max_hp = unit_data.max_hp
 	_hp = _max_hp
+	#
+	_atk_speed = unit_data.atk_speed
+	animPlayer.set_speed_scale(_atk_speed)
 	
-	# reference to sprite should be set in _ready
-	sprite.texture = _unit_data.texture
+	_move_speed = unit_data.move_speed
+	_damage_multi = unit_data.damage_multi
 
+	_resist_phys = unit_data.resist_phys
+	_resist_fire = unit_data.resist_fire
+	_resist_water = unit_data.resist_water
+	_resist_earth = unit_data.resist_earth
+
+
+	# reference to sprite should be set in _ready
+	sprite.texture = unit_data.texture
+	sprite.offset.y = -sprite.texture.get_height() / 2.0
 
 # Getters
 func get_info():
@@ -100,6 +135,10 @@ func get_state():
 
 func get_hp_perc():
 	return _hp / _max_hp
+
+
+func get_damage():
+	return BASE_DAMAGE * _damage_multi
 
 
 func get_enemies_in_attack_range() -> Array:
@@ -145,12 +184,32 @@ func set_direction() -> void:
 
 
 func apply_impulse(impulse : Vector2) -> void:
-	_velocity += impulse
+	impulse.y = 0.0
+	_knockback += impulse
 
 
-func take_damage(_damage : Damage) -> void:
-	LOG.pr(3, "[%s] taking %s" % [self, _damage])
-	_hp -= _damage._amount
+func calc_final_damage_amount(_damage : Damage) -> float:
+	var resist = 0.0
+	match _damage.get_type():
+		Damage.TYPE.PHYSICAL:
+			resist = _resist_phys
+		Damage.TYPE.FIRE:
+			resist = _resist_fire
+		Damage.TYPE.WATER:
+			resist = _resist_water
+		Damage.TYPE.EARTH:
+			resist = _resist_earth
+
+	var final_damage = _damage.get_amount()
+	final_damage *= (1.0 - (resist/100.0))
+	return final_damage
+
+
+func take_damage(_damage : Damage, pulse := Vector2.ZERO) -> void:
+	apply_impulse(pulse)
+	var amount = calc_final_damage_amount(_damage)
+	LOG.pr(3, "%s taking %s -> %s" % [self, _damage, amount])
+	_hp -= amount
 	
 	if _hp <= 0.0:
 		emit_signal("died")
@@ -168,13 +227,22 @@ func attack() -> void:
 			_target = _select_target()
 
 		if _target: # make sure there are enemies around to attack
-			_target.take_damage(Damage.new(Damage.TYPE.PHYSICAL, base_damage))
+			_target.take_damage(Damage.new(Damage.TYPE.PHYSICAL, BASE_DAMAGE * _damage_multi))
+
+
+func play_weapon_animation() -> void:
+	if weaponSlot.get_child_count():
+		weaponSlot.get_child(0).swing()
 
 
 ### PRIVATE FUNCTIONS ###
 func _select_target():
 	var possible_targets = get_enemies_in_attack_range()
 	return UTILS.get_closest_node(self, possible_targets)
+
+
+func _set_area_layer_and_masks() -> void:
+	pass
 
 
 ### SIGNAL RESPONSES ###

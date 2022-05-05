@@ -1,0 +1,27 @@
+[gd_resource type="Resource" load_steps=6 format=2]
+
+[ext_resource path="res://tres/atlas_tex/rapier_player_sprite.atlastex" type="Texture" id=1]
+[ext_resource path="res://src/resource_classes/unit_data.gd" type="Script" id=2]
+[ext_resource path="res://src/resource_classes/material_storage.gd" type="Script" id=3]
+[ext_resource path="res://tres/units/weapons/rapier.tres" type="Resource" id=4]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 3 )
+_storage = {
+Resource( "res://tres/materials/material_iron.tres" ): 2
+}
+
+[resource]
+script = ExtResource( 2 )
+name = "Default_Unit"
+texture = ExtResource( 1 )
+cost = SubResource( 1 )
+max_hp = 80.0
+resist_phys = 20.0
+resist_fire = 0.0
+resist_water = 0.0
+resist_earth = 0.0
+move_speed = 1.4
+atk_speed = 1.6
+damage_multi = 1.4
+weapon = ExtResource( 4 )

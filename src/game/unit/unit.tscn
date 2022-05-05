@@ -1,9 +1,12 @@
 [gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://src/game/unit/unit.gd" type="Script" id=1]
-[ext_resource path="res://src/game/unit/unit_default_sprite.atlastex" type="Texture" id=2]
+[ext_resource path="res://tres/atlas_tex/unit_default_sprite.atlastex" type="Texture" id=2]
 [ext_resource path="res://src/ui/hp_bar.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/game/object_area.gd" type="Script" id=5]
+
+[sub_resource type="CapsuleShape2D" id=5]
+height = 12.0
 
 [sub_resource type="Animation" id=6]
 resource_name = "attack"
@@ -14,12 +17,22 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0.7 ),
+"times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
-"method": "attack"
+"method": "play_weapon_animation"
 } ]
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("SpriteParent:position:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.106939, 0.0477986, 8.0483, -0.0930611, -0.130746, 0.1, 0.0182886, 8.06659, -0.25, 0, 0.25, 0, 0, -0.293061, -2.76928, 0.25, 2.36237 ),
+"times": PoolRealArray( 0, 0.5, 0.7, 0.8 )
 }
 
 [sub_resource type="Animation" id=7]
@@ -27,9 +40,6 @@ resource_name = "idle"
 
 [sub_resource type="Animation" id=8]
 resource_name = "walk"
-
-[sub_resource type="CapsuleShape2D" id=5]
-height = 0.0
 
 [node name="Unit" type="Node2D"]
 script = ExtResource( 1 )
@@ -43,6 +53,46 @@ __meta__ = {
 "_editor_description_": "Default display of the Unit"
 }
 
+[node name="Areas" type="Node2D" parent="SpriteParent"]
+position = Vector2( 0, -14 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Body" type="Area2D" parent="SpriteParent/Areas"]
+visible = false
+collision_layer = 0
+collision_mask = 0
+script = ExtResource( 5 )
+__meta__ = {
+"_editor_description_": "no LAYER and MASK by default, derived classes should set their layer&mask"
+}
+owner_path = NodePath("../../..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpriteParent/Areas/Body"]
+
+[node name="AttackRange" type="Area2D" parent="SpriteParent/Areas"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource( 5 )
+owner_path = NodePath("../../..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpriteParent/Areas/AttackRange"]
+visible = false
+
+[node name="MousePickingArea" type="Area2D" parent="SpriteParent/Areas"]
+visible = false
+collision_layer = 0
+collision_mask = 512
+script = ExtResource( 5 )
+owner_path = NodePath("../../..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpriteParent/Areas/MousePickingArea"]
+shape = SubResource( 5 )
+
+[node name="WeaponSlot" type="Node2D" parent="SpriteParent"]
+position = Vector2( 0, -14 )
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/attack = SubResource( 6 )
 anims/idle = SubResource( 7 )
@@ -51,41 +101,11 @@ __meta__ = {
 "_editor_description_": "Simple Universal animations defined here."
 }
 
-[node name="Areas" type="Node2D" parent="."]
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Body" type="Area2D" parent="Areas"]
-visible = false
-collision_layer = 0
-collision_mask = 0
-script = ExtResource( 5 )
-__meta__ = {
-"_editor_description_": "no LAYER and MASK by default, derived classes should set their layer&mask"
-}
-owner_path = NodePath("../..")
-
-[node name="AttackRange" type="Area2D" parent="Areas"]
-visible = false
-script = ExtResource( 5 )
-owner_path = NodePath("../..")
-
-[node name="MousePickingArea" type="Area2D" parent="Areas"]
-visible = false
-collision_layer = 0
-collision_mask = 512
-script = ExtResource( 5 )
-owner_path = NodePath("../..")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Areas/MousePickingArea"]
-shape = SubResource( 5 )
-
 [node name="DEBUG" type="Control" parent="."]
 margin_left = -21.0
-margin_top = -62.0
+margin_top = -71.0
 margin_right = 19.0
-margin_bottom = -22.0
+margin_bottom = -31.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -104,10 +124,10 @@ __meta__ = {
 [node name="HpBar" parent="." instance=ExtResource( 4 )]
 visible = false
 margin_left = -19.0
-margin_top = -46.0
+margin_top = -55.0
 margin_right = 16.0
-margin_bottom = -38.0
+margin_bottom = -47.0
 
+[connection signal="area_entered" from="SpriteParent/Areas/MousePickingArea" to="." method="_on_MousePickingArea_area_entered"]
+[connection signal="area_exited" from="SpriteParent/Areas/MousePickingArea" to="." method="_on_MousePickingArea_area_exited"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
-[connection signal="area_entered" from="Areas/MousePickingArea" to="." method="_on_MousePickingArea_area_entered"]
-[connection signal="area_exited" from="Areas/MousePickingArea" to="." method="_on_MousePickingArea_area_exited"]

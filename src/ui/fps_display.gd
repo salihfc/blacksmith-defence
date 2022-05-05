@@ -1,5 +1,4 @@
-extends Resource
-class_name MaterialPool
+extends Label
 
 """
 
@@ -9,13 +8,13 @@ class_name MaterialPool
 ### ENUM ###
 ### CONST ###
 ### EXPORT ###
-export(Array, Resource) var materials
 ### PUBLIC VAR ###
 ### PRIVATE VAR ###
 ### ONREADY VAR ###
 ### VIRTUAL FUNCTIONS (_init ...) ###
+func _physics_process(_delta):
+	text = str(Engine.get_frames_per_second())
+
 ### PUBLIC FUNCTIONS ###
-func get_random():
-	return UTILS.get_random_from(materials)
 ### PRIVATE FUNCTIONS ###
 ### SIGNAL RESPONSES ###

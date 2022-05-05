@@ -14,11 +14,27 @@ class_name UnitData
 
 
 ### EXPORT ###
+# Visual
 export(String) var name
 export(Texture) var texture
 export(Texture) var view_texture
-export(float) var max_hp
 export(Resource) var cost = MaterialStorage.new() # MaterialStorage
+
+# Battle
+export(float) var max_hp
+export(float) var resist_phys	= 0.0
+export(float) var resist_fire	= 0.0
+export(float) var resist_water	= 0.0
+export(float) var resist_earth	= 0.0
+
+export(float) var move_speed	= 1.0	# pixel/second
+export(float) var atk_speed		= 1.0	# attacks per second
+export(float) var damage_multi	= 1.0
+
+export(Resource) var weapon
+
+#
+export(Resource) var enchancements = MaterialStorage.new()
 
 ### PUBLIC VAR ###
 

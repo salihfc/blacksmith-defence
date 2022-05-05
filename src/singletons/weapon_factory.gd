@@ -10,11 +10,13 @@ extends Node
 ### ENUM ###
 enum WEAPON {
 	SWORD,
+	RAPIER
 }
 
 ### CONST ###
 const WEAPONS = {
 	WEAPON.SWORD : preload("res://src/game/player_units/sword.tscn"),
+	WEAPON.RAPIER : preload("res://src/game/player_units/rapier.tscn"),
 }
 
 ### EXPORT ###
@@ -22,7 +24,7 @@ const WEAPONS = {
 
 ### PUBLIC VAR ###
 func create_weapon(weapon):
-	return WEAPONS[weapon].instance()
+	return WEAPONS[weapon.get_id()].instance()
 	
 
 ### PRIVATE VAR ###

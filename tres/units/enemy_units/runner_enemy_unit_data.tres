@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://src/resource_classes/unit_data.gd" type="Script" id=1]
+[ext_resource path="res://tres/atlas_tex/runner_enemy.atlastex" type="Texture" id=2]
+
+[resource]
+script = ExtResource( 1 )
+name = "Runner Enemy"
+texture = ExtResource( 2 )
+max_hp = 30.0
+resist_phys = 0.0
+resist_fire = 0.0
+resist_water = 0.0
+resist_earth = 0.0
+move_speed = 2.0
+atk_speed = 1.0
+damage_multi = 2.5

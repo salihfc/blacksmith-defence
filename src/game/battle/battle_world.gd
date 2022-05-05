@@ -16,15 +16,11 @@ signal material_collected(mat, count)
 ### CONST ###
 const MaterialPrefab = preload("res://src/game/material/material.tscn")
 const EnemyUnitPrefab = preload("res://src/game/unit/sub_units/enemy_unit.tscn")
-const PlayerUnitPrefab = preload("res://src/game/player_units/player_unit.tscn")
-const SPAWN_PERIOD = 4.0
-const PLAYER_UNIT_MAX_Y_OFFSET = 20.0
-
-const enemy_data = [
-	preload("res://tres/enemies/enemy_skeleton.tres"),
-]
 
 ### EXPORT ###
+export(Resource) var enemy_pool = null
+export(Resource) var material_pool = null
+
 export(float) var player_base_max_hp
 
 ### PUBLIC VAR ###
@@ -43,7 +39,7 @@ onready var mousePointerArea = $MousePointerArea as ObjectArea
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _ready():
-	CONFIG.context.battle_world = self
+	CONFIG.context.set_world(self)
 	player_base_hp = player_base_max_hp
 	
 	UTILS.bind(
@@ -51,10 +47,17 @@ func _ready():
 		self, "_on_SpawnTimer_timeout"
 	)
 	
+	for mat in material_pool.get_materials():
+		call_deferred("emit_signal",
+				"material_collected",
+				mat,
+				0)
+	
 	call_deferred("emit_signal",
 			"material_collected",
 			load("res://tres/materials/material_iron.tres"),
-			2)
+			100)
+
 
 #	spawnTimer.start(4.0)
 	
@@ -93,7 +96,7 @@ func spawn_enemy(lane = null) -> void:
 	LOG.pr(1, "Spawning Enemy")
 	var enemy = EnemyUnitPrefab.instance()
 	units.add_child(enemy)
-	enemy.init_with_data(preload("res://src/game/unit/default_enemy_unit_data.tres"))
+	enemy.init_with_data(_get_random_enemy_data())
 
 	if lane == null:
 		lane = _get_random_spawn_idx()
@@ -138,7 +141,7 @@ func damage_base(damage_amount : float) -> void:
 
 ### PRIVATE FUNCTIONS ###
 func _get_random_enemy_data():
-	return enemy_data[randi() % enemy_data.size()]
+	return enemy_pool.get_random()
 
 
 func _get_lane_spawn_pos(lane) -> Vector2:

@@ -44,6 +44,9 @@ func set_direction() -> void:
 
 
 ### PRIVATE FUNCTIONS ###
+func _set_area_layer_and_masks() -> void:
+	body.collision_layer = COLLISION.ENEMY
+	attackRange.collision_mask = COLLISION.PLAYER | COLLISION.PLAYER_BASE
 
 
 ### SIGNAL RESPONSES ###

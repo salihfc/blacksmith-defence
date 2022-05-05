@@ -32,7 +32,14 @@ export(Array, Resource) var items
 
 
 ### PUBLIC FUNCTIONS ###
+func get_items():
+	return items
 
+
+func get_random():
+	if items.size():
+		return items[randi() % items.size()]
+	return null
 
 ### PRIVATE FUNCTIONS ###
 

@@ -15,12 +15,13 @@ class_name Context
 
 
 ### EXPORT ###
-var battle_world = null
+
 
 ### PUBLIC VAR ###
 
 
 ### PRIVATE VAR ###
+var _world = null
 
 
 ### ONREADY VAR ###
@@ -32,8 +33,12 @@ var battle_world = null
 
 
 ### PUBLIC FUNCTIONS ###
+func set_world(world) -> void:
+	_world = world
 
 
+func get_world():
+	return _world
 ### PRIVATE FUNCTIONS ###
 
 

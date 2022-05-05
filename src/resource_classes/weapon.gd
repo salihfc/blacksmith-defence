@@ -1,5 +1,5 @@
 extends Resource
-class_name Weapon
+class_name WeaponData
 
 """
 
@@ -35,7 +35,8 @@ export(float) var base_damage = 20.0
 
 
 ### PUBLIC FUNCTIONS ###
-
+func get_id():
+	return id
 
 ### PRIVATE FUNCTIONS ###
 
