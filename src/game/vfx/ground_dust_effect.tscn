@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/gfx/common/light.png" type="Texture" id=1]
+[ext_resource path="res://src/game/vfx/ground_dust_effect.gd" type="Script" id=2]
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0.0223464, 0.134078, 0.49162, 1 )
+colors = PoolColorArray( 0.290196, 0.192157, 0.235294, 0, 0.132324, 0.0268784, 0.0796008, 1, 0.147949, 0.0988255, 0.123387, 1, 0.129412, 0.121569, 0.137255, 0 )
+
+[sub_resource type="GradientTexture" id=4]
+gradient = SubResource( 3 )
+
+[sub_resource type="Curve" id=5]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.251136 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=6]
+curve = SubResource( 5 )
+
+[sub_resource type="ParticlesMaterial" id=2]
+flag_align_y = true
+flag_rotate_y = true
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+spread = 60.0
+gravity = Vector3( 0, 300, 0 )
+initial_velocity = 100.0
+initial_velocity_random = 0.1
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+radial_accel = -2.0
+radial_accel_random = 0.2
+damping = 200.0
+scale = 0.1
+scale_random = 0.01
+scale_curve = SubResource( 6 )
+color = Color( 1, 1, 1, 0.588235 )
+color_ramp = SubResource( 4 )
+hue_variation = 0.02
+hue_variation_random = 0.5
+
+[node name="GroundDustEffect" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Particles2D" type="Particles2D" parent="."]
+emitting = false
+amount = 4
+lifetime = 0.4
+explosiveness = 0.8
+randomness = 0.2
+local_coords = false
+process_material = SubResource( 2 )
+texture = ExtResource( 1 )

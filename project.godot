@@ -134,10 +134,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/ai/infinite_axis_utility/utility_curve.gd"
 }, {
+"base": "Node2D",
+"class": "Weapon",
+"language": "GDScript",
+"path": "res://src/game/player_units/weapon.gd"
+}, {
 "base": "Resource",
 "class": "WeaponData",
 "language": "GDScript",
-"path": "res://src/resource_classes/weapon.gd"
+"path": "res://src/resource_classes/weapon_data.gd"
 } ]
 _global_script_class_icons={
 "Action": "",
@@ -165,6 +170,7 @@ _global_script_class_icons={
 "Unit": "",
 "UnitData": "",
 "UtilityCurve": "",
+"Weapon": "",
 "WeaponData": ""
 }
 
@@ -180,8 +186,8 @@ CONFIG="*res://src/singletons/config.gd"
 LOG="*res://src/singletons/log.gd"
 UTILS="*res://src/singletons/utils.gd"
 TWEEN="*res://src/singletons/tween_manager.tscn"
-WEAPON_FACTORY="*res://src/singletons/weapon_factory.gd"
 IAUS="*res://src/singletons/iaus_config.gd"
+FORMULA="*res://src/singletons/formula.gd"
 
 [debug]
 

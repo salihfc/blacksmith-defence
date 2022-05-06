@@ -201,7 +201,7 @@ func calc_final_damage_amount(_damage : Damage) -> float:
 			resist = _resist_earth
 
 	var final_damage = _damage.get_amount()
-	final_damage *= (1.0 - (resist/100.0))
+	final_damage = FORMULA.get_resisted(final_damage, resist)
 	return final_damage
 
 
@@ -232,7 +232,7 @@ func attack() -> void:
 
 func play_weapon_animation() -> void:
 	if weaponSlot.get_child_count():
-		weaponSlot.get_child(0).swing()
+		weaponSlot.get_child(0).strike()
 
 
 ### PRIVATE FUNCTIONS ###

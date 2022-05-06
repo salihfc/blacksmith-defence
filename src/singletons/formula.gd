@@ -1,44 +1,22 @@
-extends Resource
-class_name WeaponData
+extends Node
 
 """
 
 """
 
 ### SIGNAL ###
-
-
 ### ENUM ###
-
-
 ### CONST ###
-
-
 ### EXPORT ###
-export(int) var id = -1
-export(String) var name = "weapon"
-export(Texture) var texture = null
-export(float) var base_damage = 20.0
-
 ### PUBLIC VAR ###
-
-
 ### PRIVATE VAR ###
-
-
 ### ONREADY VAR ###
-
-
-
-
 ### VIRTUAL FUNCTIONS (_init ...) ###
 
 
 ### PUBLIC FUNCTIONS ###
-func get_id():
-	return id
+func get_resisted(value : float, resist : float):
+	return value * (1.0 - (resist/100.0))
 
 ### PRIVATE FUNCTIONS ###
-
-
 ### SIGNAL RESPONSES ###
