@@ -16,7 +16,9 @@ export(Array, Resource) var enemies = []
 ### VIRTUAL FUNCTIONS (_init ...) ###
 ### PUBLIC FUNCTIONS ###
 func pop():
-	var enemy = UTILS.get_random_from(enemies)
+	enemies.shuffle()
+	var enemy = enemies.back()
+	enemies.pop_back()
 	if enemies.size():
 		emit_signal("wave_ended")
 	return enemy

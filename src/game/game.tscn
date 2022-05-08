@@ -99,7 +99,6 @@ size = Vector2( 900, 868 )
 own_world = true
 world = SubResource( 5 )
 transparent_bg = true
-handle_input_locally = false
 msaa = 2
 debanding = true
 disable_3d = true

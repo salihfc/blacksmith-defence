@@ -13,7 +13,6 @@ const prefab_unit_view = preload("res://src/game/unit_list_unit_view.tscn")
 
 # GAME OBJECT PREFABS
 #const prefab_unit = preload("res://src/game/unit/unit.tscn")
-const prefab_player_unit = preload("res://src/game/unit/sub_units/player_unit.tscn")
 # PRELOADED TRES
 ### EXPORT ###
 export(NodePath) var NodepathBattle
@@ -59,6 +58,11 @@ func _ready():
 	)
 	
 	UTILS.bind(
+		battle, "unit_spawned",
+		self, "_on_unit_spawned"
+	)
+	
+	UTILS.bind(
 		battle, "wave_completed",
 		self, "_on_wave_completed"
 	)
@@ -97,16 +101,15 @@ func _ready():
 ### SIGNAL RESPONSES ###
 func _on_unit_view_pressed(unit_data : UnitData) -> void:
 	LOG.pr(1, "UNIT_VIEW PRESSED WITH [%s]" % [unit_data])
-	
 	if materialList.get_storage().covers_cost(unit_data.cost):
-		var new_unit = prefab_player_unit.instance()
-		battle.spawn_unit(new_unit)
-		new_unit.init_with_data(unit_data)
-		
-		var unit_cost_storage = unit_data.cost.get_materials()
-		for mat in unit_cost_storage.keys():
-			var count = unit_cost_storage.get(mat)
-			emit_signal("material_used", mat, count)
+		battle.set_dragged_item(unit_data)
+
+
+func _on_unit_spawned(unit_data : UnitData):
+	var unit_cost_storage = unit_data.cost.get_materials()
+	for mat in unit_cost_storage.keys():
+		var count = unit_cost_storage.get(mat)
+		emit_signal("material_used", mat, count)
 
 
 func _on_unit_selected(unit) -> void:

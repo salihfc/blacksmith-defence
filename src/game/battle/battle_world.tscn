@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://src/game/battle/battle_world.gd" type="Script" id=1]
 [ext_resource path="res://assets/gfx/game/atlas.png" type="Texture" id=2]
@@ -93,6 +93,9 @@ atlas = ExtResource( 2 )
 3/shapes = [  ]
 3/z_index = 0
 
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 299, 83 )
+
 [sub_resource type="CircleShape2D" id=3]
 radius = 8.0
 
@@ -125,22 +128,61 @@ __meta__ = {
 }
 
 [node name="Position2D" type="Position2D" parent="SpawnPositions"]
-position = Vector2( 366, 149 )
+position = Vector2( 785, 149 )
 __meta__ = {
 "_gizmo_extents_": 20.0
 }
 
 [node name="Position2D2" type="Position2D" parent="SpawnPositions"]
-position = Vector2( 366, 423 )
+position = Vector2( 785, 423 )
 __meta__ = {
 "_gizmo_extents_": 20.0
 }
 
 [node name="Position2D3" type="Position2D" parent="SpawnPositions"]
-position = Vector2( 366, 659 )
+position = Vector2( 785, 659 )
 __meta__ = {
 "_gizmo_extents_": 20.0
 }
+
+[node name="PlayerSpawnPositions" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 512
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="Polygon2D" type="Polygon2D" parent="PlayerSpawnPositions"]
+position = Vector2( -32, 0 )
+color = Color( 0.560784, 0.847059, 0.243137, 0.168627 )
+antialiased = true
+polygon = PoolVector2Array( 136, 64, 736, 64, 736, 232, 136, 232 )
+
+[node name="Polygon2D2" type="Polygon2D" parent="PlayerSpawnPositions"]
+position = Vector2( -24, 256 )
+color = Color( 0.560784, 0.847059, 0.243137, 0.168627 )
+antialiased = true
+polygon = PoolVector2Array( 136, 64, 736, 64, 736, 232, 136, 232 )
+
+[node name="Polygon2D3" type="Polygon2D" parent="PlayerSpawnPositions"]
+position = Vector2( -24, 512 )
+color = Color( 0.560784, 0.847059, 0.243137, 0.168627 )
+antialiased = true
+polygon = PoolVector2Array( 136, 64, 736, 64, 736, 232, 136, 232 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerSpawnPositions"]
+position = Vector2( 407, 147 )
+shape = SubResource( 4 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="PlayerSpawnPositions"]
+position = Vector2( 407, 405 )
+shape = SubResource( 4 )
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="PlayerSpawnPositions"]
+position = Vector2( 407, 659 )
+shape = SubResource( 4 )
 
 [node name="PlayerBase" type="Node2D" parent="."]
 __meta__ = {
@@ -184,6 +226,8 @@ owner_path = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MousePointerArea"]
 shape = SubResource( 3 )
+
+[node name="DraggedItemSlot" type="Node2D" parent="MousePointerArea"]
 
 [node name="SpawnTimer" type="Timer" parent="."]
 one_shot = true

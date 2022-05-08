@@ -9,6 +9,7 @@ extends Node2D
 signal wave_completed()
 signal player_base_destroyed()
 signal unit_selected(unit)
+signal unit_spawned(unit)
 signal material_collected(mat, count)
 
 ### ENUM ###
@@ -17,10 +18,11 @@ signal material_collected(mat, count)
 ### CONST ###
 const MaterialPrefab = preload("res://src/game/material/material.tscn")
 const EnemyUnitPrefab = preload("res://src/game/unit/sub_units/enemy_unit.tscn")
-
+const PlayerUnitPrefab = preload("res://src/game/unit/sub_units/player_unit.tscn")
+const UnitHoloPrefab = preload("res://src/ui/unit_holo.tscn")
 ### EXPORT ###
-export(float) var MIN_SPAWN_DELAY = 2.5
-export(float) var MAX_SPAWN_DELAY = 4.0
+export(float) var MIN_SPAWN_DELAY = 0.5
+export(float) var MAX_SPAWN_DELAY = 2.0
 
 export(Resource) var enemy_pool = null
 export(Resource) var material_pool = null
@@ -33,6 +35,7 @@ var player_base_hp
 
 ### PRIVATE VAR ###
 var _current_wave = 0
+var _drag_item_data = null
 
 
 ### ONREADY VAR ###
@@ -42,6 +45,22 @@ onready var spawnTimer = $SpawnTimer as Timer
 
 onready var units = $Units as Node2D
 onready var mousePointerArea = $MousePointerArea as ObjectArea
+onready var playerSpawnPositions =  $PlayerSpawnPositions as Area2D
+onready var draggedItemSlot = $MousePointerArea/DraggedItemSlot as Node2D
+
+
+func _process(_delta):
+	
+	if Input.is_action_just_pressed("left_click"):
+		LOG.pr(1, "battle_world action event: {left click pressed}")
+		# left_click Released 
+		var drag_item = get_drag_item_data()
+		if drag_item:
+			var areas = playerSpawnPositions.get_overlapping_areas()
+			if areas.size(): # mouse is overlapping
+				spawn_unit(drag_item, get_global_mouse_position())
+				clear_dragged_item()
+
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _ready():
@@ -102,16 +121,20 @@ func start_next_wave() -> void:
 	spawnTimer.start(rand_range(MIN_SPAWN_DELAY, MAX_SPAWN_DELAY))
 
 
-func spawn_unit(unit : Unit) -> void:
-	var lane = _get_random_spawn_idx()
+func spawn_unit(unit_data : UnitData, pos : Vector2 ) -> void:
+	var unit = PlayerUnitPrefab.instance()
 	units.add_child(unit)
-	unit.global_position = playerBase.get_child(lane).global_position + Vector2.RIGHT * 50.0
+	unit.global_position = pos
+	unit.init_with_data(unit_data)
 
 	UTILS.bind(
 		unit, "selected",
 		self, "_on_unit_selected",
 		[unit]
 	)
+	
+	emit_signal("unit_spawned", unit_data)
+	clear_dragged_item()
 
 
 func spawn_enemy(enemy_data, lane = null) -> void:
@@ -159,6 +182,26 @@ func damage_base(damage_amount : float) -> void:
 		emit_signal("player_base_destroyed")
 #	else:                
 #		emit_signal("base_hp_updated", player_base_hp, player_base_max_hp)
+
+
+func set_dragged_item(drag_item_data) -> void:
+	clear_dragged_item()
+
+	_drag_item_data = drag_item_data
+	var new_holo = UnitHoloPrefab.instance()
+	new_holo.set_texture(drag_item_data.texture)
+	draggedItemSlot.add_child(new_holo)
+	playerSpawnPositions.show()
+
+
+func get_drag_item_data():
+	return _drag_item_data
+
+
+func clear_dragged_item() -> void:
+	UTILS.clear_children(draggedItemSlot)
+	_drag_item_data = null
+	playerSpawnPositions.hide()
 
 
 ### PRIVATE FUNCTIONS ###
