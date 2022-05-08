@@ -200,6 +200,7 @@ UTILS="*res://src/singletons/utils.gd"
 TWEEN="*res://src/singletons/tween_manager.tscn"
 IAUS="*res://src/singletons/iaus_config.gd"
 FORMULA="*res://src/singletons/formula.gd"
+VFX="*res://src/singletons/vfx_generator.tscn"
 
 [debug]
 

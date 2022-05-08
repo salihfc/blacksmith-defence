@@ -39,9 +39,13 @@ var _drag_item_data = null
 
 
 ### ONREADY VAR ###
+onready var bgTilemap = $BG/TileMap as TileMap
+onready var gridTilemap = $BG/VisualTileMap as TileMap
+
 onready var spawnPositions = $SpawnPositions as Node2D
 onready var playerBase = $PlayerBase as Node2D
 onready var spawnTimer = $SpawnTimer as Timer
+onready var vfxContainer = $VFXContainer as Node2D
 
 onready var units = $Units as Node2D
 onready var mousePointerArea = $MousePointerArea as ObjectArea
@@ -58,14 +62,20 @@ func _process(_delta):
 		if drag_item:
 			var areas = playerSpawnPositions.get_overlapping_areas()
 			if areas.size(): # mouse is overlapping
-				spawn_unit(drag_item, get_global_mouse_position())
+				spawn_unit(drag_item, mousePointerArea.global_position)
 				clear_dragged_item()
 
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _ready():
+	UTILS.bind(
+		VFX, "vfx_created",
+		self, "_on_vfx_created"
+	)
+
 	CONFIG.context.set_world(self)
 	player_base_hp = player_base_max_hp
+
 
 #signal encounter_completed()
 	if encounter:
@@ -105,7 +115,12 @@ func _ready():
 
 
 func _physics_process(_delta):
-	mousePointerArea.global_position = get_global_mouse_position()
+	
+	if _drag_item_data:
+		mousePointerArea.global_position = gridTilemap.map_to_world(gridTilemap.world_to_map(get_global_mouse_position()))\
+				+ Vector2(gridTilemap.cell_size.x, gridTilemap.cell_size.y)/2.0
+	else:
+		mousePointerArea.global_position = get_global_mouse_position()
 
 	for i in range(1, 4):
 		if Input.is_action_just_pressed("%s" % [i]):
@@ -165,7 +180,7 @@ func spawn_random_mat(spawn_pos) -> void:
 	var new_mat = MaterialPrefab.instance()
 	new_mat.set_data(material_data, 2)
 	
-	units.add_child(new_mat)
+	units.call_deferred("add_child", new_mat)
 	new_mat.global_position = spawn_pos
 	new_mat.play_drop_animation()
 	
@@ -192,6 +207,7 @@ func set_dragged_item(drag_item_data) -> void:
 	new_holo.set_texture(drag_item_data.texture)
 	draggedItemSlot.add_child(new_holo)
 	playerSpawnPositions.show()
+	gridTilemap.show()
 
 
 func get_drag_item_data():
@@ -202,6 +218,7 @@ func clear_dragged_item() -> void:
 	UTILS.clear_children(draggedItemSlot)
 	_drag_item_data = null
 	playerSpawnPositions.hide()
+	gridTilemap.hide()
 
 
 ### PRIVATE FUNCTIONS ###
@@ -240,3 +257,7 @@ func _on_wave_ended(_wave_idx):
 func _on_spawn_timer_timeout() -> void:
 	encounter.request_spawn_enemy()
 	spawnTimer.start(rand_range(MIN_SPAWN_DELAY, MAX_SPAWN_DELAY))
+
+
+func _on_vfx_created(vfx) -> void:
+	vfxContainer.add_child(vfx)

@@ -39,6 +39,12 @@ func play_drop_animation() -> void:
 		0.3, 0.1
 	)
 
+	TWEEN.interpolate_method_to_and_back(
+		self, "_set_shader_param_glow_anim_t",
+		0.0, 1.0,
+		0.1, 0.1
+	)
+
 
 func play_collect_animation() -> void:
 	var anim_duration = 0.3
@@ -54,6 +60,10 @@ func play_collect_animation() -> void:
 
 
 ### PRIVATE FUNCTIONS ###
+func _set_shader_param_glow_anim_t(t : float) -> void:
+	material.set_shader_param("in_anim_t", t)
+
+
 ### SIGNAL RESPONSES ###
 
 

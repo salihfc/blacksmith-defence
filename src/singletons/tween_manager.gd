@@ -113,7 +113,8 @@ func interpolate_method(
 func interpolate_method_to_and_back(
 		object : Object, method : String,
 		start_value, mid_value,
-		part1_duration, part2_duration) -> void:
+		part1_duration, part2_duration,
+		start_delay = 0.0) -> void:
 	
 	var tween = _request_worker()
 	
@@ -121,7 +122,8 @@ func interpolate_method_to_and_back(
 	tween.interpolate_method(
 			object, method,
 			start_value, mid_value,
-			part1_duration, Tween.TRANS_QUART, Tween.EASE_IN_OUT
+			part1_duration, Tween.TRANS_QUART, Tween.EASE_IN_OUT,
+			start_delay
 	)
 
 # warning-ignore:return_value_discarded
@@ -129,7 +131,7 @@ func interpolate_method_to_and_back(
 			object, method,
 			mid_value, start_value,
 			part2_duration, Tween.TRANS_QUART, Tween.EASE_IN_OUT,
-			part1_duration
+			start_delay + part1_duration
 	)
 
 # warning-ignore:return_value_discarded

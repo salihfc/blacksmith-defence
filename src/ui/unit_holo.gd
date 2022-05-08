@@ -15,7 +15,7 @@ extends Sprite
 ### PUBLIC FUNCTIONS ###
 func set_texture(tex : Texture) -> void:
 	texture = tex
-
+	offset.y = -texture.get_height() / 2.0
 
 ### PRIVATE FUNCTIONS ###
 ### SIGNAL RESPONSES ###

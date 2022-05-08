@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://src/game/vfx/vfx_base.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/gfx/game/dust_vfx.png" type="Texture" id=2]
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0.0223464, 0.134078, 0.49162, 1 )
+colors = PoolColorArray( 0.290196, 0.192157, 0.235294, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0.129412, 0.121569, 0.137255, 0 )
+
+[sub_resource type="GradientTexture" id=4]
+gradient = SubResource( 3 )
+
+[sub_resource type="Curve" id=5]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=6]
+curve = SubResource( 5 )
+
+[sub_resource type="ParticlesMaterial" id=2]
+flag_rotate_y = true
+flag_disable_z = true
+direction = Vector3( 1, -1, 0 )
+spread = 15.0
+gravity = Vector3( 0, 250, 0 )
+initial_velocity = 100.0
+initial_velocity_random = 0.1
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+damping = 300.0
+angle = -15.0
+angle_random = 0.1
+scale = 0.4
+scale_random = 0.1
+scale_curve = SubResource( 6 )
+color = Color( 1, 1, 1, 0.588235 )
+color_ramp = SubResource( 4 )
+
+[node name="VFXGroundDust" instance=ExtResource( 1 )]
+auto_free = false
+
+[node name="Particles2D" parent="." index="0"]
+amount = 24
+lifetime = 0.4
+speed_scale = 0.35
+explosiveness = 0.4
+randomness = 0.2
+local_coords = false
+process_material = SubResource( 2 )
+texture = ExtResource( 2 )

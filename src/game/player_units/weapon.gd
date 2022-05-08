@@ -118,3 +118,8 @@ func _send_damage_frame() -> void:
 func _on_HitBox_area_entered(area):
 	LOG.pr(3, "Hitbox entered %s" % [area.get_owner()])
 	_deal_damage(area.get_owner())
+	
+	if _id == TYPE.RAPIER:
+		VFX.generate_fx_at(VFX.THRUST_HIT_PARTICLES, global_position)
+	elif _id == TYPE.SWORD:
+		VFX.generate_fx_at(VFX.SWING_HIT_PARTICLES, global_position)

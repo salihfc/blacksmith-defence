@@ -66,6 +66,7 @@ onready var weaponSlot = $SpriteParent/WeaponSlot as Node2D
 # Areas
 onready var body : ObjectArea = $SpriteParent/Areas/Body as ObjectArea
 onready var attackRange : ObjectArea = $SpriteParent/Areas/AttackRange as ObjectArea 
+onready var dustEffect = $VFXGroundDust
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _ready():
@@ -162,15 +163,21 @@ func change_state(new_state):
 				_target_weakref = weakref(_select_target())
 			animPlayer.play("attack")
 			stateLabel.text = "atk"
+			dustEffect.emit(false)
 
 		STATE.IDLE:
 			animPlayer.play("idle")
 			stateLabel.text = "idl"
+			dustEffect.emit(false)
 
 		STATE.WALK:
 			animPlayer.play("walk")
 			stateLabel.text = "wlk"
-
+			if !dustEffect.is_emitting():
+				dustEffect.emit()
+		
+		_:
+			dustEffect.emit(false)
 
 	_state = new_state
 
@@ -211,12 +218,22 @@ func take_damage(_damage : Damage, pulse := Vector2.ZERO) -> void:
 	LOG.pr(3, "%s taking %s -> %s" % [self, _damage, amount])
 	_hp -= amount
 	
+	TWEEN.interpolate_method_to_and_back(
+		self, "set_shader_param_damage_flash_anim",
+		0.0, 0.75,
+		0.1, 0.05
+	)
+
 	if _hp <= 0.0:
 		emit_signal("died")
 		queue_free()
 	else:
 		hpBar.visible = (get_hp_perc() < 1.0)
 		hpBar.set_value(get_hp_perc())
+
+
+func set_shader_param_damage_flash_anim(x : float) -> void:
+	sprite.material.set_shader_param("damage_flash_anim", x)
 
 
 func attack() -> void:

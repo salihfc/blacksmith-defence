@@ -37,8 +37,8 @@ func _ready():
 			else:
 				child.offset += UTILS.random_unit_vec2() * rand_range(0.2, 1.6)
 
-### PUBLIC FUNCTIONS ###
 
+### PUBLIC FUNCTIONS ###
 func take_damage(_damage : Damage) -> void:
 	LOG.pr(3, "[%s] taking %s" % [self, _damage])
 

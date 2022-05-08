@@ -1,9 +1,35 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://src/game/unit/unit.gd" type="Script" id=1]
 [ext_resource path="res://tres/atlas_tex/unit_default_sprite.atlastex" type="Texture" id=2]
+[ext_resource path="res://src/game/vfx/vfx_ground_dust.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/ui/hp_bar.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/game/object_area.gd" type="Script" id=5]
+
+[sub_resource type="Shader" id=9]
+code = "// NOTE: Shader automatically converted from Godot Engine 3.4.stable's CanvasItemMaterial.
+
+shader_type canvas_item;
+render_mode blend_mix;
+
+uniform vec4 damage_taken_color : hint_color = vec4(1.0, 0.0, 0.0, 1.0);
+uniform float damage_flash_anim = 0.0;
+
+void fragment()
+{
+	vec2 uv = UV;
+	vec4 base_color = texture(TEXTURE, uv);
+	
+	base_color.rgb = mix(base_color.rgb, damage_taken_color.rgb, damage_flash_anim);
+	
+	COLOR = base_color;
+}"
+
+[sub_resource type="ShaderMaterial" id=10]
+resource_local_to_scene = true
+shader = SubResource( 9 )
+shader_param/damage_taken_color = Color( 1, 0.223529, 0.223529, 1 )
+shader_param/damage_flash_anim = 0.0
 
 [sub_resource type="CapsuleShape2D" id=5]
 height = 12.0
@@ -37,6 +63,7 @@ script = ExtResource( 1 )
 [node name="SpriteParent" type="Node2D" parent="."]
 
 [node name="Sprite" type="Sprite" parent="SpriteParent"]
+material = SubResource( 10 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 2 )
 __meta__ = {
@@ -117,6 +144,9 @@ margin_left = -19.0
 margin_top = -76.0
 margin_right = 16.0
 margin_bottom = -68.0
+
+[node name="VFXGroundDust" parent="." instance=ExtResource( 3 )]
+scale = Vector2( 1, 1 )
 
 [connection signal="area_entered" from="SpriteParent/Areas/MousePickingArea" to="." method="_on_MousePickingArea_area_entered"]
 [connection signal="area_exited" from="SpriteParent/Areas/MousePickingArea" to="." method="_on_MousePickingArea_area_exited"]
