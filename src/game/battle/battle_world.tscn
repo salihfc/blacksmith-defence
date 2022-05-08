@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://src/game/battle/battle_world.gd" type="Script" id=1]
 [ext_resource path="res://assets/gfx/game/atlas.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://src/game/object_area.gd" type="Script" id=5]
 [ext_resource path="res://tres/units/pools/enemy_pool.tres" type="Resource" id=6]
 [ext_resource path="res://tres/units/pools/material_pool.tres" type="Resource" id=7]
+[ext_resource path="res://tres/default_battle_encounter.tres" type="Resource" id=8]
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 2 )
@@ -99,6 +100,7 @@ radius = 8.0
 script = ExtResource( 1 )
 enemy_pool = ExtResource( 6 )
 material_pool = ExtResource( 7 )
+encounter = ExtResource( 8 )
 player_base_max_hp = 100.0
 
 [node name="BG" type="Sprite" parent="."]
@@ -157,9 +159,6 @@ position = Vector2( 57, 659 )
 
 [node name="Units" type="YSort" parent="."]
 
-[node name="SpawnTimer" type="Timer" parent="."]
-one_shot = true
-
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 visible = false
 color = Color( 0, 0, 0, 1 )
@@ -185,3 +184,6 @@ owner_path = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MousePointerArea"]
 shape = SubResource( 3 )
+
+[node name="SpawnTimer" type="Timer" parent="."]
+one_shot = true

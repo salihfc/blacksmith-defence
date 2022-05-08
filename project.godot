@@ -54,6 +54,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/resource_classes/drop_item.gd"
 }, {
+"base": "Resource",
+"class": "EncounterData",
+"language": "GDScript",
+"path": "res://src/resource_classes/encounter.gd"
+}, {
 "base": "Unit",
 "class": "EnemyUnit",
 "language": "GDScript",
@@ -134,6 +139,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/ai/infinite_axis_utility/utility_curve.gd"
 }, {
+"base": "Resource",
+"class": "WaveData",
+"language": "GDScript",
+"path": "res://src/resource_classes/wave.gd"
+}, {
 "base": "Node2D",
 "class": "Weapon",
 "language": "GDScript",
@@ -154,6 +164,7 @@ _global_script_class_icons={
 "Damage": "",
 "DebugWindow": "",
 "DropItem": "",
+"EncounterData": "",
 "EnemyUnit": "",
 "GutHookScript": "",
 "GutTest": "",
@@ -170,6 +181,7 @@ _global_script_class_icons={
 "Unit": "",
 "UnitData": "",
 "UtilityCurve": "",
+"WaveData": "",
 "Weapon": "",
 "WeaponData": ""
 }

@@ -93,9 +93,9 @@ __meta__ = {
 
 [node name="DEBUG" type="Control" parent="."]
 margin_left = -21.0
-margin_top = -71.0
+margin_top = -92.0
 margin_right = 19.0
-margin_bottom = -31.0
+margin_bottom = -52.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -114,9 +114,9 @@ __meta__ = {
 [node name="HpBar" parent="." instance=ExtResource( 4 )]
 visible = false
 margin_left = -19.0
-margin_top = -55.0
+margin_top = -76.0
 margin_right = 16.0
-margin_bottom = -47.0
+margin_bottom = -68.0
 
 [connection signal="area_entered" from="SpriteParent/Areas/MousePickingArea" to="." method="_on_MousePickingArea_area_entered"]
 [connection signal="area_exited" from="SpriteParent/Areas/MousePickingArea" to="." method="_on_MousePickingArea_area_exited"]

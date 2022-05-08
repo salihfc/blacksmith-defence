@@ -6,6 +6,7 @@ extends Node2D
 
 ### SIGNAL ###
 #signal base_hp_updated(hp, max_hp)
+signal wave_completed()
 signal player_base_destroyed()
 signal unit_selected(unit)
 signal material_collected(mat, count)
@@ -18,8 +19,12 @@ const MaterialPrefab = preload("res://src/game/material/material.tscn")
 const EnemyUnitPrefab = preload("res://src/game/unit/sub_units/enemy_unit.tscn")
 
 ### EXPORT ###
+export(float) var MIN_SPAWN_DELAY = 2.5
+export(float) var MAX_SPAWN_DELAY = 4.0
+
 export(Resource) var enemy_pool = null
 export(Resource) var material_pool = null
+export(Resource) var encounter = null
 
 export(float) var player_base_max_hp
 
@@ -27,26 +32,39 @@ export(float) var player_base_max_hp
 var player_base_hp
 
 ### PRIVATE VAR ###
+var _current_wave = 0
 
 
 ### ONREADY VAR ###
 onready var spawnPositions = $SpawnPositions as Node2D
 onready var playerBase = $PlayerBase as Node2D
+onready var spawnTimer = $SpawnTimer as Timer
 
 onready var units = $Units as Node2D
-onready var spawnTimer = $SpawnTimer as Timer
 onready var mousePointerArea = $MousePointerArea as ObjectArea
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _ready():
 	CONFIG.context.set_world(self)
 	player_base_hp = player_base_max_hp
-	
-	UTILS.bind(
-		spawnTimer, "timeout",
-		self, "_on_SpawnTimer_timeout"
-	)
-	
+
+#signal encounter_completed()
+	if encounter:
+		UTILS.bind(
+			encounter, "enemy_summoned",
+			self, "spawn_enemy"
+		)
+
+		UTILS.bind(
+			encounter, "wave_ended",
+			self, "_on_wave_ended"
+		)
+
+		UTILS.bind(
+			spawnTimer, "timeout",
+			self, "_on_spawn_timer_timeout"
+		)
+
 	for mat in material_pool.get_materials():
 		call_deferred("emit_signal",
 				"material_collected",
@@ -70,16 +88,20 @@ func _ready():
 func _physics_process(_delta):
 	mousePointerArea.global_position = get_global_mouse_position()
 
-	if Input.is_action_just_pressed("ui_up"):
-		spawn_enemy()
-
-
 	for i in range(1, 4):
 		if Input.is_action_just_pressed("%s" % [i]):
 			spawn_enemy(i-1)
 
 
 ### PUBLIC FUNCTIONS ###
+func start_next_wave() -> void:
+#	yield(get_tree().create_timer(1.0), "timeout")
+	encounter.start_wave(_current_wave)
+	_current_wave += 1
+
+	spawnTimer.start(rand_range(MIN_SPAWN_DELAY, MAX_SPAWN_DELAY))
+
+
 func spawn_unit(unit : Unit) -> void:
 	var lane = _get_random_spawn_idx()
 	units.add_child(unit)
@@ -92,11 +114,11 @@ func spawn_unit(unit : Unit) -> void:
 	)
 
 
-func spawn_enemy(lane = null) -> void:
+func spawn_enemy(enemy_data, lane = null) -> void:
 	LOG.pr(1, "Spawning Enemy")
 	var enemy = EnemyUnitPrefab.instance()
 	units.add_child(enemy)
-	enemy.init_with_data(_get_random_enemy_data())
+	enemy.init_with_data(enemy_data)
 
 	if lane == null:
 		lane = _get_random_spawn_idx()
@@ -155,11 +177,6 @@ func _get_random_spawn_idx() -> Vector2:
 ### SIGNAL RESPONSES ###
 
 
-func _on_SpawnTimer_timeout():
-	spawn_enemy()
-	spawnTimer.start(4.0)
-
-
 func _on_unit_selected(unit):
 	emit_signal("unit_selected", unit)
 
@@ -172,3 +189,11 @@ func _on_enemy_died(enemy):
 func _on_mat_hovered(mat):
 	emit_signal("material_collected", mat.get_mat(), mat.get_count())
 
+
+func _on_wave_ended(_wave_idx):
+	emit_signal("wave_completed")
+
+
+func _on_spawn_timer_timeout() -> void:
+	encounter.request_spawn_enemy()
+	spawnTimer.start(rand_range(MIN_SPAWN_DELAY, MAX_SPAWN_DELAY))

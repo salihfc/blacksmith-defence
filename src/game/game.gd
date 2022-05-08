@@ -20,6 +20,7 @@ export(NodePath) var NodepathBattle
 export(NodePath) var NodepathMaterialList
 export(NodePath) var NodepathUnitList
 export(NodePath) var NodepathDebugWindow
+export(NodePath) var NodepathStartButton
 
 export(Resource) var unit_data_pool = null
 ### PUBLIC VAR ###
@@ -33,6 +34,7 @@ onready var battle = get_node(NodepathBattle)
 onready var materialList = get_node(NodepathMaterialList)
 onready var unitList = get_node(NodepathUnitList)
 onready var debugWindow = get_node(NodepathDebugWindow) as DebugWindow
+onready var startWaveButton = get_node(NodepathStartButton)
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _input(event):
@@ -47,14 +49,25 @@ func _input(event):
 func _ready():
 	
 	UTILS.bind(
+		startWaveButton, "pressed",
+		self, "_on_wave_start_button_pressed"
+	)
+	
+	UTILS.bind(
 		battle, "unit_selected",
 		self, "_on_unit_selected"
 	)
 	
 	UTILS.bind(
+		battle, "wave_completed",
+		self, "_on_wave_completed"
+	)
+
+	UTILS.bind(
 		battle, "material_collected",
 		materialList, "_on_material_collected"
 	)
+
 
 	UTILS.bind(
 		self, "material_used",
@@ -98,3 +111,12 @@ func _on_unit_view_pressed(unit_data : UnitData) -> void:
 
 func _on_unit_selected(unit) -> void:
 	debugWindow.display_unit(unit)
+
+
+func _on_wave_start_button_pressed() -> void:
+	battle.start_next_wave()
+	startWaveButton.hide()
+
+
+func _on_wave_completed() -> void:
+	startWaveButton.show()
