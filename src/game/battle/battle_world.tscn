@@ -124,7 +124,6 @@ script = ExtResource( 1 )
 enemy_pool = ExtResource( 6 )
 material_pool = ExtResource( 7 )
 encounter = ExtResource( 8 )
-player_base_max_hp = 100.0
 
 [node name="BG" type="Sprite" parent="."]
 texture = SubResource( 2 )
@@ -157,19 +156,19 @@ __meta__ = {
 }
 
 [node name="Position2D" type="Position2D" parent="SpawnPositions"]
-position = Vector2( 785, 149 )
+position = Vector2( 415, 149 )
 __meta__ = {
 "_gizmo_extents_": 20.0
 }
 
 [node name="Position2D2" type="Position2D" parent="SpawnPositions"]
-position = Vector2( 785, 423 )
+position = Vector2( 415, 423 )
 __meta__ = {
 "_gizmo_extents_": 20.0
 }
 
 [node name="Position2D3" type="Position2D" parent="SpawnPositions"]
-position = Vector2( 785, 659 )
+position = Vector2( 415, 659 )
 __meta__ = {
 "_gizmo_extents_": 20.0
 }

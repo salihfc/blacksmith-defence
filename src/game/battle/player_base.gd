@@ -6,7 +6,7 @@ class_name PlayerBase
 """
 
 ### SIGNAL ###
-
+signal base_taken_damage(damage)
 
 ### ENUM ###
 
@@ -41,6 +41,7 @@ func _ready():
 ### PUBLIC FUNCTIONS ###
 func take_damage(_damage : Damage) -> void:
 	LOG.pr(3, "[%s] taking %s" % [self, _damage])
+	emit_signal("base_taken_damage", _damage)
 
 
 ### PRIVATE FUNCTIONS ###

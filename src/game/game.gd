@@ -20,8 +20,10 @@ export(NodePath) var NodepathMaterialList
 export(NodePath) var NodepathUnitList
 export(NodePath) var NodepathDebugWindow
 export(NodePath) var NodepathStartButton
+export(NodePath) var NodepathBaseHealthBar
 
 export(Resource) var unit_data_pool = null
+export(Resource) var player_base = null
 ### PUBLIC VAR ###
 
 
@@ -34,6 +36,7 @@ onready var materialList = get_node(NodepathMaterialList)
 onready var unitList = get_node(NodepathUnitList)
 onready var debugWindow = get_node(NodepathDebugWindow) as DebugWindow
 onready var startWaveButton = get_node(NodepathStartButton)
+onready var baseHealthBar = get_node(NodepathBaseHealthBar)
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _input(event):
@@ -47,24 +50,35 @@ func _input(event):
 
 func _ready():
 	
+	if player_base:
+		player_base.init()
+		UTILS.bind(
+			player_base, "player_main_base_destroyed",
+			self, "_on_player_main_base_destroyed"
+		)
+		
+		UTILS.bind(
+			player_base, "hp_updated",
+			baseHealthBar, "set_hp_value"
+		)
+	
 	UTILS.bind(
 		startWaveButton, "pressed",
 		self, "_on_wave_start_button_pressed"
 	)
 	
-	UTILS.bind(
-		battle, "unit_selected",
-		self, "_on_unit_selected"
+	UTILS.bind_bulk(
+		battle, self,
+		[
+			["unit_selected", "_on_unit_selected"],
+			["unit_spawned", "_on_unit_spawned"],
+			["wave_completed", "_on_wave_completed"],
+		]
 	)
 	
 	UTILS.bind(
-		battle, "unit_spawned",
-		self, "_on_unit_spawned"
-	)
-	
-	UTILS.bind(
-		battle, "wave_completed",
-		self, "_on_wave_completed"
+		battle, "base_damaged",
+		player_base, "take_damage"
 	)
 
 	UTILS.bind(
@@ -123,3 +137,7 @@ func _on_wave_start_button_pressed() -> void:
 
 func _on_wave_completed() -> void:
 	startWaveButton.show()
+
+
+func _on_player_main_base_destroyed() -> void:
+	LOG.pr(3, "PLAYER LOST")

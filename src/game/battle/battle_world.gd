@@ -5,9 +5,8 @@ extends Node2D
 """
 
 ### SIGNAL ###
-#signal base_hp_updated(hp, max_hp)
+signal base_damaged(damage)
 signal wave_completed()
-signal player_base_destroyed()
 signal unit_selected(unit)
 signal unit_spawned(unit)
 signal material_collected(mat, count)
@@ -28,10 +27,7 @@ export(Resource) var enemy_pool = null
 export(Resource) var material_pool = null
 export(Resource) var encounter = null
 
-export(float) var player_base_max_hp
-
 ### PUBLIC VAR ###
-var player_base_hp
 
 ### PRIVATE VAR ###
 var _current_wave = 0
@@ -74,7 +70,12 @@ func _ready():
 	)
 
 	CONFIG.context.set_world(self)
-	player_base_hp = player_base_max_hp
+
+	for base in playerBase.get_children():
+		UTILS.bind(
+			base, "base_taken_damage",
+			self, "damage_base"
+		)
 
 
 #signal encounter_completed()
@@ -153,6 +154,8 @@ func spawn_unit(unit_data : UnitData, pos : Vector2 ) -> void:
 
 
 func spawn_enemy(enemy_data, lane = null) -> void:
+	if enemy_data == null:
+		return
 	LOG.pr(1, "Spawning Enemy")
 	var enemy = EnemyUnitPrefab.instance()
 	units.add_child(enemy)
@@ -191,12 +194,9 @@ func spawn_random_mat(spawn_pos) -> void:
 	)
 
 
-func damage_base(damage_amount : float) -> void:
-	player_base_hp -= damage_amount
-	if player_base_hp <= 0.0:
-		emit_signal("player_base_destroyed")
-#	else:                
-#		emit_signal("base_hp_updated", player_base_hp, player_base_max_hp)
+func damage_base(damage : Damage) -> void:
+	emit_signal("base_damaged", damage)
+
 
 
 func set_dragged_item(drag_item_data) -> void:
@@ -244,6 +244,7 @@ func _on_unit_selected(unit):
 func _on_enemy_died(enemy):
 	# spawn random materials
 	spawn_random_mat(enemy.global_position)
+	VFX.generate_fx_at(VFX.FX.BLOOD_EXPLOSION_PARTICLES, enemy.global_position)
 
 
 func _on_mat_hovered(mat):

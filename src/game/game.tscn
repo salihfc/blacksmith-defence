@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://my_theme.theme" type="Theme" id=1]
 [ext_resource path="res://src/debug/debug_window.tscn" type="PackedScene" id=2]
@@ -7,6 +7,8 @@
 [ext_resource path="res://src/ui/material_list.gd" type="Script" id=5]
 [ext_resource path="res://tres/units/pools/player_pool.tres" type="Resource" id=6]
 [ext_resource path="res://src/ui/fps_display.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/ui/base_hp_bar.tscn" type="PackedScene" id=8]
+[ext_resource path="res://tres/default_player_base.tres" type="Resource" id=9]
 
 [sub_resource type="Environment" id=4]
 background_mode = 4
@@ -34,7 +36,9 @@ NodepathMaterialList = NodePath("PanelContainer/HBoxContainer/PanelContainer/VBo
 NodepathUnitList = NodePath("PanelContainer/HBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/UnitList")
 NodepathDebugWindow = NodePath("PanelContainer/HBoxContainer/DebugWindow")
 NodepathStartButton = NodePath("StartWaveButton")
+NodepathBaseHealthBar = NodePath("PanelContainer/HBoxContainer/BaseHealthBar")
 unit_data_pool = ExtResource( 6 )
+player_base = ExtResource( 9 )
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchor_right = 1.0
@@ -57,18 +61,18 @@ __meta__ = {
 visible = false
 
 [node name="PanelContainer" type="PanelContainer" parent="PanelContainer/HBoxContainer"]
-margin_right = 600.0
+margin_right = 541.0
 margin_bottom = 868.0
 size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer/PanelContainer"]
 margin_left = 16.0
 margin_top = 16.0
-margin_right = 584.0
+margin_right = 525.0
 margin_bottom = 852.0
 
 [node name="MaterialList" type="HBoxContainer" parent="PanelContainer/HBoxContainer/PanelContainer/VBoxContainer"]
-margin_right = 568.0
+margin_right = 509.0
 margin_bottom = 75.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.1
@@ -77,7 +81,7 @@ script = ExtResource( 5 )
 
 [node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/HBoxContainer/PanelContainer/VBoxContainer"]
 margin_top = 79.0
-margin_right = 568.0
+margin_right = 509.0
 margin_bottom = 836.0
 size_flags_vertical = 3
 follow_focus = true
@@ -85,10 +89,16 @@ scroll_horizontal_enabled = false
 
 [node name="UnitList" type="VBoxContainer" parent="PanelContainer/HBoxContainer/PanelContainer/VBoxContainer/ScrollContainer"]
 margin_left = 4.0
-margin_right = 564.0
+margin_right = 505.0
 margin_bottom = 757.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="BaseHealthBar" parent="PanelContainer/HBoxContainer" instance=ExtResource( 8 )]
+margin_left = 545.0
+margin_right = 600.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
 
 [node name="Control" type="ViewportContainer" parent="PanelContainer/HBoxContainer"]
 margin_left = 604.0

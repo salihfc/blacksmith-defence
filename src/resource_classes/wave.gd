@@ -16,6 +16,9 @@ export(Array, Resource) var enemies = []
 ### VIRTUAL FUNCTIONS (_init ...) ###
 ### PUBLIC FUNCTIONS ###
 func pop():
+	if enemies.empty():
+		return null
+	
 	enemies.shuffle()
 	var enemy = enemies.back()
 	enemies.pop_back()

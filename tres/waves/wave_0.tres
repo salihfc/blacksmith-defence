@@ -6,5 +6,6 @@
 [ext_resource path="res://tres/units/enemy_units/tank_enemy_unit_data.tres" type="Resource" id=4]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource( 1 )
 enemies = [ ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ) ]

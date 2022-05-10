@@ -107,7 +107,8 @@ func get_damage():
 
 func _deal_damage(entity) -> void:
 	assert(entity.has_method("take_damage"))
-	entity.take_damage(get_damage())
+	var knockback_strength = 40.0
+	entity.take_damage(get_damage(), global_position.direction_to(entity.global_position) * knockback_strength)
 	
 
 ### SIGNAL RESPONSES ###
@@ -119,7 +120,12 @@ func _on_HitBox_area_entered(area):
 	LOG.pr(3, "Hitbox entered %s" % [area.get_owner()])
 	_deal_damage(area.get_owner())
 	
+	var spawn_pos = global_position
+	
+	# Random displacement
+	spawn_pos += UTILS.random_unit_vec2() * 10.0
+	
 	if _id == TYPE.RAPIER:
-		VFX.generate_fx_at(VFX.THRUST_HIT_PARTICLES, global_position)
+		VFX.generate_fx_at(VFX.FX.THRUST_HIT_PARTICLES, spawn_pos)
 	elif _id == TYPE.SWORD:
-		VFX.generate_fx_at(VFX.SWING_HIT_PARTICLES, global_position)
+		VFX.generate_fx_at(VFX.FX.SWING_HIT_PARTICLES, spawn_pos)

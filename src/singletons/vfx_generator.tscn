@@ -1,11 +1,13 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/singletons/vfx_generator.gd" type="Script" id=1]
 [ext_resource path="res://src/game/vfx/vfx_swing_hit.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/game/vfx/vfx_thrust_hit.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/game/vfx/vfx_blood.tscn" type="PackedScene" id=4]
 
 [node name="VFXGenerator" type="Node2D"]
 z_index = 10
 script = ExtResource( 1 )
 VFX_SWING_HIT = ExtResource( 2 )
 VFX_THRUST_HIT = ExtResource( 3 )
+VFX_BLOOD = ExtResource( 4 )

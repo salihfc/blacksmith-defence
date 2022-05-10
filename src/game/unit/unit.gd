@@ -191,7 +191,9 @@ func set_direction() -> void:
 
 
 func apply_impulse(impulse : Vector2) -> void:
+	# Disable y knockback
 	impulse.y = 0.0
+	
 	_knockback += impulse
 
 

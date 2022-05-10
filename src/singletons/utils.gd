@@ -40,6 +40,19 @@ func bind(
 				[source_node, signal_name, target_node, method_name])
 
 
+func bind_bulk(
+		source_node : Object, target_node : Object,
+		signal_method_bind_arr : Array = []) -> void:
+
+	for signal_method_bind in signal_method_bind_arr:
+		var signal_name = signal_method_bind[0]
+		var method_name = signal_method_bind[1]
+		var binds = []
+		if signal_method_bind.size() > 2:
+			binds = signal_method_bind[2]
+		bind(source_node, signal_name, target_node, method_name, binds)
+
+
 func eval(expression_string, param_names, param_values):
 	var expression = Expression.new()
 	expression.parse(expression_string, param_names)
@@ -97,3 +110,7 @@ func flatten_array(arr : Array):
 			new_arr.append_array(flatten_array(item))
 		new_arr.append(item)
 	return new_arr
+
+
+func get_enum_string_from_id(enum_ref, id) -> String:
+	return enum_ref.keys()[id]
