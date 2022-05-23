@@ -34,6 +34,8 @@ export(float) var damage_multi	= 1.0
 
 export(Resource) var weapon
 
+export(Array, Resource) var spells
+
 #
 export(Resource) var enchancements = MaterialStorage.new()
 

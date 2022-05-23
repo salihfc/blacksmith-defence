@@ -62,6 +62,7 @@ onready var stateLabel = $DEBUG/StateLabel
 onready var animPlayer = $AnimationPlayer as AnimationPlayer
 onready var hpBar = $HpBar as Control
 onready var weaponSlot = $SpriteParent/WeaponSlot as Node2D
+onready var spellSlot = $SpriteParent/SpellSlot as Node2D
 
 # Areas
 onready var body : ObjectArea = $SpriteParent/Areas/Body as ObjectArea

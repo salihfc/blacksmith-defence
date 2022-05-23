@@ -37,8 +37,12 @@ func init_with_data(unit_data : UnitData) -> void:
 		new_weapon.init_with_data(unit_data.weapon)
 		new_weapon.set_animation_speed(unit_data.atk_speed)
 
-	elif unit_data.weapon is PackedScene:
-		_set_weapon(unit_data.weapon.instance())
+	if unit_data.spells:
+		for spell_scene in unit_data.spells:
+			spellSlot.add_child(spell_scene.instance())
+
+#	elif unit_data.weapon is PackedScene:
+#		_set_weapon(unit_data.weapon.instance())
 
 
 	if unit_data.attack_range:
@@ -87,3 +91,5 @@ func _set_area_layer_and_masks() -> void:
 ### SIGNAL RESPONSES ###
 func _on_weapon_attack_frame(_damage) -> void:
 	attack()
+	for spell in spellSlot.get_children():
+		spell.cast()

@@ -14,4 +14,6 @@ resist_water = 0.0
 resist_earth = 0.0
 move_speed = 2.0
 atk_speed = 1.0
+attack_range = 24.0
 damage_multi = 0.1
+spells = [  ]

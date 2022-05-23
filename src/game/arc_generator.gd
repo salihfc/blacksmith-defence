@@ -21,7 +21,7 @@ export(Resource) var damage = Damage.new(Damage.TYPE.LIGHTNING, 10.0)
 
 
 # Sends a wave of arc through targets
-func strike(
+func cast(
 		starting_point : Vector2 = self.global_position,
 		possible_targets : Array = get_possible_targets(),
 		max_targets : int = get_target_count()

@@ -15,6 +15,7 @@ enum TYPE {
 	SWORD = 0,
 	RAPIER = 1,
 	
+	WAND = 2,
 }
 ### <-- TEMP
 
@@ -24,7 +25,6 @@ enum ANIM {
 	SWING,
 	SLAM,
 	THRUST,
-
 }
 
 ### CONST ###
@@ -66,6 +66,7 @@ func init_with_data(weapon_data : WeaponData) -> void:
 	if weapon_data.thrust_anim:
 		animPlayer.add_animation("thrust", weapon_data.thrust_anim)
 
+
 	# PHYSICS
 	collisionShape.shape = weapon_data.collision_shape
 	collisionShape.position = weapon_data.collision_shape_offset
@@ -81,6 +82,12 @@ func strike() -> void:
 			animate(ANIM.SWING)
 		TYPE.RAPIER:
 			animate(ANIM.THRUST)
+		
+		TYPE.WAND:
+			animate(ANIM.SWING)
+
+		_:
+			assert(0)
 
 
 func animate(anim_id) -> void:

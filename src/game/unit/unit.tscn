@@ -111,6 +111,9 @@ shape = SubResource( 5 )
 [node name="WeaponSlot" type="Node2D" parent="SpriteParent"]
 position = Vector2( 0, -14 )
 
+[node name="SpellSlot" type="Node2D" parent="SpriteParent"]
+position = Vector2( 0, -14 )
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/attack = SubResource( 6 )
 anims/idle = SubResource( 7 )
