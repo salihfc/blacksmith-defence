@@ -79,7 +79,7 @@ offset = Vector2( 0, -11.5 )
 [node name="Light2D" type="Light2D" parent="Sprite7"]
 position = Vector2( -0.5, -9 )
 texture = ExtResource( 3 )
-texture_scale = 4.0
+texture_scale = 5.0
 mode = 2
 range_height = 32.0
 shadow_enabled = true

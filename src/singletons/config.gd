@@ -1,6 +1,16 @@
 extends Node
 
+# ConstExprs
+const ENEMY_GROUP = "enemy"
+
+
+# Debug Settings
 const SPAWN_ENEMIES = false
+const SHOW_AI_STATE = false
+const SHOW_HP_BARS = false
+
+
+# Vars
 onready var context = Context.new()
 
 

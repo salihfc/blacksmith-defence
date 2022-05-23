@@ -24,10 +24,10 @@ func _ready():
 func emit(emit := true) -> void:
 	$Particles2D.emitting = emit
 	
-#	if auto_free:
-#		$Timer.start(destroy_after)
-#	else:
-#		$Timer.start(450)
+	if auto_free:
+		$Timer.start(destroy_after)
+	else:
+		$Timer.start(450)
 
 
 func is_emitting() -> bool:

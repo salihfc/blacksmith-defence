@@ -29,6 +29,7 @@ export(float) var resist_earth	= 0.0
 
 export(float) var move_speed	= 1.0	# pixel/second
 export(float) var atk_speed		= 1.0	# attacks per second
+export(float) var attack_range	= 24.0
 export(float) var damage_multi	= 1.0
 
 export(Resource) var weapon

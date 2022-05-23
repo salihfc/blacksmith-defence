@@ -89,6 +89,7 @@ owner_path = NodePath("../../..")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SpriteParent/Areas/Body"]
 
 [node name="AttackRange" type="Area2D" parent="SpriteParent/Areas"]
+visible = false
 collision_layer = 0
 collision_mask = 0
 script = ExtResource( 5 )

@@ -80,6 +80,8 @@ func _ready():
 	set_velocity(get_default_dir() * BASE_SPEED)
 	call_deferred("decide")
 
+	stateLabel.visible = CONFIG.SHOW_AI_STATE
+
 
 func _process(_delta):
 # TEMPORARY FOR DEBUGGING PURPOSES
@@ -230,8 +232,9 @@ func take_damage(_damage : Damage, pulse := Vector2.ZERO) -> void:
 		emit_signal("died")
 		queue_free()
 	else:
-		hpBar.visible = (get_hp_perc() < 1.0)
-		hpBar.set_value(get_hp_perc())
+		if CONFIG.SHOW_HP_BARS:
+			hpBar.visible = (get_hp_perc() < 1.0)
+			hpBar.set_value(get_hp_perc())
 
 
 func set_shader_param_damage_flash_anim(x : float) -> void:

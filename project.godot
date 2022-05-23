@@ -195,10 +195,12 @@ TWEEN="*res://src/singletons/tween_manager.tscn"
 IAUS="*res://src/singletons/iaus_config.gd"
 FORMULA="*res://src/singletons/formula.gd"
 VFX="*res://src/singletons/vfx_generator.tscn"
+AUDIO="*res://src/singletons/audio_manager.tscn"
 
 [debug]
 
 gdscript/warnings/treat_warnings_as_errors=true
+gdscript/warnings/unused_signal=false
 
 [display]
 

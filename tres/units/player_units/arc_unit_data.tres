@@ -1,7 +1,7 @@
 [gd_resource type="Resource" load_steps=6 format=2]
 
-[ext_resource path="res://tres/atlas_tex/unit_default_sprite.atlastex" type="Texture" id=1]
-[ext_resource path="res://tres/units/weapons/sword.tres" type="Resource" id=2]
+[ext_resource path="res://tres/atlas_tex/wizard_0.atlastex" type="Texture" id=1]
+[ext_resource path="res://src/game/arc_generator.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/resource_classes/unit_data.gd" type="Script" id=3]
 [ext_resource path="res://src/resource_classes/material_storage.gd" type="Script" id=4]
 
@@ -13,16 +13,16 @@ Resource( "res://tres/materials/material_iron.tres" ): 2
 
 [resource]
 script = ExtResource( 3 )
-name = "Default_Unit"
+name = "Arc Wizard Unit"
 texture = ExtResource( 1 )
 cost = SubResource( 1 )
-max_hp = 100.0
+max_hp = 60.0
 resist_phys = 0.0
 resist_fire = 0.0
 resist_water = 0.0
 resist_earth = 0.0
-move_speed = 1.0
+move_speed = 0.6
 atk_speed = 1.0
-attack_range = 24.0
-damage_multi = 1.0
+attack_range = 150.0
+damage_multi = 1.5
 weapon = ExtResource( 2 )

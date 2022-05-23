@@ -3,7 +3,10 @@ extends Node
 onready var BGMplayer  = get_node("BGMPlayer")
 onready var SFXplayers = get_node("SFXPlayers")
 
+export(AudioStream) var BGM
 export(int) var sfx_player_count := 8
+export(float) var default_bgm_volume = 0.0
+export(float) var default_sfx_volume = 0.0
 
 const MIN_VOLUME := 0.0
 const MAX_VOLUME := 100.0
@@ -17,7 +20,7 @@ const SFX_start = {
 const SFX_array = [
 ]
 
-var bgm_on = true
+var bgm_on = false
 var bgm_linear = 50
 
 var sfx_on = true
@@ -29,13 +32,14 @@ func _ready() -> void:
 	LOG.pr(3, "READY", "AUDIO")
 	set_sfx_player_count(sfx_player_count)
 
-#	BGMplayer.stream = AudioStreamRandomPitch.new()
-#	BGMplayer.stream.audio_stream = BGM
+	BGMplayer.stream = AudioStreamRandomPitch.new()
+	BGMplayer.stream.audio_stream = BGM
 
-	set_sfx_volume(0)
-	set_bgm_volume(0)
+	set_sfx_volume(default_sfx_volume)
+	set_bgm_volume(default_bgm_volume)
 
-#	BGMplayer.play()
+	if bgm_on:
+		BGMplayer.play()
 
 
 

@@ -15,6 +15,7 @@ enum TYPE {
 	FIRE,
 	WATER,
 	EARTH,
+	LIGHTNING,
 	
 	COUNT,
 }
@@ -25,6 +26,7 @@ const TYPE_NAMES = {
 	TYPE.FIRE : "FIRE",
 	TYPE.WATER : "WATER",
 	TYPE.EARTH : "EARTH",
+	TYPE.LIGHTNING: "LIGHTNING",
 }
 
 ### EXPORT ###

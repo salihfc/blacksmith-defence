@@ -12,9 +12,22 @@ const PrefabMaterialView = preload("res://src/ui/material_view.tscn")
 ### PUBLIC VAR ###
 ### PRIVATE VAR ###
 ### ONREADY VAR ###
-onready var unitTexture = $HBoxContainer/UnitTexture as TextureRect
-onready var costList = $HBoxContainer/CostList as HBoxContainer
+onready var unitTexture = $PanelContainer/HBoxContainer/UnitTexture as TextureRect
+onready var baseCostList = $PanelContainer/HBoxContainer/CostList/BaseCostList as HBoxContainer
+onready var acceptButton = $PanelContainer/HBoxContainer/Buttons/VBoxContainer/Accept as TextureButton
+onready var discardButton = $PanelContainer/HBoxContainer/Buttons/VBoxContainer/Discard as TextureButton
 ### VIRTUAL FUNCTIONS (_init ...) ###
+
+func _ready() -> void:
+	UTILS.bind(
+		acceptButton, "pressed",
+		self, "_on_accept_button_pressed"
+	)
+
+	UTILS.bind(
+		discardButton, "pressed",
+		self, "_on_discard_button_pressed"
+	)
 
 
 ### PUBLIC FUNCTIONS ###
@@ -24,7 +37,14 @@ func set_data(unit_data : UnitData) -> void:
 	for mat in materials.keys():
 		var count = materials[mat]
 		var material_view = PrefabMaterialView.instance()
-		costList.add_child(material_view)
+		baseCostList.add_child(material_view)
 		material_view.set_data(mat, count)
 ### PRIVATE FUNCTIONS ###
 ### SIGNAL RESPONSES ###
+
+
+func _on_accept_button_pressed():
+	pass
+
+func _on_discard_button_pressed():
+	pass

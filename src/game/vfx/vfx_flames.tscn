@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://src/game/vfx/vfx_base.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/gfx/common/light_32x32.png" type="Texture" id=2]
+
+[sub_resource type="Gradient" id=2]
+offsets = PoolRealArray( 0, 0.13253, 0.669535, 1 )
+colors = PoolColorArray( 1, 1, 1, 0, 0.937255, 0.858824, 0.0823529, 1, 0.941176, 0.513726, 0.152941, 1, 0.941176, 0.513726, 0.152941, 0 )
+
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
+
+[sub_resource type="Curve" id=4]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.405682 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=5]
+curve = SubResource( 4 )
+
+[sub_resource type="ParticlesMaterial" id=1]
+lifetime_randomness = 0.1
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+spread = 5.0
+gravity = Vector3( 0, 20, 0 )
+initial_velocity = 20.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 0.3
+scale_random = 0.1
+scale_curve = SubResource( 5 )
+color = Color( 1, 0.611765, 0.537255, 1 )
+color_ramp = SubResource( 3 )
+
+[node name="VFXFlames" instance=ExtResource( 1 )]
+scale = Vector2( 1, 1 )
+
+[node name="Particles2D" parent="." index="0"]
+amount = 64
+randomness = 0.1
+visibility_rect = Rect2( -11.424, -29.4756, 23.0727, 31.2877 )
+local_coords = false
+process_material = SubResource( 1 )
+texture = ExtResource( 2 )

@@ -31,19 +31,18 @@ const RETARGET_MID_ANIMATION = true
 func init_with_data(unit_data : UnitData) -> void:
 	.init_with_data(unit_data)
 	
-	if unit_data.weapon:
-		UTILS.clear_children(weaponSlot)
+	if unit_data.weapon is WeaponData:
 		var new_weapon = PrefabWeapon.instance()
-		weaponSlot.add_child(new_weapon)
+		_set_weapon(new_weapon)
 		new_weapon.init_with_data(unit_data.weapon)
 		new_weapon.set_animation_speed(unit_data.atk_speed)
-		
-		UTILS.bind(
-			new_weapon, "damage_frame",
-			self, "_on_weapon_attack_frame"
-		)
-		
-		new_weapon.set_damage(get_damage())
+
+	elif unit_data.weapon is PackedScene:
+		_set_weapon(unit_data.weapon.instance())
+
+
+	if unit_data.attack_range:
+		attackRange.set_radius(unit_data.attack_range)
 
 
 ### PUBLIC FUNCTIONS ###
@@ -65,6 +64,21 @@ func attack() -> void:
 
 
 ### PRIVATE FUNCTIONS ###
+func _set_weapon(weapon : Node) -> void:
+	UTILS.clear_children(weaponSlot)
+	UTILS.bind(
+		weapon, "damage_frame",
+		self, "_on_weapon_attack_frame"
+	)
+
+	weaponSlot.add_child(weapon)
+	
+	if weapon.has_method("set_damage"):
+		weapon.set_damage(get_damage())
+	else:
+		LOG.pr(4, "Cannot set weapon damage [%s -> %s]" % [self, weapon])
+
+
 func _set_area_layer_and_masks() -> void:
 	body.collision_layer = COLLISION.PLAYER
 	attackRange.collision_mask = COLLISION.ENEMY

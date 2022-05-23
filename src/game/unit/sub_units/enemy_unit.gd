@@ -30,6 +30,7 @@ class_name EnemyUnit
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _ready():
+	add_to_group(CONFIG.ENEMY_GROUP)
 	default_state = STATE.WALK
 
 
