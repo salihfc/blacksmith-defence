@@ -227,7 +227,7 @@ func _get_random_enemy_data():
 
 
 func _get_lane_spawn_pos(lane) -> Vector2:
-	return spawnPositions.get_children()[lane].position
+	return spawnPositions.get_children()[lane].position + Vector2.UP * rand_range(-1.0, 1.0) * 40.0
 
 
 func _get_random_spawn_idx() -> Vector2:

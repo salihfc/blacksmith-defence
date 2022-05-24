@@ -20,6 +20,7 @@ export(String) var name = "weapon"
 export(Texture) var texture = null
 export(float) var base_damage = 20.0
 
+export(Animation) var idle_anim
 export(Animation) var hold_anim
 export(Animation) var swing_anim
 export(Animation) var slam_anim

@@ -29,8 +29,7 @@ shader_param/damage_taken_color = Color( 1, 0.223529, 0.223529, 1 )
 shader_param/damage_flash_anim = 0.0
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 20.0
-height = 22.0
+height = 8.0
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 14.0
@@ -61,8 +60,10 @@ material = SubResource( 10 )
 [node name="Body" parent="SpriteParent/Areas" index="0"]
 visible = true
 collision_layer = 16
+collision_mask = 4
 
 [node name="CollisionShape2D" parent="SpriteParent/Areas/Body" index="0"]
+position = Vector2( 0, 1 )
 shape = SubResource( 1 )
 
 [node name="AttackRange" parent="SpriteParent/Areas" index="1"]

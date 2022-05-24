@@ -27,6 +27,9 @@ enum STATE {
 }
 
 ### CONST ###
+const MAX_SOFTBODY_CALC = 5
+const COLLISION_PUSH = 10.0
+
 const KNOCKBACK_DAMPING = 0.9
 const BASE_SPEED = 100.0
 const BASE_DAMAGE = 20.0
@@ -65,6 +68,7 @@ onready var weaponSlot = $SpriteParent/WeaponSlot as Node2D
 onready var spellSlot = $SpriteParent/SpellSlot as Node2D
 
 # Areas
+onready var softBody : ObjectArea = $SpriteParent/Areas/SoftBody as ObjectArea
 onready var body : ObjectArea = $SpriteParent/Areas/Body as ObjectArea
 onready var attackRange : ObjectArea = $SpriteParent/Areas/AttackRange as ObjectArea 
 onready var dustEffect = $VFXGroundDust
@@ -100,6 +104,8 @@ func _physics_process(delta):
 			global_position += ((_velocity) + _knockback) * delta * _move_speed
 		_:
 			global_position += (_knockback) * delta
+
+	_collision_update()
 
 
 ### PUBLIC FUNCTIONS ###
@@ -266,6 +272,14 @@ func _select_target():
 
 func _set_area_layer_and_masks() -> void:
 	pass
+
+
+func _collision_update() -> void:
+	var objects_inside = UTILS.get_owners(softBody.get_overlapping_areas())
+	for i in range(min(MAX_SOFTBODY_CALC, objects_inside.size())):
+		var object = objects_inside[i]
+		var push_dir = global_position.direction_to(object.global_position)
+		apply_impulse(-push_dir * COLLISION_PUSH)
 
 
 ### SIGNAL RESPONSES ###

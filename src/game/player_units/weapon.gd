@@ -21,6 +21,7 @@ enum TYPE {
 
 
 enum ANIM {
+	IDLE,
 	HOLD,
 	SWING,
 	SLAM,
@@ -29,6 +30,7 @@ enum ANIM {
 
 ### CONST ###
 const ANIMS = {
+	ANIM.IDLE	: "idle",
 	ANIM.HOLD	: "hold",
 	ANIM.SWING	: "swing",
 	ANIM.SLAM	: "slam",
@@ -51,12 +53,18 @@ onready var animPlayer = $AnimationPlayer as AnimationPlayer
 onready var collisionShape = $Sprite/HitBox/CollisionShape2D as CollisionShape2D 
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
+func _ready() -> void:
+	if animPlayer.has_animation(get_anim(ANIM.IDLE)):
+		animPlayer.play(get_anim(ANIM.IDLE))
+
 # warning-ignore:unused_argument
 func init_with_data(weapon_data : WeaponData) -> void:
 	_id = weapon_data.id
 	sprite.texture = weapon_data.texture
 	# ANIM SETUP
 	
+	if weapon_data.idle_anim:
+		animPlayer.add_animation("idle", weapon_data.idle_anim)
 	if weapon_data.hold_anim:
 		animPlayer.add_animation("hold", weapon_data.hold_anim)
 	if weapon_data.swing_anim:
@@ -115,8 +123,12 @@ func get_damage():
 func _deal_damage(entity) -> void:
 	assert(entity.has_method("take_damage"))
 	var knockback_strength = 40.0
-	entity.take_damage(get_damage(), global_position.direction_to(entity.global_position) * knockback_strength)
-	
+	entity.take_damage(get_damage(), _get_knockback_dir() * knockback_strength)
+
+func _get_knockback_dir() -> Vector2:
+#	global_position.direction_to(entity.global_position)
+	return Vector2.RIGHT
+
 
 ### SIGNAL RESPONSES ###
 func _send_damage_frame() -> void:
@@ -136,3 +148,8 @@ func _on_HitBox_area_entered(area):
 		VFX.generate_fx_at(VFX.FX.THRUST_HIT_PARTICLES, spawn_pos)
 	elif _id == TYPE.SWORD:
 		VFX.generate_fx_at(VFX.FX.SWING_HIT_PARTICLES, spawn_pos)
+
+
+func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
+	if anim_name != get_anim(ANIM.IDLE) and animPlayer.has_animation(get_anim(ANIM.IDLE)):
+		animPlayer.play(get_anim(ANIM.IDLE))

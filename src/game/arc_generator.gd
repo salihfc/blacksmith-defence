@@ -27,7 +27,7 @@ func cast(
 		max_targets : int = get_target_count()
 	) -> void:
 
-	LOG.pr(3, "ARC ATTACK!!!")
+#	LOG.pr(3, "ARC ATTACK!!!"
  
 	global_position = starting_point
 	var end_points_targets = [self]

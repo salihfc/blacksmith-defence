@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://src/game/unit/unit.gd" type="Script" id=1]
 [ext_resource path="res://tres/atlas_tex/unit_default_sprite.atlastex" type="Texture" id=2]
@@ -30,6 +30,9 @@ resource_local_to_scene = true
 shader = SubResource( 9 )
 shader_param/damage_taken_color = Color( 1, 0.223529, 0.223529, 1 )
 shader_param/damage_flash_anim = 0.0
+
+[sub_resource type="CircleShape2D" id=11]
+radius = 8.0
 
 [sub_resource type="CapsuleShape2D" id=5]
 height = 12.0
@@ -75,6 +78,16 @@ position = Vector2( 0, -14 )
 __meta__ = {
 "_edit_group_": true
 }
+
+[node name="SoftBody" type="Area2D" parent="SpriteParent/Areas"]
+collision_layer = 1024
+collision_mask = 1024
+script = ExtResource( 5 )
+owner_path = NodePath("../../..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpriteParent/Areas/SoftBody"]
+position = Vector2( 0, 11 )
+shape = SubResource( 11 )
 
 [node name="Body" type="Area2D" parent="SpriteParent/Areas"]
 visible = false

@@ -1,8 +1,9 @@
-[gd_resource type="Resource" load_steps=5 format=2]
+[gd_resource type="Resource" load_steps=6 format=2]
 
 [ext_resource path="res://tres/atlas_tex/weapon_wand_arc.tres" type="Texture" id=1]
 [ext_resource path="res://src/resource_classes/weapon_data.gd" type="Script" id=2]
 [ext_resource path="res://tres/anim/weapon/weapon_strike_wand_swing.anim" type="Animation" id=3]
+[ext_resource path="res://tres/anim/weapon/weapon_idle_up.anim" type="Animation" id=4]
 [ext_resource path="res://tres/anim/weapon/weapon_hold_up.anim" type="Animation" id=5]
 
 [resource]
@@ -12,6 +13,7 @@ id = 2
 name = "wand"
 texture = ExtResource( 1 )
 base_damage = 30.0
+idle_anim = ExtResource( 4 )
 hold_anim = ExtResource( 5 )
 swing_anim = ExtResource( 3 )
 collision_shape_offset = Vector2( 0, 0 )
