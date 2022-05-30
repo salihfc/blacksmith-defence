@@ -8,7 +8,7 @@ const ENEMY_GROUP = "enemy"
 const SPAWN_ENEMIES = false
 const SHOW_AI_STATE = false
 const SHOW_HP_BARS = false
-
+const SHOW_FLOATING_DAMAGE_NUMBERS = true
 
 # Vars
 onready var context = Context.new()

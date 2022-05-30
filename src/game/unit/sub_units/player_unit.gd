@@ -45,9 +45,6 @@ func init_with_data(unit_data : UnitData) -> void:
 #		_set_weapon(unit_data.weapon.instance())
 
 
-	if unit_data.attack_range:
-		attackRange.set_radius(unit_data.attack_range)
-
 
 ### PUBLIC FUNCTIONS ###
 

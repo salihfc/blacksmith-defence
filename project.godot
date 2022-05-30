@@ -196,6 +196,7 @@ IAUS="*res://src/singletons/iaus_config.gd"
 FORMULA="*res://src/singletons/formula.gd"
 VFX="*res://src/singletons/vfx_generator.tscn"
 AUDIO="*res://src/singletons/audio_manager.tscn"
+FLOATING_TEXT="*res://src/singletons/floating_text_generator.tscn"
 
 [debug]
 

@@ -125,6 +125,7 @@ func _deal_damage(entity) -> void:
 	var knockback_strength = 40.0
 	entity.take_damage(get_damage(), _get_knockback_dir() * knockback_strength)
 
+
 func _get_knockback_dir() -> Vector2:
 #	global_position.direction_to(entity.global_position)
 	return Vector2.RIGHT

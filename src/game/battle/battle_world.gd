@@ -42,6 +42,7 @@ onready var spawnPositions = $SpawnPositions as Node2D
 onready var playerBase = $PlayerBase as Node2D
 onready var spawnTimer = $SpawnTimer as Timer
 onready var vfxContainer = $VFXContainer as Node2D
+onready var floatingTextContainer = $FloatingTextContainer as Node2D
 
 onready var units = $Units as Node2D
 onready var mousePointerArea = $MousePointerArea as ObjectArea
@@ -68,6 +69,10 @@ func _ready():
 		VFX, "vfx_created",
 		self, "_on_vfx_created"
 	)
+	UTILS.bind(
+		FLOATING_TEXT, "floating_text_created",
+		self, "_on_floating_text_created"
+	)
 
 	CONFIG.context.set_world(self)
 
@@ -82,7 +87,8 @@ func _ready():
 	if encounter:
 		UTILS.bind(
 			encounter, "enemy_summoned",
-			self, "spawn_enemy"
+			self, "spawn_enemy",
+			[_get_random_spawn_idx(), 2]
 		)
 
 		UTILS.bind(
@@ -153,7 +159,7 @@ func spawn_unit(unit_data : UnitData, pos : Vector2 ) -> void:
 	clear_dragged_item()
 
 
-func spawn_enemy(enemy_data, lane = null) -> void:
+func spawn_enemy(enemy_data, lane = null, ct : int = 1) -> void:
 	if enemy_data == null:
 		return
 	LOG.pr(1, "Spawning Enemy")
@@ -176,6 +182,9 @@ func spawn_enemy(enemy_data, lane = null) -> void:
 		self, "_on_enemy_died",
 		[enemy]
 	)
+	
+	if ct > 1:
+		spawn_enemy(enemy_data, null, ct-1)
 
 
 func spawn_random_mat(spawn_pos) -> void:
@@ -262,3 +271,7 @@ func _on_spawn_timer_timeout() -> void:
 
 func _on_vfx_created(vfx) -> void:
 	vfxContainer.add_child(vfx)
+
+
+func _on_floating_text_created(floating_text) -> void:
+	floatingTextContainer.add_child(floating_text)

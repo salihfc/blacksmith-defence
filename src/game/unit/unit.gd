@@ -88,6 +88,7 @@ func _ready():
 	stateLabel.visible = CONFIG.SHOW_AI_STATE
 
 
+
 func _process(_delta):
 # TEMPORARY FOR DEBUGGING PURPOSES
 	if Input.is_action_just_pressed("left_click"):
@@ -105,7 +106,7 @@ func _physics_process(delta):
 		_:
 			global_position += (_knockback) * delta
 
-	_collision_update()
+#	_collision_update()
 
 
 ### PUBLIC FUNCTIONS ###
@@ -129,6 +130,10 @@ func init_with_data(unit_data : UnitData) -> void:
 	# reference to sprite should be set in _ready
 	sprite.texture = unit_data.texture
 	sprite.offset.y = -sprite.texture.get_height() / 2.0
+
+	if unit_data.attack_range:
+		attackRange.set_radius(unit_data.attack_range)
+
 
 # Getters
 func get_info():
@@ -228,6 +233,10 @@ func take_damage(_damage : Damage, pulse := Vector2.ZERO) -> void:
 	var amount = calc_final_damage_amount(_damage)
 	LOG.pr(3, "%s taking %s -> %s" % [self, _damage, amount])
 	_hp -= amount
+	
+	if CONFIG.SHOW_FLOATING_DAMAGE_NUMBERS:
+		FLOATING_TEXT.generate(global_position, str(amount)).set_crit(randf() > 0.5)
+	
 	
 	TWEEN.interpolate_method_to_and_back(
 		self, "set_shader_param_damage_flash_anim",

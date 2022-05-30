@@ -264,5 +264,7 @@ scale = Vector2( 2, 2 )
 
 [node name="VFXContainer" type="Node2D" parent="."]
 
+[node name="FloatingTextContainer" type="Node2D" parent="."]
+
 [node name="SpawnTimer" type="Timer" parent="."]
 one_shot = true

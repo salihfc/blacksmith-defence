@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/singletons/floating_text_generator.gd" type="Script" id=1]
+[ext_resource path="res://src/ui/floating_text.tscn" type="PackedScene" id=2]
+
+[node name="FloatingTextGenerator" type="Node2D"]
+script = ExtResource( 1 )
+Prefab_FloatingText = ExtResource( 2 )
