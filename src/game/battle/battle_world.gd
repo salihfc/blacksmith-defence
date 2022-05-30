@@ -41,8 +41,8 @@ onready var gridTilemap = $BG/VisualTileMap as TileMap
 onready var spawnPositions = $SpawnPositions as Node2D
 onready var playerBase = $PlayerBase as Node2D
 onready var spawnTimer = $SpawnTimer as Timer
-onready var vfxContainer = $VFXContainer as Node2D
-onready var floatingTextContainer = $FloatingTextContainer as Node2D
+onready var vfxContainer = $Containers/VFXContainer as Node2D
+onready var floatingTextContainer = $Containers/FloatingTextContainer as Node2D
 
 onready var units = $Units as Node2D
 onready var mousePointerArea = $MousePointerArea as ObjectArea
@@ -88,7 +88,7 @@ func _ready():
 		UTILS.bind(
 			encounter, "enemy_summoned",
 			self, "spawn_enemy",
-			[_get_random_spawn_idx(), 2]
+			[_get_random_spawn_idx()]
 		)
 
 		UTILS.bind(
@@ -100,6 +100,7 @@ func _ready():
 			spawnTimer, "timeout",
 			self, "_on_spawn_timer_timeout"
 		)
+		
 
 	for mat in material_pool.get_materials():
 		call_deferred("emit_signal",
@@ -162,14 +163,16 @@ func spawn_unit(unit_data : UnitData, pos : Vector2 ) -> void:
 func spawn_enemy(enemy_data, lane = null, ct : int = 1) -> void:
 	if enemy_data == null:
 		return
-	LOG.pr(1, "Spawning Enemy")
 	var enemy = EnemyUnitPrefab.instance()
 	units.add_child(enemy)
 	enemy.init_with_data(enemy_data)
 
+	LOG.pr(1, "Spawning Enemy (%s)(%s)" % [enemy, enemy_data.calc_power()])
+
 	if lane == null:
 		lane = _get_random_spawn_idx()
 	enemy.position = _get_lane_spawn_pos(lane)
+
 
 	UTILS.bind(
 		enemy, "selected",
@@ -261,6 +264,7 @@ func _on_mat_hovered(mat):
 
 
 func _on_wave_ended(_wave_idx):
+	spawnTimer.stop()
 	emit_signal("wave_completed")
 
 

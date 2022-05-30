@@ -262,9 +262,11 @@ shape = SubResource( 3 )
 [node name="DraggedItemSlot" type="Node2D" parent="MousePointerArea"]
 scale = Vector2( 2, 2 )
 
-[node name="VFXContainer" type="Node2D" parent="."]
-
-[node name="FloatingTextContainer" type="Node2D" parent="."]
-
 [node name="SpawnTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="Containers" type="Node2D" parent="."]
+
+[node name="VFXContainer" type="Node2D" parent="Containers"]
+
+[node name="FloatingTextContainer" type="Node2D" parent="Containers"]

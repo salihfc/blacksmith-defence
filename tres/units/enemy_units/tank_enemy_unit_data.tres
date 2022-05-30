@@ -12,6 +12,7 @@ resist_phys = 40.0
 resist_fire = 20.0
 resist_water = 20.0
 resist_earth = 20.0
+base_damage = 20.0
 move_speed = 0.6
 atk_speed = 0.4
 attack_range = 24.0

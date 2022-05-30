@@ -27,6 +27,10 @@ func pop():
 	return enemy
 
 
+func add(unit_data : UnitData):
+	enemies.append(unit_data)
+
+
 func empty() -> bool:
 	return enemies.size() == 0
 ### PRIVATE FUNCTIONS ###

@@ -11,26 +11,30 @@ signal enemy_summoned(unit_data)
 ### ENUM ###
 ### CONST ###
 ### EXPORT ###
-export(Array, Resource) var waves = []
+export(int) var total_wave_count
+export(Resource) var wave_generator
 ### PUBLIC VAR ###
 ### PRIVATE VAR ###
-var _current_wave_idx
+var _waves_completed := 0
+var _current_wave
 ### ONREADY VAR ###
 ### VIRTUAL FUNCTIONS (_init ...) ###
 ### PUBLIC FUNCTIONS ###
-func start_wave(_wave_idx) -> void:
-	_current_wave_idx = _wave_idx
+func start_wave(wave_number) -> void:
+	if wave_number >= total_wave_count:
+		emit_signal("encounter_completed")
+		return
+	
+	_current_wave = wave_generator.generate_wave(wave_number, total_wave_count)
 
 
 func request_spawn_enemy() -> void:
 	LOG.pr(1, "Request spawn enemy")
-	if _current_wave_idx >= waves.size():
-		emit_signal("encounter_completed")
+	if _current_wave.empty():
+		_waves_completed += 1
+		emit_signal("wave_ended", _waves_completed)
 	else:
-		if waves[_current_wave_idx].empty():
-			emit_signal("wave_ended", _current_wave_idx)
-		else:
-			emit_signal("enemy_summoned", waves.back().pop())
+		emit_signal("enemy_summoned", _current_wave.pop())
 
 
 ### PRIVATE FUNCTIONS ###

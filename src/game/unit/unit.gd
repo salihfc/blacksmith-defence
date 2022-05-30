@@ -32,7 +32,6 @@ const COLLISION_PUSH = 10.0
 
 const KNOCKBACK_DAMPING = 0.9
 const BASE_SPEED = 100.0
-const BASE_DAMAGE = 20.0
 ### EXPORT ###
 ### PUBLIC VAR ###
 var default_state = STATE.IDLE
@@ -42,6 +41,8 @@ var _hp
 var _move_speed := 1.0
 var _atk_speed := 1.0
 var _damage_multi := 1.0
+var _base_damage := 1.0
+
 #
 var _resist_phys := 0.0
 var _resist_fire := 0.0
@@ -112,20 +113,10 @@ func _physics_process(delta):
 ### PUBLIC FUNCTIONS ###
 # INIT func
 func init_with_data(unit_data : UnitData) -> void:
-	_max_hp = unit_data.max_hp
+	for stat_id in UnitData.STATS.COUNT:
+		set("_" + UnitData.STAT_NAMES[stat_id], unit_data.get_stat(stat_id))
+
 	_hp = _max_hp
-	#
-	_atk_speed = unit_data.atk_speed
-	animPlayer.set_speed_scale(_atk_speed)
-	
-	_move_speed = unit_data.move_speed
-	_damage_multi = unit_data.damage_multi
-
-	_resist_phys = unit_data.resist_phys
-	_resist_fire = unit_data.resist_fire
-	_resist_water = unit_data.resist_water
-	_resist_earth = unit_data.resist_earth
-
 
 	# reference to sprite should be set in _ready
 	sprite.texture = unit_data.texture
@@ -153,7 +144,7 @@ func get_hp_perc():
 
 
 func get_damage():
-	return BASE_DAMAGE * _damage_multi
+	return _base_damage * _damage_multi
 
 
 func get_enemies_in_attack_range() -> Array:
@@ -265,7 +256,7 @@ func attack() -> void:
 			_target = _select_target()
 
 		if _target: # make sure there are enemies around to attack
-			_target.take_damage(Damage.new(Damage.TYPE.PHYSICAL, BASE_DAMAGE * _damage_multi))
+			_target.take_damage(Damage.new(Damage.TYPE.PHYSICAL, get_damage()))
 
 
 func play_weapon_animation() -> void:
