@@ -36,7 +36,7 @@ func decide_action(context, actor, possible_targets) -> Action:
 	var max_utility = -1.0
 	var best_action = null
 	
-	LOG.pr(1, "Actor (%s) deciding" % [actor])
+	LOG.pr(LOG.LOG_TYPE.AI, "Actor (%s) deciding" % [actor])
 	
 	for action in _actions:
 		var action_utility = -INF
@@ -51,7 +51,7 @@ func decide_action(context, actor, possible_targets) -> Action:
 				for target in possible_targets:
 					var new_target_utility = action.score(context, actor, target)
 					_eval_cache.cache([action, target], new_target_utility)
-					LOG.pr(1, "[%s -> %s]: %f" % [actor, target, new_target_utility])
+					LOG.pr(LOG.LOG_TYPE.AI, "[%s -> %s]: %f" % [actor, target, new_target_utility])
 					if new_target_utility > target_utility:
 						target_utility = new_target_utility
 						action.target = target
@@ -62,7 +62,7 @@ func decide_action(context, actor, possible_targets) -> Action:
 		if action_utility > max_utility:
 			max_utility = action_utility
 			best_action = action
-	LOG.pr(1, "----------------")
+	LOG.pr(LOG.LOG_TYPE.AI, "----------------")
 	return best_action
 
 

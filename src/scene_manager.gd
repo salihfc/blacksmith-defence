@@ -42,7 +42,7 @@ onready var sceneSlot = $CurrentSceneSlot as Control
 
 func _ready() -> void:
 	randomize()
-	LOG.pr(3, "READY", "SCENE_MANAGER")
+	LOG.pr(LOG.LOG_TYPE.INTERNAL, "READY", "SCENE_MANAGER")
 	set_foreground_color(DEFAULT_FOREGROUND_COLOR)
 	change_scene(STARTING_SCENE)
 

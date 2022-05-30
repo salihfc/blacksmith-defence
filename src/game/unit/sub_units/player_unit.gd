@@ -52,7 +52,7 @@ func attack() -> void:
 	return
 #	if _target_weakref and weaponSlot.get_child_count() > 0:
 #		var _target = _target_weakref.get_ref()
-#		LOG.pr(3, "[%s] : Attacking [%s]" % [self, _target])
+#		LOG.pr(LOG.LOG_TYPE.GAMEPLAY, "[%s] : Attacking [%s]" % [self, _target])
 #
 #		if _target == null and RETARGET_MID_ANIMATION: # reselect target if previous one dies mid animation
 #			_target = _select_target()
@@ -77,7 +77,7 @@ func _set_weapon(weapon : Node) -> void:
 	if weapon.has_method("set_damage"):
 		weapon.set_damage(get_damage())
 	else:
-		LOG.pr(4, "Cannot set weapon damage [%s -> %s]" % [self, weapon])
+		LOG.pr(LOG.LOG_TYPE.INTERNAL, "Cannot set weapon damage [%s -> %s]" % [self, weapon])
 
 
 func _set_area_layer_and_masks() -> void:

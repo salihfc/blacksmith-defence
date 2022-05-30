@@ -51,7 +51,7 @@ func execute(context, actor) -> void:
 			actor.change_state(Unit.STATE.WALK)
 
 		IAUS.ACTION.ATTACK_ENEMY:
-			LOG.pr(1, "%s ATTACKING!!" % [actor])
+			LOG.pr(LOG.LOG_TYPE.AI, "%s ATTACKING!!" % [actor])
 			actor.animPlayer.play("attack")
 			actor.change_state(Unit.STATE.ATTACK)
 			actor.attack(target)

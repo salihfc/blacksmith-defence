@@ -34,7 +34,7 @@ onready var _effects = {
 ### PUBLIC FUNCTIONS ###
 func generate_fx_at(fx_id : int, global_pos : Vector2, delay := 0.0) -> void:
 	assert(fx_id in _effects)
-	LOG.pr(3, "Generate VFX [%s] at [%s]" % [UTILS.get_enum_string_from_id(FX, fx_id), global_pos])
+	LOG.pr(LOG.LOG_TYPE.VFX, "Generate VFX [%s] at [%s]" % [UTILS.get_enum_string_from_id(FX, fx_id), global_pos])
 	var fx = _effects[fx_id].instance()
 	emit_signal("vfx_created", fx)
 	fx.global_position = global_pos

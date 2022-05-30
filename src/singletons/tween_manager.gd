@@ -38,7 +38,7 @@ onready var passive = $Passive as Node
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _ready() -> void:
 	_add_passive_workers(STARTING_TWEEN_COUNT)
-	LOG.pr(3, "READY", "TWEEN")
+	LOG.pr(LOG.LOG_TYPE.INTERNAL, "READY", "TWEEN")
 
 
 ### PUBLIC FUNCTIONS ###

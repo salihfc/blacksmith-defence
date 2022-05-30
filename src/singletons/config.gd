@@ -15,7 +15,7 @@ onready var context = Context.new()
 
 
 func _ready() -> void:
-	LOG.pr(3, "READY", "CONFIG")
+	LOG.pr(LOG.LOG_TYPE.INTERNAL, "READY", "CONFIG")
 	OS.center_window()
 	Engine.target_fps = 60
 

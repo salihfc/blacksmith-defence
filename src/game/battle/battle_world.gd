@@ -53,7 +53,7 @@ onready var draggedItemSlot = $MousePointerArea/DraggedItemSlot as Node2D
 func _process(_delta):
 	
 	if Input.is_action_just_pressed("left_click"):
-		LOG.pr(1, "battle_world action event: {left click pressed}")
+		LOG.pr(LOG.LOG_TYPE.INPUT, "battle_world action event: {left click pressed}")
 		# left_click Released 
 		var drag_item = get_drag_item_data()
 		if drag_item:
@@ -167,7 +167,7 @@ func spawn_enemy(enemy_data, lane = null, ct : int = 1) -> void:
 	units.add_child(enemy)
 	enemy.init_with_data(enemy_data)
 
-	LOG.pr(1, "Spawning Enemy (%s)(%s)" % [enemy, enemy_data.calc_power()])
+	LOG.pr(LOG.LOG_TYPE.GAMEPLAY, "Spawning Enemy (%s)(%s)" % [enemy, enemy_data.calc_power()])
 
 	if lane == null:
 		lane = _get_random_spawn_idx()

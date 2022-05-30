@@ -2,7 +2,7 @@ extends Node
 
 
 func _ready() -> void:
-	LOG.pr(3, "READY", "UTILS")
+	LOG.pr(LOG.LOG_TYPE.INTERNAL, "READY", "UTILS")
 
 
 func clear_children(node : Node) -> void:
@@ -36,7 +36,7 @@ func bind(
 		LOG.err("CANNOT BIND SIGNAL: (%s:%s) -> (%s:%s)" %\
 				[source_node, signal_name, target_node, method_name])
 	else:
-		LOG.pr(3, "Bind Signal: (%s:%s) -> (%s:%s)" %\
+		LOG.pr(LOG.LOG_TYPE.SIGNAL, "Bind Signal: (%s:%s) -> (%s:%s)" %\
 				[source_node, signal_name, target_node, method_name])
 
 var relays = {}
@@ -58,7 +58,7 @@ func bind_relay(
 		LOG.err("CANNOT BIND RELAY: (%s:%s) -> (%s:%s)" %\
 				[source_node, signal_name, target_node, repeated_signal_name_list])
 	else:
-		LOG.pr(3, "Bind Relay: (%s:%s) -> (%s:%s)" %\
+		LOG.pr(LOG.LOG_TYPE.SIGNAL, "Bind Relay: (%s:%s) -> (%s:%s)" %\
 				[source_node, signal_name, target_node, repeated_signal_name_list])
 		
 		var target_weakref = _find_target_node_weakref(target_node, relays[source_weakref])

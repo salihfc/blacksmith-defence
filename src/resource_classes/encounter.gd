@@ -29,7 +29,7 @@ func start_wave(wave_number) -> void:
 
 
 func request_spawn_enemy() -> void:
-	LOG.pr(1, "Request spawn enemy")
+	LOG.pr(LOG.LOG_TYPE.GAMEPLAY, "Request spawn enemy")
 	if _current_wave.empty():
 		_waves_completed += 1
 		emit_signal("wave_ended", _waves_completed)

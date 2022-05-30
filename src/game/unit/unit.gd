@@ -94,7 +94,7 @@ func _process(_delta):
 # TEMPORARY FOR DEBUGGING PURPOSES
 	if Input.is_action_just_pressed("left_click"):
 		if _under_mouse:
-			LOG.pr(1, "Unit [%s] selected with mouse" % [self])
+			LOG.pr(LOG.LOG_TYPE.INPUT, "Unit [%s] selected with mouse" % [self])
 			emit_signal("selected")
 
 
@@ -222,7 +222,7 @@ func calc_final_damage_amount(_damage : Damage) -> float:
 func take_damage(_damage : Damage, pulse := Vector2.ZERO) -> void:
 	apply_impulse(pulse)
 	var amount = calc_final_damage_amount(_damage)
-	LOG.pr(3, "%s taking %s -> %s" % [self, _damage, amount])
+	LOG.pr(LOG.LOG_TYPE.GAMEPLAY, "%s taking %s -> %s" % [self, _damage, amount])
 	_hp -= amount
 	
 	if CONFIG.SHOW_FLOATING_DAMAGE_NUMBERS:
@@ -249,7 +249,7 @@ func set_shader_param_damage_flash_anim(x : float) -> void:
 
 
 func attack() -> void:
-	LOG.pr(3, "[%s] : Attacking [%s]" % [self, _target_weakref])
+	LOG.pr(LOG.LOG_TYPE.GAMEPLAY, "[%s] : Attacking [%s]" % [self, _target_weakref])
 	if _target_weakref:
 		var _target = _target_weakref.get_ref()
 		if _target == null: # reselect target if previous one dies mid animation
@@ -285,7 +285,7 @@ func _collision_update() -> void:
 ### SIGNAL RESPONSES ###
 func _on_enemy_entered_range(_enemy_area, _range_type) -> void:
 	if _state != STATE.ATTACK:
-		LOG.pr(1, "[%s] CONTEXT CHANGED RETHINKING" % [self])
+		LOG.pr(LOG.LOG_TYPE.AI, "[%s] CONTEXT CHANGED RETHINKING" % [self])
 		decide()
 
 

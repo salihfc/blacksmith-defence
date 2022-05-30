@@ -42,9 +42,9 @@ onready var baseHealthBar = get_node(NodepathBaseHealthBar)
 func _input(event):
 	
 	if event is InputEventKey and event.pressed:
-#		LOG.pr(3, "(%s) pressed" % [event.scancode])
+#		LOG.pr(LOG.LOG_TYPE.INPUT, "(%s) pressed" % [event.scancode])
 		if event.scancode == 96: # <`> TILDE
-#			LOG.pr(3, "TILDE PRESSED")
+#			LOG.pr(LOG.LOG_TYPE.INPUT, "TILDE PRESSED")
 			debugWindow.visible = !debugWindow.visible
 
 
@@ -114,7 +114,7 @@ func _ready():
 
 ### SIGNAL RESPONSES ###
 func _on_unit_view_pressed(unit_data : UnitData) -> void:
-	LOG.pr(1, "UNIT_VIEW PRESSED WITH [%s]" % [unit_data])
+	LOG.pr(LOG.LOG_TYPE.INPUT, "UNIT_VIEW PRESSED WITH [%s]" % [unit_data])
 	if materialList.get_storage().covers_cost(unit_data.cost):
 		battle.set_dragged_item(unit_data)
 
@@ -140,4 +140,4 @@ func _on_wave_completed() -> void:
 
 
 func _on_player_main_base_destroyed() -> void:
-	LOG.pr(3, "PLAYER LOST")
+	LOG.pr(LOG.LOG_TYPE.GAMEPLAY, "PLAYER LOST")

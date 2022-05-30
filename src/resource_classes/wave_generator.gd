@@ -28,7 +28,7 @@ func generate_wave(wave_number : int, max_wave : int):
 		current_power += random_enemy.calc_power()
 		wave.add(random_enemy)
 	
-	LOG.pr(3, "Wave with (%s) power generated" % [current_power])
+	LOG.pr(LOG.LOG_TYPE.INTERNAL | LOG.LOG_TYPE.GAMEPLAY, "Wave with (%s) power generated" % [current_power])
 	
 	return wave
 

@@ -29,7 +29,7 @@ var sfx_linear = 50
 
 
 func _ready() -> void:
-	LOG.pr(3, "READY", "AUDIO")
+	LOG.pr(LOG.LOG_TYPE.INTERNAL, "READY", "AUDIO")
 	set_sfx_player_count(sfx_player_count)
 
 	BGMplayer.stream = AudioStreamRandomPitch.new()
@@ -46,7 +46,7 @@ func _ready() -> void:
 func set_bgm_volume(new_value : float) -> void:
 	bgm_linear = new_value
 	BGMplayer.volume_db = get_db_equivalent(bgm_linear)
-#	LOG.pr(3, "Set new BGM volume: (%s), (%s)" % [new_value, bgm_volume])
+#	LOG.pr(LOG.LOG_TYPE.SFX, "Set new BGM volume: (%s), (%s)" % [new_value, bgm_volume])
 
 
 
@@ -62,7 +62,7 @@ func play(sfx_id : int) -> void:
 	if sfx_on and sfx_id < SFX_array.size():
 		for SFXplayer in SFXplayers.get_children():
 			if not SFXplayer.is_playing():
-#				LOG.pr(3, "PLAYING SFX::(%s)" % [sfx_id])
+#				LOG.pr(LOG.LOG_TYPE.SFX, "PLAYING SFX::(%s)" % [sfx_id])
 				SFXplayer.stream.audio_stream = SFX_array[sfx_id]
 				SFXplayer.play(SFX_start[sfx_id] if SFX_start.has(sfx_id) else 0)
 				break
@@ -77,7 +77,7 @@ func get_db_equivalent(val : float) -> float:
 
 func set_sfx_player_count(count : int) -> void:
 	var delta = count - SFXplayers.get_child_count()
-	prints("delta[%s]" % [delta])
+#	prints("[%s]" % ["delta"])
 
 	if delta > 0: # Add new
 		for _i in range(delta):
