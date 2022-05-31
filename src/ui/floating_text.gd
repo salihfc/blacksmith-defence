@@ -30,7 +30,7 @@ func init(start_pos : Vector2, text : String, movement = _get_random_movement())
 	start_pos += STARTING_OFFSET
 
 	global_position = start_pos
-	label.text = text
+	label.text = str(int(text))
 	
 	var duration = _get_random_duration()
 	

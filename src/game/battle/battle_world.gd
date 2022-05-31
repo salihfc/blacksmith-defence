@@ -87,8 +87,7 @@ func _ready():
 	if encounter:
 		UTILS.bind(
 			encounter, "enemy_summoned",
-			self, "spawn_enemy",
-			[_get_random_spawn_idx()]
+			self, "spawn_enemy"
 		)
 
 		UTILS.bind(
@@ -160,7 +159,8 @@ func spawn_unit(unit_data : UnitData, pos : Vector2 ) -> void:
 	clear_dragged_item()
 
 
-func spawn_enemy(enemy_data, lane = null, ct : int = 1) -> void:
+func spawn_enemy(enemy_data, lane = _get_random_spawn_idx(), ct : int = 1) -> void:
+	LOG.pr(LOG.LOG_TYPE.GAMEPLAY, "SPAWN ENEMY [%s]" % [lane])
 	if enemy_data == null:
 		return
 	var enemy = EnemyUnitPrefab.instance()
@@ -169,8 +169,6 @@ func spawn_enemy(enemy_data, lane = null, ct : int = 1) -> void:
 
 	LOG.pr(LOG.LOG_TYPE.GAMEPLAY, "Spawning Enemy (%s)(%s)" % [enemy, enemy_data.calc_power()])
 
-	if lane == null:
-		lane = _get_random_spawn_idx()
 	enemy.position = _get_lane_spawn_pos(lane)
 
 

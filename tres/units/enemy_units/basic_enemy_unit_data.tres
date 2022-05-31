@@ -1,7 +1,16 @@
-[gd_resource type="Resource" load_steps=3 format=2]
+[gd_resource type="Resource" load_steps=5 format=2]
 
 [ext_resource path="res://tres/atlas_tex/basic_enemy_sprite.atlastex" type="Texture" id=1]
 [ext_resource path="res://src/resource_classes/unit_data.gd" type="Script" id=2]
+
+[sub_resource type="Curve" id=2]
+min_value = 1.0
+max_value = 40.0
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 40 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Curve" id=1]
+max_value = 10.0
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 10 ), 0.0, 0.0, 0, 0 ]
 
 [resource]
 script = ExtResource( 2 )
@@ -18,3 +27,5 @@ atk_speed = 1.0
 attack_range = 24.0
 damage_multi = 0.1
 spells = [  ]
+curve_add_max_hp = SubResource( 2 )
+curve_mult_base_damage = SubResource( 1 )

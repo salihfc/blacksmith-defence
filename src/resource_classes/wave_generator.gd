@@ -24,11 +24,12 @@ func generate_wave(wave_number : int, max_wave : int):
 	var current_power = 0
 
 	while current_power < power:
-		var random_enemy : UnitData = _get_random_enemy().scale_to_wave(wave_t)
+		var random_enemy = _get_random_enemy()
+		random_enemy.scale_to_wave(wave_t)
 		current_power += random_enemy.calc_power()
 		wave.add(random_enemy)
-	
-	LOG.pr(LOG.LOG_TYPE.INTERNAL | LOG.LOG_TYPE.GAMEPLAY, "Wave with (%s) power generated" % [current_power])
+
+	LOG.pr(LOG.LOG_TYPE.INTERNAL | LOG.LOG_TYPE.GAMEPLAY, "Wave with (%s | %s) power generated" % [current_power, wave_t])
 	
 	return wave
 
@@ -39,6 +40,6 @@ func _get_wave_power(_wave_offset : float) -> float:
 
 
 func _get_random_enemy():
-	return enemy_pool.get_random()
+	return enemy_pool.get_random().duplicate()
 
 ### SIGNAL RESPONSES ###

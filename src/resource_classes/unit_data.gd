@@ -43,8 +43,8 @@ const STAT_NAMES = {
 
 ### CONST ###
 
-const CURVE_MULT_NAME_PREFIX	= "curve_mult"
-const CURVE_ADD_NAME_PREFIX		= "curve_add"
+const CURVE_MULT_NAME_PREFIX	= "curve_mult_"
+const CURVE_ADD_NAME_PREFIX		= "curve_add_"
 
 
 ### EXPORT ###
@@ -131,11 +131,15 @@ func scale_to_wave(wave_number : float):
 		
 		if curve_add != null:
 			value += curve_add.interpolate(wave_number)
+			
+			if stat_id == STATS.MAX_HP:
+				LOG.pr(LOG.LOG_TYPE.INTERNAL, "[%s] set_stat [%s] to [%s] | (%s)" % [self, STAT_NAMES[stat_id], value, get_stat(stat_id)])
 
 		if curve_mult != null:
 			value *= curve_mult.interpolate(wave_number)
 		
 		_set_stat(stat_id, value)
+
 	return self
 
 
