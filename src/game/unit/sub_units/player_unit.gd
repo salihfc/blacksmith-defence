@@ -50,18 +50,7 @@ func init_with_data(unit_data : UnitData) -> void:
 
 func attack() -> void:
 	return
-#	if _target_weakref and weaponSlot.get_child_count() > 0:
-#		var _target = _target_weakref.get_ref()
-#		LOG.pr(LOG.LOG_TYPE.GAMEPLAY, "[%s] : Attacking [%s]" % [self, _target])
-#
-#		if _target == null and RETARGET_MID_ANIMATION: # reselect target if previous one dies mid animation
-#			_target = _select_target()
-#
-#		if _target: # make sure there are enemies around to attack
-#			var direction = global_position.direction_to(_target.global_position)
-#			var strength = 140.0
-#			var pulse = direction * strength
-#			_target.take_damage(Damage.new(Damage.TYPE.PHYSICAL, get_damage()), pulse)
+
 
 
 ### PRIVATE FUNCTIONS ###

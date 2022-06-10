@@ -208,7 +208,6 @@ func damage_base(damage : Damage) -> void:
 	emit_signal("base_damaged", damage)
 
 
-
 func set_dragged_item(drag_item_data) -> void:
 	clear_dragged_item()
 

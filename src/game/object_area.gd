@@ -16,6 +16,10 @@ export(NodePath) var owner_path = null
 onready var collision_shape = $CollisionShape2D as CollisionShape2D
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
+func _ready() -> void:
+	assert(owner_path != null)
+
+
 ### PUBLIC FUNCTIONS ###]
 func get_owner():
 	return get_node_or_null(owner_path)

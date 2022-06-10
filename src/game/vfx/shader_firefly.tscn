@@ -1,0 +1,92 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/gfx/common/64x64_white.png" type="Texture" id=1]
+
+[sub_resource type="Shader" id=1]
+code = "// NOTE: Shader automatically converted from Godot Engine 3.4.stable's CanvasItemMaterial.
+
+shader_type canvas_item;
+render_mode blend_mix;
+
+uniform sampler2D noise;
+
+float rand_from_seed(uint seed) {
+	int k;
+	int s = int(seed);
+	if (s == 0)
+	s = 305420679;
+	k = s / 127773;
+	s = 16807 * (s - k * 127773) - 2836 * k;
+	if (s < 0)
+		s += 2147483647;
+	seed = uint(s);
+	return float(seed % uint(65536)) / 65535.0;
+}
+
+float fly(vec2 uv, float t, float amp)
+{
+	float final_a = 0.0;
+	for (int i = 0; i < 4; i++)
+	{
+		float a = 0.0;
+		float offset = texture(noise, uv).r;
+		float ft = t + float(i) * 0.05;
+	
+		vec2 pos = vec2(0.0, 1.0) * ft - vec2(0.0, 0.5);
+		pos.x = sin(10.*ft) / 3.0 * amp;
+//		pos.x *= offset;s
+		
+		float dist = distance(pos, uv);
+		a = smoothstep(0.05, 0.05 - 0.01, dist);
+		a *= pow(0.5, float(i));
+		
+		
+		final_a = max(final_a, a);
+	}
+	
+	return final_a;
+}
+
+void fragment()
+{
+	float t = 1.0 - fract(TIME * 0.2);
+	vec2 uv = UV - vec2(0.5);
+	vec4 col = texture(TEXTURE, UV);
+	col.a = 0.0;
+	
+//	col.a = max(col.a, fly(uv, t));
+//	col.a = max(col.a, fly(uv - vec2(0.0, 0.2), t));
+
+	for (int i = 0; i < 4; i++)
+	{
+		vec2 muv = uv;
+		muv += vec2(0.0, 0.2) * float(i);
+		
+		float amp = texture(noise, vec2(0.0, fract(t * float(i)))).r;
+		col.a = max(col.a, fly(muv, t, amp * 1.4));
+	}
+
+	col.a *= smoothstep(0.0, 0.4 + 0.01, UV.y);
+//	col.a *= smoothstep(0.8, 1.0, UV.y);
+
+	COLOR = col;
+}"
+
+[sub_resource type="OpenSimplexNoise" id=3]
+
+[sub_resource type="NoiseTexture" id=4]
+seamless = true
+noise = SubResource( 3 )
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/noise = SubResource( 4 )
+
+[node name="ShaderFirefly" type="Node2D"]
+
+[node name="Sprite" type="Sprite" parent="."]
+modulate = Color( 0.882353, 0.0745098, 0.0745098, 1 )
+material = SubResource( 2 )
+position = Vector2( 0, -64 )
+scale = Vector2( 1, 2 )
+texture = ExtResource( 1 )

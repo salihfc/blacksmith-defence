@@ -42,10 +42,14 @@ onready var baseHealthBar = get_node(NodepathBaseHealthBar)
 func _input(event):
 	
 	if event is InputEventKey and event.pressed:
-#		LOG.pr(LOG.LOG_TYPE.INPUT, "(%s) pressed" % [event.scancode])
+#		LOG.pr(LOG.LOG_TYPE.INTERNAL, "(%s) pressed" % [event.scancode])
 		if event.scancode == 96: # <`> TILDE
 #			LOG.pr(LOG.LOG_TYPE.INPUT, "TILDE PRESSED")
 			debugWindow.visible = !debugWindow.visible
+
+		if event.scancode == 32: # < > SPACE
+#			LOG.pr(LOG.LOG_TYPE.INPUT, "SPACE PRESSED")
+			_on_wave_start_button_pressed()
 
 
 func _ready():

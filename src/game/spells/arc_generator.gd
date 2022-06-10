@@ -1,4 +1,4 @@
-extends Node2D
+extends SpellBase
 
 """
 
@@ -8,7 +8,7 @@ extends Node2D
 signal target_hit(target, damage)
 ### ENUM ###
 ### CONST ###
-const ArcPrefab = preload("res://src/game/arc.tscn")
+const ArcPrefab = preload("res://src/game/spells/arc.tscn")
 ### EXPORT ###
 export(float) var jump_delay = 0.01
 export(float) var jump_range = 125.0
@@ -70,8 +70,6 @@ func get_target_count():
 	return 5
 
 
-func get_possible_targets():
-	return get_tree().get_nodes_in_group(CONFIG.ENEMY_GROUP)
 
 
 ### PRIVATE FUNCTIONS ###

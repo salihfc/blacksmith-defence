@@ -1,7 +1,7 @@
 [gd_resource type="Resource" load_steps=7 format=2]
 
 [ext_resource path="res://tres/atlas_tex/wizard_0.atlastex" type="Texture" id=1]
-[ext_resource path="res://src/game/arc_generator.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/game/spells/arc_generator.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/resource_classes/unit_data.gd" type="Script" id=3]
 [ext_resource path="res://src/resource_classes/material_storage.gd" type="Script" id=4]
 [ext_resource path="res://tres/units/weapons/wand.tres" type="Resource" id=5]

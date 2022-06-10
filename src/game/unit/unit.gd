@@ -39,6 +39,7 @@ var default_state = STATE.IDLE
 var _max_hp
 var _hp
 var _move_speed := 1.0
+var _move_speed_modifiers = []
 var _atk_speed := 1.0
 var _damage_multi := 1.0
 var _base_damage := 1.0
@@ -103,7 +104,7 @@ func _physics_process(delta):
 
 	match _state:
 		STATE.WALK:
-			global_position += ((_velocity) + _knockback) * delta * _move_speed
+			global_position += ((_velocity) + _knockback) * delta * _move_speed * (_get_move_speed_multiplier())
 		_:
 			global_position += (_knockback) * delta
 
@@ -264,6 +265,16 @@ func play_weapon_animation() -> void:
 		weaponSlot.get_child(0).strike()
 
 
+func apply_move_speed_mod(mod) -> void:
+	_move_speed_modifiers.append(mod)
+
+
+func remove_move_speed_mod(mod) -> void:
+	if _move_speed_modifiers.has(mod):
+		_move_speed_modifiers.erase(mod)
+
+
+
 ### PRIVATE FUNCTIONS ###
 func _select_target():
 	var possible_targets = get_enemies_in_attack_range()
@@ -280,6 +291,13 @@ func _collision_update() -> void:
 		var object = objects_inside[i]
 		var push_dir = global_position.direction_to(object.global_position)
 		apply_impulse(-push_dir * COLLISION_PUSH)
+
+
+func _get_move_speed_multiplier() -> float:
+	var multi = 1.0
+	for mod in _move_speed_modifiers:
+		multi *= mod
+	return multi
 
 
 ### SIGNAL RESPONSES ###
