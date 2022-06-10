@@ -225,7 +225,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/light_snippet/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/ImportCleaner/plugin.cfg", "res://addons/light_snippet/plugin.cfg" )
 
 [importer_defaults]
 

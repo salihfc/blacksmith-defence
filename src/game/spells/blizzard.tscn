@@ -234,7 +234,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1.03526, 1 ),
 "update": 0,
-"values": [ 8, 47 ]
+"values": [ 8, 48 ]
 }
 tracks/1/type = "method"
 tracks/1/path = NodePath(".")
@@ -266,7 +266,7 @@ material = SubResource( 141 )
 scale = Vector2( 1, 0.5 )
 frames = SubResource( 1 )
 animation = "pulse"
-frame = 19
+frame = 48
 flip_v = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
