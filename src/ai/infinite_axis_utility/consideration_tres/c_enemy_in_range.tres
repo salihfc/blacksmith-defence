@@ -8,6 +8,8 @@ _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.181818 ), 0.0, 0.0, 0, 
 script = ExtResource( 2 )
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource( 1 )
+name = "enemy_in_range"
 utility_curve = SubResource( 1 )
 input_type = 3

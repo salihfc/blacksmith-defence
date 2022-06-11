@@ -4,6 +4,7 @@
 [ext_resource path="res://src/ai/infinite_axis_utility/consideration_tres/c_enemy_in_range.tres" type="Resource" id=2]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource( 1 )
 _considerations = [ ExtResource( 2 ) ]
 action_type = 3

@@ -5,7 +5,7 @@ const LOG_INTERNAL	= true
 const LOG_GAMEPLAY	= false
 
 const LOG_SIGNAL	= false
-const LOG_AI		= false
+const LOG_AI		= true
 const LOG_VFX		= false
 const LOG_SFX		= false
 const LOG_INPUT		= false

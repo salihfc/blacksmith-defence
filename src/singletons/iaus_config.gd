@@ -5,8 +5,6 @@ extends Node
 """
 
 ### SIGNAL ###
-
-
 ### ENUM ###
 enum INPUT {
 	NONE,
@@ -24,29 +22,23 @@ enum ACTION {
 }
 
 ### CONST ###
+const NULL = -1.0
 
+const _ACTION_NAMES = {
+	ACTION.IDLE : "idle",
+	ACTION.WALK_TOWARDS_ENEMY : "walk_towards_enemy",
+	ACTION.WALK_TOWARDS_ENEMY_BASE : "walk_towards_enemy_base",
+	ACTION.ATTACK_ENEMY : "attack",
+}
 
 ### EXPORT ###
-
-
 ### PUBLIC VAR ###
-
-
 ### PRIVATE VAR ###
-
-
 ### ONREADY VAR ###
-
-
-
-
 ### VIRTUAL FUNCTIONS (_init ...) ###
-
-
 ### PUBLIC FUNCTIONS ###
-
+func get_action_name(type : int):
+	return _ACTION_NAMES.get(type)
 
 ### PRIVATE FUNCTIONS ###
-
-
 ### SIGNAL RESPONSES ###

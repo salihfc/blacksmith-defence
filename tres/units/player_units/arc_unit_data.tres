@@ -1,10 +1,11 @@
-[gd_resource type="Resource" load_steps=7 format=2]
+[gd_resource type="Resource" load_steps=8 format=2]
 
 [ext_resource path="res://tres/atlas_tex/wizard_0.atlastex" type="Texture" id=1]
 [ext_resource path="res://src/game/spells/arc_generator.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/resource_classes/unit_data.gd" type="Script" id=3]
 [ext_resource path="res://src/resource_classes/material_storage.gd" type="Script" id=4]
 [ext_resource path="res://tres/units/weapons/wand.tres" type="Resource" id=5]
+[ext_resource path="res://src/ai/infinite_axis_utility/agent_tres/agent_player_basic.tres" type="Resource" id=6]
 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 4 )
@@ -17,6 +18,7 @@ script = ExtResource( 3 )
 name = "Arc Wizard Unit"
 texture = ExtResource( 1 )
 cost = SubResource( 1 )
+brain = ExtResource( 6 )
 max_hp = 20.0
 resist_phys = 0.0
 resist_fire = 0.0

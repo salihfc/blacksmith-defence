@@ -54,6 +54,9 @@ export(Texture) var texture
 export(Texture) var view_texture
 export(Resource) var cost = MaterialStorage.new() # MaterialStorage
 
+# AI
+export(Resource) var brain = null # Type: Agent
+
 # Battle
 # stats
 export(float) var max_hp

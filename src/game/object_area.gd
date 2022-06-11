@@ -18,6 +18,7 @@ onready var collision_shape = $CollisionShape2D as CollisionShape2D
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _ready() -> void:
 	assert(owner_path != null)
+	modulate = Color("4effffff")
 
 
 ### PUBLIC FUNCTIONS ###]
@@ -27,6 +28,10 @@ func get_owner():
 
 func set_radius(new_radius : float) -> void:
 	collision_shape.shape.radius = new_radius
+
+
+func get_radius() -> float:
+	return collision_shape.shape.radius * min(scale.x, scale.y)
 
 ### PRIVATE FUNCTIONS ###
 ### SIGNAL RESPONSES ###

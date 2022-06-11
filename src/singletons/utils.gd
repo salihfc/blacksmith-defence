@@ -39,6 +39,17 @@ func bind(
 		LOG.pr(LOG.LOG_TYPE.SIGNAL, "Bind Signal: (%s:%s) -> (%s:%s)" %\
 				[source_node, signal_name, target_node, method_name])
 
+
+func unbind(
+		source_node : Object, signal_name : String,
+		target_node : Object, method_name : String) -> void:
+
+	if source_node.is_connected(signal_name, target_node, method_name):
+		source_node.disconnect(signal_name, target_node, method_name)
+		LOG.pr(LOG.LOG_TYPE.SIGNAL, "UNbind Signal: (%s:%s) -> (%s:%s)" %\
+				[source_node, signal_name, target_node, method_name])
+
+
 var relays = {}
 
 func bind_relay(
@@ -106,6 +117,12 @@ func bind_bulk(
 		bind(source_node, signal_name, target_node, method_name, binds)
 
 
+# pause_node: for debugging purposes 
+func pause_node(node : Node, active = false) -> void:
+	LOG.pr(LOG.LOG_TYPE.INTERNAL, "Pausing (%s) [%s]" % [node, active])
+	Engine.time_scale = 1.0 if active else 0.0
+
+
 func eval(expression_string, param_names, param_values):
 	var expression = Expression.new()
 	expression.parse(expression_string, param_names)
@@ -113,7 +130,6 @@ func eval(expression_string, param_names, param_values):
 	if result:
 		return result
 	return -1
-
 
 
 func clamp01(value):

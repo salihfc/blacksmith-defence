@@ -47,9 +47,17 @@ func _input(event):
 #			LOG.pr(LOG.LOG_TYPE.INPUT, "TILDE PRESSED")
 			debugWindow.visible = !debugWindow.visible
 
-		if event.scancode == 32: # < > SPACE
+		if event.scancode == KEY_SPACE: # < > SPACE
 #			LOG.pr(LOG.LOG_TYPE.INPUT, "SPACE PRESSED")
 			_on_wave_start_button_pressed()
+
+		if event.scancode == KEY_P: # < > P
+			LOG.pr(LOG.LOG_TYPE.INTERNAL, "PAUSE PRESSED\n")
+			battle.paused = not battle.paused
+			UTILS.pause_node(battle, not battle.paused)
+
+
+
 
 
 func _ready():

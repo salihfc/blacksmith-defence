@@ -33,6 +33,7 @@ shader_param/damage_flash_anim = 0.0
 height = 8.0
 
 [sub_resource type="CircleShape2D" id=2]
+resource_local_to_scene = true
 radius = 24.0
 
 [node name="PlayerUnit" instance=ExtResource( 1 )]
@@ -55,6 +56,7 @@ position = Vector2( 0, 2 )
 shape = SubResource( 1 )
 
 [node name="AttackRange" parent="SpriteParent/Areas" index="2"]
+visible = true
 collision_mask = 16
 
 [node name="CollisionShape2D" parent="SpriteParent/Areas/AttackRange" index="0"]

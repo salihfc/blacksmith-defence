@@ -1,80 +1,15 @@
 [gd_resource type="Resource" load_steps=4 format=2]
 
 [ext_resource path="res://src/ai/infinite_axis_utility/utility_curve.gd" type="Script" id=1]
+[ext_resource path="res://src/ai/infinite_axis_utility/consideration.gd" type="Script" id=2]
 
-[sub_resource type="GDScript" id=1]
-script/source = "extends IAUSObject
-class_name Consideration
-
-\"\"\"
-
-\"\"\"
-
-### SIGNAL ###
-
-
-### ENUM ###
-
-### CONST ###
-
-
-### EXPORT ###
-export(Resource) var utility_curve = UtilityCurve.new()
-export(IAUS.INPUT) var input_type = IAUS.INPUT.NONE
-
-### PUBLIC VAR ###
-
-
-### PRIVATE VAR ###
-
-
-### ONREADY VAR ###
-
-
-
-
-### VIRTUAL FUNCTIONS (_init ...) ###
-
-
-### PUBLIC FUNCTIONS ###
-func utility(context, actor, target) -> float:
-	var input_value_normalized = _extract_input_value_from_context(context, actor, target)
-	if 0.0 > input_value_normalized or input_value_normalized > 1.0:
-		return 0.0
-	return utility_curve.interpolate_baked(input_value_normalized)
-
-
-### PRIVATE FUNCTIONS ###
-# warning-ignore:unused_argument
-# warning-ignore:unused_argument
-# warning-ignore:unused_argument
-func _extract_input_value_from_context(context, actor : Unit, target) -> float:
-	
-	match input_type:
-		IAUS.INPUT.NONE:
-			return 0.0
-
-		IAUS.INPUT.HP_PERC:
-			return actor.get_hp_perc()
-
-		IAUS.INPUT.ENEMY_IN_RANGE:
-			# for now return value based on closest enemy
-			return actor.get_closest_enemy_dist_in_aggro_range_normalized()
-		
-		IAUS.INPUT.ENEMY_IN_ATTACK_RANGE:
-			return actor.get_closest_enemy_dist_in_attack_range_normalized()
-	
-	return 0.0
-
-
-### SIGNAL RESPONSES ###
-"
-
-[sub_resource type="Curve" id=2]
-_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.00583658, 0 ), 0.0, 0.0, 0, 0 ]
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.0139373, 0 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 script = ExtResource( 1 )
 
 [resource]
-script = SubResource( 1 )
-utility_curve = SubResource( 2 )
+resource_local_to_scene = true
+script = ExtResource( 2 )
+name = "no_enemy_in_range"
+utility_curve = SubResource( 1 )
 input_type = 2

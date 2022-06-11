@@ -61,7 +61,7 @@ func _get_obj_at_path(path_as_arr : Array):
 	
 	while i < (n - 1): # !!!!!!
 		var key = path_as_arr[i]
-		LOG.pr(LOG.LOG_TYPE.INTERNAL, "KEY [%s]" % [key])
+#		LOG.pr(LOG.LOG_TYPE.INTERNAL, "KEY [%s]" % [key])
 		if not key in ref:
 			ref[key] = {}
 		ref = ref[key]

@@ -16,12 +16,12 @@ class_name Agent
 
 ### EXPORT ###
 export(Array, Resource) var _actions = []
+export(Resource) var _eval_cache = CacheDict.new()
 
 ### PUBLIC VAR ###
 
 
 ### PRIVATE VAR ###
-var _eval_cache = CacheDict.new()
 
 ### ONREADY VAR ###
 
@@ -45,6 +45,8 @@ func decide_action(context, actor, possible_targets) -> Action:
 			IAUS.ACTION.IDLE, IAUS.ACTION.WALK_TOWARDS_ENEMY_BASE:
 				action_utility = action.score(context, actor)
 				_eval_cache.cache([action], action_utility)
+				LOG.pr(LOG.LOG_TYPE.AI, "[%s  action(%s)]: %f"
+					% [actor, IAUS.get_action_name(action.action_type), action_utility])
 			
 			_:
 				var target_utility = -INF
@@ -59,9 +61,10 @@ func decide_action(context, actor, possible_targets) -> Action:
 				action_utility = target_utility
 
 
-		if action_utility > max_utility:
+		if action_utility != IAUS.NULL and action_utility > max_utility:
 			max_utility = action_utility
 			best_action = action
+
 	LOG.pr(LOG.LOG_TYPE.AI, "----------------")
 	return best_action
 

@@ -1,9 +1,10 @@
-[gd_resource type="Resource" load_steps=6 format=2]
+[gd_resource type="Resource" load_steps=7 format=2]
 
 [ext_resource path="res://tres/atlas_tex/unit_default_sprite.atlastex" type="Texture" id=1]
 [ext_resource path="res://tres/units/weapons/sword.tres" type="Resource" id=2]
 [ext_resource path="res://src/resource_classes/unit_data.gd" type="Script" id=3]
 [ext_resource path="res://src/resource_classes/material_storage.gd" type="Script" id=4]
+[ext_resource path="res://src/ai/infinite_axis_utility/agent_tres/agent_player_basic.tres" type="Resource" id=5]
 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 4 )
@@ -16,6 +17,7 @@ script = ExtResource( 3 )
 name = "Default_Unit"
 texture = ExtResource( 1 )
 cost = SubResource( 1 )
+brain = ExtResource( 5 )
 max_hp = 100.0
 resist_phys = 0.0
 resist_fire = 0.0
@@ -24,7 +26,7 @@ resist_earth = 0.0
 base_damage = 20.0
 move_speed = 1.0
 atk_speed = 1.0
-attack_range = 25.0
+attack_range = 50.0
 damage_multi = 1.0
 weapon = ExtResource( 2 )
 spells = [  ]

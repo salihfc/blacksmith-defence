@@ -32,7 +32,7 @@ export(Resource) var encounter = null
 ### PRIVATE VAR ###
 var _current_wave = 0
 var _drag_item_data = null
-
+var paused = false
 
 ### ONREADY VAR ###
 onready var bgTilemap = $BG/TileMap as TileMap
@@ -62,9 +62,10 @@ func _process(_delta):
 				spawn_unit(drag_item, mousePointerArea.global_position)
 				clear_dragged_item()
 
-
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _ready():
+	CONFIG.context.set_world(self)
+	
 	UTILS.bind(
 		VFX, "vfx_created",
 		self, "_on_vfx_created"
@@ -73,8 +74,6 @@ func _ready():
 		FLOATING_TEXT, "floating_text_created",
 		self, "_on_floating_text_created"
 	)
-
-	CONFIG.context.set_world(self)
 
 	for base in playerBase.get_children():
 		UTILS.bind(
@@ -131,7 +130,7 @@ func _physics_process(_delta):
 
 	for i in range(1, 4):
 		if Input.is_action_just_pressed("%s" % [i]):
-			spawn_enemy(i-1)
+			spawn_enemy(_get_random_enemy_data(), i-1)
 
 
 ### PUBLIC FUNCTIONS ###
@@ -159,7 +158,7 @@ func spawn_unit(unit_data : UnitData, pos : Vector2 ) -> void:
 	clear_dragged_item()
 
 
-func spawn_enemy(enemy_data, lane = _get_random_spawn_idx(), ct : int = 1) -> void:
+func spawn_enemy(enemy_data, lane : int = _get_random_spawn_idx(), _ct : int = 1) -> void:
 	LOG.pr(LOG.LOG_TYPE.GAMEPLAY, "SPAWN ENEMY [%s]" % [lane])
 	if enemy_data == null:
 		return
@@ -184,8 +183,8 @@ func spawn_enemy(enemy_data, lane = _get_random_spawn_idx(), ct : int = 1) -> vo
 		[enemy]
 	)
 	
-	if ct > 1:
-		spawn_enemy(enemy_data, null, ct-1)
+#	if ct > 1:
+#		spawn_enemy(enemy_data, null, ct-1)
 
 
 func spawn_random_mat(spawn_pos) -> void:
@@ -239,13 +238,11 @@ func _get_lane_spawn_pos(lane) -> Vector2:
 	return spawnPositions.get_children()[lane].position + Vector2.UP * rand_range(-1.0, 1.0) * 40.0
 
 
-func _get_random_spawn_idx() -> Vector2:
+func _get_random_spawn_idx() -> int:
 	return randi() % spawnPositions.get_child_count()
 
 
 ### SIGNAL RESPONSES ###
-
-
 func _on_unit_selected(unit):
 	emit_signal("unit_selected", unit)
 
