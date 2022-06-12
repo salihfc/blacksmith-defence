@@ -129,6 +129,8 @@ enum LOG_TYPE {
 }
 
 func get_log_type_name(log_type, default = null):
+	log_type = nearest_po2(log_type)
+	log_type = min(log_type, 1 << 7)
 	var _name = UTILS.get_enum_string_from_id(LOG_TYPE, _log_idx[log_type])
 	if _name:
 		return _name

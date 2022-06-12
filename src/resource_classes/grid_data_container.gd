@@ -26,7 +26,7 @@ func remove_object(pos : Vector2) -> void:
 
 func is_occupied(pos : Vector2) -> bool:
 	var input = _input_transform(pos)
-	input.append(null)
+#	input.append(null)
 	return _data.is_cached(input)
 
 

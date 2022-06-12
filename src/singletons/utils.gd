@@ -186,7 +186,6 @@ func flatten_array(arr : Array):
 		if item is Array:
 			new_arr.append_array(flatten_array(item))
 		new_arr.append(item)
-	print(arr, ' --- ', new_arr)
 	return new_arr
 
 

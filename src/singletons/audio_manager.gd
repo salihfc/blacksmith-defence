@@ -77,20 +77,19 @@ func get_db_equivalent(val : float) -> float:
 
 func set_sfx_player_count(count : int) -> void:
 	var delta = count - SFXplayers.get_child_count()
-#	prints("[%s]" % ["delta"])
 
 	if delta > 0: # Add new
 		for _i in range(delta):
 			var new_player = AudioStreamPlayer.new()
 			new_player.stream = AudioStreamRandomPitch.new()
 			SFXplayers.add_child(new_player)
-	
+
 	elif delta < 0:
 		var sfx_players = SFXplayers.get_children()
 		for _i in range(-delta):
 			var last = sfx_players.back()
 			sfx_players.pop_back()
-			
+
 			SFXplayers.remove_child(last)
 			last.queue_free()
 
