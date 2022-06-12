@@ -1,132 +1,57 @@
 tool
 extends Node
 
-# config
-var LOG_INTERNAL	= true
-var LOG_GAMEPLAY	= false
-var LOG_SIGNAL	= false
-var LOG_AI		= false
-var LOG_VFX		= false
-var LOG_SFX		= false
-var LOG_INPUT	= false
-var LOG_PHYSICS	= false
+# masks
+const _FLAG_PREFIX = "_log_flags/"
+var _log_flag_data = {}
+
+enum LOG_TYPE {
+	INTERNAL	= 1 << 0,
+	SIGNAL		= 1 << 1,
+	AI			= 1 << 2,
+	GAMEPLAY	= 1 << 3,
+	VFX			= 1 << 4,
+	SFX			= 1 << 5,
+	INPUT		= 1 << 6,
+	PHYSICS		= 1 << 7,
+
+	COUNT		= 1 << 8,
+}
 
 func _get(property: String):
-	if property.begins_with("flags/"):
-		property = property.trim_prefix("flags/")
+	return _log_flag_data.get(property)
 
-	if property == 'LOG_INTERNAL':
-		return LOG_INTERNAL
 
-	elif property == 'LOG_GAMEPLAY':
-		return LOG_GAMEPLAY
-
-	elif property == 'LOG_SIGNAL':
-		return LOG_SIGNAL
-
-	elif property == 'LOG_AI':
-		return LOG_AI
-
-	elif property == 'LOG_VFX':
-		return LOG_VFX
-
-	elif property == 'LOG_SFX':
-		return LOG_SFX
-
-	elif property == 'LOG_INPUT':
-		return LOG_INPUT
-
-	elif property == 'LOG_PHYSICS':
-		return LOG_PHYSICS
-
-	return null
-
-func _set(property: String, value) -> bool:
-	if property.begins_with("flags/"):
-		property = property.trim_prefix("flags/")
-
-	if property == 'LOG_INTERNAL':
-		LOG_INTERNAL = value
-
-	elif property == 'LOG_GAMEPLAY':
-		LOG_GAMEPLAY = value
-
-	elif property == 'LOG_SIGNAL':
-		LOG_SIGNAL = value
-
-	elif property == 'LOG_AI':
-		LOG_AI = value
-
-	elif property == 'LOG_VFX':
-		LOG_VFX = value
-
-	elif property == 'LOG_SFX':
-		LOG_SFX = value
-
-	elif property == 'LOG_INPUT':
-		LOG_INPUT = value
-
-	elif property == 'LOG_PHYSICS':
-		LOG_PHYSICS = value
-
+func _set(property: String, value = false) -> bool:
+	_log_flag_data[property] = value
 	return true
 
 
 func _get_property_list() -> Array:
 	var props = []
-	props.append_array(
-		[
+	for type in LOG_TYPE.keys():
+		props.append(
 			{
-				'name' : 'flags/LOG_INTERNAL',
+				'name' : _FLAG_PREFIX + type,
 				'type' : TYPE_BOOL,
-			},
-			{
-				'name' : 'flags/LOG_GAMEPLAY',
-				'type' : TYPE_BOOL,
-			},
-			{
-				'name' : 'flags/LOG_SIGNAL',
-				'type' : TYPE_BOOL,
-			},
-			{
-				'name' : 'flags/LOG_AI',
-				'type' : TYPE_BOOL,
-			},
-			{
-				'name' : 'flags/LOG_VFX',
-				'type' : TYPE_BOOL,
-			},
-			{
-				'name' : 'flags/LOG_SFX',
-				'type' : TYPE_BOOL,
-			},
-			{
-				'name' : 'flags/LOG_INPUT',
-				'type' : TYPE_BOOL,
-			},
-			{
-				'name' : 'flags/LOG_PHYSICS',
-				'type' : TYPE_BOOL,
-			},
-		]
-	)
+			}
+		)
 	return props
 
 
-# masks
-enum LOG_TYPE {
-	SIGNAL		= 1 << 0,
-	AI			= 1 << 1,
-	GAMEPLAY	= 1 << 2,
-	VFX			= 1 << 3,
-	SFX			= 1 << 4,
-	INPUT		= 1 << 5,
-	PHYSICS		= 1 << 6,
-	INTERNAL	= 1 << 7,
+func _get_log_flag(log_type : int) -> bool:
+	var log_type_name = get_log_type_name(log_type)
+	assert(log_type_name)
+	var key = _FLAG_PREFIX + log_type_name
+	return _log_flag_data[key]
 
 
-	COUNT		= 1 << 8,
-}
+func _set_log_flag(log_type : int, on) -> void:
+	var log_type_name = get_log_type_name(log_type)
+	assert(log_type_name)
+	var key = _FLAG_PREFIX + log_type_name
+	_log_flag_data[key] = on
+
 
 func get_log_type_name(log_type, default = null):
 	log_type = nearest_po2(log_type)
@@ -141,29 +66,20 @@ var runtime_mask = 0
 var _log_idx = {}
 
 func _ready() -> void:
-
-	for i in UTILS.log2i(LOG_TYPE.COUNT):
-		_log_idx[1 << i] = i
+	# Init & Precalc
+	for i in UTILS.log2i(LOG_TYPE.COUNT) + 1:
+		var log_type = 1 << i
+		_log_idx[log_type] = i
+		if _get_log_flag(log_type) == null:
+			 _set_log_flag(log_type, false)
 
 	# Calculate runtime mask
-	runtime_mask += int(LOG_SIGNAL) * LOG_TYPE.SIGNAL
-	runtime_mask += int(LOG_AI) * LOG_TYPE.AI
-	runtime_mask += int(LOG_GAMEPLAY) * LOG_TYPE.GAMEPLAY
-	runtime_mask += int(LOG_VFX) * LOG_TYPE.VFX
-	runtime_mask += int(LOG_SFX) * LOG_TYPE.SFX
-	runtime_mask += int(LOG_INPUT) * LOG_TYPE.INPUT
-	runtime_mask += int(LOG_PHYSICS) * LOG_TYPE.PHYSICS
-	runtime_mask += int(LOG_INTERNAL) * LOG_TYPE.INTERNAL
+	for idx in _log_idx[LOG_TYPE.COUNT] + 1:
+		var log_flag = _get_log_flag(1 << idx)
+		runtime_mask += int(log_flag) * (1 << idx)
 
 	pr(LOG_TYPE.INTERNAL, "READY [log_mask:%s]" % [runtime_mask], "LOG")
 
-# LOG LEVELS
-# 0: All
-# 1: TRACE
-# 2: AI
-# 3: DEBUG
-# 4: WARN
-# 5: ERROR / FATAL
 
 func pr(log_mask: int, log_msg, caller:String = "") -> void:
 	if log_mask & runtime_mask == 0: return

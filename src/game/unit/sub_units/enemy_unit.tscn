@@ -76,5 +76,5 @@ collision_mask = 12
 visible = true
 shape = SubResource( 2 )
 
-[node name="AnimationPlayer" parent="." index="1"]
+[node name="AnimationPlayer" parent="." index="2"]
 anims/attack = SubResource( 3 )

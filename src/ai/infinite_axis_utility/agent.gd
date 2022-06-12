@@ -4,32 +4,22 @@ class_name Agent
 """
 
 """
-
 ### SIGNAL ###
-
-
 ### ENUM ###
-
-
 ### CONST ###
-
-
 ### EXPORT ###
 export(Array, Resource) var _actions = []
 export(Resource) var _eval_cache = CacheDict.new()
 
 ### PUBLIC VAR ###
-
-
 ### PRIVATE VAR ###
-
 ### ONREADY VAR ###
-
-
 ### VIRTUAL FUNCTIONS (_init ...) ###
-
-
 ### PUBLIC FUNCTIONS ###
+func get_eval_cache():
+	return _eval_cache
+
+
 func decide_action(context, actor, possible_targets) -> Action:
 	_eval_cache.clear()
 
@@ -42,7 +32,9 @@ func decide_action(context, actor, possible_targets) -> Action:
 		var action_utility = -INF
 
 		match action.action_type:
-			IAUS.ACTION.IDLE, IAUS.ACTION.WALK_TOWARDS_ENEMY_BASE:
+
+			IAUS.ACTION.IDLE,\
+			IAUS.ACTION.WALK_TOWARDS_ENEMY_BASE:
 				action_utility = action.score(context, actor)
 				_eval_cache.cache([action], action_utility)
 				LOG.pr(LOG.LOG_TYPE.AI, "[%s  action(%s)]: %f"
@@ -67,13 +59,5 @@ func decide_action(context, actor, possible_targets) -> Action:
 
 	LOG.pr(LOG.LOG_TYPE.AI, "----------------")
 	return best_action
-
-
-func get_eval_cache():
-	return _eval_cache
-
-
 ### PRIVATE FUNCTIONS ###
-
-
 ### SIGNAL RESPONSES ###

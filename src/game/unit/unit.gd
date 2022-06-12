@@ -1,10 +1,7 @@
 extends Node2D
 class_name Unit
-
 """
-
 """
-
 ### SIGNAL ###
 signal _context_changed() # Internal signal
 signal info_updated()
@@ -35,11 +32,14 @@ const COLLISION_PUSH = 10.0
 
 const KNOCKBACK_DAMPING = 0.9
 const BASE_SPEED = 100.0
+
 ### EXPORT ###
 export(Resource) var agent_brain = null # Type: Agent
+
 ### PUBLIC VAR ###
 var grid_pos setget set_grid_pos, get_grid_pos
 var default_state = STATE.IDLE
+
 ### PRIVATE VAR ###
 var _max_hp
 var _hp
@@ -80,18 +80,22 @@ onready var body : ObjectArea = $SpriteParent/Areas/Body as ObjectArea
 onready var attackRange : ObjectArea = $SpriteParent/Areas/AttackRange as ObjectArea
 onready var dustEffect = $VFXGroundDust
 
+# Debug
+onready var DBG_range_circle = $RangeCircle as RangeCircle
+
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _to_string():
 	return name
 
+
 func _ready():
-	UTILS.bind(
+	SIGNAL.bind(
 		attackRange, "area_entered",
 		self, "_on_enemy_entered_range",
 		[1]
 	)
 
-	UTILS.bind(
+	SIGNAL.bind(
 		self, "_context_changed",
 		self, "_on_context_changed"
 	)
@@ -102,7 +106,6 @@ func _ready():
 	call_deferred("decide")
 
 	stateLabel.visible = CONFIG.SHOW_AI_STATE
-
 
 
 func _process(_delta):
@@ -122,9 +125,6 @@ func _physics_process(delta):
 		_:
 			global_position += (_knockback) * delta
 
-#	_collision_update()
-
-
 ### PUBLIC FUNCTIONS ###
 # INIT func
 func init_with_data(unit_data : UnitData) -> void:
@@ -140,9 +140,9 @@ func init_with_data(unit_data : UnitData) -> void:
 	sprite.texture = unit_data.texture
 	sprite.offset.y = -sprite.texture.get_height() / 2.0
 
-
 	assert(unit_data.attack_range != null)
 	attackRange.set_radius(unit_data.attack_range)
+	DBG_range_circle.radius = unit_data.attack_range
 
 	assert(unit_data.brain != null)
 	agent_brain = unit_data.brain.duplicate(true)
@@ -263,7 +263,7 @@ func apply_impulse(impulse : Vector2) -> void:
 
 	_knockback += impulse
 
-
+# TODO: Carry Formulaic stuff into FORMULA class and clean other classes
 func calc_final_damage_amount(_damage : Damage) -> float:
 	var resist = 0.0
 	match _damage.get_type():
@@ -289,7 +289,6 @@ func take_damage(_damage : Damage, pulse := Vector2.ZERO) -> void:
 
 	if CONFIG.SHOW_FLOATING_DAMAGE_NUMBERS:
 		FLOATING_TEXT.generate(global_position, str(amount)).set_crit(randf() > 0.5)
-
 
 	TWEEN.interpolate_method_to_and_back(
 		self, "set_shader_param_damage_flash_anim",
@@ -340,7 +339,6 @@ func remove_move_speed_mod(mod) -> void:
 	if _move_speed_modifiers.has(mod):
 		_move_speed_modifiers.erase(mod)
 
-
 ### PRIVATE FUNCTIONS ###
 func _select_target():
 	var possible_targets = get_enemies_in_attack_range()
@@ -369,7 +367,6 @@ func _get_move_speed_multiplier() -> float:
 #####
 ##			OVERRIDABLE AI ACTIONS
 #####
-
 func _action_walk_towards_enemy_base():
 	set_velocity(Vector2.LEFT * 100.0)
 	change_state(STATE.WALK)
@@ -406,7 +403,6 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 	match anim_name:
 		"attack":
 			_on_attack_ended()
-
 
 
 func _on_MousePickingArea_area_entered(_area):

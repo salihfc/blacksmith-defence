@@ -1,39 +1,36 @@
 extends Resource
 class_name UnitData
 """
-
 """
-
 ### SIGNAL ###
-
-
 ### ENUM ###
 enum STATS {
 	MAX_HP		= 0,
-	
+
 	RES_PHYS	= 1,
 	RES_FIRE	= 2,
 	RES_WATER	= 3,
 	RES_EARTH	= 4,
-	
+
 	BASE_DAMAGE	= 5,
 	MOVE_SPEED	= 6,
 	ATK_SPEED	= 7,
-	
+
 	ATK_RANGE	= 8,
 	DAMAGE_MULTI= 9,
 
 	COUNT		= 10,
 }
 
+# TODO: Can get rid of this
 const STAT_NAMES = {
 	STATS.MAX_HP		: "max_hp",
-	
+
 	STATS.RES_PHYS		: "resist_phys",
 	STATS.RES_FIRE		: "resist_fire",
 	STATS.RES_WATER		: "resist_water",
 	STATS.RES_EARTH		: "resist_earth",
-	
+
 	STATS.BASE_DAMAGE	: "base_damage",
 	STATS.MOVE_SPEED	: "move_speed",
 	STATS.ATK_SPEED		: "atk_speed",
@@ -42,10 +39,8 @@ const STAT_NAMES = {
 }
 
 ### CONST ###
-
 const CURVE_MULT_NAME_PREFIX	= "curve_mult_"
 const CURVE_ADD_NAME_PREFIX		= "curve_add_"
-
 
 ### EXPORT ###
 # Visual
@@ -104,19 +99,9 @@ export(Curve) var curve_mult_attack_range
 export(Curve) var curve_mult_damage_multi
 
 ### PUBLIC VAR ###
-
-
 ### PRIVATE VAR ###
-
-
 ### ONREADY VAR ###
-
-
-
-
 ### VIRTUAL FUNCTIONS (_init ...) ###
-
-
 ### PUBLIC FUNCTIONS ###
 func get_view_texture():
 	if view_texture:
@@ -124,23 +109,21 @@ func get_view_texture():
 	return texture
 
 
-
-# warning-ignore:unused_argument
 func scale_to_wave(wave_number : float):
 	for stat_id in STATS.COUNT:
 		var curve_add = _get_stat_curve_add(stat_id)
 		var curve_mult = _get_stat_curve_mult(stat_id)
 		var value = get_stat(stat_id)
-		
+
 		if curve_add != null:
 			value += curve_add.interpolate(wave_number)
-			
+
 			if stat_id == STATS.MAX_HP:
 				LOG.pr(LOG.LOG_TYPE.INTERNAL, "[%s] set_stat [%s] to [%s] | (%s)" % [self, STAT_NAMES[stat_id], value, get_stat(stat_id)])
 
 		if curve_mult != null:
 			value *= curve_mult.interpolate(wave_number)
-		
+
 		_set_stat(stat_id, value)
 
 	return self
@@ -148,24 +131,20 @@ func scale_to_wave(wave_number : float):
 
 func calc_power() -> float:
 	var power = get_stat(STATS.MAX_HP)
-	
+
 	power *= get_stat(STATS.ATK_SPEED)
 	power *= get_stat(STATS.DAMAGE_MULTI)
-	
+
 	if get_stat(STATS.ATK_RANGE):
 		power *= max(1.0, sqrt(get_stat(STATS.ATK_RANGE)))
-	
-	
+
 	return power
 
 
 func get_stat(stat_id : int):
 	return get(STAT_NAMES[stat_id])
 
-
 ### PRIVATE FUNCTIONS ###
-
-
 func _set_stat(stat_id : int, new_value) -> void:
 	set(STAT_NAMES[stat_id], new_value)
 

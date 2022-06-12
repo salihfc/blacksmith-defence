@@ -7,7 +7,7 @@ extends HBoxContainer
 ### SIGNAL ###
 ### ENUM ###
 ### CONST ###
-const PrefabMaterialView = preload("res://src/ui/material_view.tscn")
+const P_MaterialView = preload("res://src/ui/material_view.tscn")
 ### EXPORT ###
 ### PUBLIC VAR ###
 ### PRIVATE VAR ###
@@ -22,7 +22,7 @@ func update_list() -> void:
 	var materials = _material_storage.get_materials()
 	for mat in materials.keys():
 		var count = materials[mat]
-		var material_view = PrefabMaterialView.instance()
+		var material_view = P_MaterialView.instance()
 		add_child(material_view)
 		material_view.set_data(mat, count)
 

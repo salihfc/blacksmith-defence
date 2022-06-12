@@ -14,8 +14,14 @@ expand = true
 stretch_mode = 5
 script = ExtResource( 1 )
 __meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
+NP_UnitTexture = NodePath("PanelContainer/HBoxContainer/UnitTexture")
+NP_BaseCostList = NodePath("PanelContainer/HBoxContainer/CostList/BaseCostList")
+NP_AcceptButton = NodePath("PanelContainer/HBoxContainer/Buttons/VBoxContainer/Accept")
+NP_DiscardButton = NodePath("PanelContainer/HBoxContainer/Buttons/VBoxContainer/Discard")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchor_right = 1.0

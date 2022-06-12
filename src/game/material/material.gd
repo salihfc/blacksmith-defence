@@ -1,11 +1,9 @@
 extends Sprite
-
 """
-
 """
-
 ### SIGNAL ###
 signal hovered()
+
 ### ENUM ###
 ### CONST ###
 ### EXPORT ###
@@ -14,13 +12,13 @@ signal hovered()
 var _mat : MaterialData
 var _ct : int
 var _collected = false
+
 ### ONREADY VAR ###
 ### VIRTUAL FUNCTIONS (_init ...) ###
 ### PUBLIC FUNCTIONS ###
 func set_data(mat : MaterialData, ct : int) -> void:
 	_mat = mat
 	_ct = ct
-	
 	texture = mat.sprite
 
 
@@ -54,19 +52,15 @@ func play_collect_animation() -> void:
 		scale, Vector2.ZERO,
 		anim_duration
 	)
-	
+
 	yield(get_tree().create_timer(anim_duration), "timeout")
 	queue_free()
-
 
 ### PRIVATE FUNCTIONS ###
 func _set_shader_param_glow_anim_t(t : float) -> void:
 	material.set_shader_param("in_anim_t", t)
 
-
 ### SIGNAL RESPONSES ###
-
-
 func _on_MousePickingArea_area_entered(_area):
 	if not _collected:
 		emit_signal("hovered")

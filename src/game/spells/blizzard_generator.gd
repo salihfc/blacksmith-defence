@@ -1,12 +1,11 @@
 extends SpellBase
-
 """
 """
 ### SIGNAL ###
 ### ENUM ###
 ### CONST ###
 ### EXPORT ###
-export(PackedScene) var blizzardPrefab
+export(PackedScene) var P_Blizzard
 
 ### PUBLIC VAR ###
 ### PRIVATE VAR ###
@@ -19,8 +18,8 @@ func cast(
 	pass
 
 ### PUBLIC FUNCTIONS ###
-
 func get_radius() -> float:
-	return 100.0
+	return 100.0 # TODO: make dynamic
+
 ### PRIVATE FUNCTIONS ###
 ### SIGNAL RESPONSES ###

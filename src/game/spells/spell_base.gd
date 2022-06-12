@@ -1,9 +1,7 @@
 extends Node2D
 class_name SpellBase
 """
-
 """
-
 ### SIGNAL ###
 ### ENUM ###
 ### CONST ###
@@ -15,7 +13,6 @@ class_name SpellBase
 ### PUBLIC FUNCTIONS ###
 func get_possible_targets():
 	return get_tree().get_nodes_in_group(CONFIG.ENEMY_GROUP)
-
 
 ### PRIVATE FUNCTIONS ###
 ### SIGNAL RESPONSES ###

@@ -1,9 +1,7 @@
 extends Resource
 class_name MaterialStorage
 """
-
 """
-
 ### SIGNAL ###
 ### ENUM ###
 ### CONST ###
@@ -11,13 +9,11 @@ class_name MaterialStorage
 export(Dictionary) var _storage = {
 	# Material Res : Count
 }
+
 ### PUBLIC VAR ###
 ### PRIVATE VAR ###
-
 ### ONREADY VAR ###
 ### VIRTUAL FUNCTIONS (_init ...) ###
-
-
 ### PUBLIC FUNCTIONS ###
 func add_material(mat : MaterialData, ct : int) -> void:
 	if not mat in _storage:
@@ -50,7 +46,6 @@ func use_cost(_cost : MaterialStorage) -> void:
 	var mats = _cost.get_materials()
 	for mat in mats.keys():
 		use_material(mat, mats[mat])
-
 
 ### PRIVATE FUNCTIONS ###
 ### SIGNAL RESPONSES ###

@@ -1,8 +1,6 @@
 extends Resource
 class_name Context
-
 """
-
 """
 ### SIGNAL ###
 ### ENUM ###
@@ -11,11 +9,12 @@ class_name Context
 ### PUBLIC VAR ###
 ### PRIVATE VAR ###
 var _world = null
+
 ### ONREADY VAR ###
 ### VIRTUAL FUNCTIONS (_init ...) ###
 ### PUBLIC FUNCTIONS ###
 func get_input_value_normalized(input_type : int, actor, target = null) -> float:
-	
+
 	match input_type:
 		IAUS.INPUT.NONE:
 			return IAUS.NULL
@@ -33,10 +32,9 @@ func get_input_value_normalized(input_type : int, actor, target = null) -> float
 #			return actor.get_closest_enemy_dist_in_attack_range_normalized()
 			if target and actor.is_unit_in_attack_range(target):
 				return actor.normalized_distance_to_unit(target)
-			return IAUS.NULL 
-	
-	return IAUS.NULL
+			return IAUS.NULL
 
+	return IAUS.NULL
 
 
 func set_world(world) -> void:
@@ -45,7 +43,6 @@ func set_world(world) -> void:
 
 func get_world():
 	return _world
+
 ### PRIVATE FUNCTIONS ###
-
-
 ### SIGNAL RESPONSES ###

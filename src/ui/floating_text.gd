@@ -26,14 +26,14 @@ func _ready() -> void:
 
 ### PUBLIC FUNCTIONS ###
 func init(start_pos : Vector2, text : String, movement = _get_random_movement()):
-	
+
 	start_pos += STARTING_OFFSET
 
 	global_position = start_pos
 	label.text = str(int(text))
-	
+
 	var duration = _get_random_duration()
-	
+
 	tween.interpolate_property(
 			self, "global_position",
 			start_pos, start_pos + movement,
@@ -45,7 +45,7 @@ func init(start_pos : Vector2, text : String, movement = _get_random_movement())
 			scale, Vector2.ZERO,
 			duration,
 			Tween.TRANS_SINE, Tween.EASE_IN_OUT)
-	
+
 	tween.start()
 	return self
 

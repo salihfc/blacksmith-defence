@@ -20,6 +20,6 @@ func sample_at(x : float) -> float:
 
 	assert(x >= min_value and x <= max_value)
 	return interpolate(x)
-	
+
 ### PRIVATE FUNCTIONS ###
 ### SIGNAL RESPONSES ###

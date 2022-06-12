@@ -1,15 +1,13 @@
 extends Resource
 class_name MaterialPool
-
 """
-
 """
-
 ### SIGNAL ###
 ### ENUM ###
 ### CONST ###
 ### EXPORT ###
 export(Array, Resource) var materials
+
 ### PUBLIC VAR ###
 ### PRIVATE VAR ###
 ### ONREADY VAR ###
@@ -21,5 +19,6 @@ func get_materials():
 
 func get_random():
 	return UTILS.get_random_from(materials)
+
 ### PRIVATE FUNCTIONS ###
 ### SIGNAL RESPONSES ###

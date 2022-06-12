@@ -1,24 +1,19 @@
 extends Node2D
 class_name Weapon
-
 """
-
 """
-
 ### SIGNAL ###
 signal damage_frame(damage_amount)
 
-
 ### ENUM ###
-### TEMP
+### TODO: fix this
 enum TYPE {
 	SWORD = 0,
 	RAPIER = 1,
-	
+
 	WAND = 2,
 }
 ### <-- TEMP
-
 
 enum ANIM {
 	IDLE,
@@ -26,23 +21,13 @@ enum ANIM {
 	SWING,
 	SLAM,
 	THRUST,
+
+	COUNT
 }
 
 ### CONST ###
-const ANIMS = {
-	ANIM.IDLE	: "idle",
-	ANIM.HOLD	: "hold",
-	ANIM.SWING	: "swing",
-	ANIM.SLAM	: "slam",
-	ANIM.THRUST : "thrust",
-}
-
 ### EXPORT ###
-
-
 ### PUBLIC VAR ###
-
-
 ### PRIVATE VAR ###
 var _id = -1
 var _damage = 0.0
@@ -50,7 +35,7 @@ var _damage = 0.0
 ### ONREADY VAR ###
 onready var sprite = $Sprite as Sprite
 onready var animPlayer = $AnimationPlayer as AnimationPlayer
-onready var collisionShape = $Sprite/HitBox/CollisionShape2D as CollisionShape2D 
+onready var collisionShape = $Sprite/HitBox/CollisionShape2D as CollisionShape2D
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _ready() -> void:
@@ -62,18 +47,12 @@ func init_with_data(weapon_data : WeaponData) -> void:
 	_id = weapon_data.id
 	sprite.texture = weapon_data.texture
 	# ANIM SETUP
-	
-	if weapon_data.idle_anim:
-		animPlayer.add_animation("idle", weapon_data.idle_anim)
-	if weapon_data.hold_anim:
-		animPlayer.add_animation("hold", weapon_data.hold_anim)
-	if weapon_data.swing_anim:
-		animPlayer.add_animation("swing", weapon_data.swing_anim)
-	if weapon_data.slam_anim:
-		animPlayer.add_animation("slam", weapon_data.slam_anim)
-	if weapon_data.thrust_anim:
-		animPlayer.add_animation("thrust", weapon_data.thrust_anim)
-
+	for id in ANIM.COUNT:
+		var anim_name = get_anim(id)
+		var member_name = anim_name + "_anim"
+		var anim = weapon_data.get(member_name)
+		if anim:
+			animPlayer.add_animation(anim_name, anim)
 
 	# PHYSICS
 	collisionShape.shape = weapon_data.collision_shape
@@ -82,7 +61,7 @@ func init_with_data(weapon_data : WeaponData) -> void:
 	# GAMEPLAY
 	_damage = weapon_data.base_damage
 
-  
+
 ### PUBLIC FUNCTIONS ###
 func strike() -> void:
 	match _id:
@@ -90,7 +69,7 @@ func strike() -> void:
 			animate(ANIM.SWING)
 		TYPE.RAPIER:
 			animate(ANIM.THRUST)
-		
+
 		TYPE.WAND:
 			animate(ANIM.SWING)
 
@@ -104,7 +83,7 @@ func animate(anim_id) -> void:
 
 
 func get_anim(id):
-	return ANIMS[id]
+	return UTILS.get_enum_string_from_id(ANIM, id).to_lower()
 
 
 func set_animation_speed(speed : float) -> void:
@@ -140,12 +119,12 @@ func _on_HitBox_area_entered(area):
 	var entity_hit = area.get_owner()
 	LOG.pr(LOG.LOG_TYPE.PHYSICS, "Hitbox entered %s" % [entity_hit])
 	_deal_damage(entity_hit)
-	
+
 	var spawn_pos = entity_hit.global_position
-	
+
 	# Random displacement
 	spawn_pos += UTILS.random_unit_vec2() * 10.0
-	
+
 	if _id == TYPE.RAPIER:
 		VFX.generate_fx_at(VFX.FX.THRUST_HIT_PARTICLES, spawn_pos)
 	elif _id == TYPE.SWORD:

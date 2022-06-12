@@ -4,11 +4,12 @@
 
 [node name="Log" type="Node"]
 script = ExtResource( 1 )
-flags/LOG_INTERNAL = true
-flags/LOG_GAMEPLAY = false
-flags/LOG_SIGNAL = false
-flags/LOG_AI = false
-flags/LOG_VFX = false
-flags/LOG_SFX = false
-flags/LOG_INPUT = false
-flags/LOG_PHYSICS = false
+_log_flags/INTERNAL = true
+_log_flags/SIGNAL = null
+_log_flags/AI = null
+_log_flags/GAMEPLAY = null
+_log_flags/VFX = null
+_log_flags/SFX = null
+_log_flags/INPUT = null
+_log_flags/PHYSICS = null
+_log_flags/COUNT = null

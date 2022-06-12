@@ -1,9 +1,7 @@
 extends Resource
 class_name WaveGenerator
 """
-
 """
-
 ### SIGNAL ###
 ### ENUM ###
 ### CONST ###
@@ -30,7 +28,7 @@ func generate_wave(wave_number : int, max_wave : int):
 		wave.add(random_enemy)
 
 	LOG.pr(LOG.LOG_TYPE.INTERNAL | LOG.LOG_TYPE.GAMEPLAY, "Wave with (%s | %s) power generated" % [current_power, wave_t])
-	
+
 	return wave
 
 

@@ -1,20 +1,20 @@
 extends Area2D
 class_name ObjectArea
-
 """
-
 """
-
 ### SIGNAL ###
 signal areas_inside_changed()
+
 ### ENUM ###
 ### CONST ###
 ### EXPORT ###
 export(bool) var dynamic_tracking = false
 export(NodePath) var owner_path = null
+
 ### PUBLIC VAR ###
 ### PRIVATE VAR ###
 var _areas_inside = {}
+
 ### ONREADY VAR ###
 onready var collision_shape = $CollisionShape2D as CollisionShape2D
 
@@ -24,16 +24,15 @@ func _ready() -> void:
 	modulate = Color("4effffff")
 
 	if dynamic_tracking:
-		UTILS.bind(
+		SIGNAL.bind(
 			self, "area_entered",
 			self, "_on_area_entered"
 		)
 
-		UTILS.bind(
+		SIGNAL.bind(
 			self, "area_exited",
 			self, "_on_area_exited"
 		)
-
 
 ### PUBLIC FUNCTIONS ###]
 func get_owner():
@@ -51,7 +50,6 @@ func get_radius() -> float:
 func get_areas_inside() -> Array:
 	assert(dynamic_tracking) # Should not be called if ObjectArea does not have dynamic tracking
 	return _areas_inside.keys()
-
 
 ### PRIVATE FUNCTIONS ###
 ### SIGNAL RESPONSES ###

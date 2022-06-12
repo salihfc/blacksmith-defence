@@ -2,12 +2,12 @@ extends Resource
 class_name GridDataContainer
 """
 """
-
 ### SIGNAL ###
 ### ENUM ###
 ### CONST ###
 ### EXPORT ###
 export(Resource) var _data = CacheDict.new()
+
 ### PUBLIC VAR ###
 func clear() -> void:
 	_data.clear()
@@ -26,13 +26,11 @@ func remove_object(pos : Vector2) -> void:
 
 func is_occupied(pos : Vector2) -> bool:
 	var input = _input_transform(pos)
-#	input.append(null)
 	return _data.is_cached(input)
 
 
 func is_pos_empty(pos : Vector2) -> bool:
 	return not is_occupied(pos)
-
 
 ### PRIVATE VAR ###
 func _input_transform(pos):

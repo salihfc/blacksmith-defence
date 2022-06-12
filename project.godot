@@ -19,6 +19,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/ai/infinite_axis_utility/agent.gd"
 }, {
+"base": "TileMap",
+"class": "BaseTilemap",
+"language": "GDScript",
+"path": "res://src/game/battle/base_tilemap.gd"
+}, {
 "base": "Resource",
 "class": "CacheDict",
 "language": "GDScript",
@@ -119,6 +124,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/unit/sub_units/player_unit.gd"
 }, {
+"base": "Node2D",
+"class": "RangeCircle",
+"language": "GDScript",
+"path": "res://src/debug/range_circle.gd"
+}, {
 "base": "Resource",
 "class": "Snippet",
 "language": "GDScript",
@@ -167,6 +177,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Action": "",
 "Agent": "",
+"BaseTilemap": "",
 "CacheDict": "",
 "Command": "",
 "Consideration": "",
@@ -187,6 +198,7 @@ _global_script_class_icons={
 "PlayerBase": "",
 "PlayerMainBase": "",
 "PlayerUnit": "",
+"RangeCircle": "",
 "Snippet": "",
 "SpellBase": "",
 "Unit": "",
@@ -209,6 +221,7 @@ config/icon="res://icon.png"
 CONFIG="*res://src/singletons/config.gd"
 LOG="*res://src/singletons/log.tscn"
 UTILS="*res://src/singletons/utils.gd"
+SIGNAL="*res://src/singletons/signal.gd"
 TWEEN="*res://src/singletons/tween_manager.tscn"
 IAUS="*res://src/singletons/iaus_config.gd"
 FORMULA="*res://src/singletons/formula.gd"
@@ -282,6 +295,11 @@ left_click={
 pause={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":80,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+toggle_ranges={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":true,"control":false,"meta":false,"command":false,"pressed":false,"scancode":65,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
 

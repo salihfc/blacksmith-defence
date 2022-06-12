@@ -1,13 +1,8 @@
 extends Resource
 class_name Command
-
 """
-
 """
-
 ### SIGNAL ###
-
-
 ### ENUM ###
 enum TYPE {
 	IDLE,
@@ -16,8 +11,6 @@ enum TYPE {
 }
 
 ### CONST ###
-
-
 ### EXPORT ###
 export(int) var type = TYPE.IDLE
 
@@ -25,18 +18,12 @@ export(int) var type = TYPE.IDLE
 ### PRIVATE VAR ###
 var args := []
 
-
 ### ONREADY VAR ###
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _init(_type = TYPE.IDLE, _args := []):
 	type = _type
 	args = _args
 
-
 ### PUBLIC FUNCTIONS ###
-
-
 ### PRIVATE FUNCTIONS ###
-
-
 ### SIGNAL RESPONSES ###
