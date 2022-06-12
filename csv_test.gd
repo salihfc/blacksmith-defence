@@ -14,17 +14,26 @@ extends EditorScript
 ### ONREADY VAR ###
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _run():
-	var file = File.new()
-	file.open("res://Blacksmith-enemy.csv", File.READ)
+	var dict = {
+		"test" : 1,
+		"kek" : 2,
+	}
 
-	var parsed = file.get_csv_line()
-	var t = 0
-	while parsed and t < 10:
-		print (parsed)
-		parsed = file.get_csv_line()
-		t += 1
+	for item in dict:
+		print(item)
 
-	file.close()
+	pass
+#	var file = File.new()
+#	file.open("res://Blacksmith-enemy.csv", File.READ)
+#
+#	var parsed = file.get_csv_line()
+#	var t = 0
+#	while parsed and t < 10:
+#		print (parsed)
+#		parsed = file.get_csv_line()
+#		t += 1
+#
+#	file.close()
 
 ### PUBLIC FUNCTIONS ###
 ### PRIVATE FUNCTIONS ###

@@ -17,7 +17,10 @@ onready var cols = $HBoxContainer as HBoxContainer
 
 ### PUBLIC FUNCTIONS ###
 func fill_with(arr) -> void:
-	var flat_arr = UTILS.flatten_array(arr)
+#	var flat_arr = UTILS.flatten_array(arr)
+	var flat_arr = arr
+	print (flat_arr)
+
 	for item in flat_arr:
 		var label = Label.new()
 		label.text = str(item)

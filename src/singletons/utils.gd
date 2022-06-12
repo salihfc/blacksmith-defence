@@ -145,6 +145,7 @@ func random_unit_vec2() -> Vector2:
 	return angle_to_vec2(theta)
 
 var inverse_log2 = 1.0 / log(2)
+
 func log2(x) -> float:
 	return log(x) * inverse_log2
 
@@ -185,6 +186,7 @@ func flatten_array(arr : Array):
 		if item is Array:
 			new_arr.append_array(flatten_array(item))
 		new_arr.append(item)
+	print(arr, ' --- ', new_arr)
 	return new_arr
 
 
