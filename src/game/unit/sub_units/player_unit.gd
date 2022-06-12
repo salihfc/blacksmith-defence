@@ -30,7 +30,7 @@ const RETARGET_MID_ANIMATION = true
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func init_with_data(unit_data : UnitData) -> void:
 	.init_with_data(unit_data)
-	
+
 	if unit_data.weapon is WeaponData:
 		var new_weapon = PrefabWeapon.instance()
 		_set_weapon(new_weapon)
@@ -62,7 +62,7 @@ func _set_weapon(weapon : Node) -> void:
 	)
 
 	weaponSlot.add_child(weapon)
-	
+
 	if weapon.has_method("set_damage"):
 		weapon.set_damage(get_damage())
 	else:

@@ -15,7 +15,7 @@ Resource( "res://tres/materials/material_iron.tres" ): 2
 
 [resource]
 script = ExtResource( 3 )
-name = "Arc Wizard Unit"
+name = "Arcanist"
 texture = ExtResource( 1 )
 cost = SubResource( 1 )
 brain = ExtResource( 6 )

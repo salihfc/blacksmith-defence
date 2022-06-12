@@ -77,7 +77,7 @@ onready var spellSlot = $SpriteParent/SpellSlot as Node2D
 # Areas
 onready var softBody : ObjectArea = $SpriteParent/Areas/SoftBody as ObjectArea
 onready var body : ObjectArea = $SpriteParent/Areas/Body as ObjectArea
-onready var attackRange : ObjectArea = $SpriteParent/Areas/AttackRange as ObjectArea 
+onready var attackRange : ObjectArea = $SpriteParent/Areas/AttackRange as ObjectArea
 onready var dustEffect = $VFXGroundDust
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
@@ -90,14 +90,14 @@ func _ready():
 		self, "_on_enemy_entered_range",
 		[1]
 	)
-	
+
 	UTILS.bind(
 		self, "_context_changed",
 		self, "_on_context_changed"
 	)
-	
+
 	hpBar.set_value(1.0)
-	
+
 	set_velocity(get_default_dir() * BASE_SPEED)
 	call_deferred("decide")
 
@@ -114,7 +114,7 @@ func _process(_delta):
 
 
 func _physics_process(delta):
-	_knockback *= KNOCKBACK_DAMPING 
+	_knockback *= KNOCKBACK_DAMPING
 
 	match _state:
 		STATE.WALK:
@@ -128,6 +128,9 @@ func _physics_process(delta):
 ### PUBLIC FUNCTIONS ###
 # INIT func
 func init_with_data(unit_data : UnitData) -> void:
+#	name += "|>" + unit_data.name
+	name = unit_data.name
+
 	for stat_id in UnitData.STATS.COUNT:
 		set("_" + UnitData.STAT_NAMES[stat_id], unit_data.get_stat(stat_id))
 
@@ -137,10 +140,10 @@ func init_with_data(unit_data : UnitData) -> void:
 	sprite.texture = unit_data.texture
 	sprite.offset.y = -sprite.texture.get_height() / 2.0
 
-	
+
 	assert(unit_data.attack_range != null)
 	attackRange.set_radius(unit_data.attack_range)
-	
+
 	assert(unit_data.brain != null)
 	agent_brain = unit_data.brain.duplicate(true)
 
@@ -207,7 +210,7 @@ func decide() -> void:
 
 func execute_action(action) -> void:
 	var action_type = action.action_type
-	
+
 	match action_type:
 		IAUS.ACTION.WALK_TOWARDS_ENEMY_BASE:
 			_action_walk_towards_enemy_base()
@@ -220,7 +223,7 @@ func execute_action(action) -> void:
 
 
 func change_state(new_state):
-	
+
 	match new_state:
 		STATE.ATTACK:
 			if _target_weakref == null or _target_weakref.get_ref() == null:
@@ -239,7 +242,7 @@ func change_state(new_state):
 			stateLabel.text = "wlk"
 			if !dustEffect.is_emitting():
 				dustEffect.emit()
-		
+
 		_:
 			dustEffect.emit(false)
 
@@ -257,7 +260,7 @@ func set_direction() -> void:
 func apply_impulse(impulse : Vector2) -> void:
 	# Disable y knockback
 	impulse.y = 0.0
-	
+
 	_knockback += impulse
 
 
@@ -283,11 +286,11 @@ func take_damage(_damage : Damage, pulse := Vector2.ZERO) -> void:
 	var amount = calc_final_damage_amount(_damage)
 	LOG.pr(LOG.LOG_TYPE.GAMEPLAY, "%s taking %s -> %s" % [self, _damage, amount])
 	_hp -= amount
-	
+
 	if CONFIG.SHOW_FLOATING_DAMAGE_NUMBERS:
 		FLOATING_TEXT.generate(global_position, str(amount)).set_crit(randf() > 0.5)
-	
-	
+
+
 	TWEEN.interpolate_method_to_and_back(
 		self, "set_shader_param_damage_flash_anim",
 		0.0, 0.75,

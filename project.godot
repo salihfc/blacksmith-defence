@@ -207,7 +207,7 @@ config/icon="res://icon.png"
 [autoload]
 
 CONFIG="*res://src/singletons/config.gd"
-LOG="*res://src/singletons/log.gd"
+LOG="*res://src/singletons/log.tscn"
 UTILS="*res://src/singletons/utils.gd"
 TWEEN="*res://src/singletons/tween_manager.tscn"
 IAUS="*res://src/singletons/iaus_config.gd"

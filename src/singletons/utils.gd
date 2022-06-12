@@ -144,6 +144,13 @@ func random_unit_vec2() -> Vector2:
 	var theta = rand_range(0, 2 * PI)
 	return angle_to_vec2(theta)
 
+var inverse_log2 = 1.0 / log(2)
+func log2(x) -> float:
+	return log(x) * inverse_log2
+
+func log2i(x) -> int:
+	return int(log2(x) + 0.0001)
+
 
 func check(p : float) -> bool:
 	return randf() <= p
@@ -181,7 +188,9 @@ func flatten_array(arr : Array):
 	return new_arr
 
 
-func get_enum_string_from_id(enum_ref, id) -> String:
+func get_enum_string_from_id(enum_ref, id):
+	if enum_ref.keys().size() <= id:
+		return null
 	return enum_ref.keys()[id]
 
 
