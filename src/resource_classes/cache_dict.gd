@@ -36,6 +36,10 @@ func get_cached(path_as_arr : Array):
 	return ref.get(path_as_arr.back())
 
 
+func is_cached(path_as_arr : Array) -> bool:
+	return _path_exists(path_as_arr) != null
+
+
 func as_array() -> Array:
 	return _traverse_dict_tree(_cache, null, [])
 
@@ -44,7 +48,7 @@ func as_array() -> Array:
 func _traverse_dict_tree(cur, parent, path : Array) -> Array:
 	if not cur is Dictionary:
 		return [[cur, parent[cur]]]
-	
+
 	var res = []
 	for key in cur.keys():
 		path.push_back(key)
@@ -54,11 +58,26 @@ func _traverse_dict_tree(cur, parent, path : Array) -> Array:
 	return res
 
 
+func _path_exists(path_as_arr : Array):
+	var n = path_as_arr.size()
+	var i = 0
+	var ref = _cache
+
+	while i < (n - 1): # !!!!!!
+		var key = path_as_arr[i]
+#		LOG.pr(LOG.LOG_TYPE.INTERNAL, "KEY [%s]" % [key])
+		if not key in ref:
+			return null
+		ref = ref[key]
+		i += 1
+	return ref
+
+
 func _get_obj_at_path(path_as_arr : Array):
 	var n = path_as_arr.size()
 	var i = 0
 	var ref = _cache
-	
+
 	while i < (n - 1): # !!!!!!
 		var key = path_as_arr[i]
 #		LOG.pr(LOG.LOG_TYPE.INTERNAL, "KEY [%s]" % [key])

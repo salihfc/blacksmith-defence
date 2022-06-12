@@ -61,7 +61,7 @@ func change_scene(scene_id) -> void:
 	var scene = SCENES[(scene_id)].instance()
 	scene.visible = false
 	sceneSlot.add_child(scene)
-	
+
 	# TODO: Should wait until scene fully loaded
 	yield(get_tree().create_timer(1.0), "timeout")
 	fade(0.0, RECOVERY_MIN_DELAY)
@@ -71,9 +71,9 @@ func change_scene(scene_id) -> void:
 func fade(alpha, duration := 0.5) -> void:
 	var to = foreground.color
 	to.a = alpha
-	
+
 	TWEEN.interpolate_property(
-			foreground, "color", 
+			foreground, "color",
 			foreground.color, to,
 			duration,
 			Tween.TRANS_QUAD, Tween.EASE_IN_OUT

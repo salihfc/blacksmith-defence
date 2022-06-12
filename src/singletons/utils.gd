@@ -71,7 +71,7 @@ func bind_relay(
 	else:
 		LOG.pr(LOG.LOG_TYPE.SIGNAL, "Bind Relay: (%s:%s) -> (%s:%s)" %\
 				[source_node, signal_name, target_node, repeated_signal_name_list])
-		
+
 		var target_weakref = _find_target_node_weakref(target_node, relays[source_weakref])
 		if target_weakref == null:
 			target_weakref = weakref(target_node)
@@ -99,7 +99,7 @@ func _relay_helper(emitter_node : Object, signal_name : String) -> void:
 		var emitter_signal_relays = relays.get(signal_name)
 		if emitter_signal_relays:
 			for repeater_node in emitter_signal_relays.keys():
-				var repeated_signal_list = emitter_signal_relays.get(repeater_node) 
+				var repeated_signal_list = emitter_signal_relays.get(repeater_node)
 				for repeated_signal_name in repeated_signal_list:
 					repeater_node.emit(repeated_signal_name)
 
@@ -117,7 +117,7 @@ func bind_bulk(
 		bind(source_node, signal_name, target_node, method_name, binds)
 
 
-# pause_node: for debugging purposes 
+# pause_node: for debugging purposes
 func pause_node(node : Node, active = false) -> void:
 	LOG.pr(LOG.LOG_TYPE.INTERNAL, "Pausing (%s) [%s]" % [node, active])
 	Engine.time_scale = 1.0 if active else 0.0
@@ -161,7 +161,7 @@ func get_random_from(set : Array):
 func get_closest_node(node : Node2D, other_nodes : Array):
 	if node in other_nodes:
 		other_nodes.erase(node)
-	
+
 	var closest = null
 	var min_dist = INF
 	for other_node in other_nodes:
@@ -183,3 +183,7 @@ func flatten_array(arr : Array):
 
 func get_enum_string_from_id(enum_ref, id) -> String:
 	return enum_ref.keys()[id]
+
+
+func vec2_to_int_arr(vec2 : Vector2) -> Array:
+	return [int(vec2.x), int(vec2.y)]

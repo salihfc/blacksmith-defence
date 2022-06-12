@@ -10,7 +10,7 @@ signal wave_completed()
 signal unit_selected(unit)
 signal unit_spawned(unit)
 signal material_collected(mat, count)
-
+signal drag_grid_pos_changed(is_new_grid_pos_valid)
 ### ENUM ###
 
 
@@ -32,6 +32,7 @@ export(Resource) var encounter = null
 ### PRIVATE VAR ###
 var _current_wave = 0
 var _drag_item_data = null
+var _prev_drag_grid_pos = Vector2.ZERO
 var paused = false
 
 ### ONREADY VAR ###
@@ -49,23 +50,30 @@ onready var mousePointerArea = $MousePointerArea as ObjectArea
 onready var playerSpawnPositions =  $PlayerSpawnPositions as Area2D
 onready var draggedItemSlot = $MousePointerArea/DraggedItemSlot as Node2D
 
+# Resource Containers
+onready var grid_pos_cache = GridDataContainer.new()
 
 func _process(_delta):
-	
+
 	if Input.is_action_just_pressed("left_click"):
+		_set_mouse_pointer_area_pos() # Update mouse pointer area to guarantee sync
 		LOG.pr(LOG.LOG_TYPE.INPUT, "battle_world action event: {left click pressed}")
-		# left_click Released 
+		# left_click Released
 		var drag_item = get_drag_item_data()
 		if drag_item:
 			var areas = playerSpawnPositions.get_overlapping_areas()
-			if areas.size(): # mouse is overlapping
-				spawn_unit(drag_item, mousePointerArea.global_position)
-				clear_dragged_item()
+			if areas.size():
+				if not grid_pos_cache.is_occupied(_get_mouse_pointer_area_grid_pos()): # mouse is overlapping with spawn area
+					spawn_unit(drag_item, mousePointerArea.global_position)
+					clear_dragged_item()
+				else:
+					LOG.pr(LOG.LOG_TYPE.AI, "pos (%s) OCCUPIED" % [_get_mouse_pointer_area_grid_pos()])
+
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _ready():
 	CONFIG.context.set_world(self)
-	
+
 	UTILS.bind(
 		VFX, "vfx_created",
 		self, "_on_vfx_created"
@@ -80,6 +88,11 @@ func _ready():
 			base, "base_taken_damage",
 			self, "damage_base"
 		)
+
+	UTILS.bind(
+		mousePointerArea, "areas_inside_changed",
+		self, "_on_mousePointerArea_areas_inside_changed"
+	)
 
 
 #signal encounter_completed()
@@ -98,39 +111,47 @@ func _ready():
 			spawnTimer, "timeout",
 			self, "_on_spawn_timer_timeout"
 		)
-		
+
 
 	for mat in material_pool.get_materials():
 		call_deferred("emit_signal",
 				"material_collected",
 				mat,
 				0)
-	
+
 	call_deferred("emit_signal",
 			"material_collected",
 			load("res://tres/materials/material_iron.tres"),
 			100)
 
 
-#	spawnTimer.start(4.0)
-	
-#	call_deferred(
-#		"emit_signal",
-#		"base_hp_updated", player_base_max_hp, player_base_max_hp
-#	)
-
-
 func _physics_process(_delta):
-	
+	_set_mouse_pointer_area_pos()
+
+	for i in range(1, 4):
+		if Input.is_action_just_pressed("%s" % [i]):
+			spawn_enemy(_get_random_enemy_data(), i-1)
+
+
+func _set_mouse_pointer_area_pos() -> void:
 	if _drag_item_data:
 		mousePointerArea.global_position = gridTilemap.map_to_world(gridTilemap.world_to_map(get_global_mouse_position()))\
 				+ Vector2(gridTilemap.cell_size.x, gridTilemap.cell_size.y)/2.0
 	else:
 		mousePointerArea.global_position = get_global_mouse_position()
 
-	for i in range(1, 4):
-		if Input.is_action_just_pressed("%s" % [i]):
-			spawn_enemy(_get_random_enemy_data(), i-1)
+	if _get_mouse_pointer_area_grid_pos() != _prev_drag_grid_pos:
+		_prev_drag_grid_pos = _get_mouse_pointer_area_grid_pos()
+#		emit_signal("drag_grid_pos_changed", is_grid_pos_valid(_prev_drag_grid_pos))
+		call_deferred("emit_signal", "drag_grid_pos_changed", is_grid_pos_valid(_prev_drag_grid_pos))
+
+
+func is_grid_pos_valid(pos):
+	return grid_pos_cache.is_pos_empty(pos) and mousePointerArea.get_areas_inside().size() > 0
+
+
+func _get_mouse_pointer_area_grid_pos() -> Vector2:
+	return gridTilemap.world_to_map(mousePointerArea.global_position)
 
 
 ### PUBLIC FUNCTIONS ###
@@ -148,12 +169,21 @@ func spawn_unit(unit_data : UnitData, pos : Vector2 ) -> void:
 	unit.global_position = pos
 	unit.init_with_data(unit_data)
 
+	grid_pos_cache.place_object(weakref(unit), _get_mouse_pointer_area_grid_pos())
+	unit.grid_pos = _get_mouse_pointer_area_grid_pos()
+
 	UTILS.bind(
 		unit, "selected",
 		self, "_on_unit_selected",
 		[unit]
 	)
-	
+
+	UTILS.bind(
+		unit, "died",
+		grid_pos_cache, "remove_object",
+		[unit.grid_pos]
+	)
+
 	emit_signal("unit_spawned", unit_data)
 	clear_dragged_item()
 
@@ -176,13 +206,13 @@ func spawn_enemy(enemy_data, lane : int = _get_random_spawn_idx(), _ct : int = 1
 		self, "_on_unit_selected",
 		[enemy]
 	)
-	
+
 	UTILS.bind(
 		enemy, "died",
 		self, "_on_enemy_died",
 		[enemy]
 	)
-	
+
 #	if ct > 1:
 #		spawn_enemy(enemy_data, null, ct-1)
 
@@ -191,11 +221,11 @@ func spawn_random_mat(spawn_pos) -> void:
 	var material_data = load("res://tres/materials/material_iron.tres")
 	var new_mat = MaterialPrefab.instance()
 	new_mat.set_data(material_data, 2)
-	
+
 	units.call_deferred("add_child", new_mat)
 	new_mat.global_position = spawn_pos
 	new_mat.play_drop_animation()
-	
+
 	UTILS.bind(
 		new_mat, "hovered",
 		self, "_on_mat_hovered",
@@ -214,6 +244,12 @@ func set_dragged_item(drag_item_data) -> void:
 	var new_holo = UnitHoloPrefab.instance()
 	new_holo.set_texture(drag_item_data.texture)
 	draggedItemSlot.add_child(new_holo)
+
+	UTILS.bind(
+		self, "drag_grid_pos_changed",
+		new_holo, "set_valid"
+	)
+
 	playerSpawnPositions.show()
 	gridTilemap.show()
 
@@ -230,6 +266,10 @@ func clear_dragged_item() -> void:
 
 
 ### PRIVATE FUNCTIONS ###
+func get_dragged_item_holo():
+	return draggedItemSlot.get_child(0) if draggedItemSlot.get_child_count() else null
+
+
 func _get_random_enemy_data():
 	return enemy_pool.get_random()
 
@@ -273,3 +313,12 @@ func _on_vfx_created(vfx) -> void:
 
 func _on_floating_text_created(floating_text) -> void:
 	floatingTextContainer.add_child(floating_text)
+
+
+func _on_mousePointerArea_areas_inside_changed() -> void:
+	var dragged_item_holo = get_dragged_item_holo()
+	if dragged_item_holo:
+		if mousePointerArea.get_areas_inside().empty():
+			dragged_item_holo.set_valid(false)
+		elif not grid_pos_cache.is_occupied(_get_mouse_pointer_area_grid_pos()):
+			dragged_item_holo.set_valid(true)

@@ -21,7 +21,7 @@ onready var listView = $VBoxContainer as VBoxContainer
 ### PUBLIC FUNCTIONS ###
 func display_unit(unit) -> void:
 	
-	if _last_displayed_unit:
+	if _last_displayed_unit and _last_displayed_unit.get_ref():
 		# break the signal connection
 		UTILS.unbind(
 			_last_displayed_unit.get_ref(), "info_updated",

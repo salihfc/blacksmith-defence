@@ -35,9 +35,9 @@ func score(context, actor, _target = null, base : float = 1.0) -> float:
 	for axis in _considerations:
 		var axis_score = axis.utility(context, actor, _target)
 		base *= axis_score
-	
+
 	# normalization
-	return pow(base, 1.0/_considerations.size()) 
+	return pow(base, 1.0/_considerations.size())
 
 
 # warning-ignore:unused_argument

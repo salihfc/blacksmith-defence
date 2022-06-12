@@ -137,10 +137,11 @@ func _send_damage_frame() -> void:
 
 
 func _on_HitBox_area_entered(area):
-	LOG.pr(LOG.LOG_TYPE.PHYSICS, "Hitbox entered %s" % [area.get_owner()])
-	_deal_damage(area.get_owner())
+	var entity_hit = area.get_owner()
+	LOG.pr(LOG.LOG_TYPE.PHYSICS, "Hitbox entered %s" % [entity_hit])
+	_deal_damage(entity_hit)
 	
-	var spawn_pos = global_position
+	var spawn_pos = entity_hit.global_position
 	
 	# Random displacement
 	spawn_pos += UTILS.random_unit_vec2() * 10.0

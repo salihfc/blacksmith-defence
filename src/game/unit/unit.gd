@@ -38,6 +38,7 @@ const BASE_SPEED = 100.0
 ### EXPORT ###
 export(Resource) var agent_brain = null # Type: Agent
 ### PUBLIC VAR ###
+var grid_pos setget set_grid_pos, get_grid_pos
 var default_state = STATE.IDLE
 ### PRIVATE VAR ###
 var _max_hp
@@ -152,7 +153,15 @@ func is_unit_in_range(_unit) -> bool:
 	return true # Todo: Fix
 
 
+func set_grid_pos(pos : Vector2) -> void:
+	grid_pos = pos
+
+
 # Getters
+func get_grid_pos() -> Vector2:
+	return grid_pos
+
+
 func get_info():
 	return [self]
 
@@ -282,7 +291,8 @@ func take_damage(_damage : Damage, pulse := Vector2.ZERO) -> void:
 	TWEEN.interpolate_method_to_and_back(
 		self, "set_shader_param_damage_flash_anim",
 		0.0, 0.75,
-		0.1, 0.05
+		0.1, 0.05,
+		rand_range(0.1, 0.2) # EXTRA JUICE EXPERIMENTAL
 	)
 
 	if _hp <= 0.0:

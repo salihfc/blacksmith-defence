@@ -40,7 +40,7 @@ onready var baseHealthBar = get_node(NodepathBaseHealthBar)
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _input(event):
-	
+
 	if event is InputEventKey and event.pressed:
 #		LOG.pr(LOG.LOG_TYPE.INTERNAL, "(%s) pressed" % [event.scancode])
 		if event.scancode == 96: # <`> TILDE
@@ -61,24 +61,24 @@ func _input(event):
 
 
 func _ready():
-	
+
 	if player_base:
 		player_base.init()
 		UTILS.bind(
 			player_base, "player_main_base_destroyed",
 			self, "_on_player_main_base_destroyed"
 		)
-		
+
 		UTILS.bind(
 			player_base, "hp_updated",
 			baseHealthBar, "set_hp_value"
 		)
-	
+
 	UTILS.bind(
 		startWaveButton, "pressed",
 		self, "_on_wave_start_button_pressed"
 	)
-	
+
 	UTILS.bind_bulk(
 		battle, self,
 		[
@@ -87,7 +87,7 @@ func _ready():
 			["wave_completed", "_on_wave_completed"],
 		]
 	)
-	
+
 	UTILS.bind(
 		battle, "base_damaged",
 		player_base, "take_damage"
@@ -103,7 +103,7 @@ func _ready():
 		self, "material_used",
 		materialList, "_on_material_used"
 	)
-	
+
 	# TEMP
 	for unit_data in unit_data_pool.get_items():
 		assert(unit_data is UnitData)
@@ -116,7 +116,7 @@ func _ready():
 			self, "_on_unit_view_pressed",
 			[unit_data]
 		)
-	
+
 
 ### PUBLIC FUNCTIONS ###
 
