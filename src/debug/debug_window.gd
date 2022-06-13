@@ -23,11 +23,12 @@ func display_unit(unit) -> void:
 	for score_data in utility_scores:
 		_add_row_with_data_arr(score_data)
 
-	SIGNAL.bind(
-		unit, "info_updated",
-		self, "_on_displayed_unit_update",
-		[weakref(unit)]
-	)
+	if not unit.is_connected("info_updated", self, "_on_displayed_unit_update"):
+		SIGNAL.bind(
+			unit, "info_updated",
+			self, "_on_displayed_unit_update",
+			[weakref(unit)]
+		)
 
 
 ### PRIVATE FUNCTIONS ###

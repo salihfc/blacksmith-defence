@@ -78,7 +78,10 @@ func strike() -> void:
 
 
 func animate(anim_id) -> void:
-	animPlayer.stop()
+	var speed = animPlayer.playback_speed
+	animPlayer.stop(true)
+	animPlayer.playback_speed = speed
+	animPlayer.advance(0.0)
 	animPlayer.play(get_anim(anim_id))
 
 
@@ -112,6 +115,7 @@ func _get_knockback_dir() -> Vector2:
 
 ### SIGNAL RESPONSES ###
 func _send_damage_frame() -> void:
+#	LOG.pr(LOG.LOG_TYPE.INTERNAL, "Send damage frame")
 	emit_signal("damage_frame", get_damage())
 
 

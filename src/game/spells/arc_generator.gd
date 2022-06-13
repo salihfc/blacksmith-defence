@@ -29,6 +29,8 @@ func cast(
 		max_targets : int = get_target_count()
 	) -> void:
 
+#	LOG.pr(LOG.LOG_TYPE.INTERNAL, "CAST")
+
 	global_position = starting_point
 	var end_points_targets = [self]
 	var target_ct = 0

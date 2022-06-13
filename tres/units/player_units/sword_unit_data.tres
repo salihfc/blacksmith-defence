@@ -34,6 +34,6 @@ stats/res_earth = 0.0
 stats/base_damage = 10
 stats/move_speed = 1
 stats/atk_speed = 1
-stats/atk_range = 40
+stats/atk_range = 55.0
 stats/damage_multi = 1
 stats/hp = 0.0

@@ -387,12 +387,15 @@ func _on_context_changed() -> void:
 
 func _on_enemy_entered_range(_enemy_area, _range_type) -> void:
 	if _state != STATE.ATTACK:
-		LOG.pr(LOG.LOG_TYPE.AI, "[%s] CONTEXT CHANGED RETHINKING" % [self])
+#		if _stats.get_stat(StatContainer.STATS.MAX_HP) > 1000.0:
+#			LOG.pr(LOG.LOG_TYPE.INTERNAL, "[%s] CONTEXT CHANGED RETHINKING %s" % [self, animPlayer.get_playing_speed()])
 		emit_signal("_context_changed")
 
 
 func _on_attack_ended() -> void:
 	# TODO: (OPTIMIZE) Check if context changed for optimization
+#	if _stats.get_stat(StatContainer.STATS.MAX_HP) > 1000.0:
+#		LOG.pr(LOG.LOG_TYPE.INTERNAL, "ATTACK END")
 	emit_signal("_context_changed")
 
 

@@ -21,6 +21,7 @@ var RESIST_TYPES = {
 	TYPE.FIRE		: StatContainer.STATS.RES_FIRE,
 	TYPE.EARTH		: StatContainer.STATS.RES_EARTH,
 	TYPE.WATER		: StatContainer.STATS.RES_WATER,
+	TYPE.LIGHTNING	: StatContainer.STATS.RES_WATER,
 }
 
 ### EXPORT ###
