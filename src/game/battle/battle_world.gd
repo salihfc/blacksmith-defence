@@ -1,22 +1,18 @@
 extends Node2D
-
 """
-
 """
-
 ### SIGNAL ###
 # raw input
 signal left_button_clicked()
-
 # input signals
 signal unit_selected(unit)
 signal material_collected(mat, count)
 signal drag_grid_pos_changed(is_new_grid_pos_valid)
-
 # gameplay signals
 signal base_damaged(damage)
 signal wave_completed()
 signal unit_spawned(unit)
+
 ### ENUM ###
 ### CONST ###
 # prefabs
@@ -24,7 +20,6 @@ const P_Material = preload("res://src/game/material/material.tscn")
 const P_EnemyUnit = preload("res://src/game/unit/sub_units/enemy_unit.tscn")
 const P_PlayerUnit = preload("res://src/game/unit/sub_units/player_unit.tscn")
 const P_UnitHolo = preload("res://src/ui/unit_holo.tscn")
-
 ### EXPORT ###
 export(float) var MIN_SPAWN_DELAY = 0.5
 export(float) var MAX_SPAWN_DELAY = 2.0
@@ -84,6 +79,7 @@ func _ready():
 		VFX, "vfx_created",
 		self, "_on_vfx_created"
 	)
+
 	SIGNAL.bind(
 		FLOATING_TEXT, "floating_text_created",
 		self, "_on_floating_text_created"

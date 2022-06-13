@@ -41,19 +41,21 @@ var grid_pos setget set_grid_pos, get_grid_pos
 var default_state = STATE.IDLE
 
 ### PRIVATE VAR ###
-var _max_hp
-var _hp
-var _move_speed := 1.0
-var _move_speed_modifiers = []
-var _atk_speed := 1.0
-var _damage_multi := 1.0
-var _base_damage := 1.0
-
+var _stats = null
+#var _max_hp
+#var _hp
+#var _move_speed := 1.0
+#var _atk_speed := 1.0
+#var _damage_multi := 1.0
+#var _base_damage := 1.0
 #
-var _resist_phys := 0.0
-var _resist_fire := 0.0
-var _resist_water := 0.0
-var _resist_earth := 0.0
+##
+#var _resist_phys := 0.0
+#var _resist_fire := 0.0
+#var _resist_water := 0.0
+#var _resist_earth := 0.0
+
+var _move_speed_modifiers = []
 
 var _velocity = Vector2.ZERO
 var _knockback = Vector2.ZERO
@@ -121,28 +123,31 @@ func _physics_process(delta):
 
 	match _state:
 		STATE.WALK:
-			global_position += ((_velocity) + _knockback) * delta * _move_speed * (_get_move_speed_multiplier())
+			global_position += ((_velocity) + _knockback) * delta * _stats.get_stat(StatContainer.STATS.MOVE_SPEED) * (_get_move_speed_multiplier())
 		_:
 			global_position += (_knockback) * delta
 
 ### PUBLIC FUNCTIONS ###
 # INIT func
 func init_with_data(unit_data : UnitData) -> void:
-#	name += "|>" + unit_data.name
 	name = unit_data.name
+	_stats = unit_data.copy_stats()
+	_stats.set_stat(StatContainer.STATS.HP, _stats.get_stat(StatContainer.STATS.MAX_HP))
 
-	for stat_id in UnitData.STATS.COUNT:
-		set("_" + UnitData.STAT_NAMES[stat_id], unit_data.get_stat(stat_id))
-
-	_hp = _max_hp
+#	for stat_id in UnitData.STATS.COUNT:
+#		var stat_name = "_" + unit_data.get_stat_name(stat_id)
+#		var stat_value = unit_data.get_stat(stat_id)
+#		prints (stat_name, stat_value)
+#		set(stat_name, stat_value)
 
 	# reference to sprite should be set in _ready
-	sprite.texture = unit_data.texture
+	assert(sprite)
+	sprite.texture = unit_data.get_texture()
 	sprite.offset.y = -sprite.texture.get_height() / 2.0
 
-	assert(unit_data.attack_range != null)
-	attackRange.set_radius(unit_data.attack_range)
-	DBG_range_circle.radius = unit_data.attack_range
+	assert(unit_data.get_stat(StatContainer.STATS.ATK_RANGE) != null)
+	attackRange.set_radius(_stats.get_stat(StatContainer.STATS.ATK_RANGE))
+	DBG_range_circle.radius = _stats.get_stat(StatContainer.STATS.ATK_RANGE)
 
 	assert(unit_data.brain != null)
 	agent_brain = unit_data.brain.duplicate(true)
@@ -182,11 +187,11 @@ func get_state():
 
 
 func get_hp_perc():
-	return _hp / _max_hp
+	return _stats.get_stat(StatContainer.STATS.HP) / _stats.get_stat(StatContainer.STATS.MAX_HP)
 
 
 func get_damage():
-	return _base_damage * _damage_multi
+	return _stats.get_stat(StatContainer.STATS.BASE_DAMAGE) * _stats.get_stat(StatContainer.STATS.DAMAGE_MULTI)
 
 
 func get_enemies_in_attack_range() -> Array:
@@ -265,17 +270,7 @@ func apply_impulse(impulse : Vector2) -> void:
 
 # TODO: Carry Formulaic stuff into FORMULA class and clean other classes
 func calc_final_damage_amount(_damage : Damage) -> float:
-	var resist = 0.0
-	match _damage.get_type():
-		Damage.TYPE.PHYSICAL:
-			resist = _resist_phys
-		Damage.TYPE.FIRE:
-			resist = _resist_fire
-		Damage.TYPE.WATER:
-			resist = _resist_water
-		Damage.TYPE.EARTH:
-			resist = _resist_earth
-
+	var resist = _stats.get_stat(_damage.get_resist_type(), 0.0)
 	var final_damage = _damage.get_amount()
 	final_damage = FORMULA.get_resisted(final_damage, resist)
 	return final_damage
@@ -285,7 +280,9 @@ func take_damage(_damage : Damage, pulse := Vector2.ZERO) -> void:
 	apply_impulse(pulse)
 	var amount = calc_final_damage_amount(_damage)
 	LOG.pr(LOG.LOG_TYPE.GAMEPLAY, "%s taking %s -> %s" % [self, _damage, amount])
-	_hp -= amount
+
+	var new_hp = _stats.get_stat(StatContainer.STATS.HP) - amount
+	_stats.set_stat(StatContainer.STATS.HP, new_hp)
 
 	if CONFIG.SHOW_FLOATING_DAMAGE_NUMBERS:
 		FLOATING_TEXT.generate(global_position, str(amount)).set_crit(randf() > 0.5)
@@ -297,7 +294,7 @@ func take_damage(_damage : Damage, pulse := Vector2.ZERO) -> void:
 		rand_range(0.1, 0.2) # EXTRA JUICE EXPERIMENTAL
 	)
 
-	if _hp <= 0.0:
+	if _stats.get_stat(StatContainer.STATS.HP) <= 0.0:
 		emit_signal("died")
 		queue_free()
 	else:

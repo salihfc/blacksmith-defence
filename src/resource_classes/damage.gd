@@ -16,6 +16,13 @@ enum TYPE {
 }
 
 ### CONST ###
+var RESIST_TYPES = {
+	TYPE.PHYSICAL	: StatContainer.STATS.RES_PHYS,
+	TYPE.FIRE		: StatContainer.STATS.RES_FIRE,
+	TYPE.EARTH		: StatContainer.STATS.RES_EARTH,
+	TYPE.WATER		: StatContainer.STATS.RES_WATER,
+}
+
 ### EXPORT ###
 ### PUBLIC VAR ###
 ### PRIVATE VAR ###
@@ -33,8 +40,13 @@ func get_type():
 	return _type
 
 
+func get_resist_type():
+	return RESIST_TYPES.get(_type)
+
+
 func get_amount():
 	return _amount
+
 
 ### PRIVATE FUNCTIONS ###
 func _to_string():

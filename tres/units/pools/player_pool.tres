@@ -2,9 +2,9 @@
 
 [ext_resource path="res://src/resource_classes/item_pool.gd" type="Script" id=1]
 [ext_resource path="res://tres/units/player_units/sword_unit_data.tres" type="Resource" id=2]
-[ext_resource path="res://tres/units/player_units/rapier_unit_data.tres" type="Resource" id=3]
-[ext_resource path="res://tres/units/player_units/arc_unit_data.tres" type="Resource" id=4]
+[ext_resource path="res://tres/units/player_units/arcanist.tres" type="Resource" id=3]
+[ext_resource path="res://tres/units/player_units/rapier.tres" type="Resource" id=4]
 
 [resource]
 script = ExtResource( 1 )
-items = [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ) ]
+items = [ ExtResource( 2 ), ExtResource( 4 ), ExtResource( 3 ) ]

@@ -10,7 +10,7 @@ const SHOW_HP_BARS = false
 const SHOW_FLOATING_DAMAGE_NUMBERS = true
 
 # Dynamic Debug
-var SHOW_RANGE_CIRCLES : bool = false setget _set_show_range_circles
+var SHOW_RANGE_CIRCLES : bool = true setget _set_show_range_circles
 
 # Vars
 onready var context = Context.new()

@@ -20,7 +20,7 @@ func init_with_data(unit_data : UnitData) -> void:
 		var new_weapon = P_Weapon.instance()
 		_set_weapon(new_weapon)
 		new_weapon.init_with_data(unit_data.weapon)
-		new_weapon.set_animation_speed(unit_data.atk_speed)
+		new_weapon.set_animation_speed(unit_data.get_stat(StatContainer.STATS.ATK_SPEED))
 
 	if unit_data.spells:
 		for spell_scene in unit_data.spells:

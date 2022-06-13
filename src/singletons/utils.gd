@@ -1,3 +1,4 @@
+tool
 extends Node
 """
 	GENERAL PURPOSE FUNCTIONS IN CATEGORIES:
@@ -140,6 +141,17 @@ func flatten_array(arr : Array):
 func get_enum_string_from_id(enum_ref, id) -> String:
 	assert(enum_ref.keys().size() > id)
 	return enum_ref.keys()[id]
+
+
+func get_enum_hint_string(enum_ref) -> String:
+	var arr = enum_ref.keys()
+	var string = ""
+	for idx in arr.size():
+		var item = arr[idx]
+		string += str(item)
+		if idx+1 != arr.size():
+			string += ','
+	return string
 
 
 """
