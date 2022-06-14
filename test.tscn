@@ -26,7 +26,7 @@ func _ready():
 	cache.remove_cached(path)
 	print (cache.get_cached(path))
 	print (cache.get_cached(path2))
-	
+
 
 ### PUBLIC FUNCTIONS ###
 ### PRIVATE FUNCTIONS ###
@@ -37,6 +37,3 @@ func _ready():
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = SubResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}

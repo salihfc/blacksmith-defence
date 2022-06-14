@@ -5,5 +5,6 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "copper"
 sprite = ExtResource( 2 )
+type = 1
+name = "COPPER"

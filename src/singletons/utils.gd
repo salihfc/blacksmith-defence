@@ -91,6 +91,10 @@ func random_unit_vec2() -> Vector2:
 """
 	Random [Can be turned into a singleton if different distributions and prng is required]
 """
+func gauss_random(min_v : float, max_v : float) -> float:
+	return rand_range(sqrt(min_v), sqrt(max_v)) * rand_range(sqrt(min_v), sqrt(max_v))
+
+
 func check(p : float) -> bool:
 	return randf() <= p
 
@@ -139,6 +143,7 @@ func flatten_array(arr : Array):
 """
 
 func get_enum_string_from_id(enum_ref, id) -> String:
+	assert(enum_ref)
 	assert(enum_ref.keys().size() > id)
 	return enum_ref.keys()[id]
 

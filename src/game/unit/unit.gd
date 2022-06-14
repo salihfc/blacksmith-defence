@@ -42,18 +42,6 @@ var default_state = STATE.IDLE
 
 ### PRIVATE VAR ###
 var _stats = null
-#var _max_hp
-#var _hp
-#var _move_speed := 1.0
-#var _atk_speed := 1.0
-#var _damage_multi := 1.0
-#var _base_damage := 1.0
-#
-##
-#var _resist_phys := 0.0
-#var _resist_fire := 0.0
-#var _resist_water := 0.0
-#var _resist_earth := 0.0
 
 var _move_speed_modifiers = []
 
@@ -132,13 +120,8 @@ func _physics_process(delta):
 func init_with_data(unit_data : UnitData) -> void:
 	name = unit_data.name
 	_stats = unit_data.copy_stats()
+	# Set hp to max
 	_stats.set_stat(StatContainer.STATS.HP, _stats.get_stat(StatContainer.STATS.MAX_HP))
-
-#	for stat_id in UnitData.STATS.COUNT:
-#		var stat_name = "_" + unit_data.get_stat_name(stat_id)
-#		var stat_value = unit_data.get_stat(stat_id)
-#		prints (stat_name, stat_value)
-#		set(stat_name, stat_value)
 
 	# reference to sprite should be set in _ready
 	assert(sprite)

@@ -1,0 +1,194 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://src/ui/crafting_menu.gd" type="Script" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://tres/units/pools/item_pool_0.tres" type="Resource" id=3]
+
+[sub_resource type="StyleBoxFlat" id=1]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id=2]
+
+[node name="CraftingMenu" type="Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -513.0
+margin_top = -280.0
+margin_right = 513.0
+margin_bottom = 280.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+NP_WeaponList = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/WeaponListScroll/WeaponList")
+NP_CraftingPanel = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/CraftingPanelContainer")
+NP_MaterialList = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/MaterialListScroll/MaterialList")
+NP_WeaponTextureRect = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/CraftingPanelContainer/VBoxContainer/SelectedWeaponContainer/SlotTextureRect/WeaponTextureRect")
+weapons = ExtResource( 3 )
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1019.0
+margin_bottom = 553.0
+custom_constants/margin_right = 60
+custom_constants/margin_top = 20
+custom_constants/margin_left = 60
+custom_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+margin_left = 60.0
+margin_top = 20.0
+margin_right = 952.0
+margin_bottom = 526.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+margin_right = 892.0
+margin_bottom = 462.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 40
+
+[node name="WeaponListScroll" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_right = 324.0
+margin_bottom = 462.0
+size_flags_horizontal = 3
+custom_styles/bg = SubResource( 1 )
+
+[node name="WeaponList" type="ItemList" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/WeaponListScroll"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 322.0
+margin_bottom = 460.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_colors/guide_color = Color( 0.847059, 0.647059, 0.647059, 1 )
+custom_colors/font_color_selected = Color( 0, 0, 0, 1 )
+custom_constants/icon_margin = 10
+custom_styles/selected_focus = SubResource( 2 )
+items = [ "Item 0", ExtResource( 2 ), false ]
+allow_reselect = true
+fixed_icon_size = Vector2( 48, 48 )
+
+[node name="CraftingPanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 364.0
+margin_right = 527.0
+margin_bottom = 462.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+custom_styles/panel = SubResource( 1 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/CraftingPanelContainer"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 161.0
+margin_bottom = 460.0
+
+[node name="SelectedWeaponContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/CraftingPanelContainer/VBoxContainer"]
+margin_right = 159.0
+margin_bottom = 151.0
+size_flags_vertical = 3
+
+[node name="SlotTextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/CraftingPanelContainer/VBoxContainer/SelectedWeaponContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 152.0
+margin_bottom = 144.0
+
+[node name="WeaponTextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/CraftingPanelContainer/VBoxContainer/SelectedWeaponContainer/SlotTextureRect"]
+anchor_left = 0.2
+anchor_top = 0.2
+anchor_right = 0.8
+anchor_bottom = 0.8
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 6
+
+[node name="SelectedMaterialsContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/CraftingPanelContainer/VBoxContainer"]
+margin_top = 155.0
+margin_right = 159.0
+margin_bottom = 458.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="MaterialSlots" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/CraftingPanelContainer/VBoxContainer/SelectedMaterialsContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 152.0
+margin_bottom = 296.0
+
+[node name="MatSlot" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/CraftingPanelContainer/VBoxContainer/SelectedMaterialsContainer/MaterialSlots"]
+margin_right = 145.0
+margin_bottom = 93.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MatSlot2" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/CraftingPanelContainer/VBoxContainer/SelectedMaterialsContainer/MaterialSlots"]
+margin_top = 97.0
+margin_right = 145.0
+margin_bottom = 191.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MatSlot3" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/CraftingPanelContainer/VBoxContainer/SelectedMaterialsContainer/MaterialSlots"]
+margin_top = 195.0
+margin_right = 145.0
+margin_bottom = 289.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MaterialListScroll" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 567.0
+margin_right = 892.0
+margin_bottom = 462.0
+size_flags_horizontal = 3
+custom_styles/bg = SubResource( 1 )
+
+[node name="MaterialList" type="ItemList" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/MaterialListScroll"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 323.0
+margin_bottom = 460.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+items = [ "Item 0", ExtResource( 2 ), false ]
+allow_reselect = true
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+margin_top = 466.0
+margin_right = 892.0
+margin_bottom = 506.0
+size_flags_horizontal = 3
+custom_constants/margin_top = 10
+custom_constants/margin_bottom = 10
+
+[node name="Button" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer"]
+margin_left = 420.0
+margin_top = 10.0
+margin_right = 471.0
+margin_bottom = 30.0
+size_flags_horizontal = 4
+size_flags_vertical = 5
+text = "CRAFT"
+
+[connection signal="item_selected" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/WeaponListScroll/WeaponList" to="." method="_on_WeaponList_item_selected"]
+[connection signal="item_selected" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/MaterialListScroll/MaterialList" to="." method="_on_MaterialList_item_selected"]

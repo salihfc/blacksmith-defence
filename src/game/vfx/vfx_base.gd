@@ -23,6 +23,7 @@ func _ready():
 
 ### PUBLIC FUNCTIONS ###
 func emit(emit := true) -> void:
+	particles.restart()
 	particles.emitting = emit
 
 	if auto_free:

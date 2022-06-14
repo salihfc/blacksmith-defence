@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://src/game/vfx/vfx_base.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/gfx/common/leaf.png" type="Texture" id=2]
+
+[sub_resource type="Gradient" id=2]
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0.231373 )
+
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
+
+[sub_resource type="Curve" id=4]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.386364 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=5]
+curve = SubResource( 4 )
+
+[sub_resource type="ParticlesMaterial" id=1]
+emission_shape = 1
+emission_sphere_radius = 50.0
+flag_align_y = true
+flag_rotate_y = true
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 200.0
+orbit_velocity = 0.2
+orbit_velocity_random = 0.0
+radial_accel = 10.0
+damping = 10.0
+scale = 0.1
+scale_random = 0.05
+scale_curve = SubResource( 5 )
+color = Color( 0.0392157, 0.494118, 0.0392157, 1 )
+color_ramp = SubResource( 3 )
+
+[node name="VFXLeaves" instance=ExtResource( 1 )]
+auto_free = false
+
+[node name="Particles2D" parent="." index="0"]
+amount = 16
+lifetime = 4.0
+local_coords = false
+process_material = SubResource( 1 )
+texture = ExtResource( 2 )
