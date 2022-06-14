@@ -11,6 +11,7 @@ const P_Arc = preload("res://src/game/spells/arc.tscn")
 ### EXPORT ###
 export(float) var jump_delay = 0.01
 export(float) var jump_range = 125.0
+export(int) var base_chain = 1
 export(Resource) var damage = Damage.new(Damage.TYPE.LIGHTNING, 10.0)
 
 ### PUBLIC VAR ###
@@ -19,7 +20,11 @@ export(Resource) var damage = Damage.new(Damage.TYPE.LIGHTNING, 10.0)
 ### VIRTUAL FUNCTIONS (_init ...) ###
 ### PUBLIC FUNCTIONS ###
 func get_target_count():
-	return 3 # This will be dynamic with enchancements
+	assert(owner_unit_weakref)
+	var _owner = owner_unit_weakref.get_ref()
+	if _owner:
+		return base_chain + _owner.get_stat(StatContainer.STATS.CHAIN_COUNT)
+	return 0
 
 
 # Sends a wave of arc through targets
@@ -28,6 +33,7 @@ func cast(
 		possible_targets : Array = get_possible_targets(),
 		max_targets : int = get_target_count()
 	) -> void:
+	assert(owner_unit_weakref)
 
 #	LOG.pr(LOG.LOG_TYPE.INTERNAL, "CAST")
 

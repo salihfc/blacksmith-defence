@@ -10,32 +10,12 @@ class_name UnitEnhancementStatChainCount
 ### EXPORT ###
 export(int) var increase_value = 0
 
-
-#var increase_value = 0
-
-#func _get(property: String):
-#	if property == "increase_value":
-#		return increase_value
-#
-#
-#func _set(property: String, value = false) -> bool:
-#	if property == "increase_value":
-#		increase_value = value
-#	return true
-#
-#
-#func _get_property_list() -> Array:
-#	var props = []
-#	props.append(
-#		{
-#			'name' : "increase_value",
-#			'type' : TYPE_INT,
-#		}
-#	)
-#	return props
-
-
 ### PUBLIC VAR ###
+func apply_to(_stats) -> void:
+	if _stats.has_stat(StatContainer.STATS.CHAIN_COUNT):
+		_stats.increase_stat(StatContainer.STATS.CHAIN_COUNT, increase_value)
+
+
 ### PRIVATE VAR ###
 ### ONREADY VAR ###
 ### VIRTUAL FUNCTIONS (_init ...) ###

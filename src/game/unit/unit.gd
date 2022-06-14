@@ -111,7 +111,7 @@ func _physics_process(delta):
 
 	match _state:
 		STATE.WALK:
-			global_position += ((_velocity) + _knockback) * delta * _stats.get_stat(StatContainer.STATS.MOVE_SPEED) * (_get_move_speed_multiplier())
+			global_position += ((_velocity) + _knockback) * delta * get_stat(StatContainer.STATS.MOVE_SPEED) * (_get_move_speed_multiplier())
 		_:
 			global_position += (_knockback) * delta
 
@@ -121,7 +121,11 @@ func init_with_data(unit_data : UnitData) -> void:
 	name = unit_data.name
 	_stats = unit_data.copy_stats()
 	# Set hp to max
-	_stats.set_stat(StatContainer.STATS.HP, _stats.get_stat(StatContainer.STATS.MAX_HP))
+	_stats.set_stat(StatContainer.STATS.HP, get_stat(StatContainer.STATS.MAX_HP))
+
+	if unit_data.enhancements:
+		for enh in unit_data.enhancements:
+			enh.apply_to(_stats)
 
 	# reference to sprite should be set in _ready
 	assert(sprite)
@@ -129,8 +133,8 @@ func init_with_data(unit_data : UnitData) -> void:
 	sprite.offset.y = -sprite.texture.get_height() / 2.0
 
 	assert(unit_data.get_stat(StatContainer.STATS.ATK_RANGE) != null)
-	attackRange.set_radius(_stats.get_stat(StatContainer.STATS.ATK_RANGE))
-	DBG_range_circle.radius = _stats.get_stat(StatContainer.STATS.ATK_RANGE)
+	attackRange.set_radius(get_stat(StatContainer.STATS.ATK_RANGE))
+	DBG_range_circle.radius = get_stat(StatContainer.STATS.ATK_RANGE)
 
 	assert(unit_data.brain != null)
 	agent_brain = unit_data.brain.duplicate(true)
@@ -149,6 +153,10 @@ func set_grid_pos(pos : Vector2) -> void:
 
 
 # Getters
+func get_stat(id : int, default = null):
+	return _stats.get_stat(id, default)
+
+
 func get_grid_pos() -> Vector2:
 	return grid_pos
 
@@ -170,11 +178,11 @@ func get_state():
 
 
 func get_hp_perc():
-	return _stats.get_stat(StatContainer.STATS.HP) / _stats.get_stat(StatContainer.STATS.MAX_HP)
+	return get_stat(StatContainer.STATS.HP) / get_stat(StatContainer.STATS.MAX_HP)
 
 
 func get_damage():
-	return _stats.get_stat(StatContainer.STATS.BASE_DAMAGE) * _stats.get_stat(StatContainer.STATS.DAMAGE_MULTI)
+	return get_stat(StatContainer.STATS.BASE_DAMAGE) * get_stat(StatContainer.STATS.DAMAGE_MULTI)
 
 
 func get_enemies_in_attack_range() -> Array:
@@ -253,7 +261,7 @@ func apply_impulse(impulse : Vector2) -> void:
 
 # TODO: Carry Formulaic stuff into FORMULA class and clean other classes
 func calc_final_damage_amount(_damage : Damage) -> float:
-	var resist = _stats.get_stat(_damage.get_resist_type(), 0.0)
+	var resist = get_stat(_damage.get_resist_type(), 0.0)
 	var final_damage = _damage.get_amount()
 	final_damage = FORMULA.get_resisted(final_damage, resist)
 	return final_damage
@@ -264,7 +272,7 @@ func take_damage(_damage : Damage, pulse := Vector2.ZERO) -> void:
 	var amount = calc_final_damage_amount(_damage)
 	LOG.pr(LOG.LOG_TYPE.GAMEPLAY, "%s taking %s -> %s" % [self, _damage, amount])
 
-	var new_hp = _stats.get_stat(StatContainer.STATS.HP) - amount
+	var new_hp = get_stat(StatContainer.STATS.HP) - amount
 	_stats.set_stat(StatContainer.STATS.HP, new_hp)
 
 	if CONFIG.SHOW_FLOATING_DAMAGE_NUMBERS:
@@ -277,7 +285,7 @@ func take_damage(_damage : Damage, pulse := Vector2.ZERO) -> void:
 		rand_range(0.1, 0.2) # EXTRA JUICE EXPERIMENTAL
 	)
 
-	if _stats.get_stat(StatContainer.STATS.HP) <= 0.0:
+	if get_stat(StatContainer.STATS.HP) <= 0.0:
 		emit_signal("died")
 		queue_free()
 	else:
@@ -370,14 +378,14 @@ func _on_context_changed() -> void:
 
 func _on_enemy_entered_range(_enemy_area, _range_type) -> void:
 	if _state != STATE.ATTACK:
-#		if _stats.get_stat(StatContainer.STATS.MAX_HP) > 1000.0:
+#		if get_stat(StatContainer.STATS.MAX_HP) > 1000.0:
 #			LOG.pr(LOG.LOG_TYPE.INTERNAL, "[%s] CONTEXT CHANGED RETHINKING %s" % [self, animPlayer.get_playing_speed()])
 		emit_signal("_context_changed")
 
 
 func _on_attack_ended() -> void:
 	# TODO: (OPTIMIZE) Check if context changed for optimization
-#	if _stats.get_stat(StatContainer.STATS.MAX_HP) > 1000.0:
+#	if get_stat(StatContainer.STATS.MAX_HP) > 1000.0:
 #		LOG.pr(LOG.LOG_TYPE.INTERNAL, "ATTACK END")
 	emit_signal("_context_changed")
 

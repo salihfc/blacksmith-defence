@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=7 format=2]
+[gd_resource type="Resource" load_steps=6 format=2]
 
 [ext_resource path="res://src/resource_classes/unit_data.gd" type="Script" id=1]
 [ext_resource path="res://src/resource_classes/material_storage.gd" type="Script" id=2]
@@ -10,11 +10,6 @@ script = ExtResource( 2 )
 _storage = {
 }
 
-[sub_resource type="Resource" id=2]
-script = ExtResource( 2 )
-_storage = {
-}
-
 [resource]
 script = ExtResource( 1 )
 name = "Runner"
@@ -22,7 +17,7 @@ texture = ExtResource( 4 )
 cost = SubResource( 1 )
 brain = ExtResource( 3 )
 spells = [  ]
-enchancements = SubResource( 2 )
+enhancements = [  ]
 stats/max_hp = 30.0
 stats/res_phys = 0.0
 stats/res_fire = 0.0
@@ -33,4 +28,5 @@ stats/move_speed = 2.0
 stats/atk_speed = 1
 stats/atk_range = 40
 stats/damage_multi = 1
+stats/chain_count = 0
 stats/hp = 0.0

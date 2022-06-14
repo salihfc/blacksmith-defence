@@ -13,9 +13,10 @@ const STAT_DEFAULTS = {
 	StatContainer.STATS.MOVE_SPEED : 1,
 	StatContainer.STATS.ATK_SPEED : 1,
 
+	StatContainer.STATS.CHAIN_COUNT : 0,
+
 	StatContainer.STATS.ATK_RANGE : 40,
 }
-
 
 const CURVE_MULT_NAME_PREFIX	= "curve_mult_"
 const CURVE_ADD_NAME_PREFIX		= "curve_add_"
@@ -38,7 +39,8 @@ export(Resource) var weapon
 export(Array, Resource) var spells
 
 #
-export(Resource) var enchancements = MaterialStorage.new()
+#export(Resource) var enhancements = MaterialStorage.new()
+export(Array, Resource) var enhancements = []
 
 # curves
 export(Curve) var curve_add_max_hp

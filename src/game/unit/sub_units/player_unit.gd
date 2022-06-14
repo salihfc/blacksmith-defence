@@ -15,6 +15,8 @@ const RETARGET_MID_ANIMATION = true
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func init_with_data(unit_data : UnitData) -> void:
 	.init_with_data(unit_data)
+	assert(unit_data)
+	assert(unit_data.weapon)
 
 	if unit_data.weapon is WeaponData:
 		var new_weapon = P_Weapon.instance()
@@ -24,7 +26,9 @@ func init_with_data(unit_data : UnitData) -> void:
 
 	if unit_data.spells:
 		for spell_scene in unit_data.spells:
-			spellSlot.add_child(spell_scene.instance())
+			var spell = spell_scene.instance()
+			spellSlot.add_child(spell)
+			spell.set_owner(self)
 
 	DBG_range_circle.modulate = Color.green
 	DBG_range_circle.modulate.a = 0.1

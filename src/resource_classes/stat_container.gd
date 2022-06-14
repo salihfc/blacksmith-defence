@@ -21,9 +21,11 @@ enum STATS {
 	ATK_RANGE	= 8,
 	DAMAGE_MULTI= 9,
 
-	HP = 10,
+	CHAIN_COUNT = 10,
 
-	COUNT		= 11,
+	HP			= 11,
+
+	COUNT		= 12,
 }
 
 static func get_real_typed():
@@ -50,6 +52,16 @@ var _data = {}
 ### ONREADY VAR ###
 ### VIRTUAL FUNCTIONS (_init ...) ###
 ### PUBLIC FUNCTIONS ###
+func increase_stat(id : int, amount) -> void:
+	assert(has_stat(id))
+	set_stat(id, get_stat(id) + amount)
+
+
+func multiply_stat(id : int, amount) -> void:
+	assert(has_stat(id))
+	set_stat(id, get_stat(id) * amount)
+
+
 func has(property : String) -> bool:
 	return _data.has(property)
 
