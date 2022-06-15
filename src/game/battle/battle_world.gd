@@ -9,6 +9,7 @@ signal unit_selected(unit)
 signal material_collected(mat, count)
 signal drag_grid_pos_changed(is_new_grid_pos_valid)
 # gameplay signals
+## emitted when base damaged
 signal base_damaged(damage)
 signal wave_completed()
 signal unit_spawned(unit)

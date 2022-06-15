@@ -11,6 +11,7 @@
 [sub_resource type="Resource" id=1]
 script = ExtResource( 1 )
 _storage = {
+Resource( "res://tres/materials/material_iron.tres" ): 2
 }
 
 [resource]

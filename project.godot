@@ -74,6 +74,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/unit/sub_units/enemy_unit.gd"
 }, {
+"base": "",
+"class": "GitAPI",
+"language": "NativeScript",
+"path": "res://addons/godot-git-plugin/git_api.gdns"
+}, {
 "base": "Resource",
 "class": "GridDataContainer",
 "language": "GDScript",
@@ -108,6 +113,16 @@ _global_script_classes=[ {
 "class": "MaterialStorage",
 "language": "GDScript",
 "path": "res://src/resource_classes/material_storage.gd"
+}, {
+"base": "MyCustomUncreatableNode",
+"class": "MyCustomNode",
+"language": "GDScript",
+"path": "res://example/node_class_descriptions/custom_node.gd"
+}, {
+"base": "Node",
+"class": "MyCustomUncreatableNode",
+"language": "GDScript",
+"path": "res://example/node_class_descriptions/uncreatable_node.gd"
 }, {
 "base": "Area2D",
 "class": "ObjectArea",
@@ -148,6 +163,11 @@ _global_script_classes=[ {
 "class": "StatContainer",
 "language": "GDScript",
 "path": "res://src/resource_classes/stat_container.gd"
+}, {
+"base": "Node",
+"class": "TheBestObject",
+"language": "GDScript",
+"path": "res://example/node_class_descriptions/recommended_syntax.gd"
 }, {
 "base": "Node2D",
 "class": "Unit",
@@ -213,6 +233,7 @@ _global_script_class_icons={
 "DropItem": "",
 "EncounterData": "",
 "EnemyUnit": "",
+"GitAPI": "",
 "GridDataContainer": "",
 "IAUSObject": "",
 "ItemButton": "",
@@ -220,6 +241,8 @@ _global_script_class_icons={
 "MaterialData": "",
 "MaterialPool": "",
 "MaterialStorage": "",
+"MyCustomNode": "",
+"MyCustomUncreatableNode": "",
 "ObjectArea": "",
 "PlayerBase": "",
 "PlayerMainBase": "",
@@ -228,6 +251,7 @@ _global_script_class_icons={
 "Snippet": "",
 "SpellBase": "",
 "StatContainer": "",
+"TheBestObject": "",
 "Unit": "",
 "UnitData": "",
 "UnitEnhancementBase": "",
@@ -258,6 +282,7 @@ FORMULA="*res://src/singletons/formula.gd"
 VFX="*res://src/singletons/vfx_generator.tscn"
 AUDIO="*res://src/singletons/audio_manager.tscn"
 FLOATING_TEXT="*res://src/singletons/floating_text_generator.tscn"
+WEAPON_ENHANCE_DB="*res://src/singletons/weapon_mat_effect_db.gd"
 
 [debug]
 
@@ -274,7 +299,15 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/ImportCleaner/plugin.cfg", "res://addons/light_snippet/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/ImportCleaner/plugin.cfg", "res://addons/NbPM/plugin.cfg", "res://addons/code_simp/plugin.cfg", "res://addons/godotoro/plugin.cfg", "res://addons/light_snippet/plugin.cfg", "res://addons/totobird_creations.gdscript_plus/plugin.cfg" )
+
+[gdnative]
+
+singletons=[ "res://addons/godot-git-plugin/git_api.gdnlib" ]
+
+[gdunit3]
+
+settings/common/update_notification_enabled=false
 
 [importer_defaults]
 

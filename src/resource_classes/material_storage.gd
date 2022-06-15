@@ -26,6 +26,7 @@ func has_material(mat : MaterialData, ct : int) -> bool:
 
 
 func use_material(mat : MaterialData, ct : int) -> void:
+	assert(_storage.get(mat) != null)
 	assert(_storage[mat] >= ct)
 	_storage[mat] -= ct
 

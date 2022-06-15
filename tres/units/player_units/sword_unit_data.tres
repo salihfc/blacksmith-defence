@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=8 format=2]
+[gd_resource type="Resource" load_steps=7 format=2]
 
 [ext_resource path="res://tres/atlas_tex/unit_default_sprite.atlastex" type="Texture" id=1]
 [ext_resource path="res://tres/units/weapons/sword.tres" type="Resource" id=2]
@@ -12,11 +12,6 @@ _storage = {
 Resource( "res://tres/materials/material_iron.tres" ): 2
 }
 
-[sub_resource type="Resource" id=2]
-script = ExtResource( 4 )
-_storage = {
-}
-
 [resource]
 script = ExtResource( 3 )
 name = "SwordWielder"
@@ -25,7 +20,7 @@ cost = SubResource( 1 )
 brain = ExtResource( 5 )
 weapon = ExtResource( 2 )
 spells = [  ]
-enchancements = SubResource( 2 )
+enhancements = [  ]
 stats/max_hp = 50
 stats/res_phys = 0.0
 stats/res_fire = 0.0
@@ -36,4 +31,5 @@ stats/move_speed = 1
 stats/atk_speed = 1
 stats/atk_range = 55.0
 stats/damage_multi = 1
+stats/chain_count = 0
 stats/hp = 0.0

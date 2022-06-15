@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/singletons/weapon_mat_effect_db.gd" type="Script" id=1]
+
+[node name="WeaponMatEffectDB" type="Node"]
+script = ExtResource( 1 )

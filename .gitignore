@@ -2,4 +2,15 @@
 addons/
 .import/
 .vscode/
+
+_PM/
+example/
+gdUnit3-examples/
+
+gdUnit3.csproj
+gdUnit3.sln
+runtest.cmd
+runtest.sh
+
+
 *.import

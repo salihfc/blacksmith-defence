@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=8 format=2]
+[gd_resource type="Resource" load_steps=7 format=2]
 
 [ext_resource path="res://src/resource_classes/material_storage.gd" type="Script" id=1]
 [ext_resource path="res://src/resource_classes/unit_data.gd" type="Script" id=2]
@@ -9,11 +9,7 @@
 [sub_resource type="Resource" id=1]
 script = ExtResource( 1 )
 _storage = {
-}
-
-[sub_resource type="Resource" id=2]
-script = ExtResource( 1 )
-_storage = {
+Resource( "res://tres/materials/material_iron.tres" ): 2
 }
 
 [resource]
@@ -24,7 +20,7 @@ cost = SubResource( 1 )
 brain = ExtResource( 5 )
 weapon = ExtResource( 4 )
 spells = [  ]
-enchancements = SubResource( 2 )
+enhancements = [  ]
 stats/max_hp = 50
 stats/res_phys = 0.0
 stats/res_fire = 0.0
@@ -35,4 +31,5 @@ stats/move_speed = 1
 stats/atk_speed = 2.0
 stats/atk_range = 60.0
 stats/damage_multi = 1
+stats/chain_count = 0
 stats/hp = 0.0
