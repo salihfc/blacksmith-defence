@@ -74,7 +74,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/unit/sub_units/enemy_unit.gd"
 }, {
-"base": "",
+"base": "EditorVCSInterface",
 "class": "GitAPI",
 "language": "NativeScript",
 "path": "res://addons/godot-git-plugin/git_api.gdns"
@@ -299,11 +299,12 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/ImportCleaner/plugin.cfg", "res://addons/NbPM/plugin.cfg", "res://addons/code_simp/plugin.cfg", "res://addons/godotoro/plugin.cfg", "res://addons/light_snippet/plugin.cfg", "res://addons/totobird_creations.gdscript_plus/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/GDScriptMacros/plugin.cfg", "res://addons/ImportCleaner/plugin.cfg", "res://addons/NbPM/plugin.cfg", "res://addons/code_simp/plugin.cfg", "res://addons/godotoro/plugin.cfg", "res://addons/light_snippet/plugin.cfg", "res://addons/project-statistics/plugin.cfg", "res://addons/totobird_creations.gdscript_plus/plugin.cfg" )
 
 [gdnative]
 
 singletons=[ "res://addons/godot-git-plugin/git_api.gdnlib" ]
+singletons_disabled=[  ]
 
 [gdunit3]
 
@@ -384,3 +385,7 @@ common/enable_pause_aware_picking=true
 [rendering]
 
 environment/default_environment="res://default_env.tres"
+
+[statistics]
+
+force_include=PoolStringArray(  )

@@ -67,7 +67,7 @@ func _get_mat_effect(_mat) -> String:
 
 
 func _is_craf_valid() -> bool:
-	return true
+	return _selected_weapon != null
 
 
 func _get_craft():
