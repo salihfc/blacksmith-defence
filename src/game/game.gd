@@ -1,15 +1,17 @@
 extends Control
-"""
-"""
+#TODO: - Integrate CraftingMenu
+#		- Update Unit List to have be a list of crafted/craftable unit recipes
+#		- Add option to hide uncraftable recipes
+
 ### SIGNAL ###
 signal material_used(mat, count)
 
 ### ENUM ###
 ### CONST ###
 # Prefabs
-const P_UnitView = preload("res://src/game/unit_list_unit_view.tscn")
-
 ### EXPORT ###
+export(PackedScene) var P_UnitRecipeView
+
 """
 	NOTE:
 	Only export NodePaths when the scene structure has a high depth to prevent
@@ -17,7 +19,7 @@ const P_UnitView = preload("res://src/game/unit_list_unit_view.tscn")
 """
 export(NodePath) var NP_Battle
 export(NodePath) var NP_MaterialList
-export(NodePath) var NP_UnitList
+export(NodePath) var NP_UnitRecipeList
 export(NodePath) var NP_DebugWindow
 export(NodePath) var NP_StartButton
 export(NodePath) var NP_BaseHealthBar
@@ -27,10 +29,17 @@ export(Resource) var player_base = null
 
 ### PUBLIC VAR ###
 ### PRIVATE VAR ###
+var _cached_recipes = [
+	UnitRecipe.new(
+		load("res://tres/units/player_units/sword_unit_data.tres"),
+		load("res://tres/mock_material_storage.tres")
+	)
+]
+
 ### ONREADY VAR ###
 onready var battle = get_node(NP_Battle)
 onready var materialList = get_node(NP_MaterialList)
-onready var unitList = get_node(NP_UnitList)
+onready var unitRecipeList = get_node(NP_UnitRecipeList)
 onready var debugWindow = get_node(NP_DebugWindow) as DebugWindow
 onready var startWaveButton = get_node(NP_StartButton)
 onready var baseHealthBar = get_node(NP_BaseHealthBar)
@@ -97,21 +106,26 @@ func _ready():
 		materialList, "_on_material_used"
 	)
 
-	# TEMP
-	for unit_data in unit_data_pool.get_items():
-		assert(unit_data is UnitData)
-
-		var new_unit_view = P_UnitView.instance()
-		unitList.add_child(new_unit_view)
-		new_unit_view.set_data(unit_data)
-		SIGNAL.bind(
-			new_unit_view, "pressed",
-			self, "_on_unit_view_pressed",
-			[unit_data]
-		)
+	_update_recipe_list_view()
 
 ### PUBLIC FUNCTIONS ###
 ### PRIVATE FUNCTIONS ###
+func _update_recipe_list_view() -> void:
+
+	for recipe in _cached_recipes:
+		LOG.pr(LOG.LOG_TYPE.INTERNAL, "recipe: [%s]" % [recipe])
+		assert(recipe is UnitRecipe)
+
+		var new_recipe_view = P_UnitRecipeView.instance()
+		unitRecipeList.add_child(new_recipe_view)
+		new_recipe_view.set_data(recipe)
+
+		SIGNAL.bind(
+			new_recipe_view, "pressed",
+			self, "_on_unit_view_pressed",
+			[recipe]
+		)
+
 ### SIGNAL RESPONSES ###
 func _on_unit_view_pressed(unit_data : UnitData) -> void:
 	LOG.pr(LOG.LOG_TYPE.INPUT, "UNIT_VIEW PRESSED WITH [%s]" % [unit_data])

@@ -12,7 +12,6 @@ mouse_filter = 2
 theme = ExtResource( 3 )
 script = ExtResource( 2 )
 __meta__ = {
-"_edit_use_anchors_": false,
 "_editor_description_": "MOUSE IGNORED!!"
 }
 

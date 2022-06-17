@@ -39,10 +39,11 @@ color_ramp = SubResource( 4 )
 auto_free = false
 
 [node name="Particles2D" parent="." index="0"]
+emitting = true
 amount = 24
 lifetime = 0.4
+preprocess = 0.2
 speed_scale = 0.35
-explosiveness = 0.4
 randomness = 0.2
 local_coords = false
 process_material = SubResource( 2 )
