@@ -1,7 +1,9 @@
-extends TextureButton
+extends PanelContainer
 """
 """
 ### SIGNAL ###
+signal recipe_selected()
+
 ### ENUM ###
 ### CONST ###
 const P_MaterialView = preload("res://src/ui/material_view.tscn")
@@ -26,20 +28,22 @@ func set_data(unit_recipe : UnitRecipe) -> void:
 	unitTexture.texture = unit_data.get_view_texture()
 
 	if unit_data.cost:
-		var materials = unit_data.cost.get_materials()
-		for mat in materials.keys():
-			var count = materials[mat]
+		for mat in unit_data.cost.get_materials():
+			var count = unit_data.cost.get_material_count(mat)
 			var material_view = P_MaterialView.instance()
 			baseCostList.add_child(material_view)
 			material_view.set_data(mat, count)
 
 	if enhance_cost:
-		var materials = enhance_cost.get_materials()
-		for mat in materials:
-			var count = materials[mat]
+		for mat in enhance_cost.get_materials():
+			var count = enhance_cost.get_material_count(mat)
 			var material_view = P_MaterialView.instance()
 			enhanceCostList.add_child(material_view)
 			material_view.set_data(mat, count)
 
 ### PRIVATE FUNCTIONS ###
 ### SIGNAL RESPONSES ###
+
+
+func _on_TextureButton_pressed() -> void:
+	emit_signal("recipe_selected")

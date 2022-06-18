@@ -93,6 +93,9 @@ func _get_property_list() -> Array:
 
 ### ONREADY VAR ###
 ### VIRTUAL FUNCTIONS (_init ...) ###
+func _to_string() -> String:
+	return name + UTILS.wrap_str(str(cost), "[", "]")
+
 func _init() -> void:
 
 	for idx in StatContainer.STATS.COUNT:

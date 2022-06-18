@@ -32,7 +32,11 @@ export(Resource) var player_base = null
 var _cached_recipes = [
 	UnitRecipe.new(
 		load("res://tres/units/player_units/sword_unit_data.tres"),
-		load("res://tres/mock_material_storage.tres")
+		MaterialStorage.new(
+			{
+				MaterialData.new(MaterialData.TYPE.COPPER) : 2,
+			}
+		)
 	)
 ]
 
@@ -113,31 +117,34 @@ func _ready():
 func _update_recipe_list_view() -> void:
 
 	for recipe in _cached_recipes:
-		LOG.pr(LOG.LOG_TYPE.INTERNAL, "recipe: [%s]" % [recipe])
 		assert(recipe is UnitRecipe)
+		LOG.pr(LOG.LOG_TYPE.INTERNAL, "recipe:\n[%s]" % [recipe])
 
 		var new_recipe_view = P_UnitRecipeView.instance()
 		unitRecipeList.add_child(new_recipe_view)
 		new_recipe_view.set_data(recipe)
 
 		SIGNAL.bind(
-			new_recipe_view, "pressed",
-			self, "_on_unit_view_pressed",
+			new_recipe_view, "recipe_selected",
+			self, "_on_recipe_selected",
 			[recipe]
 		)
 
 ### SIGNAL RESPONSES ###
-func _on_unit_view_pressed(unit_data : UnitData) -> void:
-	LOG.pr(LOG.LOG_TYPE.INPUT, "UNIT_VIEW PRESSED WITH [%s]" % [unit_data])
-	if materialList.get_storage().covers_cost(unit_data.cost):
-		battle.set_dragged_item(unit_data)
+func _on_recipe_selected(unit_recipe : UnitRecipe) -> void:
+	assert(unit_recipe)
+	LOG.pr(LOG.LOG_TYPE.INPUT, "UNIT_VIEW PRESSED WITH [%s] unit_total[%s]\nstorage[%s]" % [unit_recipe, unit_recipe.total_cost(), materialList.get_storage()])
+	if materialList.get_storage().covers_cost(unit_recipe.total_cost()):
+		battle.set_dragged_item(unit_recipe)
+	else:
+		LOG.pr(LOG.LOG_TYPE.INPUT, "RECIPE CANNOT BE AFFORDED [%s] \n [%s]" % [unit_recipe, unit_recipe.total_cost()])
 
 
-func _on_unit_spawned(unit_data : UnitData):
+func _on_unit_spawned(unit_recipe : UnitRecipe):
 	# Spend the material cost of the unit
-	var unit_cost_storage = unit_data.cost.get_materials()
-	for mat in unit_cost_storage.keys():
-		var count = unit_cost_storage.get(mat)
+	var recipe_mat_storage = unit_recipe.total_cost()
+	for mat in recipe_mat_storage.get_materials():
+		var count = recipe_mat_storage.get_material_count(mat)
 		emit_signal("material_used", mat, count)
 
 

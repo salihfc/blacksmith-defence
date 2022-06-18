@@ -12,6 +12,9 @@ export(Array, Resource) var materials
 ### PRIVATE VAR ###
 ### ONREADY VAR ###
 ### VIRTUAL FUNCTIONS (_init ...) ###
+func _to_string() -> String:
+	return str(materials)
+
 ### PUBLIC FUNCTIONS ###
 func get_materials():
 	return materials

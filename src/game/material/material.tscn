@@ -18,6 +18,7 @@ radius = 8.0
 
 [node name="Material" type="Sprite"]
 material = SubResource( 3 )
+scale = Vector2( 0.02, 0.02 )
 texture = ExtResource( 2 )
 offset = Vector2( 0, 4 )
 script = ExtResource( 1 )
@@ -32,5 +33,10 @@ owner_path = NodePath("..")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MousePickingArea"]
 position = Vector2( 0, 4 )
 shape = SubResource( 1 )
+
+[node name="Polygon2D" type="Polygon2D" parent="." groups=["debug"]]
+scale = Vector2( 20, 20 )
+color = Color( 0.694118, 0.0509804, 0.0509804, 0.721569 )
+polygon = PoolVector2Array( 0, -50, 50, 0, 0, 50, -50, 0 )
 
 [connection signal="area_entered" from="MousePickingArea" to="." method="_on_MousePickingArea_area_entered"]

@@ -13,8 +13,9 @@ const RETARGET_MID_ANIMATION = true
 ### PRIVATE VAR ###
 ### ONREADY VAR ###
 ### VIRTUAL FUNCTIONS (_init ...) ###
-func init_with_data(unit_data : UnitData) -> void:
-	.init_with_data(unit_data)
+func init_with_data(unit_recipe : UnitRecipe) -> void:
+	.init_with_data(unit_recipe)
+	var unit_data = unit_recipe.base_unit
 	assert(unit_data)
 	assert(unit_data.weapon)
 

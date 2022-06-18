@@ -165,3 +165,11 @@ func get_enum_hint_string(enum_ref) -> String:
 
 func vec2_to_int_arr(vec2 : Vector2) -> Array:
 	return [int(vec2.x), int(vec2.y)]
+
+
+func pretty_dict(dict : Dictionary) -> String:
+	return JSON.print(dict, "\t")
+
+
+func wrap_str(string, begin, end) -> String:
+	return begin + string + end

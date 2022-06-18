@@ -1,68 +1,68 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://src/game/unit_recipe_view.gd" type="Script" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
 
-[node name="UnitRecipeView" type="TextureButton"]
-margin_right = 181.0
-margin_bottom = 80.0
+[node name="UnitRecipeView" type="PanelContainer"]
+margin_right = 432.0
+margin_bottom = 114.0
+rect_min_size = Vector2( 0, 160 )
+mouse_filter = 2
+script = ExtResource( 1 )
+NP_UnitTexture = NodePath("TextureButton/HBoxContainer/UnitTexture")
+NP_BaseCostList = NodePath("TextureButton/HBoxContainer/CostList/BaseCostList")
+NP_EnhanceCostList = NodePath("TextureButton/HBoxContainer/CostList/EnchCostList")
+
+[node name="TextureButton" type="TextureButton" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 425.0
+margin_bottom = 153.0
 rect_min_size = Vector2( 100, 100 )
 focus_mode = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 enabled_focus_mode = 0
 expand = true
 stretch_mode = 5
-script = ExtResource( 1 )
-__meta__ = {
-"_edit_group_": true
-}
-NP_UnitTexture = NodePath("PanelContainer/HBoxContainer/UnitTexture")
-NP_BaseCostList = NodePath("PanelContainer/HBoxContainer/CostList/BaseCostList")
-NP_EnhanceCostList = NodePath("PanelContainer/HBoxContainer/CostList/EnchCostList")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="TextureButton"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
+mouse_default_cursor_shape = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 174.0
-margin_bottom = 93.0
-mouse_filter = 2
-mouse_default_cursor_shape = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="UnitTexture" type="TextureRect" parent="PanelContainer/HBoxContainer"]
-margin_right = 81.0
-margin_bottom = 86.0
+[node name="UnitTexture" type="TextureRect" parent="TextureButton/HBoxContainer"]
+margin_right = 207.0
+margin_bottom = 146.0
 mouse_filter = 2
 mouse_default_cursor_shape = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
+texture = ExtResource( 2 )
 expand = true
 stretch_mode = 6
 
-[node name="CostList" type="VBoxContainer" parent="PanelContainer/HBoxContainer"]
-margin_left = 85.0
-margin_right = 167.0
-margin_bottom = 86.0
+[node name="CostList" type="VBoxContainer" parent="TextureButton/HBoxContainer"]
+margin_left = 211.0
+margin_right = 418.0
+margin_bottom = 146.0
 mouse_filter = 2
 mouse_default_cursor_shape = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="BaseCostList" type="HBoxContainer" parent="PanelContainer/HBoxContainer/CostList"]
-margin_right = 82.0
-margin_bottom = 41.0
+[node name="BaseCostList" type="HBoxContainer" parent="TextureButton/HBoxContainer/CostList"]
+margin_right = 207.0
+margin_bottom = 71.0
+mouse_filter = 2
 size_flags_vertical = 3
 
-[node name="EnchCostList" type="HBoxContainer" parent="PanelContainer/HBoxContainer/CostList"]
-margin_top = 45.0
-margin_right = 82.0
-margin_bottom = 86.0
+[node name="EnchCostList" type="HBoxContainer" parent="TextureButton/HBoxContainer/CostList"]
+margin_top = 75.0
+margin_right = 207.0
+margin_bottom = 146.0
+mouse_filter = 2
 size_flags_vertical = 3
+
+[connection signal="pressed" from="TextureButton" to="." method="_on_TextureButton_pressed"]

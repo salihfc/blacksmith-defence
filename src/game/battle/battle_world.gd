@@ -111,12 +111,18 @@ func _ready():
 			self, "_on_spawn_timer_timeout"
 		)
 
+	LOG.pr(LOG.LOG_TYPE.INTERNAL, "mats:\n[%s]" % [material_pool])
+
 	# Make sure materials show in the UI even if their amount is 0
 	for mat in material_pool.get_materials():
 		call_deferred("emit_signal", "material_collected", mat, 0)
 
 	call_deferred("emit_signal", "material_collected",
-		load("res://tres/materials/material_iron.tres"), 100)
+		MaterialData.new(MaterialData.TYPE.IRON), 100)
+#		load("res://tres/materials/material_iron.tres"), 100)
+
+	call_deferred("emit_signal", "material_collected",
+		MaterialData.new(MaterialData.TYPE.COPPER), 44)
 
 
 func _physics_process(_delta):
@@ -134,7 +140,7 @@ func start_next_wave() -> void:
 	spawnTimer.start(rand_range(MIN_SPAWN_DELAY, MAX_SPAWN_DELAY))
 
 
-func spawn_unit(unit_data : UnitData, pos : Vector2) -> void:
+func spawn_unit(unit_data, pos : Vector2) -> void:
 	var unit = P_PlayerUnit.instance()
 	units.add_child(unit)
 	unit.global_position = pos
@@ -161,9 +167,10 @@ func spawn_unit(unit_data : UnitData, pos : Vector2) -> void:
 
 func spawn_enemy(enemy_data : UnitData, lane : int = _get_random_spawn_idx()) -> void:
 	assert(enemy_data)
+	var enemy_recipe = UnitRecipe.new(enemy_data, null)
 	var enemy = P_EnemyUnit.instance()
 	units.add_child(enemy)
-	enemy.init_with_data(enemy_data)
+	enemy.init_with_data(enemy_recipe)
 	LOG.pr(LOG.LOG_TYPE.GAMEPLAY, "Spawn Enemy (%s) with (%s) pow in [%s]" % [enemy_data, enemy_data.calc_power(), lane])
 
 	enemy.position = _get_lane_spawn_pos(lane)
@@ -185,8 +192,7 @@ func spawn_random_mat(spawn_pos) -> void:
 	var material_data = load("res://tres/materials/material_iron.tres")
 	var new_mat = P_Material.instance()
 	new_mat.set_data(material_data, 2)
-
-	units.call_deferred("add_child", new_mat)
+	units.add_child(new_mat)
 	new_mat.global_position = spawn_pos
 	new_mat.play_drop_animation()
 
@@ -202,11 +208,12 @@ func damage_base(damage : Damage) -> void:
 
 
 func set_dragged_item(drag_item_data) -> void:
+	assert(drag_item_data)
 	clear_dragged_item()
 	_drag_item_data = drag_item_data
 
 	var new_holo = P_UnitHolo.instance()
-	new_holo.set_texture(drag_item_data.texture)
+	new_holo.set_texture(drag_item_data.base_unit.texture)
 	draggedItemSlot.add_child(new_holo)
 
 	SIGNAL.bind(

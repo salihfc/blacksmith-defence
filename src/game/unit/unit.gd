@@ -117,7 +117,8 @@ func _physics_process(delta):
 
 ### PUBLIC FUNCTIONS ###
 # INIT func
-func init_with_data(unit_data : UnitData) -> void:
+func init_with_data(unit_recipe : UnitRecipe) -> void:
+	var unit_data = unit_recipe.base_unit
 	name = unit_data.name
 	_stats = unit_data.copy_stats()
 	# Set hp to max

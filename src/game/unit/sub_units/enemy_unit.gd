@@ -15,8 +15,8 @@ func _ready():
 	default_state = STATE.WALK
 
 ### PUBLIC FUNCTIONS ###
-func init_with_data(unit_data : UnitData) -> void:
-	.init_with_data(unit_data)
+func init_with_data(unit_recipe : UnitRecipe) -> void:
+	.init_with_data(unit_recipe)
 	DBG_range_circle.modulate = Color.red
 	DBG_range_circle.modulate.a = 0.1
 

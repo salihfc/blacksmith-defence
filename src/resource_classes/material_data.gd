@@ -14,6 +14,7 @@ enum TYPE {
 }
 
 ### CONST ###
+const sprite_path = "res://assets/gfx/game/material_sprites/"
 ### EXPORT ###
 export(Texture) var sprite
 
@@ -23,8 +24,9 @@ var name setget set_name
 func set_type(_type):
 	type = _type
 
-	if type:
+	if type != null:
 		name =  TYPE.keys()[type] # update name
+		sprite = load(sprite_path + name.to_lower() + ".png")
 	emit_changed()
 	property_list_changed_notify() # MAKE SURE EDITOR UPDATES!!
 
@@ -81,10 +83,18 @@ func _get_property_list() -> Array:
 	return props
 
 ### PUBLIC VAR ###
-
 ### PRIVATE VAR ###
 ### ONREADY VAR ###
 ### VIRTUAL FUNCTIONS (_init ...) ###
+func _init(mat_type : int = 0) -> void:
+	set_type(mat_type)
+
+
+func _to_string() -> String:
+	return name
+
 ### PUBLIC FUNCTIONS ###
+
+
 ### PRIVATE FUNCTIONS ###
 ### SIGNAL RESPONSES ###
