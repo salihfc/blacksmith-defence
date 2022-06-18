@@ -4,6 +4,7 @@ extends Node2D
 ### SIGNAL ###
 # raw input
 signal left_button_clicked()
+signal right_button_clicked()
 # input signals
 signal unit_selected(unit)
 signal material_collected(mat, count)
@@ -58,12 +59,19 @@ onready var grid_pos_cache = GridDataContainer.new()
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
 var _left_button_down = false
+var _right_button_down = false
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and  event.button_index == BUTTON_LEFT:
-		if event.pressed == true and _left_button_down == false: # Just pressed
+	if event is InputEventMouseButton:
+		if event.button_index == BUTTON_LEFT:
+			if event.pressed and not _left_button_down: # Just pressed
 				emit_signal("left_button_clicked")
-		_left_button_down = event.pressed # Save as prev state
+			_left_button_down = event.pressed # Save as prev state
+
+		elif event.button_index == BUTTON_RIGHT:
+			if event.pressed and not _right_button_down: # Just pressed
+				emit_signal("right_button_clicked")
+			_right_button_down = event.pressed # Save as prev state
 
 
 func _ready():
@@ -71,9 +79,12 @@ func _ready():
 	CONFIG.context.set_world(self)
 
 	# TODO: Maybe unnecessary?
-	SIGNAL.bind(
-		self, "left_button_clicked",
-		self, "_on_left_button_clicked"
+	SIGNAL.bind_bulk(
+		self, self,
+		[
+			["left_button_clicked", "_on_left_button_clicked"],
+			["right_button_clicked", "_on_right_button_clicked"],
+		]
 	)
 
 	SIGNAL.bind(
@@ -162,7 +173,6 @@ func spawn_unit(unit_data, pos : Vector2) -> void:
 	)
 
 	emit_signal("unit_spawned", unit_data)
-	clear_dragged_item()
 
 
 func spawn_enemy(enemy_data : UnitData, lane : int = _get_random_spawn_idx()) -> void:
@@ -192,9 +202,12 @@ func spawn_random_mat(spawn_pos) -> void:
 	var material_data = load("res://tres/materials/material_iron.tres")
 	var new_mat = P_Material.instance()
 	new_mat.set_data(material_data, 2)
-	units.add_child(new_mat)
-	new_mat.global_position = spawn_pos
 	new_mat.play_drop_animation()
+#	units.add_child(new_mat)
+	units.call_deferred("add_child", new_mat)
+
+#	new_mat.global_position = spawn_pos
+	new_mat.set_deferred("global_position", spawn_pos)
 
 	SIGNAL.bind(
 		new_mat, "hovered",
@@ -283,9 +296,14 @@ func _on_left_button_clicked():
 		if areas.size():
 			if not grid_pos_cache.is_occupied(_get_mouse_grid_pos()): # mouse is overlapping with spawn area
 				spawn_unit(drag_item, mousePointerArea.global_position)
-				clear_dragged_item()
+#				clear_dragged_item()
 			else:
 				LOG.pr(LOG.LOG_TYPE.AI, "pos (%s) OCCUPIED" % [_get_mouse_grid_pos()])
+
+
+func _on_right_button_clicked():
+	LOG.pr(LOG.LOG_TYPE.INPUT, "battle_world action event: {right click pressed}")
+	clear_dragged_item()
 
 
 func _on_unit_selected(unit):

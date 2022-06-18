@@ -121,10 +121,14 @@ func _ready():
 		materialList, "_on_material_used"
 	)
 
-	SIGNAL.bind(
-		craftingMenu, "unit_created",
-		self, "_on_unit_created"
+	SIGNAL.bind_bulk(
+		craftingMenu, self,
+		[
+			["unit_created", "_on_unit_created"],
+			["crafting_cancelled", "_on_crafting_cancelled"]
+		]
 	)
+
 
 	_update_recipe_list_view()
 
@@ -195,3 +199,9 @@ func _on_unit_created(unit_recipe) -> void:
 
 	_cached_recipes.append(unit_recipe)
 	_update_recipe_list_view()
+
+
+func _on_crafting_cancelled() -> void:
+	LOG.pr(LOG.LOG_TYPE.INPUT, "CRAFTING CANCELLED")
+	popupPanel.hide()
+	materialList.reinit(craftingMenu.recover_from_slots().get_storage())

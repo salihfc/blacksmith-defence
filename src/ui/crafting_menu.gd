@@ -5,7 +5,7 @@ extends Control
 ### SIGNAL ###
 ## Sent when craft button clicked with a valid crafting config
 signal unit_created(unit_recipe)
-
+signal crafting_cancelled()
 
 ### ENUM ###
 ### CONST ###
@@ -55,6 +55,14 @@ func reinit(mat_storage) -> void:
 	for idx in _mat_slots.size():
 		_mat_slots[idx] = null
 	_on_mats_in_slots_updated()
+
+
+func recover_from_slots():
+	for idx in _mat_slots.size():
+		if _mat_slots[idx] != null:
+			owned_materials.add_material(_mat_slots[idx], 1)
+	return self
+
 
 func display_weapons(_craftable_units : ItemPool):
 	weaponList.clear()
@@ -134,3 +142,7 @@ func _on_CraftButton_pressed() -> void:
 	if _is_craf_valid():
 		LOG.pr(LOG.LOG_TYPE.INTERNAL, "unit created [%s] [%s]" % [_selected_unit.name, _mat_slots])
 		emit_signal("unit_created", _get_craft())
+
+
+func _on_CancelButton_pressed() -> void:
+	emit_signal("crafting_cancelled")

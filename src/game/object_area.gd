@@ -40,7 +40,7 @@ func get_owner():
 
 
 func set_radius(new_radius : float) -> void:
-	collision_shape.shape.radius = new_radius
+	collision_shape.shape.set_deferred("radius", new_radius)
 
 
 func get_radius() -> float:
