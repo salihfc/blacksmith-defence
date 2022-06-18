@@ -21,7 +21,10 @@ export(NodePath) var NP_Battle
 export(NodePath) var NP_MaterialList
 export(NodePath) var NP_UnitRecipeList
 export(NodePath) var NP_DebugWindow
+export(NodePath) var NP_CraftingMenu
+export(NodePath) var NP_PopupPanel
 export(NodePath) var NP_StartButton
+export(NodePath) var NP_CraftButton
 export(NodePath) var NP_BaseHealthBar
 
 export(Resource) var unit_data_pool = null
@@ -45,7 +48,10 @@ onready var battle = get_node(NP_Battle)
 onready var materialList = get_node(NP_MaterialList)
 onready var unitRecipeList = get_node(NP_UnitRecipeList)
 onready var debugWindow = get_node(NP_DebugWindow) as DebugWindow
+onready var craftingMenu = get_node(NP_CraftingMenu)
+onready var popupPanel = get_node(NP_PopupPanel) as PopupPanel
 onready var startWaveButton = get_node(NP_StartButton)
+onready var craftButton = get_node(NP_CraftButton)
 onready var baseHealthBar = get_node(NP_BaseHealthBar)
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
@@ -86,6 +92,11 @@ func _ready():
 		self, "_on_wave_start_button_pressed"
 	)
 
+	SIGNAL.bind(
+		craftButton, "pressed",
+		self, "_on_CraftButton_pressed"
+	)
+
 	SIGNAL.bind_bulk(
 		battle, self,
 		[
@@ -110,11 +121,17 @@ func _ready():
 		materialList, "_on_material_used"
 	)
 
+	SIGNAL.bind(
+		craftingMenu, "unit_created",
+		self, "_on_unit_created"
+	)
+
 	_update_recipe_list_view()
 
 ### PUBLIC FUNCTIONS ###
 ### PRIVATE FUNCTIONS ###
 func _update_recipe_list_view() -> void:
+	UTILS.clear_children(unitRecipeList)
 
 	for recipe in _cached_recipes:
 		assert(recipe is UnitRecipe)
@@ -163,3 +180,18 @@ func _on_wave_completed() -> void:
 
 func _on_player_main_base_destroyed() -> void:
 	LOG.pr(LOG.LOG_TYPE.GAMEPLAY, "PLAYER LOST")
+
+
+func _on_CraftButton_pressed() -> void:
+	# Display Craft Menu
+	craftingMenu.reinit(materialList.get_storage())
+	popupPanel.popup()
+
+
+func _on_unit_created(unit_recipe) -> void:
+	LOG.pr(LOG.LOG_TYPE.INTERNAL, "UNIT WITH RECIPE CREATED [%s]" % [unit_recipe])
+	popupPanel.hide()
+	materialList.reinit(craftingMenu.get_storage())
+
+	_cached_recipes.append(unit_recipe)
+	_update_recipe_list_view()

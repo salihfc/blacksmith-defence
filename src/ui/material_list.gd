@@ -26,6 +26,11 @@ func update_list() -> void:
 		material_view.set_data(mat, count)
 
 
+func reinit(other_storage):
+	_material_storage.copy_from(other_storage)
+	update_list()
+
+
 func get_storage():
 	return _material_storage
 

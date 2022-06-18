@@ -21,14 +21,29 @@ func _init(_dict : Dictionary = {}):
 func _to_string() -> String:
 	return UTILS.pretty_dict(_storage)
 
+
+func copy_from(other_storage):
+	_storage = other_storage._storage
+	return self
+
 ### PUBLIC FUNCTIONS ###
-func add_storage(other_storage) -> void:
+func add_storage(other_storage):
 	for mat in other_storage.get_materials():
 		_add_material(mat, other_storage.get_material_count(mat))
+	return self
 
 
-func add_material(mat : MaterialData, ct : int) -> void:
+func add_material(mat : MaterialData, ct : int):
 	_add_material(mat, ct)
+	return self
+
+
+func add_from_array(mat_arr : Array):
+	for item in mat_arr:
+		if item == null:
+			continue
+		add_material(item, 1)
+	return self
 
 
 func get_materials() -> Array:
@@ -48,14 +63,16 @@ func covers_cost(_cost : MaterialStorage) -> bool:
 	return true
 
 
-func use_material(mat : MaterialData, ct : int) -> void:
+func use_material(mat : MaterialData, ct : int):
 	_use_material(mat, ct)
+	return self
 
 
-func use_cost(_cost : MaterialStorage) -> void:
+func use_cost(_cost : MaterialStorage):
 	var mats = _cost.get_materials()
 	for mat in mats.keys():
 		_use_material(mat, mats[mat])
+	return self
 
 ### PRIVATE FUNCTIONS ###
 func _has_material(mat : MaterialData, ct : int) -> bool:

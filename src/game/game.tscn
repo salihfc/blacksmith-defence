@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://my_theme.theme" type="Theme" id=1]
 [ext_resource path="res://src/debug/debug_window.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://src/ui/base_hp_bar.tscn" type="PackedScene" id=8]
 [ext_resource path="res://tres/default_player_base.tres" type="Resource" id=9]
 [ext_resource path="res://src/game/unit_recipe_view.tscn" type="PackedScene" id=10]
+[ext_resource path="res://src/ui/crafting_menu.tscn" type="PackedScene" id=11]
 
 [sub_resource type="Environment" id=2]
 resource_local_to_scene = true
@@ -22,6 +23,20 @@ glow_enabled = true
 [sub_resource type="World" id=1]
 environment = SubResource( 2 )
 
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.682353, 0.690196, 0.698039, 1 )
+border_width_left = 16
+border_width_top = 16
+border_width_right = 16
+border_width_bottom = 16
+border_blend = true
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 4
+shadow_offset = Vector2( 2, 2 )
+
 [node name="Game" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -32,7 +47,10 @@ NP_Battle = NodePath("PanelContainer/HBoxContainer/Control/Viewport/BattleWorld"
 NP_MaterialList = NodePath("PanelContainer/HBoxContainer/PanelContainer/VBoxContainer/MaterialList")
 NP_UnitRecipeList = NodePath("PanelContainer/HBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/UnitRecipeList")
 NP_DebugWindow = NodePath("PanelContainer/HBoxContainer/DebugWindow")
+NP_CraftingMenu = NodePath("PopupPanel/CraftingMenu")
+NP_PopupPanel = NodePath("PopupPanel")
 NP_StartButton = NodePath("StartWaveButton")
+NP_CraftButton = NodePath("CraftButton")
 NP_BaseHealthBar = NodePath("PanelContainer/HBoxContainer/Control/Viewport/BattleWorld/BaseHealthBar")
 unit_data_pool = ExtResource( 6 )
 player_base = ExtResource( 9 )
@@ -136,6 +154,33 @@ margin_top = -42.0
 margin_right = -82.0
 margin_bottom = 42.0
 text = "START"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="CraftButton" type="Button" parent="."]
+margin_left = 781.0
+margin_top = 45.0
+margin_right = 886.0
+margin_bottom = 94.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Craft Recipe"
+
+[node name="PopupPanel" type="PopupPanel" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -543.0
+margin_top = -280.0
+margin_right = 483.0
+margin_bottom = 280.0
+rect_min_size = Vector2( 1026, 560 )
+custom_styles/panel = SubResource( 3 )
+popup_exclusive = true
+
+[node name="CraftingMenu" parent="PopupPanel" instance=ExtResource( 11 )]
+margin_left = -497.0
+margin_top = -264.0
+margin_right = 497.0
+margin_bottom = 264.0
+size_flags_horizontal = 3
+size_flags_vertical = 3

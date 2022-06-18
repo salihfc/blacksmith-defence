@@ -4,7 +4,7 @@ extends Control
 
 ### SIGNAL ###
 ## Sent when craft button clicked with a valid crafting config
-signal unit_created(unit_data)
+signal unit_created(unit_recipe)
 
 
 ### ENUM ###
@@ -16,13 +16,13 @@ export(NodePath) var NP_MaterialList
 export(NodePath) var NP_WeaponTextureRect
 export(NodePath) var NP_MaterialSlots
 
-export(Resource) var weapons
-export(Resource) var test_mat_storage
+export(Resource) var craftable_units
+export(Resource) var owned_materials = MaterialStorage.new()
 
 ### PUBLIC VAR ###
 ### PRIVATE VAR ###
 var _mat_slots = [null, null, null]
-var _selected_weapon = null
+var _selected_unit = null
 
 ### ONREADY VAR ###
 onready var weaponList = get_node(NP_WeaponList) as ItemList
@@ -37,47 +37,70 @@ func _ready() -> void:
 		self, "_on_material_selected_from_list"
 	)
 
-	assert(weapons)
-	display_weapons(weapons)
-	assert(test_mat_storage)
-	_init_material_list(test_mat_storage)
+	reinit(owned_materials)
 
 ### PUBLIC FUNCTIONS ###
-func display_weapons(weapon_pool : ItemPool):
+func reinit(mat_storage) -> void:
+	owned_materials.copy_from(mat_storage)
+
+	assert(craftable_units)
+	display_weapons(craftable_units)
+	assert(owned_materials)
+	_init_material_list(owned_materials)
+
+	#
+	_selected_unit = null
+	weaponTextureRect.texture = null
+	#
+	for idx in _mat_slots.size():
+		_mat_slots[idx] = null
+	_on_mats_in_slots_updated()
+
+func display_weapons(_craftable_units : ItemPool):
 	weaponList.clear()
 
 #	add_item(text: String, icon: Texture = null, selectable: bool = true
-	for item in weapon_pool.get_items():
+	for unit in _craftable_units.get_items():
+		var item = unit.weapon
 		weaponList.add_item(item.name, item.texture)
+
+
+func get_storage():
+	return owned_materials
 
 ### PRIVATE FUNCTIONS ###
 func _init_material_list(mat_storage : MaterialStorage) -> void:
 	UTILS.clear_children(materialList)
-	var mat_dict = mat_storage.get_materials()
-	for mat in mat_dict:
-		var ct = mat_dict.get(mat, 0)
+	for mat in mat_storage.get_materials():
+		var ct = mat_storage.get_material_count(mat)
 		if ct > 0:
 			materialList.add_material(mat, ct, _get_mat_effect(mat))
 
 
 func _get_mat_effect(_mat) -> String:
-	if _selected_weapon == null:
-		return "no effect"
-	return WEAPON_ENHANCE_DB.get_hint(_selected_weapon.get_id(), _mat.type)
+	if _selected_unit:
+		var hint = WEAPON_ENHANCE_DB.get_hint(UTILS.get_enum_string_from_id(Weapon.TYPE, _selected_unit.weapon.get_id()), _mat.name)
+		if hint:
+			return hint
+
+	return "no effect"
 
 
 func _is_craf_valid() -> bool:
-	return _selected_weapon != null
+	return _selected_unit != null
 
 
 func _get_craft():
-	return null
+	return UnitRecipe.new(
+		_selected_unit,
+		MaterialStorage.new().add_from_array(_mat_slots)
+	)
 
 ### SIGNAL RESPONSES ###
 func _on_WeaponList_item_selected(index: int) -> void:
 	weaponTextureRect.texture = weaponList.get_item_icon(index)
-	_selected_weapon = weapons.get_items()[index]
-	_init_material_list(test_mat_storage)
+	_selected_unit = craftable_units.get_items()[index]
+	_init_material_list(owned_materials)
 
 
 func _on_material_selected_from_list(mat : MaterialData) -> void:
@@ -88,10 +111,10 @@ func _on_material_selected_from_list(mat : MaterialData) -> void:
 		if _mat_slots[idx] == null:
 			# Update data
 			_mat_slots[idx] = mat
-			test_mat_storage.use_material(mat, 1)
+			owned_materials.use_material(mat, 1)
 
 			# Update ui
-			_init_material_list(test_mat_storage)
+			_init_material_list(owned_materials)
 			_on_mats_in_slots_updated()
 			break
 
@@ -101,11 +124,13 @@ func _on_mats_in_slots_updated() -> void:
 	for mat in _mat_slots:
 		if mat:
 			materialSlots.get_child(t).texture = mat.sprite
+		else:
+			materialSlots.get_child(t).texture = null
 
 		t += 1
 
 
 func _on_CraftButton_pressed() -> void:
 	if _is_craf_valid():
-		LOG.pr(LOG.LOG_TYPE.INTERNAL, "unit created [%s] [%s]" % [_selected_weapon.name, _mat_slots])
+		LOG.pr(LOG.LOG_TYPE.INTERNAL, "unit created [%s] [%s]" % [_selected_unit.name, _mat_slots])
 		emit_signal("unit_created", _get_craft())

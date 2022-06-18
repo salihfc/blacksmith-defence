@@ -11,8 +11,8 @@ extends Node
 ### PRIVATE VAR ###
 var _owners = {}
 var _data = {
-	Weapon.TYPE.WAND : {
-		MaterialData.TYPE.COPPER : {
+	"WAND" : {
+		"COPPER" : {
 			'enhancement' : load("res://tres/unit_enhancements/enh_chain_increase.tres"),
 			'hint' : "increase chain count by 1",
 		}
@@ -40,7 +40,7 @@ func _init() -> void:
 		for mat_name in MaterialData.TYPE.keys():
 			if not mat_name in _data[weapon_name]:
 				_data[weapon_name][mat_name] = {}
-
+	print (_data)
 
 func _parse_property(property: String):
 	return property.to_upper().split("/", false)
