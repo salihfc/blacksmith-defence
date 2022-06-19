@@ -44,7 +44,7 @@ func reinit(mat_storage) -> void:
 	owned_materials.copy_from(mat_storage)
 
 	assert(craftable_units)
-	display_weapons(craftable_units)
+	_display_craftable_weapons(craftable_units)
 	assert(owned_materials)
 	_init_material_list(owned_materials)
 
@@ -57,20 +57,11 @@ func reinit(mat_storage) -> void:
 	_on_mats_in_slots_updated()
 
 
-func recover_from_slots():
+func recover_mat_from_slots():
 	for idx in _mat_slots.size():
 		if _mat_slots[idx] != null:
 			owned_materials.add_material(_mat_slots[idx], 1)
 	return self
-
-
-func display_weapons(_craftable_units : ItemPool):
-	weaponList.clear()
-
-#	add_item(text: String, icon: Texture = null, selectable: bool = true
-	for unit in _craftable_units.get_items():
-		var item = unit.weapon
-		weaponList.add_item(item.name, item.texture)
 
 
 func get_storage():
@@ -85,12 +76,18 @@ func _init_material_list(mat_storage : MaterialStorage) -> void:
 			materialList.add_material(mat, ct, _get_mat_effect(mat))
 
 
+func _display_craftable_weapons(_craftable_units : ItemPool):
+	weaponList.clear()
+	for unit in _craftable_units.get_items():
+		var item = unit.weapon
+		weaponList.add_item(item.name, item.texture)
+
+
 func _get_mat_effect(_mat) -> String:
 	if _selected_unit:
 		var hint = WEAPON_ENHANCE_DB.get_hint(UTILS.get_enum_string_from_id(Weapon.TYPE, _selected_unit.weapon.get_id()), _mat.name)
 		if hint:
 			return hint
-
 	return "no effect"
 
 
@@ -134,7 +131,6 @@ func _on_mats_in_slots_updated() -> void:
 			materialSlots.get_child(t).texture = mat.sprite
 		else:
 			materialSlots.get_child(t).texture = null
-
 		t += 1
 
 

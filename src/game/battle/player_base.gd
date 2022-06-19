@@ -25,7 +25,7 @@ func _ready():
 				child.offset += UTILS.random_unit_vec2() * rand_range(0.2, 1.6)
 
 ### PUBLIC FUNCTIONS ###
-func take_damage(_damage : Damage) -> void:
+func take_damage(_damage) -> void:
 	LOG.pr(LOG.LOG_TYPE.GAMEPLAY, "[%s] taking %s" % [self, _damage])
 	emit_signal("base_taken_damage", _damage)
 

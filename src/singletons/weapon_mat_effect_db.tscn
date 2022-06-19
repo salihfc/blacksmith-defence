@@ -1,25 +1,16 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/singletons/weapon_mat_effect_db.gd" type="Script" id=1]
-[ext_resource path="res://src/resource_classes/unit_enhancements/unit_enhancement_stat_chain_count.gd" type="Script" id=2]
 [ext_resource path="res://tres/units/player_units/sword_unit_data.tres" type="Resource" id=3]
 [ext_resource path="res://tres/units/player_units/rapier.tres" type="Resource" id=4]
 [ext_resource path="res://tres/units/player_units/arcanist.tres" type="Resource" id=5]
-
-[sub_resource type="Resource" id=2]
-script = ExtResource( 2 )
-increase_value = 0
-
-[sub_resource type="Resource" id=1]
-script = ExtResource( 2 )
-increase_value = 5
 
 [node name="WeaponMatEffectDB" type="Node"]
 script = ExtResource( 1 )
 owner/SWORD = ExtResource( 3 )
 owner/RAPIER = ExtResource( 4 )
 owner/WAND = ExtResource( 5 )
-SWORD/IRON = SubResource( 2 )
+SWORD/IRON = null
 SWORD/COPPER = null
 SWORD/FIRE = null
 SWORD/EARTH = null
@@ -30,7 +21,7 @@ RAPIER/FIRE = null
 RAPIER/EARTH = null
 RAPIER/WATER = null
 WAND/IRON = null
-WAND/COPPER = SubResource( 1 )
+WAND/COPPER = null
 WAND/FIRE = null
 WAND/EARTH = null
 WAND/WATER = null

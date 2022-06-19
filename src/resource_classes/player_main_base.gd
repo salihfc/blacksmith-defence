@@ -21,8 +21,13 @@ func init():
 	_update_hp(max_hp)
 
 ### PUBLIC FUNCTIONS ###
-func take_damage(damage : Damage) -> void:
-	_update_hp(_current_hp - damage.get_amount())
+func take_damage(damage) -> void:
+	assert(damage)
+	if damage is Damage:
+		_update_hp(_current_hp - damage.get_amount())
+	elif damage is CumulativeDamage:
+		for damage_piece in damage.get_pieces():
+			take_damage(damage_piece)
 
 ### PRIVATE FUNCTIONS ###
 func _update_hp(_new_cur) -> void:

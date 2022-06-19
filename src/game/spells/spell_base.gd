@@ -17,6 +17,12 @@ func set_owner(_unit) -> void:
 	owner_unit_weakref = weakref(_unit)
 
 
+func get_owner():
+	if owner_unit_weakref:
+		return owner_unit_weakref.get_ref()
+	return null
+
+
 func get_possible_targets():
 	return get_tree().get_nodes_in_group(CONFIG.ENEMY_GROUP)
 

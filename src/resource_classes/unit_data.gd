@@ -142,12 +142,12 @@ func scale_to_wave(wave_number : float):
 
 func calc_power() -> float:
 	var power = get_stat(StatContainer.STATS.MAX_HP)
+#
+#	power *= get_stat(StatContainer.STATS.ATK_SPEED)
+#	power *= get_stat(StatContainer.STATS.DAMAGE_MULTI)
 
-	power *= get_stat(StatContainer.STATS.ATK_SPEED)
-	power *= get_stat(StatContainer.STATS.DAMAGE_MULTI)
-
-	if get_stat(StatContainer.STATS.ATK_RANGE):
-		power *= max(1.0, sqrt(get_stat(StatContainer.STATS.ATK_RANGE)))
+#	if get_stat(StatContainer.STATS.ATK_RANGE):
+#		power *= max(1.0, sqrt(get_stat(StatContainer.STATS.ATK_RANGE)))
 
 	return power
 
@@ -158,8 +158,7 @@ func calc_power() -> float:
 """
 func copy_stats():
 	var copy_stats = StatContainer.new()
-	copy_stats.from_data(_stats.get_data_copy())
-	return copy_stats
+	return copy_stats.from_data(_stats.get_data_copy())
 
 
 func get_stat(stat_id : int):

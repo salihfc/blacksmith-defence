@@ -50,6 +50,11 @@ _global_script_classes=[ {
 "path": "res://src/resource_classes/context.gd"
 }, {
 "base": "Resource",
+"class": "CumulativeDamage",
+"language": "GDScript",
+"path": "res://src/resource_classes/cumulative_damage.gd"
+}, {
+"base": "Resource",
 "class": "Damage",
 "language": "GDScript",
 "path": "res://src/resource_classes/damage.gd"
@@ -189,11 +194,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/resource_classes/unit_enhancements/unit_enhancement_stat.gd"
 }, {
-"base": "UnitEnhancementStat",
-"class": "UnitEnhancementStatChainCount",
-"language": "GDScript",
-"path": "res://src/resource_classes/unit_enhancements/unit_enhancement_stat_chain_count.gd"
-}, {
 "base": "Resource",
 "class": "UnitRecipe",
 "language": "GDScript",
@@ -233,6 +233,7 @@ _global_script_class_icons={
 "Command": "",
 "Consideration": "",
 "Context": "",
+"CumulativeDamage": "",
 "Damage": "",
 "DebugWindow": "",
 "DropItem": "",
@@ -261,7 +262,6 @@ _global_script_class_icons={
 "UnitData": "",
 "UnitEnhancementBase": "",
 "UnitEnhancementStat": "",
-"UnitEnhancementStatChainCount": "",
 "UnitRecipe": "",
 "UtilityCurve": "",
 "WaveData": "",

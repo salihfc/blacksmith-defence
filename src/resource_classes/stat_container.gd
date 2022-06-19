@@ -25,7 +25,23 @@ enum STATS {
 
 	HP			= 11,
 
-	COUNT		= 12,
+	BLEED_CHANCE	= 12,
+	IGNITE_CHANCE	= 13,
+	ARMOR_BREAK_CHANCE	= 14,
+	POISON_CHANCE	= 15,
+	FREEZE_CHANCE	= 16,
+	CHILL_CHANCE	= 17,
+	SHOCK_CHANCE	= 18,
+	STUN_CHANCE		= 19,
+
+	SPELL_AOE	= 20,
+	CAST_SPEED	= 21,
+	CAST_RANGE	= 22,
+	CHAIN_RANGE = 23,
+
+	ARMOR_PEN	= 24,
+
+	COUNT,
 }
 
 static func get_real_typed():
@@ -70,7 +86,7 @@ func has_stat(id : int) -> bool:
 	return has(get_stat_name(id))
 
 
-func get_stat(id : int, default = null):
+func get_stat(id : int, default = 0):
 	var property = get_stat_name(id)
 	return _data.get(property, default)
 
@@ -84,8 +100,9 @@ func get_data_copy():
 	return _data.duplicate(true)
 
 
-func from_data(data) -> void:
+func from_data(data):
 	_data = data
+	return self
 
 ### PRIVATE FUNCTIONS ###
 func _get(property: String, default = null):

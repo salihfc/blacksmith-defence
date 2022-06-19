@@ -75,10 +75,9 @@ func _input(event: InputEvent) -> void:
 
 
 func _ready():
-	# TODO: Looks bad
+	# TODO: Looks bad [clear this in next AI pass]
 	CONFIG.context.set_world(self)
 
-	# TODO: Maybe unnecessary?
 	SIGNAL.bind_bulk(
 		self, self,
 		[

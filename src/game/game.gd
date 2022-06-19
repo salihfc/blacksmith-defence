@@ -57,20 +57,20 @@ onready var baseHealthBar = get_node(NP_BaseHealthBar)
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _input(event):
 	if event is InputEventKey and event.pressed:
-#		LOG.pr(LOG.LOG_TYPE.INTERNAL, "(%s) pressed" % [event.scancode])
-		if event.scancode == KEY_QUOTELEFT: # Toggle DebugWindow
-			debugWindow.visible = !debugWindow.visible
+		match event.scancode:
+			KEY_QUOTELEFT: # Toggle DebugWindow
+				debugWindow.visible = !debugWindow.visible
 
-		if event.scancode == KEY_SPACE: # Wave start shortcut
-			_on_wave_start_button_pressed()
+			KEY_SPACE: # Wave start shortcut
+				_on_wave_start_button_pressed()
 
-		if event.scancode == KEY_P: # Pause with P
-			LOG.pr(LOG.LOG_TYPE.INTERNAL, "PAUSED")
-			battle.paused = not battle.paused
-			UTILS.pause_node(battle, not battle.paused)
+			KEY_P: # Pause with P
+				LOG.pr(LOG.LOG_TYPE.INTERNAL, "PAUSED")
+				battle.paused = not battle.paused
+				UTILS.pause_node(battle, not battle.paused)
 
-		if event.scancode == KEY_A: # Toggle Circles with A
-			CONFIG.SHOW_RANGE_CIRCLES = not CONFIG.SHOW_RANGE_CIRCLES
+			KEY_A: # Toggle Circles with A
+				CONFIG.SHOW_RANGE_CIRCLES = not CONFIG.SHOW_RANGE_CIRCLES
 
 
 func _ready():
@@ -129,12 +129,11 @@ func _ready():
 		]
 	)
 
-
-	_update_recipe_list_view()
+	_update_recipe_list()
 
 ### PUBLIC FUNCTIONS ###
 ### PRIVATE FUNCTIONS ###
-func _update_recipe_list_view() -> void:
+func _update_recipe_list() -> void:
 	UTILS.clear_children(unitRecipeList)
 
 	for recipe in _cached_recipes:
@@ -198,10 +197,10 @@ func _on_unit_created(unit_recipe) -> void:
 	materialList.reinit(craftingMenu.get_storage())
 
 	_cached_recipes.append(unit_recipe)
-	_update_recipe_list_view()
+	_update_recipe_list()
 
 
 func _on_crafting_cancelled() -> void:
 	LOG.pr(LOG.LOG_TYPE.INPUT, "CRAFTING CANCELLED")
 	popupPanel.hide()
-	materialList.reinit(craftingMenu.recover_from_slots().get_storage())
+	materialList.reinit(craftingMenu.recover_mat_from_slots().get_storage())

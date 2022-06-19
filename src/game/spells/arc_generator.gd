@@ -27,6 +27,12 @@ func get_target_count():
 	return 0
 
 
+func get_total_damage():
+	return CumulativeDamage.new([
+		damage.increased_by(get_owner().get_stat(StatContainer.STATS.BASE_DAMAGE)),
+	])
+
+
 # Sends a wave of arc through targets
 func cast(
 		starting_point : Vector2 = self.global_position,
@@ -67,7 +73,7 @@ func cast(
 			SIGNAL.bind(
 				new_arc, "fizzled",
 				closest, "take_damage",
-				[damage]
+				[get_total_damage()]
 			)
 
 			target_ct += 1

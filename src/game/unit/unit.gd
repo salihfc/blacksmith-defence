@@ -153,6 +153,15 @@ func set_grid_pos(pos : Vector2) -> void:
 	grid_pos = pos
 
 
+func add_to_stat(id : int, amount):
+	assert(amount != null)
+	_stats.set_stat(id, get_stat(id) + amount)
+
+
+func multiply_stat(id : int, amount):
+	assert(amount != null)
+	_stats.set_stat(id, get_stat(id) * amount)
+
 # Getters
 func get_stat(id : int, default = null):
 	return _stats.get_stat(id, default)
@@ -268,13 +277,18 @@ func calc_final_damage_amount(_damage : Damage) -> float:
 	return final_damage
 
 
-func take_damage(_damage : Damage, pulse := Vector2.ZERO) -> void:
+func take_damage(_damage, pulse := Vector2.ZERO) -> void:
+	assert(_damage)
+	if _damage is CumulativeDamage:
+		for _damage_piece in _damage.get_pieces():
+			take_damage(_damage_piece)
+		return
+
 	apply_impulse(pulse)
 	var amount = calc_final_damage_amount(_damage)
 	LOG.pr(LOG.LOG_TYPE.GAMEPLAY, "%s taking %s -> %s" % [self, _damage, amount])
 
-	var new_hp = get_stat(StatContainer.STATS.HP) - amount
-	_stats.set_stat(StatContainer.STATS.HP, new_hp)
+	add_to_stat(StatContainer.STATS.HP, -amount)
 
 	if CONFIG.SHOW_FLOATING_DAMAGE_NUMBERS:
 		FLOATING_TEXT.generate(global_position, str(amount)).set_crit(randf() > 0.5)

@@ -167,6 +167,9 @@ func vec2_to_int_arr(vec2 : Vector2) -> Array:
 	return [int(vec2.x), int(vec2.y)]
 
 
+func pretty_print(dict : Dictionary) -> void:
+	print(JSON.print(dict, "\t"))
+
 func pretty_dict(dict : Dictionary) -> String:
 	return JSON.print(dict, "\t")
 

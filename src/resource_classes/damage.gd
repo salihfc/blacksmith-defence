@@ -49,6 +49,10 @@ func get_amount():
 	return _amount
 
 
+func increased_by(amount):
+	_amount += amount
+	return self
+
 ### PRIVATE FUNCTIONS ###
 func _to_string():
 	return "[%s.%s]" % [_get_typename(_type), _amount]
