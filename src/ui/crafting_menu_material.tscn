@@ -3,23 +3,30 @@
 [ext_resource path="res://assets/gfx/game/material_sprites/fire.png" type="Texture" id=1]
 [ext_resource path="res://src/ui/crafting_menu_material.gd" type="Script" id=2]
 
-[node name="CraftingMenuMaterial" type="PanelContainer"]
-margin_right = 302.0
+[node name="CraftingMenuMaterial" type="MarginContainer"]
+margin_right = 288.0
 margin_bottom = 78.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 4
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 4
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_group_": true
-}
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="."]
+margin_left = 10.0
+margin_top = 4.0
+margin_right = 278.0
+margin_bottom = 82.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 295.0
+margin_right = 261.0
 margin_bottom = 71.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="MaterialCount" type="Label" parent="HBoxContainer"]
+[node name="MaterialCount" type="Label" parent="PanelContainer/HBoxContainer"]
 margin_right = 32.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 32, 64 )
@@ -28,7 +35,7 @@ text = "1"
 align = 1
 valign = 1
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/HBoxContainer"]
 margin_left = 36.0
 margin_right = 100.0
 margin_bottom = 64.0
@@ -37,9 +44,9 @@ texture = ExtResource( 1 )
 expand = true
 stretch_mode = 6
 
-[node name="MaterialEffect" type="Label" parent="HBoxContainer"]
+[node name="MaterialEffect" type="Label" parent="PanelContainer/HBoxContainer"]
 margin_left = 104.0
-margin_right = 288.0
+margin_right = 254.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 32, 64 )
 size_flags_horizontal = 7
@@ -48,10 +55,8 @@ text = "Increase chain count"
 align = 1
 valign = 1
 
-[node name="TextureButton" type="TextureButton" parent="."]
+[node name="TextureButton" type="TextureButton" parent="PanelContainer"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 295.0
+margin_right = 261.0
 margin_bottom = 71.0
-
-[connection signal="pressed" from="TextureButton" to="." method="_on_TextureButton_pressed"]

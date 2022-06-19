@@ -1,4 +1,5 @@
-extends PanelContainer
+extends MarginContainer
+#extends PanelContainer
 """
 """
 
@@ -14,11 +15,18 @@ var _mat
 var _ct
 
 ### ONREADY VAR ###
-onready var countText 	= $HBoxContainer/MaterialCount as Label
-onready var effectText	= $HBoxContainer/MaterialEffect as Label
-onready var matTexture	= $HBoxContainer/TextureRect as TextureRect
+onready var countText 	= $PanelContainer/HBoxContainer/MaterialCount as Label
+onready var effectText	= $PanelContainer/HBoxContainer/MaterialEffect as Label
+onready var matTexture	= $PanelContainer/HBoxContainer/TextureRect as TextureRect
+onready var textureButton = $PanelContainer/TextureButton as TextureButton
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
+func _ready() -> void:
+	SIGNAL.bind(
+		textureButton, "pressed",
+		self, "_on_TextureButton_pressed"
+	)
+
 ### PUBLIC FUNCTIONS ###
 func set_mat(mat : MaterialData, ct : int, mat_effect_on_weapon : String):
 	_mat = mat

@@ -6,16 +6,86 @@ class_name UnitData
 ### SIGNAL ###
 ### ENUM ###
 ### CONST ###
+# TODO: make dynamic
 const STAT_DEFAULTS = {
-	StatContainer.STATS.MAX_HP : 50,
-	StatContainer.STATS.BASE_DAMAGE : 10,
-	StatContainer.STATS.DAMAGE_MULTI : 1,
-	StatContainer.STATS.MOVE_SPEED : 1,
-	StatContainer.STATS.ATK_SPEED : 1,
+	###
+	#	PLAYER UNITS
+	###
+	"Arcanist" : {
+		StatContainer.STATS.MAX_HP : 30,
+		StatContainer.STATS.BASE_DAMAGE : 0,
+		StatContainer.STATS.DAMAGE_MULTI : 1,
+		StatContainer.STATS.MOVE_SPEED : 1,
+		StatContainer.STATS.ATK_SPEED : 1,
 
-	StatContainer.STATS.CHAIN_COUNT : 0,
+		StatContainer.STATS.CHAIN_COUNT : 1,
 
-	StatContainer.STATS.ATK_RANGE : 40,
+		StatContainer.STATS.ATK_RANGE : 120,
+	},
+
+	"Duelist" : {
+		StatContainer.STATS.MAX_HP : 50,
+		StatContainer.STATS.BASE_DAMAGE : 5,
+		StatContainer.STATS.DAMAGE_MULTI : 1.2,
+		StatContainer.STATS.MOVE_SPEED : 1,
+		StatContainer.STATS.ATK_SPEED : 1.6,
+
+		StatContainer.STATS.CHAIN_COUNT : 0,
+
+		StatContainer.STATS.ATK_RANGE : 60,
+	},
+
+	"SwordMaster": {
+		StatContainer.STATS.MAX_HP : 70,
+		StatContainer.STATS.BASE_DAMAGE : 10,
+		StatContainer.STATS.DAMAGE_MULTI : 1,
+		StatContainer.STATS.MOVE_SPEED : 1,
+		StatContainer.STATS.ATK_SPEED : 1,
+
+		StatContainer.STATS.CHAIN_COUNT : 0,
+
+		StatContainer.STATS.ATK_RANGE : 70,
+	},
+
+	###
+	#	ENEMY UNITS
+	###
+
+	"Basic": {
+		StatContainer.STATS.MAX_HP : 50,
+		StatContainer.STATS.BASE_DAMAGE : 10,
+		StatContainer.STATS.DAMAGE_MULTI : 1,
+		StatContainer.STATS.MOVE_SPEED : 1,
+		StatContainer.STATS.ATK_SPEED : 1,
+
+		StatContainer.STATS.CHAIN_COUNT : 0,
+
+		StatContainer.STATS.ATK_RANGE : 50,
+	},
+
+	"Runner": {
+		StatContainer.STATS.MAX_HP : 30,
+		StatContainer.STATS.BASE_DAMAGE : 15,
+		StatContainer.STATS.DAMAGE_MULTI : 1,
+		StatContainer.STATS.MOVE_SPEED : 1.8,
+		StatContainer.STATS.ATK_SPEED : 1.2,
+
+		StatContainer.STATS.CHAIN_COUNT : 0,
+
+		StatContainer.STATS.ATK_RANGE : 50,
+	},
+
+	"Tank": {
+		StatContainer.STATS.MAX_HP : 200,
+		StatContainer.STATS.BASE_DAMAGE : 5,
+		StatContainer.STATS.DAMAGE_MULTI : 2.0,
+		StatContainer.STATS.MOVE_SPEED : 0.6,
+		StatContainer.STATS.ATK_SPEED : 0.6,
+
+		StatContainer.STATS.CHAIN_COUNT : 0,
+
+		StatContainer.STATS.ATK_RANGE : 50,
+	},
 }
 
 const CURVE_MULT_NAME_PREFIX	= "curve_mult_"
@@ -82,7 +152,7 @@ func _set(property: String, value = false) -> bool:
 
 	for idx in StatContainer.STATS.COUNT:
 		if _stats.get_stat(idx, 0) == 0:
-			_stats.set_stat(idx, STAT_DEFAULTS.get(idx, 0.0))
+			_stats.set_stat(idx, STAT_DEFAULTS[name].get(idx, 0.0))
 
 	return true
 
@@ -96,8 +166,8 @@ func _get_property_list() -> Array:
 func _to_string() -> String:
 	return name + UTILS.wrap_str(str(cost), "[", "]")
 
-func _init() -> void:
 
+func _init() -> void:
 	for idx in StatContainer.STATS.COUNT:
 		_props.append(
 			{
@@ -106,7 +176,13 @@ func _init() -> void:
 			}
 		)
 
-		_set_stat(idx, STAT_DEFAULTS.get(idx, 0.0))
+	call_deferred("_load_defaults")
+
+func _load_defaults():
+	for idx in StatContainer.STATS.COUNT:
+		if get_stat(idx, null) == null:
+			prints (idx, name)
+			_set_stat(idx, STAT_DEFAULTS[name].get(idx, 0.0))
 
 
 ### PUBLIC FUNCTIONS ###
@@ -142,13 +218,10 @@ func scale_to_wave(wave_number : float):
 
 func calc_power() -> float:
 	var power = get_stat(StatContainer.STATS.MAX_HP)
-#
 #	power *= get_stat(StatContainer.STATS.ATK_SPEED)
 #	power *= get_stat(StatContainer.STATS.DAMAGE_MULTI)
-
 #	if get_stat(StatContainer.STATS.ATK_RANGE):
 #		power *= max(1.0, sqrt(get_stat(StatContainer.STATS.ATK_RANGE)))
-
 	return power
 
 
@@ -161,8 +234,8 @@ func copy_stats():
 	return copy_stats.from_data(_stats.get_data_copy())
 
 
-func get_stat(stat_id : int):
-	return _stats.get_stat(stat_id)
+func get_stat(stat_id : int, default = null):
+	return _stats.get_stat(stat_id, default)
 
 ### PRIVATE FUNCTIONS ###
 func _set_stat(stat_id : int, new_value) -> void:

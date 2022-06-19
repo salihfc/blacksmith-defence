@@ -38,10 +38,6 @@ onready var animPlayer = $AnimationPlayer as AnimationPlayer
 onready var collisionShape = $Sprite/HitBox/CollisionShape2D as CollisionShape2D
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
-func _ready() -> void:
-	if animPlayer.has_animation(get_anim(ANIM.IDLE)):
-		animPlayer.play(get_anim(ANIM.IDLE))
-
 # warning-ignore:unused_argument
 func init_with_data(weapon_data : WeaponData) -> void:
 	_id = weapon_data.id
@@ -61,6 +57,10 @@ func init_with_data(weapon_data : WeaponData) -> void:
 	# GAMEPLAY
 	_damage = weapon_data.base_damage
 
+	# Start Idle animation
+	if animPlayer.has_animation(get_anim(ANIM.IDLE)):
+		prints ("playing", get_anim(ANIM.IDLE))
+		animPlayer.play(get_anim(ANIM.IDLE))
 
 ### PUBLIC FUNCTIONS ###
 func strike() -> void:

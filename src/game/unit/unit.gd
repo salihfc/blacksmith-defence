@@ -97,6 +97,8 @@ func _ready():
 
 	stateLabel.visible = CONFIG.SHOW_AI_STATE
 
+	change_state(STATE.IDLE)
+
 
 func _process(_delta):
 # TEMPORARY FOR DEBUGGING PURPOSES
@@ -349,7 +351,7 @@ func _select_target():
 
 
 func _set_area_layer_and_masks() -> void:
-	pass
+	pass # TODO: empty?
 
 
 func _collision_update() -> void:
@@ -374,9 +376,11 @@ func _action_walk_towards_enemy_base():
 	set_velocity(Vector2.LEFT * 100.0)
 	change_state(STATE.WALK)
 
+
 func _action_attack_enemy():
 	LOG.pr(LOG.LOG_TYPE.AI, "%s ATTACKING!!" % [self])
 	change_state(STATE.ATTACK)
+
 
 func _action_idle():
 	set_velocity(Vector2.ZERO)
@@ -393,15 +397,11 @@ func _on_context_changed() -> void:
 
 func _on_enemy_entered_range(_enemy_area, _range_type) -> void:
 	if _state != STATE.ATTACK:
-#		if get_stat(StatContainer.STATS.MAX_HP) > 1000.0:
-#			LOG.pr(LOG.LOG_TYPE.INTERNAL, "[%s] CONTEXT CHANGED RETHINKING %s" % [self, animPlayer.get_playing_speed()])
 		emit_signal("_context_changed")
 
 
 func _on_attack_ended() -> void:
 	# TODO: (OPTIMIZE) Check if context changed for optimization
-#	if get_stat(StatContainer.STATS.MAX_HP) > 1000.0:
-#		LOG.pr(LOG.LOG_TYPE.INTERNAL, "ATTACK END")
 	emit_signal("_context_changed")
 
 

@@ -18,6 +18,7 @@ export(float) var thickness = 1.0
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _ready() -> void:
 	add_to_group("range_circles")
+	visible = CONFIG.SHOW_RANGE_CIRCLES
 
 
 func _process(_delta):

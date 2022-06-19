@@ -34,12 +34,8 @@ export(Resource) var player_base = null
 ### PRIVATE VAR ###
 var _cached_recipes = [
 	UnitRecipe.new(
-		load("res://tres/units/player_units/sword_unit_data.tres"),
-		MaterialStorage.new(
-			{
-				MaterialData.new(MaterialData.TYPE.COPPER) : 2,
-			}
-		)
+		load("res://tres/units/player_units/SwordMaster.tres"),
+		MaterialStorage.new({})
 	)
 ]
 

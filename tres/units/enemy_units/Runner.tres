@@ -1,8 +1,8 @@
 [gd_resource type="Resource" load_steps=6 format=2]
 
-[ext_resource path="res://src/resource_classes/unit_data.gd" type="Script" id=1]
+[ext_resource path="res://src/ai/infinite_axis_utility/agent_tres/agent_enemy_basic.tres" type="Resource" id=1]
 [ext_resource path="res://src/resource_classes/material_storage.gd" type="Script" id=2]
-[ext_resource path="res://src/ai/infinite_axis_utility/agent_tres/agent_enemy_basic.tres" type="Resource" id=3]
+[ext_resource path="res://src/resource_classes/unit_data.gd" type="Script" id=3]
 [ext_resource path="res://tres/atlas_tex/runner_enemy.atlastex" type="Texture" id=4]
 
 [sub_resource type="Resource" id=1]
@@ -11,22 +11,22 @@ _storage = {
 }
 
 [resource]
-script = ExtResource( 1 )
+script = ExtResource( 3 )
 name = "Runner"
 texture = ExtResource( 4 )
 cost = SubResource( 1 )
-brain = ExtResource( 3 )
+brain = ExtResource( 1 )
 spells = [  ]
 enhancements = [  ]
-stats/max_hp = 50
+stats/max_hp = 30
 stats/res_phys = 0.0
 stats/res_fire = 0.0
 stats/res_water = 0.0
 stats/res_earth = 0.0
-stats/base_damage = 10
-stats/move_speed = 1
-stats/atk_speed = 1
-stats/atk_range = 40
+stats/base_damage = 15
+stats/move_speed = 1.8
+stats/atk_speed = 1.2
+stats/atk_range = 50
 stats/damage_multi = 1
 stats/chain_count = 0
 stats/hp = 0.0

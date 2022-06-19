@@ -1,9 +1,9 @@
 [gd_resource type="Resource" load_steps=5 format=2]
 
 [ext_resource path="res://src/resource_classes/item_pool.gd" type="Script" id=1]
-[ext_resource path="res://tres/units/enemy_units/runner_enemy_unit_data.tres" type="Resource" id=2]
-[ext_resource path="res://tres/units/enemy_units/basic_enemy_unit_data.tres" type="Resource" id=3]
-[ext_resource path="res://tres/units/enemy_units/tank_enemy_unit_data.tres" type="Resource" id=4]
+[ext_resource path="res://tres/units/enemy_units/Runner.tres" type="Resource" id=2]
+[ext_resource path="res://tres/units/enemy_units/Basic.tres" type="Resource" id=3]
+[ext_resource path="res://tres/units/enemy_units/Tank.tres" type="Resource" id=4]
 
 [resource]
 script = ExtResource( 1 )

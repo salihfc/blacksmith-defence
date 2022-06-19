@@ -128,9 +128,9 @@ func _on_mats_in_slots_updated() -> void:
 	var t = 0
 	for mat in _mat_slots:
 		if mat:
-			materialSlots.get_child(t).texture = mat.sprite
+			materialSlots.get_child(t).get_child(0).texture = mat.sprite
 		else:
-			materialSlots.get_child(t).texture = null
+			materialSlots.get_child(t).get_child(0).texture = null
 		t += 1
 
 
