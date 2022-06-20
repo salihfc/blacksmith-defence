@@ -1,27 +1,48 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://src/singletons/weapon_mat_effect_db.gd" type="Script" id=1]
+[ext_resource path="res://src/resource_classes/unit_enhancements/unit_enhancement_stat.gd" type="Script" id=2]
 [ext_resource path="res://tres/units/player_units/SwordMaster.tres" type="Resource" id=3]
 [ext_resource path="res://tres/units/player_units/Duelist.tres" type="Resource" id=4]
 [ext_resource path="res://tres/units/player_units/Arcanist.tres" type="Resource" id=5]
+
+[sub_resource type="Resource" id=2]
+script = ExtResource( 2 )
+stat_id = 5
+increase_value = 10
+
+[sub_resource type="Resource" id=3]
+script = ExtResource( 2 )
+stat_id = 5
+increase_value = 10
+
+[sub_resource type="Resource" id=4]
+script = ExtResource( 2 )
+stat_id = 5
+increase_value = 10
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 2 )
+stat_id = 10
+increase_value = 1
 
 [node name="WeaponMatEffectDB" type="Node"]
 script = ExtResource( 1 )
 owner/SWORD = ExtResource( 3 )
 owner/RAPIER = ExtResource( 4 )
 owner/WAND = ExtResource( 5 )
-SWORD/IRON = null
+SWORD/IRON = SubResource( 2 )
 SWORD/COPPER = null
 SWORD/FIRE = null
 SWORD/EARTH = null
 SWORD/WATER = null
-RAPIER/IRON = null
+RAPIER/IRON = SubResource( 3 )
 RAPIER/COPPER = null
 RAPIER/FIRE = null
 RAPIER/EARTH = null
 RAPIER/WATER = null
-WAND/IRON = null
-WAND/COPPER = null
+WAND/IRON = SubResource( 4 )
+WAND/COPPER = SubResource( 1 )
 WAND/FIRE = null
 WAND/EARTH = null
 WAND/WATER = null

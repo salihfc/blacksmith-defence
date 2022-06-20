@@ -14,10 +14,27 @@ const RETARGET_MID_ANIMATION = true
 ### ONREADY VAR ###
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func init_with_data(unit_recipe : UnitRecipe) -> void:
+	#
 	.init_with_data(unit_recipe)
+	#
+	# Set hp to max
+	_stats.set_stat(StatContainer.STATS.HP, get_stat(StatContainer.STATS.MAX_HP))
+
 	var unit_data = unit_recipe.base_unit
+	var enhance_cost = unit_recipe.enhance_cost
+
 	assert(unit_data)
 	assert(unit_data.weapon)
+
+	var weapon_data = unit_data.weapon
+
+	assert(enhance_cost is MaterialStorage)
+	var materials = enhance_cost.get_materials()
+	for mat in materials:
+		var ct = enhance_cost.get_material_count(mat)
+		for _i in ct:
+			var enh = WEAPON_ENHANCE_DB.get_enhancement(weapon_data.name, mat.get_name())
+			enh.call_deferred("apply_to", _stats)
 
 	if unit_data.weapon is WeaponData:
 		var new_weapon = P_Weapon.instance()
@@ -48,6 +65,7 @@ func _set_weapon(weapon : Node) -> void:
 	)
 
 	weaponSlot.add_child(weapon)
+	weapon.set_owner_unit(self)
 
 	if weapon.has_method("set_damage"):
 		weapon.set_damage(get_damage())

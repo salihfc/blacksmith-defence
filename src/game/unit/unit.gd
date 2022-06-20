@@ -121,14 +121,12 @@ func _physics_process(delta):
 # INIT func
 func init_with_data(unit_recipe : UnitRecipe) -> void:
 	var unit_data = unit_recipe.base_unit
+#	var enhance_cost = unit_recipe.enhance_cost
 	name = unit_data.name
 	_stats = unit_data.copy_stats()
+
 	# Set hp to max
 	_stats.set_stat(StatContainer.STATS.HP, get_stat(StatContainer.STATS.MAX_HP))
-
-	if unit_data.enhancements:
-		for enh in unit_data.enhancements:
-			enh.apply_to(_stats)
 
 	# reference to sprite should be set in _ready
 	assert(sprite)

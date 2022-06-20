@@ -10,15 +10,34 @@ extends Node
 ### PUBLIC VAR ###
 ### PRIVATE VAR ###
 var _owners = {}
-var _data = {
+var _data = {}
+var _default_data = {
+	"SWORD" : {
+		"IRON" : {
+			'enhancement' : UnitEnhancementStat.new(StatContainer.STATS.BASE_DAMAGE, 10),
+			'hint' : "increase damage by 10",
+		},
+	},
+
+	"RAPIER" : {
+		"IRON" : {
+			'enhancement' : UnitEnhancementStat.new(StatContainer.STATS.BASE_DAMAGE, 10),
+			'hint' : "increase damage by 10",
+		},
+	},
+
 	"WAND" : {
+		"IRON" : {
+			'enhancement' : UnitEnhancementStat.new(StatContainer.STATS.BASE_DAMAGE, 10),
+			'hint' : "increase damage by 10",
+		},
+
 		"COPPER" : {
 			'enhancement' : UnitEnhancementStat.new(StatContainer.STATS.CHAIN_COUNT, 1),
 			'hint' : "increase chain count by 1",
-		}
-	}
+		},
+	},
 }
-
 
 ### ONREADY VAR ###
 ### VIRTUAL FUNCTIONS (_init ...) ###
@@ -39,8 +58,13 @@ func _init() -> void:
 
 		for mat_name in MaterialData.TYPE.keys():
 			if not mat_name in _data[weapon_name]:
-				_data[weapon_name][mat_name] = {}
+				if _default_data.get(weapon_name) and _default_data[weapon_name].get(mat_name):
+					_data[weapon_name][mat_name] = _default_data[weapon_name][mat_name]
+				else:
+					_data[weapon_name][mat_name] = {}
+
 	UTILS.pretty_print(_data)
+
 
 func _parse_property(property: String):
 	return property.to_upper().split("/", false)
@@ -100,7 +124,10 @@ func _get_property_list() -> Array:
 
 		for mat_name in MaterialData.TYPE.keys():
 			if not mat_name in _data[weapon_name]:
-				_data[weapon_name][mat_name] = {}
+				if _default_data.get(weapon_name) and _default_data[weapon_name].get(mat_name):
+					_data[weapon_name][mat_name] = _default_data[weapon_name][mat_name]
+				else:
+					_data[weapon_name][mat_name] = {}
 
 			props.append(
 				{
@@ -126,6 +153,9 @@ func get_hint(weapon_name : String, mat_name : String) -> String:
 
 
 func get_enhancement(weapon_name : String, mat_name : String):
+	weapon_name = weapon_name.to_upper()
+	mat_name = mat_name.to_upper()
+
 	assert(_data)
 	var ref = _data.get(weapon_name)
 

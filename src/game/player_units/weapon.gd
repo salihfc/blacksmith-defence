@@ -29,6 +29,7 @@ enum ANIM {
 ### EXPORT ###
 ### PUBLIC VAR ###
 ### PRIVATE VAR ###
+var _owner = null setget set_owner_unit
 var _id = -1
 var _damage = 0.0
 
@@ -93,12 +94,22 @@ func set_animation_speed(speed : float) -> void:
 	animPlayer.set_speed_scale(speed)
 
 
+func set_owner_unit(__owner) -> void:
+	_owner = __owner
+
+
 func set_damage(damage) -> void:
 	_damage = damage
 
 
 func get_damage():
-	return Damage.new(Damage.TYPE.PHYSICAL, _damage)
+	assert(_owner)
+
+	return CumulativeDamage.new(
+		[
+			Damage.new(Damage.TYPE.PHYSICAL, _damage + _owner.get_stat(StatContainer.STATS.BASE_DAMAGE)),
+		]
+	)
 
 ### PRIVATE FUNCTIONS ###
 
