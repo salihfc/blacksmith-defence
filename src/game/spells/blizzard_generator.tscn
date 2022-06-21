@@ -1,9 +1,0 @@
-[gd_scene load_steps=4 format=2]
-
-[ext_resource path="res://src/game/spells/spell_base.tscn" type="PackedScene" id=1]
-[ext_resource path="res://src/game/spells/blizzard_generator.gd" type="Script" id=2]
-[ext_resource path="res://src/game/spells/blizzard.tscn" type="PackedScene" id=3]
-
-[node name="BlizzardGenerator" instance=ExtResource( 1 )]
-script = ExtResource( 2 )
-blizzardPrefab = ExtResource( 3 )

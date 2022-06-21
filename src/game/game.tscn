@@ -44,6 +44,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 12 )
 script = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
 P_UnitRecipeView = ExtResource( 10 )
 NP_Battle = NodePath("PanelContainer/HBoxContainer/Control/Viewport/BattleWorld")
 NP_MaterialList = NodePath("PanelContainer/HBoxContainer/PanelContainer/VBoxContainer/MaterialList")
@@ -184,7 +188,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="UnitInfoPopup" type="PopupPanel" parent="."]
-visible = true
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -251.0

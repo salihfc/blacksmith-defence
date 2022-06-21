@@ -1,10 +1,11 @@
-[gd_resource type="Resource" load_steps=7 format=2]
+[gd_resource type="Resource" load_steps=8 format=2]
 
-[ext_resource path="res://tres/atlas_tex/unit_default_sprite.atlastex" type="Texture" id=1]
+[ext_resource path="res://tres/atlas_tex/winter_mage.atlastex" type="Texture" id=1]
 [ext_resource path="res://src/resource_classes/material_storage.gd" type="Script" id=2]
 [ext_resource path="res://src/resource_classes/unit_data.gd" type="Script" id=3]
 [ext_resource path="res://src/ai/infinite_axis_utility/agent_tres/agent_player_basic.tres" type="Resource" id=4]
-[ext_resource path="res://tres/units/weapons/sword.tres" type="Resource" id=5]
+[ext_resource path="res://tres/units/weapons/wand.tres" type="Resource" id=6]
+[ext_resource path="res://src/game/spells/blizzard.tscn" type="PackedScene" id=7]
 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 2 )
@@ -14,24 +15,24 @@ Resource( "res://tres/materials/material_iron.tres" ): 2
 
 [resource]
 script = ExtResource( 3 )
-name = "SwordMaster"
+name = "WinterMage"
 texture = ExtResource( 1 )
 cost = SubResource( 1 )
 brain = ExtResource( 4 )
-weapon = ExtResource( 5 )
-spells = [  ]
+weapon = ExtResource( 6 )
+spells = [ ExtResource( 7 ) ]
 enhancements = [  ]
-stats/max_hp = 2400
+stats/max_hp = 1300
 stats/res_phys = 0.0
 stats/res_fire = 0.0
 stats/res_water = 0.0
 stats/res_earth = 0.0
-stats/base_damage = 10
+stats/base_damage = 0
 stats/move_speed = 1
 stats/atk_speed = 1
-stats/atk_range = 70
+stats/atk_range = 120
 stats/damage_multi = 1
-stats/chain_count = 0.0
+stats/chain_count = 1
 stats/hp = 0.0
 stats/bleed_chance = 0.0
 stats/ignite_chance = 0.0

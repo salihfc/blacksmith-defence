@@ -23,15 +23,22 @@ const STAT_DEFAULTS = {
 		StatContainer.STATS.ATK_RANGE : 120,
 	},
 
+	"WinterMage" : {
+		StatContainer.STATS.MAX_HP : 1300,
+		StatContainer.STATS.BASE_DAMAGE : 0,
+		StatContainer.STATS.DAMAGE_MULTI : 1,
+		StatContainer.STATS.MOVE_SPEED : 1,
+		StatContainer.STATS.ATK_SPEED : 1,
+
+		StatContainer.STATS.ATK_RANGE : 160,
+	},
+
 	"Duelist" : {
 		StatContainer.STATS.MAX_HP : 1800,
 		StatContainer.STATS.BASE_DAMAGE : 5,
 		StatContainer.STATS.DAMAGE_MULTI : 1.2,
 		StatContainer.STATS.MOVE_SPEED : 1,
 		StatContainer.STATS.ATK_SPEED : 1.6,
-
-		StatContainer.STATS.CHAIN_COUNT : 0,
-
 		StatContainer.STATS.ATK_RANGE : 60,
 	},
 
@@ -41,9 +48,6 @@ const STAT_DEFAULTS = {
 		StatContainer.STATS.DAMAGE_MULTI : 1,
 		StatContainer.STATS.MOVE_SPEED : 1,
 		StatContainer.STATS.ATK_SPEED : 1,
-
-		StatContainer.STATS.CHAIN_COUNT : 0,
-
 		StatContainer.STATS.ATK_RANGE : 70,
 	},
 

@@ -243,14 +243,11 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.5, 0.8 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0.5 ),
+"transitions": PoolRealArray( 1 ),
 "values": [ {
-"args": [ true ],
-"method": "_enable_hitbox"
-}, {
-"args": [ false ],
-"method": "_enable_hitbox"
+"args": [  ],
+"method": "_on_damage_frame"
 } ]
 }
 
@@ -259,7 +256,6 @@ radius = 36.0
 
 [node name="Blizzard" type="Node2D"]
 script = ExtResource( 1 )
-speed_mod = 0.4
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 material = SubResource( 141 )
@@ -275,14 +271,13 @@ anims/pulse = SubResource( 142 )
 [node name="Areas" type="Node2D" parent="."]
 
 [node name="SlowArea" type="Area2D" parent="Areas"]
-position = Vector2( 0, 2 )
 collision_layer = 0
 collision_mask = 16
 script = ExtResource( 3 )
 owner_path = NodePath("../..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Areas/SlowArea"]
-visible = false
+position = Vector2( 0, 2 )
 scale = Vector2( 1, 0.5 )
 shape = SubResource( 143 )
 
@@ -290,6 +285,7 @@ shape = SubResource( 143 )
 collision_layer = 0
 collision_mask = 16
 script = ExtResource( 3 )
+dynamic_tracking = true
 owner_path = NodePath("../..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Areas/DamageArea"]
@@ -297,6 +293,5 @@ visible = false
 position = Vector2( 0, 2 )
 scale = Vector2( 1, 0.5 )
 shape = SubResource( 143 )
-disabled = true
 
 [connection signal="area_entered" from="Areas/SlowArea" to="." method="_on_SlowArea_area_entered"]
