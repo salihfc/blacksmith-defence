@@ -37,6 +37,15 @@ func _ready() -> void:
 		self, "_on_material_selected_from_list"
 	)
 
+
+	for idx in materialSlots.get_child_count():
+		var mat_slot = materialSlots.get_child(idx)
+		SIGNAL.bind(
+			mat_slot, "pressed",
+			self, "_on_mat_slot_pressed",
+			[idx]
+		)
+
 	reinit(owned_materials)
 
 ### PUBLIC FUNCTIONS ###
@@ -132,6 +141,14 @@ func _on_mats_in_slots_updated() -> void:
 		else:
 			materialSlots.get_child(t).get_child(0).texture = null
 		t += 1
+
+
+func _on_mat_slot_pressed(idx : int) -> void:
+	if _mat_slots[idx]:
+		owned_materials.add_material(_mat_slots[idx], 1)
+		_mat_slots[idx] = null
+		_init_material_list(owned_materials)
+		_on_mats_in_slots_updated()
 
 
 func _on_CraftButton_pressed() -> void:

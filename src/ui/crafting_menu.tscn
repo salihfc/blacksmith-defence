@@ -151,14 +151,14 @@ margin_top = 4.0
 margin_right = 157.0
 margin_bottom = 314.0
 
-[node name="MatSlot" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/CraftingPanelContainer/VBoxContainer/SelectedMaterialsContainer/MaterialSlots"]
+[node name="MatSlot" type="TextureButton" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/CraftingPanelContainer/VBoxContainer/SelectedMaterialsContainer/MaterialSlots"]
 margin_right = 153.0
 margin_bottom = 100.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = ExtResource( 6 )
+texture_normal = ExtResource( 6 )
 expand = true
-stretch_mode = 6
+stretch_mode = 5
 
 [node name="InSlot" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/CraftingPanelContainer/VBoxContainer/SelectedMaterialsContainer/MaterialSlots/MatSlot"]
 anchor_left = 0.3
@@ -170,15 +170,15 @@ size_flags_vertical = 3
 expand = true
 stretch_mode = 6
 
-[node name="MatSlot2" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/CraftingPanelContainer/VBoxContainer/SelectedMaterialsContainer/MaterialSlots"]
+[node name="MatSlot2" type="TextureButton" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/CraftingPanelContainer/VBoxContainer/SelectedMaterialsContainer/MaterialSlots"]
 margin_top = 104.0
 margin_right = 153.0
 margin_bottom = 205.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = ExtResource( 6 )
+texture_normal = ExtResource( 6 )
 expand = true
-stretch_mode = 6
+stretch_mode = 5
 
 [node name="InSlot2" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/CraftingPanelContainer/VBoxContainer/SelectedMaterialsContainer/MaterialSlots/MatSlot2"]
 anchor_left = 0.3
@@ -190,15 +190,15 @@ size_flags_vertical = 3
 expand = true
 stretch_mode = 6
 
-[node name="MatSlot3" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/CraftingPanelContainer/VBoxContainer/SelectedMaterialsContainer/MaterialSlots"]
+[node name="MatSlot3" type="TextureButton" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/CraftingPanelContainer/VBoxContainer/SelectedMaterialsContainer/MaterialSlots"]
 margin_top = 209.0
 margin_right = 153.0
 margin_bottom = 310.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = ExtResource( 6 )
+texture_normal = ExtResource( 6 )
 expand = true
-stretch_mode = 6
+stretch_mode = 5
 
 [node name="InSlot3" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/CraftingPanelContainer/VBoxContainer/SelectedMaterialsContainer/MaterialSlots/MatSlot3"]
 anchor_left = 0.3

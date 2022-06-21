@@ -14,7 +14,7 @@ export(PackedScene) var P_UnitRecipeView
 
 """
 	NOTE:
-	Only export NodePaths when the scene structure has a high depth to prevent
+	Only export NodePaths when the scene structure is deep to prevent
 	very long, ugly looking paths after '$'
 """
 export(NodePath) var NP_Battle
@@ -22,22 +22,20 @@ export(NodePath) var NP_MaterialList
 export(NodePath) var NP_UnitRecipeList
 export(NodePath) var NP_DebugWindow
 export(NodePath) var NP_CraftingMenu
-export(NodePath) var NP_PopupPanel
+export(NodePath) var NP_CraftingPopupPanel
 export(NodePath) var NP_StartButton
 export(NodePath) var NP_CraftButton
 export(NodePath) var NP_BaseHealthBar
+
+export(NodePath) var NP_UnitInfoPopupPanel
+export(NodePath) var NP_UnitInfoDisplay
 
 export(Resource) var unit_data_pool = null
 export(Resource) var player_base = null
 
 ### PUBLIC VAR ###
 ### PRIVATE VAR ###
-var _cached_recipes = [
-	UnitRecipe.new(
-		load("res://tres/units/player_units/SwordMaster.tres"),
-		MaterialStorage.new({})
-	)
-]
+var _cached_recipes = []
 
 ### ONREADY VAR ###
 onready var battle = get_node(NP_Battle)
@@ -45,10 +43,13 @@ onready var materialList = get_node(NP_MaterialList)
 onready var unitRecipeList = get_node(NP_UnitRecipeList)
 onready var debugWindow = get_node(NP_DebugWindow) as DebugWindow
 onready var craftingMenu = get_node(NP_CraftingMenu)
-onready var popupPanel = get_node(NP_PopupPanel) as PopupPanel
+onready var popupPanel = get_node(NP_CraftingPopupPanel) as PopupPanel
 onready var startWaveButton = get_node(NP_StartButton)
 onready var craftButton = get_node(NP_CraftButton)
 onready var baseHealthBar = get_node(NP_BaseHealthBar)
+
+onready var unitInfoPopupPanel = get_node(NP_UnitInfoPopupPanel) as PopupPanel
+onready var unitInfoDisplay = get_node(NP_UnitInfoDisplay) as UnitInfoDisplay
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _input(event):
@@ -125,6 +126,11 @@ func _ready():
 		]
 	)
 
+	for item in unit_data_pool.get_items():
+		_cached_recipes.append(
+			UnitRecipe.new(item)
+		)
+
 	_update_recipe_list()
 
 ### PUBLIC FUNCTIONS ###
@@ -166,6 +172,8 @@ func _on_unit_spawned(unit_recipe : UnitRecipe):
 
 func _on_unit_selected(unit) -> void:
 	debugWindow.display_unit(unit)
+	unitInfoDisplay.init_from_unit(unit)
+	unitInfoPopupPanel.popup()
 
 
 func _on_wave_start_button_pressed() -> void:
@@ -190,7 +198,7 @@ func _on_CraftButton_pressed() -> void:
 func _on_unit_created(unit_recipe) -> void:
 	LOG.pr(LOG.LOG_TYPE.INTERNAL, "UNIT WITH RECIPE CREATED [%s]" % [unit_recipe])
 	popupPanel.hide()
-	materialList.reinit(craftingMenu.get_storage())
+	materialList.reinit(craftingMenu.recover_mat_from_slots().get_storage())
 
 	_cached_recipes.append(unit_recipe)
 	_update_recipe_list()

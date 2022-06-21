@@ -170,9 +170,15 @@ func vec2_to_int_arr(vec2 : Vector2) -> Array:
 func pretty_print(dict : Dictionary) -> void:
 	print(JSON.print(dict, "\t"))
 
+
 func pretty_dict(dict : Dictionary) -> String:
 	return JSON.print(dict, "\t")
 
 
 func wrap_str(string, begin, end) -> String:
 	return begin + string + end
+
+
+func extract_path_filename(path : String) -> String:
+	var index = path.rfind('/')
+	return path.right(index + 1)

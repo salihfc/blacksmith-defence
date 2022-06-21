@@ -1,0 +1,64 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://src/ui/h_material_list.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/ui/unit_info_display.gd" type="Script" id=3]
+[ext_resource path="res://src/ui/stat_list.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/ui/stat_display.tscn" type="PackedScene" id=5]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[node name="UnitInfoDisplay" type="Panel"]
+margin_right = 311.0
+margin_bottom = 544.0
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 0.304587
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+margin_right = 64.0
+margin_bottom = 165.0
+custom_constants/separation = 20
+alignment = 1
+
+[node name="UnitNameLabel" type="Label" parent="HBoxContainer/VBoxContainer"]
+margin_top = 33.0
+margin_right = 64.0
+margin_bottom = 47.0
+text = "Arcanist"
+align = 1
+valign = 1
+
+[node name="UnitPortrait" type="TextureRect" parent="HBoxContainer/VBoxContainer"]
+margin_top = 67.0
+margin_right = 64.0
+margin_bottom = 131.0
+texture = ExtResource( 1 )
+stretch_mode = 4
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
+margin_left = 68.0
+margin_right = 311.0
+margin_bottom = 165.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="BaseCostList" parent="HBoxContainer/VBoxContainer2" instance=ExtResource( 2 )]
+margin_right = 243.0
+
+[node name="EnhanceCostList" parent="HBoxContainer/VBoxContainer2" instance=ExtResource( 2 )]
+margin_top = 84.0
+margin_right = 243.0
+margin_bottom = 165.0
+
+[node name="StatList" parent="." instance=ExtResource( 4 )]
+P_StatDisplay = ExtResource( 5 )

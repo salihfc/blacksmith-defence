@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/ui/material_list.gd" type="Script" id=1]
+
+[node name="MaterialList" type="HBoxContainer"]
+margin_right = 500.0
+margin_bottom = 80.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.1
+custom_constants/separation = 24
+script = ExtResource( 1 )

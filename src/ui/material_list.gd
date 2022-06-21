@@ -1,5 +1,5 @@
 extends HBoxContainer
-
+class_name MaterialList
 """
 
 """
@@ -38,12 +38,12 @@ func get_storage():
 ### PRIVATE FUNCTIONS ###
 ### SIGNAL RESPONSES ###
 func _on_material_collected(mat : MaterialData, count : int) -> void:
-	LOG.pr(LOG.LOG_TYPE.INPUT, "Mat collected [%s] %s" % [count, mat])
+	LOG.pr(LOG.LOG_TYPE.GAMEPLAY, "Mat collected [%s] %s" % [count, mat])
 	_material_storage.add_material(mat, count)
 	update_list()
 
 
 func _on_material_used(mat : MaterialData, count : int) -> void:
-	LOG.pr(LOG.LOG_TYPE.INPUT, "Mat used [%s] %s" % [count, mat])
+	LOG.pr(LOG.LOG_TYPE.GAMEPLAY, "Mat used [%s] %s" % [count, mat])
 	_material_storage.use_material(mat, count)
 	update_list()

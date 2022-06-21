@@ -6,12 +6,14 @@ const ENEMY_GROUP = "enemy"
 
 # Debug Settings
 const SPAWN_ENEMIES = false
+
+const SHOW_VFX = true
 const SHOW_AI_STATE = false
-const SHOW_HP_BARS = false
+const SHOW_HP_BARS = true
 const SHOW_FLOATING_DAMAGE_NUMBERS = true
 
 # Dynamic Debug
-var SHOW_RANGE_CIRCLES : bool = true setget _set_show_range_circles
+var SHOW_RANGE_CIRCLES : bool = false setget _set_show_range_circles
 
 var DEBUG_ON = false setget _set_DEBUG_ON
 
@@ -23,6 +25,11 @@ func _unhandled_key_input(event: InputEventKey) -> void:
 		LOG.pr(LOG.LOG_TYPE.INPUT, "Toggle DEBUG_ON [%s]" % [not DEBUG_ON])
 		_set_DEBUG_ON(not DEBUG_ON)
 
+	if event.scancode == KEY_ESCAPE and event.pressed:
+		if OS.is_debug_build():
+			LOG.pr(LOG.LOG_TYPE.INPUT, "Exiting..")
+			get_tree().quit()
+
 
 func _ready() -> void:
 	LOG.pr(LOG.LOG_TYPE.INTERNAL, "READY", "CONFIG")
@@ -30,11 +37,6 @@ func _ready() -> void:
 	Engine.target_fps = 60
 
 	var _err = get_tree().connect("node_added", self, "_on_node_added")
-
-
-func _process(_delta: float) -> void:
-	if Input.is_key_pressed(KEY_ESCAPE) and OS.is_debug_build():
-		get_tree().quit()
 
 
 func _set_show_range_circles(show : bool) -> void:

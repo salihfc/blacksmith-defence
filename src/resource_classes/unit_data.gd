@@ -12,7 +12,7 @@ const STAT_DEFAULTS = {
 	#	PLAYER UNITS
 	###
 	"Arcanist" : {
-		StatContainer.STATS.MAX_HP : 30,
+		StatContainer.STATS.MAX_HP : 1300,
 		StatContainer.STATS.BASE_DAMAGE : 0,
 		StatContainer.STATS.DAMAGE_MULTI : 1,
 		StatContainer.STATS.MOVE_SPEED : 1,
@@ -24,7 +24,7 @@ const STAT_DEFAULTS = {
 	},
 
 	"Duelist" : {
-		StatContainer.STATS.MAX_HP : 50,
+		StatContainer.STATS.MAX_HP : 1800,
 		StatContainer.STATS.BASE_DAMAGE : 5,
 		StatContainer.STATS.DAMAGE_MULTI : 1.2,
 		StatContainer.STATS.MOVE_SPEED : 1,
@@ -36,7 +36,7 @@ const STAT_DEFAULTS = {
 	},
 
 	"SwordMaster": {
-		StatContainer.STATS.MAX_HP : 70,
+		StatContainer.STATS.MAX_HP : 2400,
 		StatContainer.STATS.BASE_DAMAGE : 10,
 		StatContainer.STATS.DAMAGE_MULTI : 1,
 		StatContainer.STATS.MOVE_SPEED : 1,
@@ -164,7 +164,7 @@ func _get_property_list() -> Array:
 ### ONREADY VAR ###
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _to_string() -> String:
-	return name + UTILS.wrap_str(str(cost), "[", "]")
+	return name + UTILS.wrap_str(str(cost), "\n[", "\n]")
 
 
 func _init() -> void:
@@ -180,9 +180,9 @@ func _init() -> void:
 
 func _load_defaults():
 	for idx in StatContainer.STATS.COUNT:
-		if get_stat(idx, null) == null:
-			prints (idx, name)
-			_set_stat(idx, STAT_DEFAULTS[name].get(idx, 0.0))
+#		if get_stat(idx, null) == null:
+#		prints (idx, name)
+		_set_stat(idx, STAT_DEFAULTS[name].get(idx, 0.0))
 
 
 ### PUBLIC FUNCTIONS ###
@@ -194,6 +194,10 @@ func get_view_texture():
 	if view_texture:
 		return view_texture
 	return get_texture()
+
+
+func get_cost():
+	return cost
 
 
 func scale_to_wave(wave_number : float):
@@ -230,6 +234,7 @@ func calc_power() -> float:
 		CUSTOM RESOURCES require custom duplicate functions like this to ensure copying
 """
 func copy_stats():
+	_load_defaults()
 	var copy_stats = StatContainer.new()
 	return copy_stats.from_data(_stats.get_data_copy())
 

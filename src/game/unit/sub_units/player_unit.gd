@@ -28,13 +28,16 @@ func init_with_data(unit_recipe : UnitRecipe) -> void:
 
 	var weapon_data = unit_data.weapon
 
-	assert(enhance_cost is MaterialStorage)
-	var materials = enhance_cost.get_materials()
-	for mat in materials:
-		var ct = enhance_cost.get_material_count(mat)
-		for _i in ct:
-			var enh = WEAPON_ENHANCE_DB.get_enhancement(weapon_data.name, mat.get_name())
-			enh.call_deferred("apply_to", _stats)
+	assert(enhance_cost == null or enhance_cost is MaterialStorage)
+
+	if enhance_cost:
+		var materials = enhance_cost.get_materials()
+		for mat in materials:
+			var ct = enhance_cost.get_material_count(mat)
+			for _i in ct:
+				var enh = WEAPON_ENHANCE_DB.get_enhancement(weapon_data.name, mat.get_name())
+				if enh:
+					enh.call_deferred("apply_to", _stats)
 
 	if unit_data.weapon is WeaponData:
 		var new_weapon = P_Weapon.instance()

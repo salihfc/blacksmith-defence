@@ -104,6 +104,11 @@ func from_data(data):
 	_data = data
 	return self
 
+
+# Get stats as {stat_name: stat_value} dict
+func get_stat_list():
+	return _data
+
 ### PRIVATE FUNCTIONS ###
 func _get(property: String, default = null):
 	return _data.get(property, default)

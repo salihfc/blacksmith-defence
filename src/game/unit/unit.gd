@@ -42,6 +42,8 @@ var default_state = STATE.IDLE
 
 ### PRIVATE VAR ###
 var _stats = null
+var _base_cost = null
+var _enhance_cost = null
 
 var _move_speed_modifiers = []
 
@@ -51,9 +53,6 @@ var _knockback = Vector2.ZERO
 var _state = default_state
 var _under_mouse = false
 var _target_weakref = null
-
-# redundant?
-var _sprite_texture
 
 ### ONREADY VAR ###
 onready var spriteParent = $SpriteParent as Node2D
@@ -121,9 +120,10 @@ func _physics_process(delta):
 # INIT func
 func init_with_data(unit_recipe : UnitRecipe) -> void:
 	var unit_data = unit_recipe.base_unit
-#	var enhance_cost = unit_recipe.enhance_cost
 	name = unit_data.name
 	_stats = unit_data.copy_stats()
+	_base_cost = unit_data.get_cost()
+	_enhance_cost = unit_recipe.enhance_cost
 
 	# Set hp to max
 	_stats.set_stat(StatContainer.STATS.HP, get_stat(StatContainer.STATS.MAX_HP))

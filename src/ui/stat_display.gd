@@ -1,12 +1,6 @@
-tool
-extends EditorScript
+extends HBoxContainer
 """
-	Eventually this script will import data from outside (.json, .csv, etc.)
-	and initialize the .tres files
 """
-
-func _run() -> void:
-	pass
 
 ### SIGNAL ###
 ### ENUM ###
@@ -15,7 +9,14 @@ func _run() -> void:
 ### PUBLIC VAR ###
 ### PRIVATE VAR ###
 ### ONREADY VAR ###
+onready var statName = $StatName as Label
+onready var statValue = $StatValue as Label
+
 ### VIRTUAL FUNCTIONS (_init ...) ###
 ### PUBLIC FUNCTIONS ###
+func init(_name, _value) -> void:
+	statName.text = str(_name)
+	statValue.text = str(_value)
+
 ### PRIVATE FUNCTIONS ###
 ### SIGNAL RESPONSES ###

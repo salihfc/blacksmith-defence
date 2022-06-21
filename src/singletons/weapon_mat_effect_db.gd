@@ -12,6 +12,7 @@ extends Node
 var _owners = {}
 var _data = {}
 var _default_data = {
+####################################
 	"SWORD" : {
 		"IRON" : {
 			'enhancement' : UnitEnhancementStat.new(StatContainer.STATS.BASE_DAMAGE, 10),
@@ -19,6 +20,7 @@ var _default_data = {
 		},
 	},
 
+####################################
 	"RAPIER" : {
 		"IRON" : {
 			'enhancement' : UnitEnhancementStat.new(StatContainer.STATS.BASE_DAMAGE, 10),
@@ -26,6 +28,7 @@ var _default_data = {
 		},
 	},
 
+####################################
 	"WAND" : {
 		"IRON" : {
 			'enhancement' : UnitEnhancementStat.new(StatContainer.STATS.BASE_DAMAGE, 10),

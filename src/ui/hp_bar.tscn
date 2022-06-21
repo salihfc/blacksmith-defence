@@ -39,6 +39,7 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+animate = true
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 anchor_right = 1.0

@@ -21,8 +21,9 @@ func _ready() -> void:
 	visible = CONFIG.SHOW_RANGE_CIRCLES
 
 
-func _process(_delta):
-	update()
+#func _process(_delta):
+#	update()
+
 
 
 func _draw():

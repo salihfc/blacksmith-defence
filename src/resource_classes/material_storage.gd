@@ -23,7 +23,8 @@ func _to_string() -> String:
 
 
 func copy_from(other_storage):
-	_storage = other_storage._storage
+	if other_storage:
+		_storage = other_storage._storage
 	return self
 
 ### PUBLIC FUNCTIONS ###
