@@ -28,6 +28,7 @@ func _ready():
 func take_damage(_damage) -> void:
 	LOG.pr(LOG.LOG_TYPE.GAMEPLAY, "[%s] taking %s" % [self, _damage])
 	emit_signal("base_taken_damage", _damage)
+	VFX.generate_fx_at(VFX.FX.BASE_SPLINTERS, global_position)
 
 ### PRIVATE FUNCTIONS ###
 ### SIGNAL RESPONSES ###
