@@ -379,7 +379,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/GDScriptMacros/plugin.cfg", "res://addons/ImportCleaner/plugin.cfg", "res://addons/NbPM/plugin.cfg", "res://addons/code_simp/plugin.cfg", "res://addons/godotoro/plugin.cfg", "res://addons/google_fonts/plugin.cfg", "res://addons/light_snippet/plugin.cfg", "res://addons/notes_tab/plugin.cfg", "res://addons/project-statistics/plugin.cfg", "res://addons/totobird_creations.gdscript_plus/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/GDScriptMacros/plugin.cfg", "res://addons/ImportCleaner/plugin.cfg", "res://addons/NbPM/plugin.cfg", "res://addons/code_simp/plugin.cfg", "res://addons/godotoro/plugin.cfg", "res://addons/light_snippet/plugin.cfg", "res://addons/notes_tab/plugin.cfg", "res://addons/project-statistics/plugin.cfg", "res://addons/totobird_creations.gdscript_plus/plugin.cfg" )
 
 [gdnative]
 

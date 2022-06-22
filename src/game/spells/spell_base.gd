@@ -13,7 +13,7 @@ var owner_unit_weakref = null
 ### ONREADY VAR ###
 ### VIRTUAL FUNCTIONS (_init ...) ###
 ### PUBLIC FUNCTIONS ###
-func set_owner(_unit) -> void:
+func set_owner_unit(_unit) -> void:
 	owner_unit_weakref = weakref(_unit)
 
 

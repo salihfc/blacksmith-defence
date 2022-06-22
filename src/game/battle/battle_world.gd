@@ -137,6 +137,10 @@ func _ready():
 	call_deferred("emit_signal", "material_collected",
 		MaterialData.new(MaterialData.TYPE.FIRE), 20)
 
+	call_deferred("emit_signal", "material_collected",
+		MaterialData.new(MaterialData.TYPE.EARTH), 20)
+
+
 func _physics_process(_delta):
 	_set_mouse_pointer_area_pos()
 	# Binding buttons [1, 2, 3] to manually spawn enemies in lanes

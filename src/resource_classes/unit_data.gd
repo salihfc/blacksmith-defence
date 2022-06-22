@@ -29,6 +29,7 @@ const STAT_DEFAULTS = {
 		StatContainer.STATS.DAMAGE_MULTI : 1,
 		StatContainer.STATS.MOVE_SPEED : 1,
 		StatContainer.STATS.ATK_SPEED : 1,
+		StatContainer.STATS.SPELL_AOE : 1.0,
 
 		StatContainer.STATS.ATK_RANGE : 160,
 	},

@@ -47,6 +47,14 @@ var _default_data = {
 			),
 			'hint' : "100% chance to poison on hit",
 		},
+
+		"EARTH" : {
+			'enhancement' : UnitEnhancementStat.new(
+				StatContainer.STATS.SPELL_AOE,
+				1.0
+			),
+			'hint' : "increase spell area of effect by 100%",
+		},
 	},
 }
 

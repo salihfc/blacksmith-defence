@@ -50,8 +50,8 @@ func init_with_data(unit_recipe : UnitRecipe) -> void:
 	if unit_data.spells:
 		for spell_scene in unit_data.spells:
 			var spell = spell_scene.instance()
-			spellSlot.add_child(spell)
-			spell.set_owner(self)
+			spellSlot.call_deferred("add_child", spell)
+			spell.call_deferred("set_owner_unit", self)
 
 	DBG_range_circle.modulate = Color.green
 	DBG_range_circle.modulate.a = 0.1

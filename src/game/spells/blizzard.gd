@@ -7,8 +7,8 @@ extends SpellBase
 ### EXPORT ###
 export(Resource) var damage = Damage.new(Damage.TYPE.WATER, 20.0)
 export(float) var speed_mod = 0.8
-export(float) var base_range = 100.0
-export(float) var _range = 100.0 setget _set_range
+export(float) var base_radius = 100.0
+export(float) var _radius = 100.0 setget _set_radius
 
 ### PUBLIC VAR ###
 ### PRIVATE VAR ###
@@ -58,6 +58,15 @@ func set_pos(pos : Vector2):
 	global_position = pos
 
 
+func set_owner_unit(_owner):
+	.set_owner_unit(_owner)
+	var owner_spell_aoe = _owner.get_stat(StatContainer.STATS.SPELL_AOE)
+
+	LOG.pr(LOG.LOG_TYPE.INTERNAL, "|||||||||||||owner_aoe|||||||||||| > [%s]" % [owner_spell_aoe])
+	if owner_spell_aoe:
+		_set_radius(get_radius() * owner_spell_aoe)
+
+
 func get_total_damage():
 	return CumulativeDamage.new([
 		damage.increased_by(get_owner().get_stat(StatContainer.STATS.BASE_DAMAGE)),
@@ -68,9 +77,9 @@ func animate():
 	animPlayer.play("pulse")
 
 ### PRIVATE FUNCTIONS ###
-func _set_range(new_range : float) -> void:
-	_range = new_range
-	global_scale *= Vector2.ONE * float(_range / base_range)
+func _set_radius(new_radius : float) -> void:
+	_radius = new_radius
+	global_scale *= Vector2.ONE * float(_radius / base_radius)
 
 
 func _cast_on(cast_position : Vector2) -> void:

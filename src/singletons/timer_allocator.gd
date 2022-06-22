@@ -27,6 +27,7 @@ func alloc(object : Object, method : String, duration : float, one_shot = true):
 
 	add_child(timer)
 	timer.start(duration)
+
 	return timer
 
 
