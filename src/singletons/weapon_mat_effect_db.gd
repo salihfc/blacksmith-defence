@@ -39,6 +39,14 @@ var _default_data = {
 			'enhancement' : UnitEnhancementStat.new(StatContainer.STATS.CHAIN_COUNT, 1),
 			'hint' : "increase chain count by 1",
 		},
+
+		"FIRE" : {
+			'enhancement' : UnitEnhancementStatusChanceOnHit.new(
+				1.0,
+				STATUS.create_status(StatusEffect.TYPE.POISON, 2.0, 0.0)
+			),
+			'hint' : "100% chance to poison on hit",
+		},
 	},
 }
 

@@ -13,7 +13,7 @@ class_name UnitEnhancementBase
 ### ONREADY VAR ###
 ### VIRTUAL FUNCTIONS (_init ...) ###
 ### PUBLIC FUNCTIONS ###
-func apply_to(_stats) -> void:
+func apply_to(_unit) -> void:
 	assert(0) # Should not be called [virtual func]
 
 ### PRIVATE FUNCTIONS ###

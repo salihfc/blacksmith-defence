@@ -20,9 +20,9 @@ func _init(_stat_id = 0, _value = 0) -> void:
 	increase_value = _value
 
 ### PUBLIC FUNCTIONS ###
-func apply_to(_stats) -> void:
-	if _stats.has_stat(stat_id):
-		_stats.increase_stat(stat_id, increase_value)
+func apply_to(_unit) -> void:
+	if _unit._stats.has_stat(stat_id):
+		_unit._stats.increase_stat(stat_id, increase_value)
 
 ### PRIVATE FUNCTIONS ###
 ### SIGNAL RESPONSES ###

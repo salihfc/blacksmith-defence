@@ -46,6 +46,7 @@ func cast(
 	global_position = starting_point
 	var end_points_targets = [self]
 	var target_ct = 0
+	var total_damage = get_total_damage()
 
 	while target_ct < max_targets:
 		# Closest target to the current end_points_targets
@@ -73,7 +74,13 @@ func cast(
 			SIGNAL.bind(
 				new_arc, "fizzled",
 				closest, "take_damage",
-				[get_total_damage()]
+				[total_damage]
+			)
+
+			SIGNAL.bind(
+				new_arc, "fizzled",
+				get_owner(), "_on_spell_hit",
+				[closest, total_damage]
 			)
 
 			target_ct += 1

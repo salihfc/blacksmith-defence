@@ -1,7 +1,6 @@
-extends Node
-
+extends Resource
+class_name OnHitTrigger
 """
-
 """
 
 ### SIGNAL ###
@@ -12,15 +11,9 @@ extends Node
 ### PRIVATE VAR ###
 ### ONREADY VAR ###
 ### VIRTUAL FUNCTIONS (_init ...) ###
-
-
 ### PUBLIC FUNCTIONS ###
-func get_resisted(value : float, resist : float):
-	return value * (1.0 - (resist/100.0))
-
-
-func get_poison_damage(stack_count) -> float:
-	return 10.0 * log(stack_count) + 6.5
+func apply_to(_target, _damage) -> void:
+	assert(0)
 
 ### PRIVATE FUNCTIONS ###
 ### SIGNAL RESPONSES ###

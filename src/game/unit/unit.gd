@@ -46,6 +46,7 @@ var _base_cost = null
 var _enhance_cost = null
 
 var _move_speed_modifiers = []
+var _status_container = StatusEffectContainer.new()
 
 var _velocity = Vector2.ZERO
 var _knockback = Vector2.ZERO
@@ -78,6 +79,8 @@ func _to_string():
 
 
 func _ready():
+	_status_container.start(self)
+
 	SIGNAL.bind(
 		attackRange, "area_entered",
 		self, "_on_enemy_entered_range",
@@ -163,6 +166,10 @@ func multiply_stat(id : int, amount):
 	_stats.set_stat(id, get_stat(id) * amount)
 
 # Getters
+func get_status_effect_container():
+	return _status_container
+
+
 func get_stat(id : int, default = null):
 	return _stats.get_stat(id, default)
 

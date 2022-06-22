@@ -139,6 +139,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/object_area.gd"
 }, {
+"base": "OnHitTrigger",
+"class": "OnHitStatusEffect",
+"language": "GDScript",
+"path": "res://src/resource_classes/on_hit_triggers/on_hit_status_effect.gd"
+}, {
+"base": "Resource",
+"class": "OnHitTrigger",
+"language": "GDScript",
+"path": "res://src/resource_classes/on_hit_triggers/on_hit_trigger.gd"
+}, {
 "base": "Sprite",
 "class": "PlayerBase",
 "language": "GDScript",
@@ -153,6 +163,16 @@ _global_script_classes=[ {
 "class": "PlayerUnit",
 "language": "GDScript",
 "path": "res://src/game/unit/sub_units/player_unit.gd"
+}, {
+"base": "StatusEffectFunctionBase",
+"class": "PoisonApplyFunction",
+"language": "GDScript",
+"path": "res://src/resource_classes/status_effects/status_effect_function_interface/poison_apply_function.gd"
+}, {
+"base": "StatusEffectFunctionBase",
+"class": "PoisonTickFunction",
+"language": "GDScript",
+"path": "res://src/resource_classes/status_effects/status_effect_function_interface/poison_tick_function.gd"
 }, {
 "base": "Node2D",
 "class": "RangeCircle",
@@ -184,6 +204,21 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/resource_classes/status_effects/status_effect.gd"
 }, {
+"base": "Resource",
+"class": "StatusEffectContainer",
+"language": "GDScript",
+"path": "res://src/resource_classes/status_effects/status_effect_container.gd"
+}, {
+"base": "Resource",
+"class": "StatusEffectFunctionBase",
+"language": "GDScript",
+"path": "res://src/resource_classes/status_effects/status_effect_function_interface/status_effect_function_base.gd"
+}, {
+"base": "StatusEffectFunctionBase",
+"class": "StatusEffectGenericExpire",
+"language": "GDScript",
+"path": "res://status_effect_generic_expire.gd"
+}, {
 "base": "Node",
 "class": "TheBestObject",
 "language": "GDScript",
@@ -208,6 +243,11 @@ _global_script_classes=[ {
 "class": "UnitEnhancementStat",
 "language": "GDScript",
 "path": "res://src/resource_classes/unit_enhancements/unit_enhancement_stat.gd"
+}, {
+"base": "UnitEnhancementBase",
+"class": "UnitEnhancementStatusChanceOnHit",
+"language": "GDScript",
+"path": "res://src/resource_classes/unit_enhancements/unit_enhancement_status_chance_on_hit.gd"
 }, {
 "base": "Panel",
 "class": "UnitInfoDisplay",
@@ -271,20 +311,28 @@ _global_script_class_icons={
 "MyCustomNode": "",
 "MyCustomUncreatableNode": "",
 "ObjectArea": "",
+"OnHitStatusEffect": "",
+"OnHitTrigger": "",
 "PlayerBase": "",
 "PlayerMainBase": "",
 "PlayerUnit": "",
+"PoisonApplyFunction": "",
+"PoisonTickFunction": "",
 "RangeCircle": "",
 "Snippet": "",
 "SpellBase": "",
 "StatContainer": "",
 "StatList": "",
 "StatusEffect": "",
+"StatusEffectContainer": "",
+"StatusEffectFunctionBase": "",
+"StatusEffectGenericExpire": "",
 "TheBestObject": "",
 "Unit": "",
 "UnitData": "",
 "UnitEnhancementBase": "",
 "UnitEnhancementStat": "",
+"UnitEnhancementStatusChanceOnHit": "",
 "UnitInfoDisplay": "",
 "UnitRecipe": "",
 "UtilityCurve": "",
@@ -307,11 +355,13 @@ LOG="*res://src/singletons/log.tscn"
 UTILS="*res://src/singletons/utils.gd"
 SIGNAL="*res://src/singletons/signal.gd"
 TWEEN="*res://src/singletons/tween_manager.tscn"
+TIMER_ALLOC="*res://src/singletons/timer_allocator.tscn"
 IAUS="*res://src/singletons/iaus_config.gd"
 FORMULA="*res://src/singletons/formula.gd"
 VFX="*res://src/singletons/vfx_generator.tscn"
 AUDIO="*res://src/singletons/audio_manager.tscn"
 FLOATING_TEXT="*res://src/singletons/floating_text_generator.tscn"
+STATUS="*res://src/singletons/status_effect_generator.tscn"
 WEAPON_ENHANCE_DB="*res://src/singletons/weapon_mat_effect_db.gd"
 
 [debug]

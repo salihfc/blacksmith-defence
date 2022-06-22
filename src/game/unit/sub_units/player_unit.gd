@@ -11,6 +11,8 @@ const RETARGET_MID_ANIMATION = true
 ### EXPORT ###
 ### PUBLIC VAR ###
 ### PRIVATE VAR ###
+var _on_hit_triggers = []
+
 ### ONREADY VAR ###
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func init_with_data(unit_recipe : UnitRecipe) -> void:
@@ -37,7 +39,7 @@ func init_with_data(unit_recipe : UnitRecipe) -> void:
 			for _i in ct:
 				var enh = WEAPON_ENHANCE_DB.get_enhancement(weapon_data.name, mat.get_name())
 				if enh:
-					enh.call_deferred("apply_to", _stats)
+					enh.call_deferred("apply_to", self)
 
 	if unit_data.weapon is WeaponData:
 		var new_weapon = P_Weapon.instance()
@@ -58,6 +60,12 @@ func init_with_data(unit_recipe : UnitRecipe) -> void:
 # DANGER: Deleting base function
 func attack() -> void:
 	return
+
+
+func add_on_hit_trigger(on_hit_trigger : OnHitTrigger):
+	_on_hit_triggers.append(on_hit_trigger)
+	return self
+
 
 ### PRIVATE FUNCTIONS ###
 func _set_weapon(weapon : Node) -> void:
@@ -85,3 +93,8 @@ func _on_weapon_attack_frame(_damage) -> void:
 	attack()
 	for spell in spellSlot.get_children():
 		spell.cast()
+
+
+func _on_spell_hit(target, damage : CumulativeDamage) -> void:
+	for trigger in _on_hit_triggers:
+		trigger.apply_to(target, damage)
