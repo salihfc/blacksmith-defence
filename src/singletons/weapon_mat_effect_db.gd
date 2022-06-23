@@ -18,6 +18,11 @@ var _default_data = {
 			'enhancement' : UnitEnhancementStat.new(StatContainer.STATS.BASE_DAMAGE, 10),
 			'hint' : "increase damage by 10",
 		},
+
+		"COPPER" : {
+			'enhancement' : UnitEnhancementStat.new(StatContainer.STATS.BASE_KNOCKBACK_STRENGTH, 20),
+			'hint' : "increase knockback by 20",
+		},
 	},
 
 ####################################

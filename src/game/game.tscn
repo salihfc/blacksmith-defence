@@ -99,7 +99,6 @@ margin_top = 84.0
 margin_right = 500.0
 margin_bottom = 884.0
 size_flags_vertical = 3
-follow_focus = true
 scroll_horizontal_enabled = false
 
 [node name="UnitRecipeList" type="VBoxContainer" parent="PanelContainer/HBoxContainer/PanelContainer/VBoxContainer/ScrollContainer"]

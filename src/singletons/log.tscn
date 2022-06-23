@@ -11,5 +11,5 @@ _log_flags/GAMEPLAY = true
 _log_flags/VFX = false
 _log_flags/SFX = false
 _log_flags/INPUT = true
-_log_flags/PHYSICS = false
+_log_flags/PHYSICS = true
 _log_flags/COUNT = null

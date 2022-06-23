@@ -41,6 +41,8 @@ const STAT_DEFAULTS = {
 		StatContainer.STATS.MOVE_SPEED : 1,
 		StatContainer.STATS.ATK_SPEED : 1.6,
 		StatContainer.STATS.ATK_RANGE : 60,
+
+		StatContainer.STATS.BASE_KNOCKBACK_STRENGTH : 20,
 	},
 
 	"SwordMaster": {
@@ -50,6 +52,8 @@ const STAT_DEFAULTS = {
 		StatContainer.STATS.MOVE_SPEED : 1,
 		StatContainer.STATS.ATK_SPEED : 1,
 		StatContainer.STATS.ATK_RANGE : 70,
+
+		StatContainer.STATS.BASE_KNOCKBACK_STRENGTH : 25,
 	},
 
 	###

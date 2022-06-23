@@ -69,7 +69,6 @@ position = Vector2( 0, 1 )
 shape = SubResource( 1 )
 
 [node name="AttackRange" parent="SpriteParent/Areas" index="2"]
-visible = true
 collision_mask = 12
 
 [node name="CollisionShape2D" parent="SpriteParent/Areas/AttackRange" index="0"]

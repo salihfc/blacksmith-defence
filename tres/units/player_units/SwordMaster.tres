@@ -46,3 +46,4 @@ stats/cast_speed = 0.0
 stats/cast_range = 0.0
 stats/chain_range = 0.0
 stats/armor_pen = 0.0
+stats/base_knockback_strength = 25

@@ -107,7 +107,7 @@ func get_damage():
 
 	return CumulativeDamage.new(
 		[
-			Damage.new(Damage.TYPE.PHYSICAL, _damage + _owner.get_stat(StatContainer.STATS.BASE_DAMAGE)),
+			Damage.new(Damage.TYPE.PHYSICAL, _damage + _get_owner_stat(StatContainer.STATS.BASE_DAMAGE)),
 		]
 	)
 
@@ -115,13 +115,18 @@ func get_damage():
 
 func _deal_damage(entity) -> void:
 	assert(entity.has_method("take_damage"))
-	var knockback_strength = 40.0
+	var knockback_strength = _get_owner_stat(StatContainer.STATS.BASE_KNOCKBACK_STRENGTH)
+	LOG.pr(LOG.LOG_TYPE.GAMEPLAY, "[%s] knockback [%s], [%s]" % [_owner, knockback_strength, _get_knockback_dir() * knockback_strength])
 	entity.take_damage(get_damage(), _get_knockback_dir() * knockback_strength)
 
 
 func _get_knockback_dir() -> Vector2:
 #	global_position.direction_to(entity.global_position)
 	return Vector2.RIGHT
+
+
+func _get_owner_stat(stat_id):
+	return _owner.get_stat(stat_id)
 
 
 ### SIGNAL RESPONSES ###

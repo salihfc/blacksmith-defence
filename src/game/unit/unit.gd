@@ -272,6 +272,8 @@ func set_direction() -> void:
 
 func apply_impulse(impulse : Vector2) -> void:
 	# Disable y knockback
+	LOG.pr(LOG.LOG_TYPE.PHYSICS, "[%s] IMPULSE applied [%s]" % [self, impulse])
+
 	impulse.y = 0.0
 
 	_knockback += impulse
@@ -284,16 +286,17 @@ func calc_final_damage_amount(_damage : Damage) -> float:
 	return final_damage
 
 
-func take_damage(_damage, pulse := Vector2.ZERO) -> void:
+func take_damage(_damage, pulse = Vector2.ZERO) -> void:
 	assert(_damage)
 	if _damage is CumulativeDamage:
+		var n = _damage.get_pieces().size()
 		for _damage_piece in _damage.get_pieces():
-			take_damage(_damage_piece)
+			take_damage(_damage_piece, pulse / n)
 		return
 
 	apply_impulse(pulse)
 	var amount = calc_final_damage_amount(_damage)
-	LOG.pr(LOG.LOG_TYPE.GAMEPLAY, "%s taking %s -> %s" % [self, _damage, amount])
+	LOG.pr(LOG.LOG_TYPE.GAMEPLAY, "%s taking %s -> %s with kb [%s]" % [self, _damage, amount, pulse])
 
 	add_to_stat(StatContainer.STATS.HP, -amount)
 
