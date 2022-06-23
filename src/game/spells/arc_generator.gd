@@ -2,7 +2,7 @@ extends SpellBase
 """
 """
 ### SIGNAL ###
-signal target_hit(target, damage)
+signal enemy_hit(target, damage)
 
 ### ENUM ###
 ### CONST ###
@@ -77,9 +77,10 @@ func cast(
 				[total_damage]
 			)
 
+			# FIXME: Carry this into Unit class
 			SIGNAL.bind(
 				new_arc, "fizzled",
-				get_owner(), "_on_spell_hit",
+				self, "_on_arc_hit_enemy",
 				[closest, total_damage]
 			)
 
@@ -89,3 +90,6 @@ func cast(
 
 ### PRIVATE FUNCTIONS ###
 ### SIGNAL RESPONSES ###
+
+func _on_arc_hit_enemy(_target, _damage) -> void:
+	emit_signal("enemy_hit", _target, _damage)

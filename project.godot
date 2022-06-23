@@ -104,6 +104,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/ai/infinite_axis_utility/infinite_axis_utility_object.gd"
 }, {
+"base": "StatusEffectFunctionBase",
+"class": "IgniteApplyFunction",
+"language": "GDScript",
+"path": "res://src/resource_classes/status_effects/status_effect_function_interface/ignite_apply_function.gd"
+}, {
+"base": "StatusEffectFunctionBase",
+"class": "IgniteTickFunction",
+"language": "GDScript",
+"path": "res://src/resource_classes/status_effects/status_effect_function_interface/ignite_tick_function.gd"
+}, {
 "base": "Button",
 "class": "ItemButton",
 "language": "GDScript",
@@ -314,6 +324,8 @@ _global_script_class_icons={
 "GitAPI": "",
 "GridDataContainer": "",
 "IAUSObject": "",
+"IgniteApplyFunction": "",
+"IgniteTickFunction": "",
 "ItemButton": "",
 "ItemPool": "",
 "MaterialData": "",

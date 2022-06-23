@@ -50,6 +50,10 @@ func init(start_pos : Vector2, text : String, movement = _get_random_movement())
 	return self
 
 
+func set_text_color(color = DEFAULT_FONT_COLOR):
+	_set_color(color)
+
+
 func set_crit(is_crit : bool = false):
 	if is_crit:
 		_set_color(CRIT_COLOR)

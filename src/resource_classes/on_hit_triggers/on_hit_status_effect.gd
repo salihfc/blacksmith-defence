@@ -21,7 +21,10 @@ func _init(apply_chance, status_effect) -> void:
 ### PUBLIC FUNCTIONS ###
 func apply_to(_target, _damage) -> void:
 	if UTILS.check(_apply_chance):
-		_status_effect.apply(_target.get_status_effect_container(), _target)
+		StatusEffect.new()\
+				.clone_from_prototype(_status_effect)\
+				.set_originator(_damage)\
+				.apply(_target.get_status_effect_container(), _target)
 
 ### PRIVATE FUNCTIONS ###
 ### SIGNAL RESPONSES ###

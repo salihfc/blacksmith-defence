@@ -24,6 +24,14 @@ var RESIST_TYPES = {
 	TYPE.LIGHTNING	: StatContainer.STATS.RES_WATER,
 }
 
+var TEXT_COLORS = {
+	TYPE.PHYSICAL	: Color.wheat,
+	TYPE.FIRE		: Color.firebrick,
+	TYPE.EARTH		: Color.yellowgreen,
+	TYPE.WATER		: Color.aqua,
+	TYPE.LIGHTNING	: Color.gold.lightened(0.2),
+}
+
 ### EXPORT ###
 ### PUBLIC VAR ###
 ### PRIVATE VAR ###
@@ -43,6 +51,11 @@ func get_type():
 
 func get_resist_type():
 	return RESIST_TYPES.get(_type)
+
+
+func get_text_color():
+	return TEXT_COLORS.get(_type)
+
 
 
 func get_amount():

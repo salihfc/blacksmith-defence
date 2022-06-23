@@ -24,5 +24,11 @@ func _init(from_array : Array = []) -> void:
 	_damage_pieces = from_array
 
 ### PUBLIC FUNCTIONS ###
+func get_amount() -> float:
+	var total = 0.0
+	for piece in _damage_pieces:
+		total += piece.get_amount()
+	return total
+
 ### PRIVATE FUNCTIONS ###
 ### SIGNAL RESPONSES ###

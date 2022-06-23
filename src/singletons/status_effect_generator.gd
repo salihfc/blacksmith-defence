@@ -1,3 +1,4 @@
+tool
 extends Node
 """
 """
@@ -7,6 +8,8 @@ extends Node
 ### CONST ###
 const STATUS_EFFECT_PROTOTYPES = {
 	StatusEffect.TYPE.POISON : preload("res://tres/status_effects/status_effect_poison.tres"),
+	StatusEffect.TYPE.BLEED : preload("res://tres/status_effects/status_effect_bleed.tres"),
+	StatusEffect.TYPE.IGNITE : preload("res://tres/status_effects/status_effect_ignite.tres"),
 }
 
 ### EXPORT ###
@@ -21,7 +24,8 @@ func create_status(type, duration, value):
 	return StatusEffect.new()\
 			.clone_from_prototype(STATUS_EFFECT_PROTOTYPES[type])\
 			.set_duration(duration)\
-			.set_value(value)
+			.set_value(value)\
+			.report()
 
 ### PRIVATE FUNCTIONS ###
 ### SIGNAL RESPONSES ###

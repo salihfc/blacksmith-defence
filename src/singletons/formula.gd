@@ -26,5 +26,18 @@ func get_poison_damage(stack_count) -> float:
 func get_bleed_damage(stack_count) -> float:
 	return stack_count
 
+
+func get_ignite_damage(originator_damage) -> float:
+	return originator_damage.get_amount() * 0.3
+
+
+class SortPairsBySecondElement:
+	# a, b are Arrays
+	static func sort_descending(a, b):
+		if a[1] > b[1]:
+			return true
+		return false
+
+
 ### PRIVATE FUNCTIONS ###
 ### SIGNAL RESPONSES ###

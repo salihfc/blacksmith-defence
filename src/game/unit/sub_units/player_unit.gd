@@ -52,6 +52,9 @@ func init_with_data(unit_recipe : UnitRecipe) -> void:
 			var spell = spell_scene.instance()
 			spellSlot.call_deferred("add_child", spell)
 			spell.call_deferred("set_owner_unit", self)
+			SIGNAL.bind(
+					spell, "enemy_hit",
+					self, "_on_enemy_hit")
 
 	DBG_range_circle.modulate = Color.green
 	DBG_range_circle.modulate.a = 0.1
@@ -70,10 +73,12 @@ func add_on_hit_trigger(on_hit_trigger : OnHitTrigger):
 ### PRIVATE FUNCTIONS ###
 func _set_weapon(weapon : Node) -> void:
 	UTILS.clear_children(weaponSlot)
-	SIGNAL.bind(
-		weapon, "damage_frame",
-		self, "_on_weapon_attack_frame"
-	)
+	SIGNAL.bind_bulk(
+			weapon, self,
+			[
+				["damage_frame", "_on_weapon_attack_frame"],
+				["enemy_hit_with_damage", "_on_enemy_hit"],
+			])
 
 	weaponSlot.add_child(weapon)
 	weapon.set_owner_unit(self)
@@ -95,6 +100,6 @@ func _on_weapon_attack_frame(_damage) -> void:
 		spell.cast()
 
 
-func _on_spell_hit(target, damage : CumulativeDamage) -> void:
+func _on_enemy_hit(target, damage : CumulativeDamage) -> void:
 	for trigger in _on_hit_triggers:
 		trigger.apply_to(target, damage)

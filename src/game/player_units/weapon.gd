@@ -4,6 +4,7 @@ class_name Weapon
 """
 ### SIGNAL ###
 signal damage_frame(damage_amount)
+signal enemy_hit_with_damage(target, damage)
 
 ### ENUM ###
 ### TODO: fix this
@@ -116,8 +117,9 @@ func get_damage():
 func _deal_damage(entity) -> void:
 	assert(entity.has_method("take_damage"))
 	var knockback_strength = _get_owner_stat(StatContainer.STATS.BASE_KNOCKBACK_STRENGTH)
-	LOG.pr(LOG.LOG_TYPE.GAMEPLAY, "[%s] knockback [%s], [%s]" % [_owner, knockback_strength, _get_knockback_dir() * knockback_strength])
+#	LOG.pr(LOG.LOG_TYPE.GAMEPLAY, "[%s] knockback [%s], [%s]" % [_owner, knockback_strength, _get_knockback_dir() * knockback_strength])
 	entity.take_damage(get_damage(), _get_knockback_dir() * knockback_strength)
+	emit_signal("enemy_hit_with_damage", entity, get_damage())
 
 
 func _get_knockback_dir() -> Vector2:

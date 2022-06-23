@@ -301,7 +301,7 @@ func take_damage(_damage, pulse = Vector2.ZERO) -> void:
 	add_to_stat(StatContainer.STATS.HP, -amount)
 
 	if CONFIG.SHOW_FLOATING_DAMAGE_NUMBERS:
-		FLOATING_TEXT.generate(global_position, str(amount)).set_crit(randf() > 0.5)
+		FLOATING_TEXT.generate(global_position, str(amount)).set_text_color(_damage.get_text_color())
 
 	TWEEN.interpolate_method_to_and_back(
 		self, "set_shader_param_damage_flash_anim",

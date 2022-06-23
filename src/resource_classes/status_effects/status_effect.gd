@@ -1,3 +1,4 @@
+tool
 extends Resource
 class_name StatusEffect
 """
@@ -11,7 +12,7 @@ signal expired()
 enum TYPE {
 	NONE,
 
-	BLEED,
+	BLEED,  # Take damage equal to stack count, duration is refreshed on application, remove all on expire
 	IGNITE, # Take 30% of the damage every 0.5 for 4 seconds / max 3 stacks by default
 	FREEZE, #
 	CHILL,
@@ -30,12 +31,23 @@ export(Resource) var on_applied_function = null
 export(Resource) var on_expired_function = null
 
 ### PUBLIC VAR ###
+# Caution: originator holds weakref of originator unit
+var originator setget set_originator, get_originator
 var duration setget set_duration, get_duration
 var value setget set_value, get_value
 
 ### PRIVATE VAR ###
 ### ONREADY VAR ###
 ### VIRTUAL FUNCTIONS (_init ...) ###
+func _to_string() -> String:
+	var string = "StatusEffect"
+	string += UTILS.wrap_str(
+		UTILS.get_enum_string_from_id(TYPE, type) + ", " +
+		"d:" + UTILS.wrap_str(str(duration)) + ", " +
+		"v:" + UTILS.wrap_str(str(value))
+	)
+	return string
+
 ### PUBLIC FUNCTIONS ###
 func tick(container, unit) -> void:
 	if on_tick_function and unit:
@@ -63,6 +75,15 @@ func clone_from_prototype(prototype):
 			.set_expired_function(prototype.get_expired_function())
 
 
+func report():
+	LOG.pr(LOG.LOG_TYPE.INTERNAL, "\n-------------------\n%s\n-------------------\n" % [self])
+	return self
+
+
+func get_tick_damage(container, unit):
+	return on_tick_function.get_damage(self, container, unit)
+
+
 func set_type(new_type):
 	type = new_type
 	return self
@@ -70,6 +91,15 @@ func set_type(new_type):
 
 func get_type():
 	return type
+
+
+func set_originator(origin):
+	originator = origin
+	return self
+
+
+func get_originator():
+	return originator
 
 
 func set_duration(new_duration):

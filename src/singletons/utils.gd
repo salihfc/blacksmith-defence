@@ -175,7 +175,7 @@ func pretty_dict(dict : Dictionary) -> String:
 	return JSON.print(dict, "\t")
 
 
-func wrap_str(string, begin, end) -> String:
+func wrap_str(string, begin = "[", end = "]") -> String:
 	return begin + string + end
 
 

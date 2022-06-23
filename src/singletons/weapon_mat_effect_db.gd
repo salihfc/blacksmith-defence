@@ -31,6 +31,14 @@ var _default_data = {
 			'enhancement' : UnitEnhancementStat.new(StatContainer.STATS.BASE_DAMAGE, 10),
 			'hint' : "increase damage by 10",
 		},
+
+		"FIRE" : {
+			'enhancement' : UnitEnhancementStatusChanceOnHit.new(
+				1.0,
+				STATUS.create_status(StatusEffect.TYPE.IGNITE, 2.0, 0.0)
+			),
+			'hint' : "100% chance to ignite on hit",
+		},
 	},
 
 ####################################
@@ -65,6 +73,9 @@ var _default_data = {
 
 ### ONREADY VAR ###
 ### VIRTUAL FUNCTIONS (_init ...) ###
+func _ready() -> void:
+	LOG.pr(LOG.LOG_TYPE.INTERNAL, "WeaponMatDB READY")
+
 func _init() -> void:
 	if _owners == null:
 		_owners = {}

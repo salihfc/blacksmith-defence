@@ -12,7 +12,7 @@ var _data = {}
 ### ONREADY VAR ###
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _ready() -> void:
-	LOG.pr(3, "TIMER_ALLOCATOR READY")
+	LOG.pr(LOG.LOG_TYPE.INTERNAL, "TIMER_ALLOCATOR READY")
 
 ### PUBLIC FUNCTIONS ###
 func alloc(object : Object, method : String, duration : float, one_shot = true):
