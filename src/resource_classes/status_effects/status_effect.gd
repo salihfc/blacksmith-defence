@@ -1,6 +1,7 @@
 extends Resource
 class_name StatusEffect
 """
+	Note: Expiration of StatusEffects handled by container
 """
 ### SIGNAL ###
 signal expired()

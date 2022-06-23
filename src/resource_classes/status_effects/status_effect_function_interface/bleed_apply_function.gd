@@ -1,8 +1,10 @@
 extends StatusEffectFunctionBase
-class_name PoisonApplyFunction
+class_name BleedApplyFunction
 """
-	Poison Effect stacks cumulatively
-	-> there can be at most 1 instance of Poison in _container{StatusEffectContainer}
+	Bleed stacks just like poison,
+	the difference is that when new bleed applied duration resets to new bleeds duration
+	when duration reaches 0. All bleed expires
+	{which is just one because new bleeds just transfer their stacks and duration}
 """
 ### SIGNAL ###
 ### ENUM ###
@@ -23,7 +25,8 @@ func execute(_status_effect : StatusEffect, _container, _carrier_unit : Unit) ->
 	if status_dict[type].size() == 0:
 		status_dict[type].append(_status_effect)
 	elif status_dict[type].size() == 1:
-		status_dict[type][0].set_duration(status_dict[type][0].get_duration() + _status_effect.get_duration())
+		status_dict[type][0].set_value(status_dict[type][0].get_value() + _status_effect.get_value())
+		status_dict[type][0].set_duration(_status_effect.get_duration())
 	else:
 		assert(0)
 

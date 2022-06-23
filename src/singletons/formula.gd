@@ -22,5 +22,9 @@ func get_resisted(value : float, resist : float):
 func get_poison_damage(stack_count) -> float:
 	return 10.0 * log(stack_count) + 6.5
 
+
+func get_bleed_damage(stack_count) -> float:
+	return stack_count
+
 ### PRIVATE FUNCTIONS ###
 ### SIGNAL RESPONSES ###

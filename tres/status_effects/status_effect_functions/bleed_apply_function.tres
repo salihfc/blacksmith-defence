@@ -1,0 +1,6 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://src/resource_classes/status_effects/status_effect_function_interface/bleed_apply_function.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )

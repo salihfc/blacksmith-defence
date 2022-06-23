@@ -24,6 +24,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/battle/base_tilemap.gd"
 }, {
+"base": "StatusEffectFunctionBase",
+"class": "BleedApplyFunction",
+"language": "GDScript",
+"path": "res://src/resource_classes/status_effects/status_effect_function_interface/bleed_apply_function.gd"
+}, {
+"base": "StatusEffectFunctionBase",
+"class": "BleedTickFunction",
+"language": "GDScript",
+"path": "res://src/resource_classes/status_effects/status_effect_function_interface/bleed_tick_function.gd"
+}, {
 "base": "Resource",
 "class": "CacheDict",
 "language": "GDScript",
@@ -288,6 +298,8 @@ _global_script_class_icons={
 "Action": "",
 "Agent": "",
 "BaseTilemap": "",
+"BleedApplyFunction": "",
+"BleedTickFunction": "",
 "CacheDict": "",
 "ClassName": "",
 "Command": "",
