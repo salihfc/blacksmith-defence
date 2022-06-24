@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://src/game/unit/unit.gd" type="Script" id=1]
 [ext_resource path="res://tres/atlas_tex/unit_default_sprite.atlastex" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://src/ui/hp_bar.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/game/object_area.gd" type="Script" id=5]
 [ext_resource path="res://src/debug/range_circle.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/game/unit/weapon_slot.gd" type="Script" id=7]
 
 [sub_resource type="Shader" id=9]
 code = "// NOTE: Shader automatically converted from Godot Engine 3.4.stable's CanvasItemMaterial.
@@ -132,6 +133,7 @@ shape = SubResource( 5 )
 
 [node name="WeaponSlot" type="Node2D" parent="SpriteParent"]
 position = Vector2( 0, -14 )
+script = ExtResource( 7 )
 
 [node name="SpellSlot" type="Node2D" parent="SpriteParent"]
 position = Vector2( 0, -14 )

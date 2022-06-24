@@ -131,9 +131,12 @@ func _get_owner_stat(stat_id):
 	return _owner.get_stat(stat_id)
 
 
+func _play_sfx(anim_id) -> void:
+	pass
+
 ### SIGNAL RESPONSES ###
 func _send_damage_frame() -> void:
-#	LOG.pr(LOG.LOG_TYPE.INTERNAL, "Send damage frame")
+	LOG.pr(LOG.LOG_TYPE.INTERNAL, "Send damage frame")
 	emit_signal("damage_frame", get_damage())
 
 
@@ -147,12 +150,15 @@ func _on_HitBox_area_entered(area):
 	# Random displacement
 	spawn_pos += UTILS.random_unit_vec2() * 10.0
 
+	# TODO: make dynamic
 	if _id == TYPE.RAPIER:
 		VFX.generate_fx_at(VFX.FX.THRUST_HIT_PARTICLES, spawn_pos)
 	elif _id == TYPE.SWORD:
 		VFX.generate_fx_at(VFX.FX.SWING_HIT_PARTICLES, spawn_pos)
 
 
+# warning-ignore:unused_argument
 func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
 	if anim_name != get_anim(ANIM.IDLE) and animPlayer.has_animation(get_anim(ANIM.IDLE)):
 		animPlayer.play(get_anim(ANIM.IDLE))
+	pass

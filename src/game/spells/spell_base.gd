@@ -3,6 +3,8 @@ class_name SpellBase
 """
 """
 ### SIGNAL ###
+signal enemy_hit(target, damage)
+
 ### ENUM ###
 ### CONST ###
 ### EXPORT ###

@@ -61,7 +61,7 @@ onready var sprite = $SpriteParent/Sprite as Sprite
 onready var stateLabel = $DEBUG/StateLabel
 onready var animPlayer = $AnimationPlayer as AnimationPlayer
 onready var hpBar = $HpBar as Control
-onready var weaponSlot = $SpriteParent/WeaponSlot as Node2D
+onready var weaponSlot = $SpriteParent/WeaponSlot as WeaponSlot
 onready var spellSlot = $SpriteParent/SpellSlot as Node2D
 
 # Areas
@@ -217,6 +217,11 @@ func decide() -> void:
 	var enemies_in_range = get_enemies_in_attack_range()
 	var action = agent_brain.decide_action(CONFIG.context, self, enemies_in_range)
 	LOG.pr(LOG.LOG_TYPE.AI, "[%s] : selected [%s]" % [self, action])
+
+#	if animPlayer.current_animation == UTILS.get_enum_string_from_id(STATE, STATE.ATTACK).to_lower()\
+#			and animPlayer.is_playing():
+#		return
+
 	execute_action(action)
 	emit_signal("info_updated")
 
@@ -241,17 +246,15 @@ func change_state(new_state):
 		STATE.ATTACK:
 			if _target_weakref == null or _target_weakref.get_ref() == null:
 				_target_weakref = weakref(_select_target())
-			animPlayer.play("attack")
 			stateLabel.text = "atk"
 			dustEffect.emit(false)
 
 		STATE.IDLE:
-			animPlayer.play("idle")
+
 			stateLabel.text = "idl"
 			dustEffect.emit(false)
 
 		STATE.WALK:
-			animPlayer.play("walk")
 			stateLabel.text = "wlk"
 			if !dustEffect.is_emitting():
 				dustEffect.emit()
@@ -260,6 +263,8 @@ func change_state(new_state):
 			dustEffect.emit(false)
 
 	_state = new_state
+	var anim_name = UTILS.get_enum_string_from_id(STATE, _state).to_lower()
+	animPlayer.play(anim_name)
 
 
 func set_velocity(vel : Vector2) -> void:
@@ -340,10 +345,11 @@ func attack() -> void:
 
 
 func play_weapon_animation() -> void:
-	if weaponSlot.get_child_count():
-		weaponSlot.get_child(0).strike()
+	if weaponSlot.has_weapon():
+		weaponSlot.get_weapon().strike()
 
 
+# TODO: Carry 'move speed mod' stuff into StatContainer class
 func apply_move_speed_mod(mod) -> void:
 	_move_speed_modifiers.append(mod)
 
@@ -410,6 +416,7 @@ func _on_enemy_entered_range(_enemy_area, _range_type) -> void:
 
 func _on_attack_ended() -> void:
 	# TODO: (OPTIMIZE) Check if context changed for optimization
+
 	emit_signal("_context_changed")
 
 

@@ -303,6 +303,11 @@ _global_script_classes=[ {
 "class": "WeaponData",
 "language": "GDScript",
 "path": "res://src/resource_classes/weapon_data.gd"
+}, {
+"base": "Node2D",
+"class": "WeaponSlot",
+"language": "GDScript",
+"path": "res://src/game/unit/weapon_slot.gd"
 } ]
 _global_script_class_icons={
 "Action": "",
@@ -363,7 +368,8 @@ _global_script_class_icons={
 "WaveData": "",
 "WaveGenerator": "",
 "Weapon": "",
-"WeaponData": ""
+"WeaponData": "",
+"WeaponSlot": ""
 }
 
 [application]

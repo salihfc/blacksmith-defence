@@ -43,6 +43,7 @@ func cast(
 
 	if best_target:
 		_cast_on(best_target.global_position)
+		AUDIO.play(AUDIO.SFX.SPELL_ICENOVA)
 
 
 func get_radius() -> float:
@@ -92,7 +93,9 @@ func _on_damage_frame() -> void:
 	var targets_in_area = UTILS.get_owners(damageArea.get_areas_inside())
 	for target in targets_in_area:
 		if target.has_method("take_damage"):
-			target.take_damage(get_total_damage())
+			var total = get_total_damage()
+			target.take_damage(total)
+			emit_signal("enemy_hit", target, total)
 		else:
 			push_warning("target cannot take damage")
 

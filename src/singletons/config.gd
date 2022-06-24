@@ -8,7 +8,7 @@ const ENEMY_GROUP = "enemy"
 const SPAWN_ENEMIES = false
 
 const SHOW_VFX = true
-const SHOW_AI_STATE = false
+const SHOW_AI_STATE = true
 const SHOW_HP_BARS = true
 const SHOW_FLOATING_DAMAGE_NUMBERS = true
 

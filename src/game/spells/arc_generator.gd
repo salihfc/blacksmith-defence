@@ -2,7 +2,7 @@ extends SpellBase
 """
 """
 ### SIGNAL ###
-signal enemy_hit(target, damage)
+
 
 ### ENUM ###
 ### CONST ###
@@ -41,7 +41,7 @@ func cast(
 	) -> void:
 	assert(owner_unit_weakref)
 
-#	LOG.pr(LOG.LOG_TYPE.INTERNAL, "CAST")
+	LOG.pr(LOG.LOG_TYPE.INTERNAL, "[%s] CASTING" % [get_owner()])
 
 	global_position = starting_point
 	var end_points_targets = [self]
@@ -87,6 +87,9 @@ func cast(
 			target_ct += 1
 		else:
 			break
+
+	LOG.pr(LOG.LOG_TYPE.SFX, "ARC GENERATED: playing SFX")
+	AUDIO.play(AUDIO.SFX.SPELL_ARC)
 
 ### PRIVATE FUNCTIONS ###
 ### SIGNAL RESPONSES ###

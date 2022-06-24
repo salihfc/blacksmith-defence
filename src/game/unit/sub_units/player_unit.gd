@@ -72,7 +72,8 @@ func add_on_hit_trigger(on_hit_trigger : OnHitTrigger):
 
 ### PRIVATE FUNCTIONS ###
 func _set_weapon(weapon : Node) -> void:
-	UTILS.clear_children(weaponSlot)
+	weaponSlot.add_weapon(weapon)
+
 	SIGNAL.bind_bulk(
 			weapon, self,
 			[
@@ -80,7 +81,6 @@ func _set_weapon(weapon : Node) -> void:
 				["enemy_hit_with_damage", "_on_enemy_hit"],
 			])
 
-	weaponSlot.add_child(weapon)
 	weapon.set_owner_unit(self)
 
 	if weapon.has_method("set_damage"):
@@ -95,7 +95,8 @@ func _set_area_layer_and_masks() -> void:
 
 ### SIGNAL RESPONSES ###
 func _on_weapon_attack_frame(_damage) -> void:
-	attack()
+#	attack()
+	LOG.pr(LOG.LOG_TYPE.INTERNAL, "[%s] weapon attack frame casting spells" % [self])
 	for spell in spellSlot.get_children():
 		spell.cast()
 

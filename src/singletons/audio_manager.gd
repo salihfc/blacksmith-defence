@@ -12,12 +12,19 @@ const MIN_VOLUME := 0.0
 const MAX_VOLUME := 100.0
 
 enum SFX {
+	SPELL_ARC,
+	SPELL_ICENOVA,
+
+	COUNT,
 }
 
 const SFX_start = {
 }
 
+
 const SFX_array = [
+	preload("res://tres/sfx/sfx_zap_audiostreamrandompitch.tres"),
+	preload("res://tres/sfx/sfx_icenova_audiostreamrandompitch.tres"),
 ]
 
 var bgm_on = false
@@ -82,6 +89,8 @@ func set_sfx_player_count(count : int) -> void:
 		for _i in range(delta):
 			var new_player = AudioStreamPlayer.new()
 			new_player.stream = AudioStreamRandomPitch.new()
+			new_player.volume_db = -10.0
+
 			SFXplayers.add_child(new_player)
 
 	elif delta < 0:
