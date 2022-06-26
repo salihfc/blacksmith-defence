@@ -95,6 +95,30 @@ const STAT_DEFAULTS = {
 
 		StatContainer.STATS.ATK_RANGE : 50,
 	},
+
+	"Swampy": {
+		StatContainer.STATS.MAX_HP : 200,
+		StatContainer.STATS.BASE_DAMAGE : 15,
+		StatContainer.STATS.DAMAGE_MULTI : 1,
+		StatContainer.STATS.MOVE_SPEED : 0.8,
+		StatContainer.STATS.ATK_SPEED : 0.8,
+
+		StatContainer.STATS.RES_PHYS : 40.0,
+
+		StatContainer.STATS.ATK_RANGE : 40,
+	},
+
+	"Swampy_mini": {
+		StatContainer.STATS.MAX_HP : 60,
+		StatContainer.STATS.BASE_DAMAGE : 5,
+		StatContainer.STATS.DAMAGE_MULTI : 1,
+		StatContainer.STATS.MOVE_SPEED : 1.5,
+		StatContainer.STATS.ATK_SPEED : 1.1,
+
+		StatContainer.STATS.RES_PHYS : 30.0,
+
+		StatContainer.STATS.ATK_RANGE : 20,
+	},
 }
 
 const CURVE_MULT_NAME_PREFIX	= "curve_mult_"
@@ -104,9 +128,10 @@ const CURVE_ADD_NAME_PREFIX		= "curve_add_"
 # Visual
 export(String) var name
 export(Texture) var texture
+export(bool) var flip_h = false
+export(float) var sprite_scale = 1.0
 export(Texture) var view_texture
 export(Resource) var cost = MaterialStorage.new() # MaterialStorage
-
 # AI
 export(Resource) var brain = null # Type: Agent
 

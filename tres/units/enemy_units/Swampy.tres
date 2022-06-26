@@ -1,36 +1,46 @@
-[gd_resource type="Resource" load_steps=6 format=2]
+[gd_resource type="Resource" load_steps=10 format=2]
 
 [ext_resource path="res://src/ai/infinite_axis_utility/agent_tres/agent_enemy_basic.tres" type="Resource" id=1]
 [ext_resource path="res://src/resource_classes/material_storage.gd" type="Script" id=2]
 [ext_resource path="res://src/resource_classes/unit_data.gd" type="Script" id=3]
-[ext_resource path="res://tres/atlas_tex/basic_enemy_sprite.atlastex" type="Texture" id=4]
+[ext_resource path="res://assets/gfx/game/units/swampy_run_anim.png" type="Texture" id=4]
+[ext_resource path="res://src/resource_classes/unit_enhancements/unit_enhancement_attach_on_death_effect.gd" type="Script" id=5]
+[ext_resource path="res://tres/on_death_effects/on_death_effect_prototype.tres" type="Resource" id=6]
 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 2 )
 _storage = {
 }
 
+[sub_resource type="Resource" id=3]
+script = ExtResource( 5 )
+on_death_effect_prototype = ExtResource( 6 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 4 )
+region = Rect2( 32, 0, 16, 16 )
+
 [resource]
 script = ExtResource( 3 )
-name = "Basic"
-texture = ExtResource( 4 )
-flip_h = false
+name = "Swampy"
+texture = SubResource( 2 )
+flip_h = true
 sprite_scale = 1.0
 cost = SubResource( 1 )
 brain = ExtResource( 1 )
 spells = [  ]
-enhancements = [  ]
-stats/max_hp = 50
-stats/res_phys = 0.0
+enhancements = [ SubResource( 3 ) ]
+stats/max_hp = 200
+stats/res_phys = 40.0
 stats/res_fire = 0.0
 stats/res_water = 0.0
 stats/res_earth = 0.0
-stats/base_damage = 10
-stats/move_speed = 1
-stats/atk_speed = 1
-stats/atk_range = 50
+stats/base_damage = 15
+stats/move_speed = 0.8
+stats/atk_speed = 0.8
+stats/atk_range = 40
 stats/damage_multi = 1
-stats/chain_count = 0
+stats/chain_count = 0.0
 stats/hp = 0.0
 stats/bleed_chance = 0.0
 stats/ignite_chance = 0.0

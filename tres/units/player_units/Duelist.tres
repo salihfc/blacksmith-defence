@@ -16,6 +16,8 @@ Resource( "res://tres/materials/material_iron.tres" ): 2
 script = ExtResource( 2 )
 name = "Duelist"
 texture = ExtResource( 4 )
+flip_h = false
+sprite_scale = 1.0
 cost = SubResource( 1 )
 brain = ExtResource( 3 )
 weapon = ExtResource( 5 )

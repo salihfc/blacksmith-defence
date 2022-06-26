@@ -1,36 +1,40 @@
-[gd_resource type="Resource" load_steps=6 format=2]
+[gd_resource type="Resource" load_steps=7 format=2]
 
 [ext_resource path="res://src/ai/infinite_axis_utility/agent_tres/agent_enemy_basic.tres" type="Resource" id=1]
 [ext_resource path="res://src/resource_classes/material_storage.gd" type="Script" id=2]
 [ext_resource path="res://src/resource_classes/unit_data.gd" type="Script" id=3]
-[ext_resource path="res://tres/atlas_tex/basic_enemy_sprite.atlastex" type="Texture" id=4]
+[ext_resource path="res://assets/gfx/game/units/swampy_run_anim.png" type="Texture" id=4]
 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 2 )
 _storage = {
 }
 
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 4 )
+region = Rect2( 32, 0, 16, 16 )
+
 [resource]
 script = ExtResource( 3 )
-name = "Basic"
-texture = ExtResource( 4 )
-flip_h = false
-sprite_scale = 1.0
+name = "Swampy_mini"
+texture = SubResource( 2 )
+flip_h = true
+sprite_scale = 0.5
 cost = SubResource( 1 )
 brain = ExtResource( 1 )
 spells = [  ]
 enhancements = [  ]
-stats/max_hp = 50
-stats/res_phys = 0.0
+stats/max_hp = 60
+stats/res_phys = 30.0
 stats/res_fire = 0.0
 stats/res_water = 0.0
 stats/res_earth = 0.0
-stats/base_damage = 10
-stats/move_speed = 1
-stats/atk_speed = 1
-stats/atk_range = 50
+stats/base_damage = 5
+stats/move_speed = 1.5
+stats/atk_speed = 1.1
+stats/atk_range = 20
 stats/damage_multi = 1
-stats/chain_count = 0
+stats/chain_count = 0.0
 stats/hp = 0.0
 stats/bleed_chance = 0.0
 stats/ignite_chance = 0.0

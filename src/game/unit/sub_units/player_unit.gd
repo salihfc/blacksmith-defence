@@ -11,8 +11,6 @@ const RETARGET_MID_ANIMATION = true
 ### EXPORT ###
 ### PUBLIC VAR ###
 ### PRIVATE VAR ###
-var _on_hit_triggers = []
-
 ### ONREADY VAR ###
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func init_with_data(unit_recipe : UnitRecipe) -> void:
@@ -63,11 +61,6 @@ func init_with_data(unit_recipe : UnitRecipe) -> void:
 # DANGER: Deleting base function
 func attack() -> void:
 	return
-
-
-func add_on_hit_trigger(on_hit_trigger : OnHitTrigger):
-	_on_hit_triggers.append(on_hit_trigger)
-	return self
 
 
 ### PRIVATE FUNCTIONS ###

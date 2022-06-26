@@ -75,6 +75,8 @@ func _input(event: InputEvent) -> void:
 
 
 func _ready():
+	add_to_group("battle_world", true)
+
 	# TODO: Looks bad [clear this in next AI pass]
 	CONFIG.context.set_world(self)
 
@@ -180,15 +182,13 @@ func spawn_unit(unit_data, pos : Vector2) -> void:
 	emit_signal("unit_spawned", unit_data)
 
 
-func spawn_enemy(enemy_data : UnitData, lane : int = _get_random_spawn_idx()) -> void:
+func spawn_enemy_at_pos(enemy_data : UnitData, pos : Vector2):
 	assert(enemy_data)
 	var enemy_recipe = UnitRecipe.new(enemy_data, null)
 	var enemy = P_EnemyUnit.instance()
 	units.add_child(enemy)
 	enemy.init_with_data(enemy_recipe)
-	LOG.pr(LOG.LOG_TYPE.GAMEPLAY, "Spawn Enemy (%s) with (%s) pow in [%s]" % [enemy_data, enemy_data.calc_power(), lane])
-
-	enemy.position = _get_lane_spawn_pos(lane)
+	enemy.global_position = pos
 
 	SIGNAL.bind(
 		enemy, "selected",
@@ -202,8 +202,17 @@ func spawn_enemy(enemy_data : UnitData, lane : int = _get_random_spawn_idx()) ->
 		[enemy]
 	)
 
+	return self
 
-func spawn_random_mat(spawn_pos) -> void:
+
+func spawn_enemy(enemy_data : UnitData, lane : int = _get_random_spawn_idx()):
+	LOG.pr(LOG.LOG_TYPE.GAMEPLAY, "Spawn Enemy (%s) with (%s) pow in [%s]"\
+	% [enemy_data, enemy_data.calc_power(), lane])
+
+	return spawn_enemy_at_pos(enemy_data, _get_lane_spawn_pos(lane))
+
+
+func spawn_random_mat(spawn_pos):
 	var material_data = load("res://tres/materials/material_iron.tres")
 	var new_mat = P_Material.instance()
 	new_mat.set_data(material_data, 2)
@@ -219,6 +228,8 @@ func spawn_random_mat(spawn_pos) -> void:
 		self, "_on_mat_hovered",
 		[new_mat]
 	)
+
+	return self
 
 
 func damage_base(damage : Damage) -> void:
@@ -282,7 +293,7 @@ func _get_random_enemy_data():
 
 
 func _get_lane_spawn_pos(lane) -> Vector2:
-	return spawnPositions.get_children()[lane].position + Vector2.UP * rand_range(-1.0, 1.0) * 40.0
+	return spawnPositions.get_children()[lane].global_position + Vector2.UP * rand_range(-1.0, 1.0) * 40.0
 
 
 func _get_random_spawn_idx() -> int:

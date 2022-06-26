@@ -55,6 +55,10 @@ var _state = default_state
 var _under_mouse = false
 var _target_weakref = null
 
+## Triggered actions
+var _on_hit_triggers = []
+var _on_death_triggers = []
+
 ### ONREADY VAR ###
 onready var spriteParent = $SpriteParent as Node2D
 onready var sprite = $SpriteParent/Sprite as Sprite
@@ -87,9 +91,12 @@ func _ready():
 		[1]
 	)
 
-	SIGNAL.bind(
-		self, "_context_changed",
-		self, "_on_context_changed"
+	SIGNAL.bind_bulk(
+		self, self,
+		[
+			["_context_changed", "_on_context_changed"],
+			["died", "_on_death"],
+		]
 	)
 
 	hpBar.set_value(1.0)
@@ -134,7 +141,10 @@ func init_with_data(unit_recipe : UnitRecipe) -> void:
 	# reference to sprite should be set in _ready
 	assert(sprite)
 	sprite.texture = unit_data.get_texture()
+	sprite.scale *= unit_data.sprite_scale
 	sprite.offset.y = -sprite.texture.get_height() / 2.0
+	if unit_data.flip_h:
+		sprite.flip_h = true
 
 	assert(unit_data.get_stat(StatContainer.STATS.ATK_RANGE) != null)
 	attackRange.set_radius(get_stat(StatContainer.STATS.ATK_RANGE))
@@ -154,6 +164,16 @@ func is_unit_in_range(_unit) -> bool:
 
 func set_grid_pos(pos : Vector2) -> void:
 	grid_pos = pos
+
+
+func add_on_hit_trigger(on_hit_trigger : OnHitTrigger):
+	_on_hit_triggers.append(on_hit_trigger)
+	return self
+
+
+func add_on_death_trigger(on_death_trigger : OnDeathTrigger):
+	_on_death_triggers.append(on_death_trigger)
+	return self
 
 
 func add_to_stat(id : int, amount):
@@ -416,7 +436,6 @@ func _on_enemy_entered_range(_enemy_area, _range_type) -> void:
 
 func _on_attack_ended() -> void:
 	# TODO: (OPTIMIZE) Check if context changed for optimization
-
 	emit_signal("_context_changed")
 
 
@@ -426,6 +445,12 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 			_on_attack_ended()
 
 
+func _on_death() -> void:
+	for on_death_trigger in _on_death_triggers:
+		on_death_trigger.trigger(self)
+
+
+# ui stuff
 func _on_MousePickingArea_area_entered(_area):
 	_under_mouse = true
 

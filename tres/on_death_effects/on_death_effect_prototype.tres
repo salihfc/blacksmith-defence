@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://tres/units/enemy_units/Swampy_mini.tres" type="Resource" id=1]
+[ext_resource path="res://src/resource_classes/effects/on_death_effects/on_death_summon_unit.gd" type="Script" id=2]
+
+[resource]
+script = ExtResource( 2 )
+to_be_summoned_units = [ ExtResource( 1 ), ExtResource( 1 ), ExtResource( 1 ) ]

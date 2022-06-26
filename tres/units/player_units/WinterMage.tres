@@ -17,6 +17,8 @@ Resource( "res://tres/materials/material_iron.tres" ): 2
 script = ExtResource( 3 )
 name = "WinterMage"
 texture = ExtResource( 1 )
+flip_h = false
+sprite_scale = 1.0
 cost = SubResource( 1 )
 brain = ExtResource( 4 )
 weapon = ExtResource( 6 )

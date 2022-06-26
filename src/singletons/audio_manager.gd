@@ -5,11 +5,12 @@ onready var SFXplayers = get_node("SFXPlayers")
 
 export(AudioStream) var BGM
 export(int) var sfx_player_count := 8
-export(float) var default_bgm_volume = 0.0
-export(float) var default_sfx_volume = 0.0
+export(float, 0.0, 1.0, 0.01) var default_bgm_volume = 0.0
+export(float, 0.0, 1.0, 0.01) var default_sfx_volume = 0.0
 
-const MIN_VOLUME := 0.0
-const MAX_VOLUME := 100.0
+# For safety
+const MIN_VOLUME_DB := -60.0
+const MAX_VOLUME_DB := 0.0
 
 enum SFX {
 	SPELL_ARC,
@@ -28,15 +29,17 @@ const SFX_array = [
 ]
 
 var bgm_on = false
-var bgm_linear = 50
+var bgm_linear = 0
 
 var sfx_on = true
-var sfx_linear = 50
+var sfx_linear = 0
 
 
 
 func _ready() -> void:
 	LOG.pr(LOG.LOG_TYPE.INTERNAL, "READY", "AUDIO")
+	var t = 1
+	LOG.pr(LOG.LOG_TYPE.INTERNAL, "linear2db [%s] -> [%s]" % [t, linear2db(t)])
 	set_sfx_player_count(sfx_player_count)
 
 	BGMplayer.stream = AudioStreamRandomPitch.new()
@@ -49,19 +52,17 @@ func _ready() -> void:
 		BGMplayer.play()
 
 
-
 func set_bgm_volume(new_value : float) -> void:
 	bgm_linear = new_value
-	BGMplayer.volume_db = get_db_equivalent(bgm_linear)
-#	LOG.pr(LOG.LOG_TYPE.SFX, "Set new BGM volume: (%s), (%s)" % [new_value, bgm_volume])
-
+	_set_audio_stream_db(BGMplayer, linear2db(bgm_linear))
 
 
 func set_sfx_volume(new_value : float) -> void:
 	sfx_linear = new_value
-	var db_eq = get_db_equivalent(sfx_linear)
+	var db_eq = linear2db(sfx_linear)
+	LOG.pr(LOG.LOG_TYPE.SFX, "Set SFX volume: (%s), (%s)" % [new_value, db_eq])
 	for SFXplayer in SFXplayers.get_children():
-		SFXplayer.volume_db = db_eq
+		_set_audio_stream_db(SFXplayer, db_eq)
 
 
 
@@ -75,13 +76,6 @@ func play(sfx_id : int) -> void:
 				break
 
 
-
-func get_db_equivalent(val : float) -> float:
-	val = inverse_lerp(MIN_VOLUME, MAX_VOLUME, val)
-	return linear2db(val)
-
-
-
 func set_sfx_player_count(count : int) -> void:
 	var delta = count - SFXplayers.get_child_count()
 
@@ -89,7 +83,7 @@ func set_sfx_player_count(count : int) -> void:
 		for _i in range(delta):
 			var new_player = AudioStreamPlayer.new()
 			new_player.stream = AudioStreamRandomPitch.new()
-			new_player.volume_db = -10.0
+			_set_audio_stream_db(new_player, default_sfx_volume)
 
 			SFXplayers.add_child(new_player)
 
@@ -107,3 +101,10 @@ func set_sfx_player_count(count : int) -> void:
 func _on_BGMPlayer_finished() -> void:
 	if bgm_on:
 		BGMplayer.play()
+
+
+
+func _set_audio_stream_db(stream_node, db) -> void:
+	db = clamp(db, -60.0, 0.0)
+	LOG.pr(LOG.LOG_TYPE.SFX, "SET audio stream[%s] volume [%s]" % [stream_node.name, db])
+	stream_node.volume_db = db

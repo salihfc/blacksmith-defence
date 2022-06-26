@@ -20,6 +20,11 @@ func init_with_data(unit_recipe : UnitRecipe) -> void:
 	DBG_range_circle.modulate = Color.red
 	DBG_range_circle.modulate.a = 0.1
 
+	var unit_data = unit_recipe.base_unit as UnitData
+	if unit_data.enhancements:
+		for enh in unit_data.enhancements:
+			enh.call_deferred("apply_to", self)
+
 
 func get_default_dir():
 	return Vector2.LEFT

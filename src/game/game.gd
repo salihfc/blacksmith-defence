@@ -38,6 +38,7 @@ export(Resource) var player_base = null
 var _cached_recipes = []
 
 ### ONREADY VAR ###
+
 onready var battle = get_node(NP_Battle)
 onready var materialList = get_node(NP_MaterialList)
 onready var unitRecipeList = get_node(NP_UnitRecipeList)
