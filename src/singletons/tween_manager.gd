@@ -49,7 +49,7 @@ func interpolate_property(
 		transition = DEFAULT_TRANSITION,
 		easing = DEFAULT_EASING,
 		delay = DEFAULT_DELAY) -> void:
-	
+
 	var tween = _request_worker()
 # warning-ignore:return_value_discarded
 	tween.interpolate_property(
@@ -96,7 +96,7 @@ func interpolate_method(
 		transition = DEFAULT_TRANSITION,
 		easing = DEFAULT_EASING,
 		delay = DEFAULT_DELAY) -> void:
-	
+
 	var tween = _request_worker()
 # warning-ignore:return_value_discarded
 	tween.interpolate_method(
@@ -115,9 +115,9 @@ func interpolate_method_to_and_back(
 		start_value, mid_value,
 		part1_duration, part2_duration,
 		start_delay = 0.0) -> void:
-	
+
 	var tween = _request_worker()
-	
+
 # warning-ignore:return_value_discarded
 	tween.interpolate_method(
 			object, method,

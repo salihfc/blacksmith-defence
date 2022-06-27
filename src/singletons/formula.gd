@@ -28,6 +28,8 @@ func get_bleed_damage(stack_count) -> float:
 
 
 func get_ignite_damage(originator_damage) -> float:
+	if originator_damage == null:
+		return 0.0
 	return originator_damage.get_amount() * 0.3
 
 

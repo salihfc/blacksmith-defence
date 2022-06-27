@@ -131,8 +131,16 @@ func _get_owner_stat(stat_id):
 	return _owner.get_stat(stat_id)
 
 
-func _play_sfx(anim_id) -> void:
-	pass
+func _play_sfx() -> void:
+	match _id:
+		TYPE.RAPIER:
+			AUDIO.play(AUDIO.SFX.WEAPON_RAPIER_THRUST)
+
+		TYPE.SWORD:
+			AUDIO.play(AUDIO.SFX.WEAPON_SWORD_SWING)
+
+		_:
+			LOG.pr(LOG.LOG_TYPE.SFX, "Weapon[%s] dont have sfx!!!" % [_id])
 
 ### SIGNAL RESPONSES ###
 func _send_damage_frame() -> void:

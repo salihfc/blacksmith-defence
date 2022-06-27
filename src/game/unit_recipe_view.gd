@@ -13,20 +13,22 @@ const P_MaterialView = preload("res://src/ui/material_view.tscn")
 export(NodePath) var NP_UnitTexture
 export(NodePath) var NP_BaseCostList
 export(NodePath) var NP_EnhanceCostList
-export(NodePath) var NP_TextureButton
+export(NodePath) var NP_Button
+export(NodePath) var NP_UnitRecipeViewPanel
 
 ### PUBLIC VAR ###
 ### PRIVATE VAR ###
 ### ONREADY VAR ###
 onready var unitTexture = get_node(NP_UnitTexture) as TextureRect
-onready var textureButton = get_node(NP_TextureButton) as TextureButton
+onready var button = get_node(NP_Button) as Button
 onready var baseCostList = get_node(NP_BaseCostList) as HBoxContainer
 onready var enhanceCostList = get_node(NP_EnhanceCostList) as HBoxContainer
+onready var unitRecipeViewPanel = get_node(NP_UnitRecipeViewPanel)
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _ready() -> void:
 	SIGNAL.bind(
-		textureButton, "pressed",
+		button, "pressed",
 		self, "_on_TextureButton_pressed"
 	)
 

@@ -8,6 +8,8 @@ signal base_taken_damage(damage)
 ### ENUM ###
 ### CONST ###
 ### EXPORT ###
+export(bool) var light_on = true
+
 ### PUBLIC VAR ###
 ### PRIVATE VAR ###
 ### ONREADY VAR ###
@@ -23,6 +25,8 @@ func _ready():
 				child.visible = false
 			else:
 				child.offset += UTILS.random_unit_vec2() * rand_range(0.2, 1.6)
+
+	$Sprite7/Light2D.visible = light_on
 
 ### PUBLIC FUNCTIONS ###
 func take_damage(_damage) -> void:

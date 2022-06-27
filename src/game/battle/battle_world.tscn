@@ -122,7 +122,7 @@ extents = Vector2( 303.5, 80 )
 radius = 8.0
 
 [node name="BattleWorld" type="Node2D"]
-position = Vector2( 0, 100 )
+position = Vector2( -2, 100 )
 script = ExtResource( 1 )
 enemy_pool = ExtResource( 6 )
 material_pool = ExtResource( 7 )

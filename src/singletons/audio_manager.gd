@@ -17,6 +17,9 @@ enum SFX {
 	SPELL_ARC,
 	SPELL_ICENOVA,
 
+	WEAPON_SWORD_SWING,
+	WEAPON_RAPIER_THRUST,
+
 	COUNT,
 }
 
@@ -25,8 +28,12 @@ const SFX_start = {
 
 
 const SFX_array = [
-	preload("res://tres/sfx/sfx_zap_audiostreamrandompitch.tres"),
-	preload("res://tres/sfx/sfx_icenova_audiostreamrandompitch.tres"),
+	preload("res://assets/sfx/spells/arc/SFX_zap.wav"),
+	preload("res://assets/sfx/spells/ice-nova/SFX_double_whoosh2.wav"),
+
+	preload("res://assets/sfx/sword/m_SFX_Sword_Draw_and_Swing_01.wav"),
+	preload("res://assets/sfx/rapier/SFX_Dagger_Draw_and_Whoosh_02.wav"),
+
 ]
 
 var bgm_on = false
@@ -36,11 +43,8 @@ var sfx_on = true
 var sfx_linear = 0
 
 
-
 func _ready() -> void:
 	LOG.pr(LOG.LOG_TYPE.INTERNAL, "READY", "AUDIO")
-	var t = 1
-	LOG.pr(LOG.LOG_TYPE.INTERNAL, "linear2db [%s] -> [%s]" % [t, linear2db(t)])
 	set_sfx_player_count(sfx_player_count)
 
 	BGMplayer.stream = AudioStreamRandomPitch.new()
@@ -68,6 +72,7 @@ func set_sfx_volume(new_value : float) -> void:
 
 
 func play(sfx_id : int) -> void:
+	LOG.pr(LOG.LOG_TYPE.SFX, "play sfx: [%s]" % [sfx_id])
 	if sfx_on and sfx_id < SFX_array.size():
 		for SFXplayer in SFXplayers.get_children():
 			if not SFXplayer.is_playing():
@@ -107,5 +112,5 @@ func _on_BGMPlayer_finished() -> void:
 
 func _set_audio_stream_db(stream_node, db) -> void:
 	db = clamp(db, -60.0 - max(0, VOLUME_REDUCTION_DB), 0.0 - max(0, VOLUME_REDUCTION_DB))
-	LOG.pr(LOG.LOG_TYPE.SFX, "SET audio stream[%s] volume [%s]" % [stream_node.name, db])
+	LOG.pr(LOG.LOG_TYPE.SFX, "SET audio stream[%s] volume [%s]" % [stream_node, db])
 	stream_node.volume_db = db

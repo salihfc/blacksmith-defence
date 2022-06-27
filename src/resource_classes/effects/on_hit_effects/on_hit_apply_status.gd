@@ -21,6 +21,11 @@ func copy_from_prototype(_prototype):
 
 ### PUBLIC FUNCTIONS ###
 func trigger(_subject=null, _object=null, _args={}):
+
+	# Making sure target object still exist to prevent segfault
+	if _object == null or _object.is_queued_for_deletion():
+		return
+
 	LOG.pr(LOG.LOG_TYPE.INTERNAL, "OnHitApplyStatus > working")
 	_object.apply_status_effect(
 			status_effect.set_originator(
