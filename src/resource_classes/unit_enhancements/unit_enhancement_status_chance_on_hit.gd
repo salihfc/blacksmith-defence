@@ -22,7 +22,7 @@ func _init(apply_chance = 0.0, status_effect = null) -> void:
 func apply_to(_unit) -> void:
 	_unit.add_on_hit_trigger(
 		ChanceTrigger.new(
-			StatusEffect.new().clone_from_prototype(_status_effect_prototype),
+			OnHitApplyStatus.new(StatusEffect.new().clone_from_prototype(_status_effect_prototype)),
 			{'chance' : _apply_chance}
 		)
 	)

@@ -20,8 +20,7 @@ func _init(copied_effect = null, _args = {}) -> void:
 func execute(_subject=null, _object=null, _args={}) -> void:
 	LOG.pr(LOG.LOG_TYPE.INTERNAL, "[Trigger] [%s]" % [resource_name])
 	if UTILS.check(_trigger_chance):
-		if _object and _object is Unit:
-			_object.apply_status_effect(_effect)
+		_effect.trigger(_subject, _object, _args)
 
 
 ### PRIVATE FUNCTIONS ###

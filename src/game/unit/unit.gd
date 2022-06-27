@@ -196,6 +196,7 @@ func multiply_stat(id : int, amount):
 
 
 func apply_status_effect(status_effect):
+	assert(status_effect is StatusEffect)
 	status_effect.apply(_status_container, self)
 	return self
 
