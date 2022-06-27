@@ -82,7 +82,8 @@ func _ready() -> void:
 
 
 func pr(log_mask: int, log_msg, caller:String = "") -> void:
-	if log_mask & runtime_mask == 0: return
+	if not OS.is_debug_build() or (log_mask & runtime_mask == 0):
+		return
 
 	var msg = str(log_msg) + " -- \t\t\t\t[%s]"%caller
 	msg = get_log_type_name(log_mask, "UNK") + " -- " + msg

@@ -11,6 +11,7 @@ export(float, 0.0, 1.0, 0.01) var default_sfx_volume = 0.0
 # For safety
 const MIN_VOLUME_DB := -60.0
 const MAX_VOLUME_DB := 0.0
+const VOLUME_REDUCTION_DB := 30.0
 
 enum SFX {
 	SPELL_ARC,
@@ -105,6 +106,6 @@ func _on_BGMPlayer_finished() -> void:
 
 
 func _set_audio_stream_db(stream_node, db) -> void:
-	db = clamp(db, -60.0, 0.0)
+	db = clamp(db, -60.0 - max(0, VOLUME_REDUCTION_DB), 0.0 - max(0, VOLUME_REDUCTION_DB))
 	LOG.pr(LOG.LOG_TYPE.SFX, "SET audio stream[%s] volume [%s]" % [stream_node.name, db])
 	stream_node.volume_db = db

@@ -23,7 +23,7 @@ func _init(summon_units = []) -> void:
 	to_be_summoned_units = summon_units
 
 ### PUBLIC FUNCTIONS ###
-func trigger(_subject) -> void:
+func trigger(_subject=null, _object=null, _args={}):
 	LOG.pr(LOG.LOG_TYPE.INTERNAL, "OnDeathEffectSummonUnit > working")
 	var subject_pos = _subject.global_position
 

@@ -1,5 +1,5 @@
 extends Effect
-class_name OnDeathEffect
+class_name OnHitEffect
 """
 """
 ### SIGNAL ###
@@ -10,6 +10,7 @@ class_name OnDeathEffect
 ### PRIVATE VAR ###
 ### ONREADY VAR ###
 ### VIRTUAL FUNCTIONS (_init ...) ###
+### PUBLIC FUNCTIONS ###
 ### PRIVATE FUNCTIONS ###
 ### SIGNAL RESPONSES ###
 

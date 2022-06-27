@@ -39,10 +39,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/resource_classes/cache_dict.gd"
 }, {
+"base": "Trigger",
+"class": "ChanceTrigger",
+"language": "GDScript",
+"path": "res://src/resource_classes/triggers/chance_trigger.gd"
+}, {
 "base": "Node2D",
 "class": "ClassName",
 "language": "GDScript",
-"path": "res://lightning_vfx_effect.gd"
+"path": "res://test-playground/lightning_vfx_effect.gd"
 }, {
 "base": "Resource",
 "class": "Command",
@@ -78,6 +83,11 @@ _global_script_classes=[ {
 "class": "DropItem",
 "language": "GDScript",
 "path": "res://src/resource_classes/drop_item.gd"
+}, {
+"base": "Resource",
+"class": "Effect",
+"language": "GDScript",
+"path": "res://src/resource_classes/effects/effect.gd"
 }, {
 "base": "Resource",
 "class": "EncounterData",
@@ -149,7 +159,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/object_area.gd"
 }, {
-"base": "Resource",
+"base": "Effect",
 "class": "OnDeathEffect",
 "language": "GDScript",
 "path": "res://src/resource_classes/effects/on_death_effects/on_death_effect.gd"
@@ -159,20 +169,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/resource_classes/effects/on_death_effects/on_death_summon_unit.gd"
 }, {
-"base": "Resource",
-"class": "OnDeathTrigger",
+"base": "OnHitEffect",
+"class": "OnHitApplyStatus",
 "language": "GDScript",
-"path": "res://src/resource_classes/on_death_triggers/on_death_trigger.gd"
+"path": "res://src/resource_classes/effects/on_hit_effects/on_hit_apply_status.gd"
 }, {
-"base": "OnHitTrigger",
-"class": "OnHitStatusEffect",
+"base": "Effect",
+"class": "OnHitEffect",
 "language": "GDScript",
-"path": "res://src/resource_classes/on_hit_triggers/on_hit_status_effect.gd"
+"path": "res://src/resource_classes/effects/on_hit_effects/on_hit_effect.gd"
 }, {
-"base": "Resource",
-"class": "OnHitTrigger",
+"base": "Effect",
+"class": "OnLowLifeEffect",
 "language": "GDScript",
-"path": "res://src/resource_classes/on_hit_triggers/on_hit_trigger.gd"
+"path": "res://src/resource_classes/effects/on_low_life_effects/on_low_life_effect.gd"
 }, {
 "base": "Sprite",
 "class": "PlayerBase",
@@ -242,7 +252,12 @@ _global_script_classes=[ {
 "base": "StatusEffectFunctionBase",
 "class": "StatusEffectGenericExpire",
 "language": "GDScript",
-"path": "res://status_effect_generic_expire.gd"
+"path": "res://src/resource_classes/status_effects/status_effect_generic_expire.gd"
+}, {
+"base": "Resource",
+"class": "Trigger",
+"language": "GDScript",
+"path": "res://src/resource_classes/triggers/trigger.gd"
 }, {
 "base": "Node2D",
 "class": "Unit",
@@ -258,6 +273,11 @@ _global_script_classes=[ {
 "class": "UnitEnhancementAttachOnDeathEffect",
 "language": "GDScript",
 "path": "res://src/resource_classes/unit_enhancements/unit_enhancement_attach_on_death_effect.gd"
+}, {
+"base": "UnitEnhancementBase",
+"class": "UnitEnhancementAttachOnLowLifeEffect",
+"language": "GDScript",
+"path": "res://src/resource_classes/unit_enhancements/unit_enhancement_on_low_life_effect.gd"
 }, {
 "base": "Resource",
 "class": "UnitEnhancementBase",
@@ -361,6 +381,7 @@ _global_script_class_icons={
 "BleedApplyFunction": "",
 "BleedTickFunction": "",
 "CacheDict": "",
+"ChanceTrigger": "",
 "ClassName": "",
 "Command": "",
 "Consideration": "",
@@ -369,6 +390,7 @@ _global_script_class_icons={
 "Damage": "",
 "DebugWindow": "",
 "DropItem": "",
+"Effect": "",
 "EncounterData": "",
 "EnemyUnit": "",
 "GitAPI": "",
@@ -385,9 +407,9 @@ _global_script_class_icons={
 "ObjectArea": "",
 "OnDeathEffect": "",
 "OnDeathEffectSummonUnit": "",
-"OnDeathTrigger": "",
-"OnHitStatusEffect": "",
-"OnHitTrigger": "",
+"OnHitApplyStatus": "",
+"OnHitEffect": "",
+"OnLowLifeEffect": "",
 "PlayerBase": "",
 "PlayerMainBase": "",
 "PlayerUnit": "",
@@ -402,9 +424,11 @@ _global_script_class_icons={
 "StatusEffectContainer": "",
 "StatusEffectFunctionBase": "",
 "StatusEffectGenericExpire": "",
+"Trigger": "",
 "Unit": "",
 "UnitData": "",
 "UnitEnhancementAttachOnDeathEffect": "",
+"UnitEnhancementAttachOnLowLifeEffect": "",
 "UnitEnhancementBase": "",
 "UnitEnhancementStat": "",
 "UnitEnhancementStatusChanceOnHit": "",
@@ -496,6 +520,10 @@ texture={
 "size_limit": 0,
 "stream": false,
 "svg/scale": 1.0
+}
+csv_translation={
+"compress": false,
+"delimiter": 0
 }
 
 [input]

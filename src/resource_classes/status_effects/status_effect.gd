@@ -94,12 +94,13 @@ func get_type():
 
 
 func set_originator(origin):
-	originator = origin
+	originator = weakref(origin)
 	return self
 
 
 func get_originator():
-	return originator
+	if originator:
+		return originator.get_ref()
 
 
 func set_duration(new_duration):

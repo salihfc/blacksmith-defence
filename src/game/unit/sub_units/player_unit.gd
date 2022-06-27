@@ -96,4 +96,9 @@ func _on_weapon_attack_frame(_damage) -> void:
 
 func _on_enemy_hit(target, damage : CumulativeDamage) -> void:
 	for trigger in _on_hit_triggers:
-		trigger.apply_to(target, damage)
+		trigger.execute(
+				self, target,
+				{
+					'damage' : damage
+				}
+		)

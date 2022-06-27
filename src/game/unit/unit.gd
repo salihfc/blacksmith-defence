@@ -7,6 +7,7 @@ signal _context_changed() # Internal signal
 signal info_updated()
 
 signal died()
+signal low_life_reached()
 signal selected()
 
 ### ENUM ###
@@ -27,6 +28,10 @@ enum STATE {
 }
 
 ### CONST ###
+# Gameplay
+const LOW_LIFE_FRACTION = 0.5
+
+# Physics
 const MAX_SOFTBODY_CALC = 5
 const COLLISION_PUSH = 10.0
 
@@ -58,6 +63,9 @@ var _target_weakref = null
 ## Triggered actions
 var _on_hit_triggers = []
 var _on_death_triggers = []
+var _on_low_life_reached_triggers = []
+# book-keeping for low_life_triggers
+var _low_life_already_reached : bool = false
 
 ### ONREADY VAR ###
 onready var spriteParent = $SpriteParent as Node2D
@@ -96,6 +104,7 @@ func _ready():
 		[
 			["_context_changed", "_on_context_changed"],
 			["died", "_on_death"],
+			["low_life_reached", "_on_low_life_reached"]
 		]
 	)
 
@@ -166,12 +175,12 @@ func set_grid_pos(pos : Vector2) -> void:
 	grid_pos = pos
 
 
-func add_on_hit_trigger(on_hit_trigger : OnHitTrigger):
+func add_on_hit_trigger(on_hit_trigger : Trigger):
 	_on_hit_triggers.append(on_hit_trigger)
 	return self
 
 
-func add_on_death_trigger(on_death_trigger : OnDeathTrigger):
+func add_on_death_trigger(on_death_trigger : Trigger):
 	_on_death_triggers.append(on_death_trigger)
 	return self
 
@@ -185,11 +194,12 @@ func multiply_stat(id : int, amount):
 	assert(amount != null)
 	_stats.set_stat(id, get_stat(id) * amount)
 
+
+func apply_status_effect(status_effect):
+	status_effect.apply(_status_container, self)
+	return self
+
 # Getters
-func get_status_effect_container():
-	return _status_container
-
-
 func get_stat(id : int, default = null):
 	return _stats.get_stat(id, default)
 
@@ -339,6 +349,14 @@ func take_damage(_damage, pulse = Vector2.ZERO) -> void:
 		emit_signal("died")
 		queue_free()
 	else:
+
+		if not _low_life_already_reached:
+			var hp_frac = get_stat(StatContainer.STATS.HP) / get_stat(StatContainer.STATS.MAX_HP)
+			if hp_frac <= LOW_LIFE_FRACTION:
+				emit_signal("low_life_reached")
+				_low_life_already_reached = true
+
+
 		if CONFIG.SHOW_HP_BARS:
 			hpBar.visible = (get_hp_perc() < 1.0)
 			hpBar.set_value(get_hp_perc())
@@ -447,7 +465,12 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 
 func _on_death() -> void:
 	for on_death_trigger in _on_death_triggers:
-		on_death_trigger.trigger(self)
+		on_death_trigger.execute(self)
+
+
+func _on_low_life_reached() -> void:
+	for low_life_trigger in _on_low_life_reached_triggers:
+		low_life_trigger.execute(self)
 
 
 # ui stuff

@@ -1,12 +1,12 @@
 extends UnitEnhancementBase
-class_name UnitEnhancementAttachOnDeathEffect
+class_name UnitEnhancementAttachOnLowLifeEffect
 """
 """
 ### SIGNAL ###
 ### ENUM ###
 ### CONST ###
 ### EXPORT ###
-export(Resource) var on_death_effect_prototype = null
+export(Resource) var on_low_life_effect_prototype = null
 
 ### PUBLIC VAR ###
 ### PRIVATE VAR ###
@@ -17,9 +17,10 @@ func apply_to(_unit) -> void:
 	# Try to use the single instance tres
 	# Since the tres will not be modified by any operation everybody can use it
 	# knowing its correct
-	_unit.add_on_death_trigger(
-			Trigger.new(on_death_effect_prototype))
+	_unit.add_on_low_life_trigger(
+			Trigger.new(on_low_life_effect_prototype))
 
+### PUBLIC FUNCTIONS ###
 ### PRIVATE FUNCTIONS ###
 ### SIGNAL RESPONSES ###
 
