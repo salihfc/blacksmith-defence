@@ -1,11 +1,11 @@
-[gd_scene load_steps=61 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://assets/gfx/game/atlas.png" type="Texture" id=1]
 [ext_resource path="res://src/game/battle/player_base.gd" type="Script" id=2]
 [ext_resource path="res://assets/gfx/common/light_2048x2048.png" type="Texture" id=3]
+[ext_resource path="res://assets/gfx/common/light.png" type="Texture" id=4]
 [ext_resource path="res://src/game/object_area.gd" type="Script" id=5]
 [ext_resource path="res://tres/atlas_tex/player_base_elixir.atlastex" type="Texture" id=6]
-[ext_resource path="res://assets/gfx/game/skill_effects/GameFXexport/SPRITESHEET_Files/FireBall_64x64.png" type="Texture" id=7]
 [ext_resource path="res://assets/gfx/game/bowl_fire_full.png" type="Texture" id=8]
 
 [sub_resource type="AtlasTexture" id=2]
@@ -17,224 +17,59 @@ filter_clip = true
 radius = 17.0
 height = 29.0
 
-[sub_resource type="Shader" id=57]
+[sub_resource type="Shader" id=16]
 code = "// NOTE: Shader automatically converted from Godot Engine 3.4.4.stable's CanvasItemMaterial.
 
 shader_type canvas_item;
-render_mode blend_mix;
+render_mode unshaded;
+"
 
-uniform sampler2D noise;
+[sub_resource type="ShaderMaterial" id=17]
+shader = SubResource( 16 )
 
-void fragment()
-{
-	vec4 color = texture(TEXTURE, UV);
-	color.rgb *= 1.5 - sqrt(UV.y);
-	color.a *= UV.y + 0.5;
-	
-	float n = texture(noise, UV + TIME / 10.0).r;
-	color.gb *= n * 2.;
-	COLOR = color;
-}"
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0, 0.142349, 0.302491, 0.608541, 1 )
+colors = PoolColorArray( 0.972656, 0.972656, 0.972656, 0.972549, 1, 0.901961, 0.901961, 0.623529, 0.929412, 0.180392, 0.180392, 0.67451, 0.933594, 0.436027, 0.072937, 0.586351, 0, 0, 0, 0.0431373 )
 
-[sub_resource type="OpenSimplexNoise" id=59]
+[sub_resource type="GradientTexture" id=14]
+gradient = SubResource( 1 )
 
-[sub_resource type="NoiseTexture" id=60]
-seamless = true
-noise = SubResource( 59 )
+[sub_resource type="Curve" id=6]
+min_value = -1.0
+_data = [ Vector2( 0, 0.218182 ), 0.0, 0.0, 0, 0, Vector2( 1, -0.0545454 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="ShaderMaterial" id=58]
-shader = SubResource( 57 )
-shader_param/noise = SubResource( 60 )
+[sub_resource type="CurveTexture" id=7]
+curve = SubResource( 6 )
 
-[sub_resource type="AtlasTexture" id=10]
-atlas = ExtResource( 7 )
-region = Rect2( 0, 0, 64, 64 )
+[sub_resource type="Curve" id=4]
+_data = [ Vector2( 0, 0.795455 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.522727 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="AtlasTexture" id=11]
-atlas = ExtResource( 7 )
-region = Rect2( 64, 0, 64, 64 )
+[sub_resource type="CurveTexture" id=5]
+curve = SubResource( 4 )
 
-[sub_resource type="AtlasTexture" id=12]
-atlas = ExtResource( 7 )
-region = Rect2( 128, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=55]
-atlas = ExtResource( 7 )
-region = Rect2( 192, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=56]
-atlas = ExtResource( 7 )
-region = Rect2( 256, 0, 64, 64 )
+[sub_resource type="ParticlesMaterial" id=3]
+emission_shape = 1
+emission_sphere_radius = 10.0
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+spread = 15.0
+gravity = Vector3( 0, -100, 0 )
+initial_velocity = 60.0
+angular_velocity = 100.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+radial_accel = 10.0
+damping = 90.0
+damping_random = 0.1
+scale = 0.15
+scale_curve = SubResource( 5 )
+color = Color( 0.819608, 0.180392, 0.0980392, 0.517647 )
+color_ramp = SubResource( 14 )
+hue_variation = 0.1
+hue_variation_random = 0.2
+hue_variation_curve = SubResource( 7 )
 
 [sub_resource type="AtlasTexture" id=15]
-atlas = ExtResource( 7 )
-region = Rect2( 320, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 7 )
-region = Rect2( 384, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=17]
-atlas = ExtResource( 7 )
-region = Rect2( 448, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=18]
-atlas = ExtResource( 7 )
-region = Rect2( 512, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=19]
-atlas = ExtResource( 7 )
-region = Rect2( 576, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=20]
-atlas = ExtResource( 7 )
-region = Rect2( 640, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=21]
-atlas = ExtResource( 7 )
-region = Rect2( 704, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=22]
-atlas = ExtResource( 7 )
-region = Rect2( 768, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=23]
-atlas = ExtResource( 7 )
-region = Rect2( 832, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=24]
-atlas = ExtResource( 7 )
-region = Rect2( 896, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=25]
-atlas = ExtResource( 7 )
-region = Rect2( 960, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=26]
-atlas = ExtResource( 7 )
-region = Rect2( 1024, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=27]
-atlas = ExtResource( 7 )
-region = Rect2( 1088, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=28]
-atlas = ExtResource( 7 )
-region = Rect2( 1152, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=29]
-atlas = ExtResource( 7 )
-region = Rect2( 1216, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=30]
-atlas = ExtResource( 7 )
-region = Rect2( 1280, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=31]
-atlas = ExtResource( 7 )
-region = Rect2( 1344, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=32]
-atlas = ExtResource( 7 )
-region = Rect2( 1408, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=33]
-atlas = ExtResource( 7 )
-region = Rect2( 1472, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=34]
-atlas = ExtResource( 7 )
-region = Rect2( 1536, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=35]
-atlas = ExtResource( 7 )
-region = Rect2( 1600, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=36]
-atlas = ExtResource( 7 )
-region = Rect2( 1664, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=37]
-atlas = ExtResource( 7 )
-region = Rect2( 1728, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=38]
-atlas = ExtResource( 7 )
-region = Rect2( 1792, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=39]
-atlas = ExtResource( 7 )
-region = Rect2( 1856, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=40]
-atlas = ExtResource( 7 )
-region = Rect2( 1920, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=41]
-atlas = ExtResource( 7 )
-region = Rect2( 1984, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=42]
-atlas = ExtResource( 7 )
-region = Rect2( 2048, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=43]
-atlas = ExtResource( 7 )
-region = Rect2( 2112, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=44]
-atlas = ExtResource( 7 )
-region = Rect2( 2176, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=45]
-atlas = ExtResource( 7 )
-region = Rect2( 2240, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=46]
-atlas = ExtResource( 7 )
-region = Rect2( 2304, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=47]
-atlas = ExtResource( 7 )
-region = Rect2( 2368, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=48]
-atlas = ExtResource( 7 )
-region = Rect2( 2432, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=49]
-atlas = ExtResource( 7 )
-region = Rect2( 2496, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=50]
-atlas = ExtResource( 7 )
-region = Rect2( 2560, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=51]
-atlas = ExtResource( 7 )
-region = Rect2( 2624, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=52]
-atlas = ExtResource( 7 )
-region = Rect2( 2688, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=53]
-atlas = ExtResource( 7 )
-region = Rect2( 2752, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=54]
-atlas = ExtResource( 7 )
-region = Rect2( 2816, 0, 64, 64 )
-
-[sub_resource type="SpriteFrames" id=9]
-animations = [ {
-"frames": [ SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 55 ), SubResource( 56 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ), SubResource( 42 ), SubResource( 43 ), SubResource( 44 ), SubResource( 45 ), SubResource( 46 ), SubResource( 47 ), SubResource( 48 ), SubResource( 49 ), SubResource( 50 ), SubResource( 51 ), SubResource( 52 ), SubResource( 53 ), SubResource( 54 ) ],
-"loop": true,
-"name": "New Anim",
-"speed": 30.0
-} ]
-
-[sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 1 )
 region = Rect2( 240, 208, 16, 16 )
 filter_clip = true
@@ -278,23 +113,24 @@ shadow_gradient_length = 10.0
 shadow_filter = 2
 shadow_filter_smooth = 50.0
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="Sprite7"]
-material = SubResource( 58 )
-position = Vector2( -0.5, -33 )
-rotation = 1.5708
-frames = SubResource( 9 )
-animation = "New Anim"
-frame = 34
-playing = true
-__meta__ = {
-"_edit_lock_": true
-}
+[node name="Particles2D" type="Particles2D" parent="Sprite7"]
+material = SubResource( 17 )
+position = Vector2( -0.5, -17 )
+scale = Vector2( 0.2, 0.2 )
+amount = 96
+lifetime = 1.6
+explosiveness = 0.1
+randomness = 0.4
+local_coords = false
+draw_order = 1
+process_material = SubResource( 3 )
+texture = ExtResource( 4 )
 
 [node name="Randomized" type="Node2D" parent="."]
 
 [node name="Sprite" type="Sprite" parent="Randomized"]
 position = Vector2( -8, 2.5 )
-texture = SubResource( 3 )
+texture = SubResource( 15 )
 
 [node name="Sprite2" type="Sprite" parent="Randomized"]
 position = Vector2( 4, -15 )
