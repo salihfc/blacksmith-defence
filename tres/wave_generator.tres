@@ -4,11 +4,12 @@
 [ext_resource path="res://tres/units/pools/enemy_pool.tres" type="Resource" id=2]
 
 [sub_resource type="Curve" id=1]
+min_value = 1.0
 max_value = 10.0
 _data = [ Vector2( 0, 1.27273 ), 0.0, 0.0, 0, 0, Vector2( 1, 10 ), 0.0, 0.0, 0, 0 ]
 
 [resource]
 script = ExtResource( 1 )
 enemy_pool = ExtResource( 2 )
-base_power = 100.0
+base_power = 1000.0
 power_curve = SubResource( 1 )

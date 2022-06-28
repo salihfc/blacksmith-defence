@@ -19,6 +19,8 @@ func _init(_dict : Dictionary = {}):
 
 
 func _to_string() -> String:
+	if _storage.size() == 0:
+		return "{}"
 	return UTILS.pretty_dict(_storage)
 
 

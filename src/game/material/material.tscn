@@ -42,4 +42,8 @@ scale = Vector2( 20, 20 )
 color = Color( 0.694118, 0.0509804, 0.0509804, 0.721569 )
 polygon = PoolVector2Array( 0, -50, 50, 0, 0, 50, -50, 0 )
 
+[node name="AutoCollectTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="area_entered" from="MousePickingArea" to="." method="_on_MousePickingArea_area_entered"]
+[connection signal="timeout" from="AutoCollectTimer" to="." method="_on_AutoCollectTimer_timeout"]

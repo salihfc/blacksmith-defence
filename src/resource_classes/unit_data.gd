@@ -198,7 +198,7 @@ func _get_property_list() -> Array:
 ### ONREADY VAR ###
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _to_string() -> String:
-	return name + UTILS.wrap_str(str(cost), "\n[", "\n]")
+	return name + UTILS.wrap_str(str(cost), "[", "]")
 
 
 func _init() -> void:
@@ -256,8 +256,8 @@ func scale_to_wave(wave_number : float):
 
 func calc_power() -> float:
 	var power = get_stat(StatContainer.STATS.MAX_HP)
-#	power *= get_stat(StatContainer.STATS.ATK_SPEED)
-#	power *= get_stat(StatContainer.STATS.DAMAGE_MULTI)
+	power *= get_stat(StatContainer.STATS.ATK_SPEED)
+	power *= get_stat(StatContainer.STATS.DAMAGE_MULTI)
 #	if get_stat(StatContainer.STATS.ATK_RANGE):
 #		power *= max(1.0, sqrt(get_stat(StatContainer.STATS.ATK_RANGE)))
 	return power

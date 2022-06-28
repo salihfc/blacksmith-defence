@@ -218,10 +218,11 @@ func spawn_enemy(enemy_data : UnitData, lane : int = _get_random_spawn_idx()):
 func spawn_random_mat(spawn_pos):
 	var material_data = weighted_material_pool.get_random()
 	var new_mat = P_Material.instance()
+	units.add_child(new_mat)
+
 	new_mat.set_data(material_data, 2)
 	new_mat.play_drop_animation()
-#	units.add_child(new_mat)
-	units.call_deferred("add_child", new_mat)
+#	units.call_deferred("add_child", new_mat)
 
 #	new_mat.global_position = spawn_pos
 	new_mat.set_deferred("global_position", spawn_pos)

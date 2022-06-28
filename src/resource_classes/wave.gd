@@ -14,6 +14,13 @@ export(Array, Resource) var enemies = []
 ### PRIVATE VAR ###
 ### ONREADY VAR ###
 ### VIRTUAL FUNCTIONS (_init ...) ###
+func _to_string() -> String:
+	var string = "\nWave: {\n"
+	for enemy in enemies:
+		string += "[%s] %s\n" % [enemy.calc_power(), enemy]
+	string += "}\n"
+	return string
+
 ### PUBLIC FUNCTIONS ###
 func pop():
 	if enemies.empty():
