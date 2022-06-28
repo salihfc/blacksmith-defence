@@ -1,6 +1,8 @@
 extends Node2D
 """
 """
+const STARTING_IRON_COUNT = 10
+
 ### SIGNAL ###
 # raw input
 signal left_button_clicked()
@@ -28,6 +30,7 @@ const CELL_SIZE = Vector2(32.0, 32.0)
 export(float) var MIN_SPAWN_DELAY = 0.5
 export(float) var MAX_SPAWN_DELAY = 2.0
 
+export(Resource) var weighted_material_pool = null
 export(Resource) var enemy_pool = null
 export(Resource) var material_pool = null
 export(Resource) var encounter = null
@@ -128,21 +131,20 @@ func _ready():
 	LOG.pr(LOG.LOG_TYPE.INTERNAL, "mats:\n[%s]" % [material_pool])
 
 	# Make sure materials show in the UI even if their amount is 0
-	for mat in material_pool.get_materials():
+	for mat in material_pool.get_items():
 		call_deferred("emit_signal", "material_collected", mat, 0)
 
 	call_deferred("emit_signal", "material_collected",
-		MaterialData.new(MaterialData.TYPE.IRON), 100)
-#		load("res://tres/materials/material_iron.tres"), 100)
-
-	call_deferred("emit_signal", "material_collected",
-		MaterialData.new(MaterialData.TYPE.COPPER), 44)
-
-	call_deferred("emit_signal", "material_collected",
-		MaterialData.new(MaterialData.TYPE.FIRE), 20)
-
-	call_deferred("emit_signal", "material_collected",
-		MaterialData.new(MaterialData.TYPE.EARTH), 20)
+		MaterialData.new(MaterialData.TYPE.IRON), STARTING_IRON_COUNT)
+#
+#	call_deferred("emit_signal", "material_collected",
+#		MaterialData.new(MaterialData.TYPE.COPPER), 44)
+#
+#	call_deferred("emit_signal", "material_collected",
+#		MaterialData.new(MaterialData.TYPE.FIRE), 20)
+#
+#	call_deferred("emit_signal", "material_collected",
+#		MaterialData.new(MaterialData.TYPE.EARTH), 20)
 
 
 func _physics_process(_delta):
@@ -203,12 +205,6 @@ func spawn_enemy_at_pos(enemy_data : UnitData, pos : Vector2):
 		[enemy]
 	)
 
-	SIGNAL.bind(
-		enemy, "died",
-		self, "_on_enemy_died",
-		[enemy]
-	)
-
 	return self
 
 
@@ -220,7 +216,7 @@ func spawn_enemy(enemy_data : UnitData, lane : int = _get_random_spawn_idx()):
 
 
 func spawn_random_mat(spawn_pos):
-	var material_data = load("res://tres/materials/material_iron.tres")
+	var material_data = weighted_material_pool.get_random()
 	var new_mat = P_Material.instance()
 	new_mat.set_data(material_data, 2)
 	new_mat.play_drop_animation()
@@ -231,8 +227,8 @@ func spawn_random_mat(spawn_pos):
 	new_mat.set_deferred("global_position", spawn_pos)
 
 	SIGNAL.bind(
-		new_mat, "hovered",
-		self, "_on_mat_hovered",
+		new_mat, "collected",
+		self, "_on_mat_collected",
 		[new_mat]
 	)
 
@@ -252,10 +248,7 @@ func set_dragged_item(drag_item_data) -> void:
 	new_holo.set_texture(drag_item_data.base_unit.texture)
 	draggedItemSlot.add_child(new_holo)
 
-	SIGNAL.bind(
-		self, "drag_grid_pos_changed",
-		new_holo, "set_valid"
-	)
+	new_holo.set_valid(false)
 
 	playerSpawnPositions.show()
 	gridTilemap.show()
@@ -308,6 +301,16 @@ func _get_random_spawn_idx() -> int:
 	return randi() % spawnPositions.get_child_count()
 
 
+func _is_dragged_item_affordable():
+	var drag_item = get_drag_item_data()
+	if drag_item == null:
+		return true
+
+	var player_mats = get_tree().get_nodes_in_group("player_materials")
+	if player_mats.size() == 1 and player_mats.back().get_storage().covers_cost(drag_item.total_cost()):
+		return true
+	return false
+
 ### SIGNAL RESPONSES ###
 # UI signal responses
 func _on_left_button_clicked():
@@ -316,13 +319,16 @@ func _on_left_button_clicked():
 	# Left_click pressed put down dragged item if there is one
 	var drag_item = get_drag_item_data()
 	if drag_item:
-		var areas = playerSpawnPositions.get_overlapping_areas()
-		if areas.size():
-			if not grid_pos_cache.is_occupied(_get_mouse_grid_pos()): # mouse is overlapping with spawn area
-				spawn_unit(drag_item, mousePointerArea.global_position)
-#				clear_dragged_item()
-			else:
-				LOG.pr(LOG.LOG_TYPE.AI, "pos (%s) OCCUPIED" % [_get_mouse_grid_pos()])
+			if _is_dragged_item_affordable():
+				var areas = playerSpawnPositions.get_overlapping_areas()
+				if areas.size():
+					if not grid_pos_cache.is_occupied(_get_mouse_grid_pos()): # mouse is overlapping with spawn area
+						spawn_unit(drag_item, mousePointerArea.global_position)
+		#				clear_dragged_item()
+					else:
+						LOG.pr(LOG.LOG_TYPE.AI, "pos (%s) OCCUPIED" % [_get_mouse_grid_pos()])
+
+	call_deferred("_on_mousePointerArea_areas_inside_changed")
 
 
 func _on_right_button_clicked():
@@ -334,7 +340,7 @@ func _on_unit_selected(unit):
 	emit_signal("unit_selected", unit)
 
 
-func _on_mat_hovered(mat):
+func _on_mat_collected(mat):
 	emit_signal("material_collected", mat.get_mat(), mat.get_count())
 
 
@@ -344,15 +350,9 @@ func _on_mousePointerArea_areas_inside_changed() -> void:
 		if mousePointerArea.get_areas_inside().empty():
 			dragged_item_holo.set_valid(false)
 		elif not grid_pos_cache.is_occupied(_get_mouse_grid_pos()):
-			dragged_item_holo.set_valid(true)
+			dragged_item_holo.set_valid(_is_dragged_item_affordable())
 
 # Gameplay signal responses
-func _on_enemy_died(enemy):
-	# spawn random materials
-	spawn_random_mat(enemy.global_position)
-	VFX.generate_fx_at(VFX.FX.BLOOD_EXPLOSION_PARTICLES, enemy.global_position)
-
-
 func _on_wave_ended(_wave_idx):
 	spawnTimer.stop()
 	emit_signal("wave_completed")

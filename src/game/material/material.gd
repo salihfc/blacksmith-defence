@@ -2,7 +2,7 @@ extends Sprite
 """
 """
 ### SIGNAL ###
-signal hovered()
+signal collected()
 
 ### ENUM ###
 ### CONST ###
@@ -63,6 +63,6 @@ func _set_shader_param_glow_anim_t(t : float) -> void:
 ### SIGNAL RESPONSES ###
 func _on_MousePickingArea_area_entered(_area):
 	if not _collected:
-		emit_signal("hovered")
 		_collected = true
 		play_collect_animation()
+		emit_signal("collected")

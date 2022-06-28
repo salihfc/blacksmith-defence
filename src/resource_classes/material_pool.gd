@@ -1,4 +1,4 @@
-extends Resource
+extends ItemPool
 class_name MaterialPool
 """
 """
@@ -6,22 +6,13 @@ class_name MaterialPool
 ### ENUM ###
 ### CONST ###
 ### EXPORT ###
-export(Array, Resource) var materials
-
 ### PUBLIC VAR ###
 ### PRIVATE VAR ###
 ### ONREADY VAR ###
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _to_string() -> String:
-	return str(materials)
+	return str(items)
 
 ### PUBLIC FUNCTIONS ###
-func get_materials():
-	return materials
-
-
-func get_random():
-	return UTILS.get_random_from(materials)
-
 ### PRIVATE FUNCTIONS ###
 ### SIGNAL RESPONSES ###

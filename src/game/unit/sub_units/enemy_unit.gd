@@ -6,6 +6,8 @@ class_name EnemyUnit
 ### ENUM ###
 ### CONST ###
 ### EXPORT ###
+export(float) var drop_chance = 0.5
+
 ### PUBLIC VAR ###
 ### PRIVATE VAR ###
 ### ONREADY VAR ###
@@ -39,3 +41,12 @@ func _set_area_layer_and_masks() -> void:
 	attackRange.collision_mask = COLLISION.PLAYER | COLLISION.PLAYER_BASE
 
 ### SIGNAL RESPONSES ###
+func _on_death() -> void:
+	if UTILS.check(drop_chance):
+		var battle_world = get_tree().get_nodes_in_group("battle_world")
+		assert (battle_world.size() <= 1)
+
+		if battle_world.size() == 1:
+			battle_world[0].spawn_random_mat(global_position)
+
+	._on_death()

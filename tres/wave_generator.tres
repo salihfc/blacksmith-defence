@@ -10,5 +10,5 @@ _data = [ Vector2( 0, 1.27273 ), 0.0, 0.0, 0, 0, Vector2( 1, 10 ), 0.0, 0.0, 0, 
 [resource]
 script = ExtResource( 1 )
 enemy_pool = ExtResource( 2 )
-base_power = 10.0
+base_power = 100.0
 power_curve = SubResource( 1 )

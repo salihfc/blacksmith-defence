@@ -64,17 +64,20 @@ func _input(event):
 
 			KEY_P: # Pause with P
 				LOG.pr(LOG.LOG_TYPE.INTERNAL, "PAUSED")
-				battle.paused = not battle.paused
-				UTILS.pause_node(battle, not battle.paused)
+				_pause_battle()
+
 
 			KEY_A: # Toggle Circles with A
 				CONFIG.SHOW_RANGE_CIRCLES = not CONFIG.SHOW_RANGE_CIRCLES
 
 
 func _ready():
-	assert(player_base)
 	# Init Player Base
+	assert(player_base)
 	player_base.init()
+
+	materialList.add_to_group("player_materials")
+
 	SIGNAL.bind(
 		player_base, "player_main_base_destroyed",
 		self, "_on_player_main_base_destroyed"
@@ -153,6 +156,10 @@ func _update_recipe_list() -> void:
 			[recipe]
 		)
 
+func _pause_battle() -> void:
+	battle.paused = not battle.paused
+	UTILS.pause_node(battle, not battle.paused)
+
 ### SIGNAL RESPONSES ###
 func _on_recipe_selected(unit_recipe : UnitRecipe) -> void:
 	assert(unit_recipe)
@@ -193,6 +200,7 @@ func _on_player_main_base_destroyed() -> void:
 func _on_CraftButton_pressed() -> void:
 	# Display Craft Menu
 	craftingMenu.reinit(materialList.get_storage())
+	_pause_battle()
 	popupPanel.popup()
 
 
@@ -200,7 +208,7 @@ func _on_unit_created(unit_recipe) -> void:
 	LOG.pr(LOG.LOG_TYPE.INTERNAL, "UNIT WITH RECIPE CREATED [%s]" % [unit_recipe])
 	popupPanel.hide()
 	materialList.reinit(craftingMenu.recover_mat_from_slots().get_storage())
-
+	_pause_battle()
 	_cached_recipes.append(unit_recipe)
 	_update_recipe_list()
 
@@ -208,4 +216,5 @@ func _on_unit_created(unit_recipe) -> void:
 func _on_crafting_cancelled() -> void:
 	LOG.pr(LOG.LOG_TYPE.INPUT, "CRAFTING CANCELLED")
 	popupPanel.hide()
+	_pause_battle()
 	materialList.reinit(craftingMenu.recover_mat_from_slots().get_storage())

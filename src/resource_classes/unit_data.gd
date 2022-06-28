@@ -12,7 +12,7 @@ const STAT_DEFAULTS = {
 	#	PLAYER UNITS
 	###
 	"Arcanist" : {
-		StatContainer.STATS.MAX_HP : 1300,
+		StatContainer.STATS.MAX_HP : 80,
 		StatContainer.STATS.BASE_DAMAGE : 40,
 		StatContainer.STATS.DAMAGE_MULTI : 1,
 		StatContainer.STATS.MOVE_SPEED : 1,
@@ -24,7 +24,7 @@ const STAT_DEFAULTS = {
 	},
 
 	"WinterMage" : {
-		StatContainer.STATS.MAX_HP : 1300,
+		StatContainer.STATS.MAX_HP : 70,
 		StatContainer.STATS.BASE_DAMAGE : 0,
 		StatContainer.STATS.DAMAGE_MULTI : 1,
 		StatContainer.STATS.MOVE_SPEED : 1,
@@ -35,7 +35,7 @@ const STAT_DEFAULTS = {
 	},
 
 	"Duelist" : {
-		StatContainer.STATS.MAX_HP : 1800,
+		StatContainer.STATS.MAX_HP : 140,
 		StatContainer.STATS.BASE_DAMAGE : 20,
 		StatContainer.STATS.DAMAGE_MULTI : 1.2,
 		StatContainer.STATS.MOVE_SPEED : 1,
@@ -46,7 +46,7 @@ const STAT_DEFAULTS = {
 	},
 
 	"SwordMaster": {
-		StatContainer.STATS.MAX_HP : 2400,
+		StatContainer.STATS.MAX_HP : 200,
 		StatContainer.STATS.BASE_DAMAGE : 10,
 		StatContainer.STATS.DAMAGE_MULTI : 1,
 		StatContainer.STATS.MOVE_SPEED : 1,

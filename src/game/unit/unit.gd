@@ -358,8 +358,8 @@ func take_damage(_damage, pulse = Vector2.ZERO) -> void:
 	TWEEN.interpolate_method_to_and_back(
 		self, "set_shader_param_damage_flash_anim",
 		0.0, 0.75,
-		0.1, 0.05,
-		rand_range(0.1, 0.2) # EXTRA JUICE EXPERIMENTAL
+		0.1, 0.05
+#		rand_range(0.1, 0.2) # EXTRA JUICE EXPERIMENTAL
 	)
 
 	if get_stat(StatContainer.STATS.HP) <= 0.0:
@@ -480,6 +480,9 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 
 
 func _on_death() -> void:
+	# spawn random materials
+	VFX.generate_fx_at(VFX.FX.BLOOD_EXPLOSION_PARTICLES, global_position)
+
 	for on_death_trigger in _on_death_triggers:
 		on_death_trigger.execute(self)
 
