@@ -6,9 +6,9 @@ extends SpellBase
 
 ### ENUM ###
 ### CONST ###
-const P_Arc = preload("res://src/game/spells/arc.tscn")
-
 ### EXPORT ###
+export(PackedScene) var P_Arc
+
 export(float) var jump_delay = 0.01
 export(float) var jump_range = 125.0
 export(int) var base_chain = 1
@@ -29,7 +29,7 @@ func get_target_count():
 
 func get_total_damage():
 	return CumulativeDamage.new([
-		damage.increased_by(get_owner().get_stat(StatContainer.STATS.BASE_DAMAGE)),
+		Damage.new().copy_from(damage).increased_by(get_owner().get_stat(StatContainer.STATS.BASE_DAMAGE)),
 	])
 
 

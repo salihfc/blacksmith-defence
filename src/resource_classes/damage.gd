@@ -40,9 +40,15 @@ var _amount
 
 ### ONREADY VAR ###
 ### VIRTUAL FUNCTIONS (_init ...) ###
-func _init(p_type : int, p_amount : float):
+func _init(p_type : int = TYPE.COUNT, p_amount : float = 0.0):
 	_type = p_type
 	_amount = p_amount
+
+
+func copy_from(other):
+	_type = other.get_type()
+	_amount = other.get_amount()
+	return self
 
 ### PUBLIC FUNCTIONS ###
 func get_type():
@@ -55,7 +61,6 @@ func get_resist_type():
 
 func get_text_color():
 	return TEXT_COLORS.get(_type)
-
 
 
 func get_amount():
