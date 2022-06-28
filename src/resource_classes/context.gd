@@ -20,7 +20,7 @@ func get_input_value_normalized(input_type : int, actor, target = null) -> float
 			return IAUS.NULL
 
 		IAUS.INPUT.HP_PERC:
-			return actor.get_hp_perc()
+			return actor.get_hp_fraction()
 
 		IAUS.INPUT.ENEMY_IN_RANGE:
 #			return actor.get_closest_enemy_dist_in_aggro_range_normalized()

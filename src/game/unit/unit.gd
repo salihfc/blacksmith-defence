@@ -9,6 +9,7 @@ signal info_updated()
 signal died()
 signal low_life_reached()
 signal selected()
+signal life_fraction_updated(frac)
 
 ### ENUM ###
 enum COLLISION {
@@ -70,9 +71,9 @@ var _low_life_already_reached : bool = false
 ### ONREADY VAR ###
 onready var spriteParent = $SpriteParent as Node2D
 onready var sprite = $SpriteParent/Sprite as Sprite
-onready var stateLabel = $DEBUG/StateLabel
+onready var stateLabel = $DEBUG/VBoxContainer/StateLabel as Label
 onready var animPlayer = $AnimationPlayer as AnimationPlayer
-onready var hpBar = $HpBar as Control
+onready var hpBar = $HpBarAnimated as AnimatedHpBar
 onready var weaponSlot = $SpriteParent/WeaponSlot as WeaponSlot
 onready var spellSlot = $SpriteParent/SpellSlot as Node2D
 
@@ -108,7 +109,12 @@ func _ready():
 		]
 	)
 
-	hpBar.set_value(1.0)
+	SIGNAL.bind(
+		self, "life_fraction_updated",
+		hpBar, "set_value_fraction"
+	)
+
+	hpBar.set_value_fraction(1.0)
 
 	set_velocity(get_default_dir() * BASE_SPEED)
 	call_deferred("decide")
@@ -225,7 +231,7 @@ func get_state():
 	return _state
 
 
-func get_hp_perc():
+func get_hp_fraction():
 	return get_stat(StatContainer.STATS.HP) / get_stat(StatContainer.STATS.MAX_HP)
 
 
@@ -359,8 +365,7 @@ func take_damage(_damage, pulse = Vector2.ZERO) -> void:
 
 
 		if CONFIG.SHOW_HP_BARS:
-			hpBar.visible = (get_hp_perc() < 1.0)
-			hpBar.set_value(get_hp_perc())
+			emit_signal("life_fraction_updated", get_hp_fraction())
 
 
 func set_shader_param_damage_flash_anim(x : float) -> void:

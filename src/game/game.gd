@@ -82,7 +82,7 @@ func _ready():
 
 	SIGNAL.bind(
 		player_base, "hp_updated",
-		baseHealthBar, "set_hp_value"
+		baseHealthBar, "_on_value_updated"
 	)
 
 	SIGNAL.bind(
