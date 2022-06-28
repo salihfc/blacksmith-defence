@@ -192,6 +192,11 @@ func spawn_enemy_at_pos(enemy_data : UnitData, pos : Vector2):
 	enemy.init_with_data(enemy_recipe)
 	enemy.global_position = pos
 
+	enemy.call_deferred(
+		"add_mod",
+		load("res://tres/mods/mock_mod.tres")
+	)
+
 	SIGNAL.bind(
 		enemy, "selected",
 		self, "_on_unit_selected",

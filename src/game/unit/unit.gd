@@ -41,6 +41,9 @@ const BASE_SPEED = 100.0
 
 ### EXPORT ###
 export(Resource) var agent_brain = null # Type: Agent
+export(NodePath) var NP_HpBar = null
+export(NodePath) var NP_StateLabel = null
+export(NodePath) var NP_ModListDisplay = null
 
 ### PUBLIC VAR ###
 var grid_pos setget set_grid_pos, get_grid_pos
@@ -69,11 +72,14 @@ var _on_low_life_reached_triggers = []
 var _low_life_already_reached : bool = false
 
 ### ONREADY VAR ###
+onready var hpBar = get_node(NP_HpBar) as AnimatedHpBar
+onready var stateLabel = get_node(NP_StateLabel) as Label
+onready var modListDisplay = get_node(NP_ModListDisplay) as ModListDisplay
+
+
 onready var spriteParent = $SpriteParent as Node2D
 onready var sprite = $SpriteParent/Sprite as Sprite
-onready var stateLabel = $DEBUG/VBoxContainer/StateLabel as Label
 onready var animPlayer = $AnimationPlayer as AnimationPlayer
-onready var hpBar = $HpBarAnimated as AnimatedHpBar
 onready var weaponSlot = $SpriteParent/WeaponSlot as WeaponSlot
 onready var spellSlot = $SpriteParent/SpellSlot as Node2D
 
@@ -181,6 +187,11 @@ func set_grid_pos(pos : Vector2) -> void:
 	grid_pos = pos
 
 
+func add_mod(mod):
+	modListDisplay.add_display_from_icon(mod.icon)
+	return self
+
+
 func add_on_hit_trigger(on_hit_trigger : Trigger):
 	_on_hit_triggers.append(on_hit_trigger)
 	return self
@@ -258,7 +269,6 @@ func decide() -> void:
 #	if animPlayer.current_animation == UTILS.get_enum_string_from_id(STATE, STATE.ATTACK).to_lower()\
 #			and animPlayer.is_playing():
 #		return
-
 	execute_action(action)
 	emit_signal("info_updated")
 

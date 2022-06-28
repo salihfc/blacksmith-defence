@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/gfx/ui/skill_icons_by_quintino_pixels/96x96/skill_icons6.png" type="Texture" id=1]
+[ext_resource path="res://src/ui/mod_display.gd" type="Script" id=2]
+
+[node name="ModDisplay" type="Control"]
+margin_right = 16.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 16, 16 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_lock_": true
+}

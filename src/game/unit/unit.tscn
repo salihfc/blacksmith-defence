@@ -1,8 +1,9 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://src/game/unit/unit.gd" type="Script" id=1]
 [ext_resource path="res://tres/atlas_tex/unit_default_sprite.atlastex" type="Texture" id=2]
 [ext_resource path="res://src/game/vfx/vfx_ground_dust.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/ui/mod_list_display.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/game/object_area.gd" type="Script" id=5]
 [ext_resource path="res://src/debug/range_circle.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/game/unit/weapon_slot.gd" type="Script" id=7]
@@ -68,6 +69,9 @@ resource_name = "walk"
 
 [node name="Unit" type="Node2D"]
 script = ExtResource( 1 )
+NP_HpBar = NodePath("UI/HpBarAnimated")
+NP_StateLabel = NodePath("UI/DEBUG/VBoxContainer/StateLabel")
+NP_ModListDisplay = NodePath("UI/ModListDisplay")
 
 [node name="RangeCircle" parent="." instance=ExtResource( 6 )]
 position = Vector2( 0, -8 )
@@ -148,35 +152,6 @@ __meta__ = {
 "_editor_description_": "Simple Universal animations defined here."
 }
 
-[node name="DEBUG" type="PanelContainer" parent="."]
-margin_left = -21.0
-margin_top = -56.0
-margin_right = 20.0
-margin_bottom = -42.0
-custom_styles/panel = SubResource( 13 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="DEBUG"]
-margin_right = 41.0
-margin_bottom = 14.0
-
-[node name="StateLabel" type="Label" parent="DEBUG/VBoxContainer"]
-margin_right = 41.0
-margin_bottom = 14.0
-size_flags_vertical = 3
-text = "tt"
-align = 1
-valign = 1
-uppercase = true
-
-[node name="HpBarAnimated" parent="." instance=ExtResource( 8 )]
-margin_left = -17.0
-margin_top = -39.0
-margin_right = 18.0
-margin_bottom = -31.0
-
 [node name="VFXGroundDust" parent="." instance=ExtResource( 3 )]
 pause_mode = 1
 visible = false
@@ -185,6 +160,45 @@ scale = Vector2( 1, 1 )
 [node name="Polygon2D" type="Polygon2D" parent="." groups=["debug"]]
 visible = false
 polygon = PoolVector2Array( 0, 7, 7, 0, 0, -7, -7, 0 )
+
+[node name="UI" type="Control" parent="."]
+margin_left = -21.0
+margin_top = -95.0
+margin_right = 19.0
+margin_bottom = -55.0
+
+[node name="DEBUG" type="PanelContainer" parent="UI"]
+margin_top = -4.0
+margin_right = 41.0
+margin_bottom = 10.0
+custom_styles/panel = SubResource( 13 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/DEBUG"]
+margin_right = 41.0
+margin_bottom = 14.0
+
+[node name="StateLabel" type="Label" parent="UI/DEBUG/VBoxContainer"]
+margin_right = 41.0
+margin_bottom = 14.0
+size_flags_vertical = 3
+text = "tt"
+align = 1
+valign = 1
+uppercase = true
+
+[node name="HpBarAnimated" parent="UI" instance=ExtResource( 8 )]
+margin_top = 33.0
+margin_right = 35.0
+margin_bottom = 41.0
+
+[node name="ModListDisplay" parent="UI" instance=ExtResource( 4 )]
+margin_top = 12.0
+margin_right = 57.0
+margin_bottom = 28.0
+rect_min_size = Vector2( 0, 16 )
 
 [connection signal="area_entered" from="SpriteParent/Areas/MousePickingArea" to="." method="_on_MousePickingArea_area_entered"]
 [connection signal="area_exited" from="SpriteParent/Areas/MousePickingArea" to="." method="_on_MousePickingArea_area_exited"]
