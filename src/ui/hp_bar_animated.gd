@@ -51,6 +51,7 @@ func set_value_fraction(fraction : float) -> void:
 func _get_perc(fraction):
 	return int(fraction * 100.0)
 
+
 func _animate_progress(progress_node, new_value, duration = animation_duration) -> void:
 	TWEEN.interpolate_property(
 			progress_node, "value",

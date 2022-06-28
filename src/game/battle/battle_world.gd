@@ -22,6 +22,8 @@ const P_Material = preload("res://src/game/material/material.tscn")
 const P_EnemyUnit = preload("res://src/game/unit/sub_units/enemy_unit.tscn")
 const P_PlayerUnit = preload("res://src/game/unit/sub_units/player_unit.tscn")
 const P_UnitHolo = preload("res://src/ui/unit_holo.tscn")
+
+const CELL_SIZE = Vector2(32.0, 32.0)
 ### EXPORT ###
 export(float) var MIN_SPAWN_DELAY = 0.5
 export(float) var MAX_SPAWN_DELAY = 2.0
@@ -293,7 +295,8 @@ func _get_random_enemy_data():
 
 
 func _get_lane_spawn_pos(lane) -> Vector2:
-	return spawnPositions.get_children()[lane].global_position + Vector2.UP * rand_range(-1.0, 1.0) * 40.0
+	return spawnPositions.get_children()[lane].global_position\
+			+ Vector2.DOWN * CELL_SIZE.y * float(randi() % 5)
 
 
 func _get_random_spawn_idx() -> int:
