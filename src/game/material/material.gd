@@ -1,4 +1,4 @@
-extends Sprite
+extends Node2D
 """
 """
 ### SIGNAL ###
@@ -16,12 +16,17 @@ var _ct : int
 var _collected = false
 
 ### ONREADY VAR ###
+onready var sprite = $Sprite as Sprite
+
 ### VIRTUAL FUNCTIONS (_init ...) ###
+func _ready() -> void:
+	sprite.texture = _mat.sprite
+
+
 ### PUBLIC FUNCTIONS ###
 func set_data(mat : MaterialData, ct : int) -> void:
 	_mat = mat
 	_ct = ct
-	texture = mat.sprite
 
 
 func get_mat():
@@ -38,13 +43,16 @@ func play_drop_animation() -> void:
 		scale, Vector2.ZERO,
 		0.3, 0.1
 	)
-	TWEEN.interpolate_method_to_and_back(
+
+	TWEEN.call_deferred(
+		"interpolate_method_to_and_back",
+
 		self, "_set_shader_param_glow_anim_t",
 		0.0, 1.0,
 		0.1, 0.1
 	)
 
-	$AutoCollectTimer.start(auto_collect_after)
+	$AutoCollectTimer.call_deferred("start", auto_collect_after)
 
 
 func play_collect_animation() -> void:
@@ -54,12 +62,12 @@ func play_collect_animation() -> void:
 		scale, Vector2.ZERO,
 		anim_duration
 	)
-	yield(get_tree().create_timer(anim_duration), "timeout")
-	queue_free()
+
+	$AutoFreeTimer.call_deferred("start", anim_duration)
 
 ### PRIVATE FUNCTIONS ###
 func _set_shader_param_glow_anim_t(t : float) -> void:
-	material.set_shader_param("in_anim_t", t)
+	sprite.material.set_shader_param("in_anim_t", t)
 
 
 func _collect() -> void:
@@ -76,3 +84,7 @@ func _on_MousePickingArea_area_entered(_area):
 func _on_AutoCollectTimer_timeout() -> void:
 #	LOG.pr(LOG.LOG_TYPE.INTERNAL, "TIMER TIMEOUT >>")
 	_collect()
+
+
+func _on_AutoFreeTimer_timeout() -> void:
+	call_deferred("queue_free")

@@ -172,7 +172,8 @@ func init_with_data(unit_recipe : UnitRecipe) -> void:
 	DBG_range_circle.radius = get_stat(StatContainer.STATS.ATK_RANGE)
 
 	assert(unit_data.brain != null)
-	agent_brain = unit_data.brain.duplicate(true)
+#	agent_brain = unit_data.brain.duplicate(true)
+	agent_brain = unit_data.brain
 
 
 func is_unit_in_attack_range(unit) -> bool:
