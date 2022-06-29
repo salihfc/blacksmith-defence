@@ -5,5 +5,5 @@
 
 [resource]
 script = ExtResource( 1 )
-total_wave_count = 5
+total_wave_count = 100
 wave_generator = ExtResource( 2 )

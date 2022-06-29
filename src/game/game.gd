@@ -11,6 +11,9 @@ signal material_used(mat, count)
 # Prefabs
 ### EXPORT ###
 export(PackedScene) var P_UnitRecipeView
+export(Texture) var mouse_normal_cursor
+export(Texture) var mouse_pressed_cursor
+
 
 """
 	NOTE:
@@ -54,6 +57,14 @@ onready var unitInfoDisplay = get_node(NP_UnitInfoDisplay) as UnitInfoDisplay
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _input(event):
+	if event is InputEventMouseButton:
+		if event.button_index == BUTTON_LEFT:
+			if event.pressed:
+				Input.set_custom_mouse_cursor(mouse_pressed_cursor)
+			else:
+				Input.set_custom_mouse_cursor(mouse_normal_cursor)
+
+
 	if event is InputEventKey and event.pressed:
 		match event.scancode:
 			KEY_QUOTELEFT: # Toggle DebugWindow
@@ -66,12 +77,13 @@ func _input(event):
 				LOG.pr(LOG.LOG_TYPE.INTERNAL, "PAUSED")
 				_pause_battle()
 
-
 			KEY_A: # Toggle Circles with A
 				CONFIG.SHOW_RANGE_CIRCLES = not CONFIG.SHOW_RANGE_CIRCLES
 
 
 func _ready():
+	Input.set_custom_mouse_cursor(mouse_normal_cursor)
+
 	# Init Player Base
 	assert(player_base)
 	player_base.init()
