@@ -16,6 +16,9 @@ export(NodePath) var NP_MaterialList
 export(NodePath) var NP_WeaponTextureRect
 export(NodePath) var NP_MaterialSlots
 
+export(NodePath) var NP_CraftButton
+export(NodePath) var NP_CancelButton
+
 export(Resource) var craftable_units
 export(Resource) var owned_materials = MaterialStorage.new()
 
@@ -30,8 +33,14 @@ onready var weaponTextureRect = get_node(NP_WeaponTextureRect) as TextureRect
 onready var materialList = get_node(NP_MaterialList) as VBoxContainer
 onready var materialSlots = get_node(NP_MaterialSlots) as VBoxContainer
 
+onready var craftButton = get_node(NP_CraftButton) as Button
+onready var cancelButton = get_node(NP_CancelButton) as Button
+
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _ready() -> void:
+	craftButton.add_to_group("ui_button")
+	cancelButton.add_to_group("ui_button")
+
 	SIGNAL.bind(
 		materialList, "material_selected_from_list",
 		self, "_on_material_selected_from_list"

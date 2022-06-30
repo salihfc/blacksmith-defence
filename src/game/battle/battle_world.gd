@@ -183,6 +183,8 @@ func spawn_unit(unit_data, pos : Vector2) -> void:
 		[unit.grid_pos]
 	)
 
+	VFX.generate_fx_at(VFX.FX.CLICK_DUST, get_global_mouse_position())
+	AUDIO.play_ui_sfx(AUDIO.UI_SFX.UNIT_PLACEMENT)
 	emit_signal("unit_spawned", unit_data)
 
 
@@ -329,6 +331,10 @@ func _on_left_button_clicked():
 		#				clear_dragged_item()
 					else:
 						LOG.pr(LOG.LOG_TYPE.AI, "pos (%s) OCCUPIED" % [_get_mouse_grid_pos()])
+
+	else:
+		VFX.generate_fx_at(VFX.FX.CLICK_DUST, get_global_mouse_position())
+		AUDIO.play_ui_sfx(AUDIO.UI_SFX.CLICK_DUST)
 
 	call_deferred("_on_mousePointerArea_areas_inside_changed")
 

@@ -14,6 +14,7 @@ enum FX {
 	BLOOD_EXPLOSION_PARTICLES,
 
 	BASE_SPLINTERS,
+	CLICK_DUST,
 }
 
 ### CONST ###
@@ -24,12 +25,15 @@ export(PackedScene) var VFX_SWING_HIT
 export(PackedScene) var VFX_THRUST_HIT
 export(PackedScene) var VFX_BLOOD
 export(PackedScene) var VFX_BASE_SPLINTERS
+export(PackedScene) var VFX_CLICK_DUST
+
 ### PUBLIC VAR ###
 onready var _effects = {
 	FX.SWING_HIT_PARTICLES : VFX_SWING_HIT,
 	FX.THRUST_HIT_PARTICLES : VFX_THRUST_HIT,
 	FX.BLOOD_EXPLOSION_PARTICLES : VFX_BLOOD,
 	FX.BASE_SPLINTERS : VFX_BASE_SPLINTERS,
+	FX.CLICK_DUST : VFX_CLICK_DUST,
 }
 
 ### PRIVATE VAR ###

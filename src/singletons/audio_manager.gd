@@ -13,6 +13,25 @@ const MIN_VOLUME_DB := -60.0
 const MAX_VOLUME_DB := 0.0
 const VOLUME_REDUCTION_DB := 30.0
 
+enum UI_SFX {
+	HOVER_BLIP,
+	PRESS_BLIP,
+
+	CLICK_DUST,
+	UNIT_PLACEMENT
+
+	COUNT,
+}
+
+const UI_SFX_ARRAY = [
+	preload("res://assets/sfx/ui/ui_hover_blip.wav"),
+	preload("res://assets/sfx/ui/ui_press_blip-2.wav"),
+
+	preload("res://assets/sfx/ui/dust_sound.wav"),
+	preload("res://assets/sfx/ui/unit_placement_sound.wav"),
+]
+
+
 enum SFX {
 	SPELL_ARC,
 	SPELL_ICENOVA,
@@ -73,13 +92,23 @@ func set_sfx_volume(new_value : float) -> void:
 
 func play(sfx_id : int) -> void:
 	LOG.pr(LOG.LOG_TYPE.SFX, "play sfx: [%s]" % [sfx_id])
-	if sfx_on and sfx_id < SFX_array.size():
+	_play_sfx(SFX_array[sfx_id])
+
+
+func play_ui_sfx(sfx_id : int) -> void:
+	LOG.pr(LOG.LOG_TYPE.SFX, "play sfx: [%s]" % [sfx_id])
+	_play_sfx(UI_SFX_ARRAY[sfx_id])
+
+
+func _play_sfx(sfx_audio):
+	if sfx_on:
 		for SFXplayer in SFXplayers.get_children():
 			if not SFXplayer.is_playing():
-#				LOG.pr(LOG.LOG_TYPE.SFX, "PLAYING SFX::(%s)" % [sfx_id])
-				SFXplayer.stream.audio_stream = SFX_array[sfx_id]
-				SFXplayer.play(SFX_start[sfx_id] if SFX_start.has(sfx_id) else 0)
+				SFXplayer.stream.audio_stream = sfx_audio
+				SFXplayer.play()
 				break
+
+
 
 
 func set_sfx_player_count(count : int) -> void:

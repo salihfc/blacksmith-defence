@@ -27,10 +27,13 @@ onready var unitRecipeViewPanel = get_node(NP_UnitRecipeViewPanel)
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _ready() -> void:
+	button.add_to_group("ui_button")
+
 	SIGNAL.bind(
 		button, "pressed",
 		self, "_on_TextureButton_pressed"
 	)
+
 
 ### PUBLIC FUNCTIONS ###
 func set_data(unit_recipe : UnitRecipe) -> void:

@@ -149,6 +149,18 @@ func _ready():
 
 	_update_recipe_list()
 
+	var ui_buttons = get_tree().get_nodes_in_group("ui_button")
+	LOG.pr(LOG.LOG_TYPE.SFX, "UI_BUTTONS: %s" % [ui_buttons])
+
+	for button in ui_buttons:
+		SIGNAL.bind_bulk(button, self,
+			[
+				["mouse_entered", "_play_ui_sfx_on_button_interaction", [AUDIO.UI_SFX.HOVER_BLIP]],
+				["pressed", "_play_ui_sfx_on_button_interaction", [AUDIO.UI_SFX.PRESS_BLIP]],
+			]
+		)
+
+
 ### PUBLIC FUNCTIONS ###
 ### PRIVATE FUNCTIONS ###
 func _update_recipe_list() -> void:
@@ -173,6 +185,10 @@ func _pause_battle() -> void:
 	UTILS.pause_node(battle, not battle.paused)
 
 ### SIGNAL RESPONSES ###
+func _play_ui_sfx_on_button_interaction(sfx_id = 0):
+	AUDIO.play_ui_sfx(sfx_id)
+
+
 func _on_recipe_selected(unit_recipe : UnitRecipe) -> void:
 	assert(unit_recipe)
 	LOG.pr(LOG.LOG_TYPE.INPUT, "UNIT_VIEW PRESSED WITH [%s] unit_total[%s]\nstorage[%s]" % [unit_recipe, unit_recipe.total_cost(), materialList.get_storage()])
