@@ -33,6 +33,18 @@ func bind(
 				[source_node, signal_name, target_node, method_name])
 
 
+func bind_multi(connection_array : Array) -> void:
+	for data in connection_array:
+		assert(data.size() >= 4)
+		var source_node = data[0]
+		var signal_name = data[1]
+		var target_node = data[2]
+		var method_name = data[3]
+		var binds = [] if data.size() == 4 else data[4]
+
+		bind(source_node, signal_name, target_node, method_name, binds)
+
+
 func unbind(
 		source_node : Object, signal_name : String,
 		target_node : Object, method_name : String) -> void:

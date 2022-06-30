@@ -507,6 +507,7 @@ AUDIO="*res://src/singletons/audio_manager.tscn"
 FLOATING_TEXT="*res://src/singletons/floating_text_generator.tscn"
 STATUS="*res://src/singletons/status_effect_generator.tscn"
 WEAPON_ENHANCE_DB="*res://src/singletons/weapon_mat_effect_db.gd"
+GROUP="*res://src/singletons/group_manager.gd"
 
 [debug]
 

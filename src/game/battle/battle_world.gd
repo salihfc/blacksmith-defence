@@ -80,8 +80,7 @@ func _input(event: InputEvent) -> void:
 
 
 func _ready():
-	add_to_group("battle_world", true)
-
+	add_to_group(str(GROUP.BATTLE_WORLD), true)
 	# TODO: Looks bad [clear this in next AI pass]
 	CONFIG.context.set_world(self)
 
@@ -91,16 +90,6 @@ func _ready():
 			["left_button_clicked", "_on_left_button_clicked"],
 			["right_button_clicked", "_on_right_button_clicked"],
 		]
-	)
-
-	SIGNAL.bind(
-		VFX, "vfx_created",
-		self, "_on_vfx_created"
-	)
-
-	SIGNAL.bind(
-		FLOATING_TEXT, "floating_text_created",
-		self, "_on_floating_text_created"
 	)
 
 	for base in playerBase.get_children():
@@ -310,10 +299,7 @@ func _is_dragged_item_affordable():
 	if drag_item == null:
 		return true
 
-	var player_mats = get_tree().get_nodes_in_group("player_materials")
-	if player_mats.size() == 1 and player_mats.back().get_storage().covers_cost(drag_item.total_cost()):
-		return true
-	return false
+	return GROUP.get_global(GROUP.PLAYER_MATS).get_storage().covers_cost(drag_item.total_cost())
 
 ### SIGNAL RESPONSES ###
 # UI signal responses
@@ -369,11 +355,3 @@ func _on_wave_ended(_wave_idx):
 func _on_spawn_timer_timeout() -> void:
 	encounter.request_spawn_enemy()
 	spawnTimer.start(rand_range(MIN_SPAWN_DELAY, MAX_SPAWN_DELAY))
-
-
-func _on_vfx_created(vfx) -> void:
-	vfxContainer.add_child(vfx)
-
-
-func _on_floating_text_created(floating_text) -> void:
-	floatingTextContainer.add_child(floating_text)

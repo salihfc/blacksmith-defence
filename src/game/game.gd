@@ -41,7 +41,6 @@ export(Resource) var player_base = null
 var _cached_recipes = []
 
 ### ONREADY VAR ###
-
 onready var battle = get_node(NP_Battle)
 onready var materialList = get_node(NP_MaterialList)
 onready var unitRecipeList = get_node(NP_UnitRecipeList)
@@ -82,33 +81,25 @@ func _input(event):
 
 
 func _ready():
+	add_to_group(str(GROUP.GAME), true)
+	materialList.add_to_group(str(GROUP.PLAYER_MATS))
 	Input.set_custom_mouse_cursor(mouse_normal_cursor)
-
 	# Init Player Base
 	assert(player_base)
 	player_base.init()
 
-	materialList.add_to_group("player_materials")
+	SIGNAL.bind_multi([
+		[player_base, "player_main_base_destroyed", self, "_on_player_main_base_destroyed"],
+		[player_base, "hp_updated", baseHealthBar, "_on_value_updated"],
 
-	SIGNAL.bind(
-		player_base, "player_main_base_destroyed",
-		self, "_on_player_main_base_destroyed"
-	)
+		[startWaveButton, "pressed", self, "_on_wave_start_button_pressed"],
+		[craftButton, "pressed", self, "_on_CraftButton_pressed"],
 
-	SIGNAL.bind(
-		player_base, "hp_updated",
-		baseHealthBar, "_on_value_updated"
-	)
+		[battle, "base_damaged", player_base, "take_damage"],
+		[battle, "material_collected", materialList, "_on_material_collected"],
 
-	SIGNAL.bind(
-		startWaveButton, "pressed",
-		self, "_on_wave_start_button_pressed"
-	)
-
-	SIGNAL.bind(
-		craftButton, "pressed",
-		self, "_on_CraftButton_pressed"
-	)
+		[self, "material_used", materialList, "_on_material_used"],
+	])
 
 	SIGNAL.bind_bulk(
 		battle, self,
@@ -117,21 +108,6 @@ func _ready():
 			["unit_spawned", "_on_unit_spawned"],
 			["wave_completed", "_on_wave_completed"],
 		]
-	)
-
-	SIGNAL.bind(
-		battle, "base_damaged",
-		player_base, "take_damage"
-	)
-
-	SIGNAL.bind(
-		battle, "material_collected",
-		materialList, "_on_material_collected"
-	)
-
-	SIGNAL.bind(
-		self, "material_used",
-		materialList, "_on_material_used"
 	)
 
 	SIGNAL.bind_bulk(
@@ -179,6 +155,7 @@ func _update_recipe_list() -> void:
 			self, "_on_recipe_selected",
 			[recipe]
 		)
+
 
 func _pause_battle() -> void:
 	battle.paused = not battle.paused
