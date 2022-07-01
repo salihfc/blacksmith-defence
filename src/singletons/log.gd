@@ -1,6 +1,7 @@
 tool
 extends Node
 
+export(bool) var console_logging = false
 export(bool) var file_logging = false
 const LOG_PATH = "example/blacksmith.log"
 var _log_file : File
@@ -91,17 +92,22 @@ func _ready() -> void:
 		else:
 			pr(LOG_TYPE.INTERNAL, "LOG FILE COULD NOT BE OPENED [%s]" % [err], "LOG")
 
-	pr(LOG_TYPE.INTERNAL, "READY [log_mask:%s]" % [runtime_mask], "LOG")
+	pr(LOG_TYPE.INTERNAL, "READY [log_mask:%s {%s}]" % [runtime_mask, _decomposed_mask()], "LOG")
 
 
 func pr(log_mask: int, log_msg, caller:String = "") -> void:
 	if not OS.is_debug_build() or (log_mask & runtime_mask == 0):
 		return
 
+	if not console_logging and not file_logging:
+		return
+
 	var msg = str(log_msg) + " -- \t\t\t\t[%s]"%caller
 	msg = get_log_type_name(log_mask, "UNK") + " -- " + msg
 
-	print(msg)
+	if console_logging:
+		print(msg)
+
 	if file_logging:
 		_log_file.store_line(msg)
 
@@ -113,3 +119,10 @@ func err(err_msg, caller:String = "") -> void:
 	push_error(msg)
 
 
+func _decomposed_mask() -> String:
+	var string = ""
+	for idx in _log_idx[LOG_TYPE.COUNT] + 1:
+		var log_flag = _get_log_flag(1 << idx)
+		if log_flag:
+			string += get_log_type_name(1 << idx) + " | "
+	return string

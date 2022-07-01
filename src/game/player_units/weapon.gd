@@ -61,7 +61,6 @@ func init_with_data(weapon_data : WeaponData) -> void:
 
 	# Start Idle animation
 	if animPlayer.has_animation(get_anim(ANIM.IDLE)):
-		prints ("playing", get_anim(ANIM.IDLE))
 		animPlayer.play(get_anim(ANIM.IDLE))
 
 ### PUBLIC FUNCTIONS ###
