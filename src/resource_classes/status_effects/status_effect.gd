@@ -25,6 +25,8 @@ enum TYPE {
 ### CONST ###
 ### EXPORT ###
 export(TYPE) var type setget set_type, get_type
+export(Texture) var icon setget set_icon, get_icon
+
 # This function resources should inherit StatusEffectFunctionBase
 export(Resource) var on_tick_function = null
 export(Resource) var on_applied_function = null
@@ -70,6 +72,7 @@ func clone_from_prototype(prototype):
 	return set_type(prototype.get_type())\
 			.set_duration(prototype.get_duration())\
 			.set_value(prototype.get_value())\
+			.set_icon(prototype.get_icon())\
 			.set_applied_function(prototype.get_applied_function())\
 			.set_tick_function(prototype.get_tick_function())\
 			.set_expired_function(prototype.get_expired_function())
@@ -91,6 +94,15 @@ func set_type(new_type):
 
 func get_type():
 	return type
+
+
+func set_icon(new_icon):
+	icon = new_icon
+	return self
+
+
+func get_icon():
+	return icon
 
 
 func set_originator(origin):

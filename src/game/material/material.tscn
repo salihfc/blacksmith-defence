@@ -50,6 +50,6 @@ one_shot = true
 [node name="AutoFreeTimer" type="Timer" parent="."]
 one_shot = true
 
-[connection signal="area_entered" from="MousePickingArea" to="Sprite" method="_on_MousePickingArea_area_entered"]
+[connection signal="area_entered" from="MousePickingArea" to="." method="_on_MousePickingArea_area_entered"]
 [connection signal="timeout" from="AutoCollectTimer" to="." method="_on_AutoCollectTimer_timeout"]
 [connection signal="timeout" from="AutoFreeTimer" to="." method="_on_AutoFreeTimer_timeout"]

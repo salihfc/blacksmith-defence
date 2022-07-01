@@ -38,7 +38,17 @@ export(Resource) var player_base = null
 
 ### PUBLIC VAR ###
 ### PRIVATE VAR ###
-var _cached_recipes = []
+var _cached_recipes = [
+	UnitRecipe.new(
+		preload("res://tres/units/player_units/Duelist.tres"),
+		MaterialStorage.new().add_material(preload("res://tres/materials/material_fire_rune.tres"), 1)
+	),
+
+	UnitRecipe.new(
+		preload("res://tres/units/player_units/Arcanist.tres"),
+		MaterialStorage.new().add_material(preload("res://tres/materials/material_fire_rune.tres"), 1)
+	),
+]
 
 ### ONREADY VAR ###
 onready var battle = get_node(NP_Battle)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://src/game/unit/unit.gd" type="Script" id=1]
 [ext_resource path="res://tres/atlas_tex/unit_default_sprite.atlastex" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://src/debug/range_circle.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/game/unit/weapon_slot.gd" type="Script" id=7]
 [ext_resource path="res://src/ui/hp_bar_animated.tscn" type="PackedScene" id=8]
+[ext_resource path="res://src/ui/status_list_display.tscn" type="PackedScene" id=9]
 
 [sub_resource type="Shader" id=9]
 code = "// NOTE: Shader automatically converted from Godot Engine 3.4.stable's CanvasItemMaterial.
@@ -72,6 +73,7 @@ script = ExtResource( 1 )
 NP_HpBar = NodePath("UI/HpBarAnimated")
 NP_StateLabel = NodePath("UI/DEBUG/VBoxContainer/StateLabel")
 NP_ModListDisplay = NodePath("UI/ModListDisplay")
+NP_StatusListDisplay = NodePath("UI/StatusListDisplay")
 
 [node name="RangeCircle" parent="." instance=ExtResource( 6 )]
 position = Vector2( 0, -8 )
@@ -162,15 +164,14 @@ visible = false
 polygon = PoolVector2Array( 0, 7, 7, 0, 0, -7, -7, 0 )
 
 [node name="UI" type="Control" parent="."]
-margin_left = -21.0
-margin_top = -95.0
-margin_right = 19.0
-margin_bottom = -55.0
 
 [node name="DEBUG" type="PanelContainer" parent="UI"]
-margin_top = -4.0
-margin_right = 41.0
-margin_bottom = 10.0
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -20.5
+margin_top = -113.0
+margin_right = 20.5
+margin_bottom = -99.0
 custom_styles/panel = SubResource( 13 )
 __meta__ = {
 "_edit_group_": true
@@ -189,16 +190,30 @@ align = 1
 valign = 1
 uppercase = true
 
-[node name="HpBarAnimated" parent="UI" instance=ExtResource( 8 )]
-margin_top = 33.0
-margin_right = 35.0
-margin_bottom = 41.0
-
 [node name="ModListDisplay" parent="UI" instance=ExtResource( 4 )]
-margin_top = 12.0
-margin_right = 57.0
-margin_bottom = 28.0
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -28.5
+margin_top = -96.0
+margin_right = 28.5
+margin_bottom = -80.0
 rect_min_size = Vector2( 0, 16 )
+
+[node name="HpBarAnimated" parent="UI" instance=ExtResource( 8 )]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -17.5
+margin_top = -51.0
+margin_right = 17.5
+margin_bottom = -43.0
+
+[node name="StatusListDisplay" parent="UI" instance=ExtResource( 9 )]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -36.0
+margin_top = -71.0
+margin_right = 36.0
+margin_bottom = -59.0
 
 [connection signal="area_entered" from="SpriteParent/Areas/MousePickingArea" to="." method="_on_MousePickingArea_area_entered"]
 [connection signal="area_exited" from="SpriteParent/Areas/MousePickingArea" to="." method="_on_MousePickingArea_area_exited"]

@@ -1,13 +1,15 @@
-[gd_resource type="Resource" load_steps=5 format=2]
+[gd_resource type="Resource" load_steps=6 format=2]
 
 [ext_resource path="res://src/resource_classes/status_effects/status_effect.gd" type="Script" id=1]
 [ext_resource path="res://tres/status_effects/status_effect_functions/poison_tick_function.tres" type="Resource" id=2]
 [ext_resource path="res://tres/status_effects/status_effect_functions/poison_apply_function.tres" type="Resource" id=3]
 [ext_resource path="res://tres/status_effects/status_effect_functions/status_effect_generic_expire_function.tres" type="Resource" id=4]
+[ext_resource path="res://assets/gfx/ui/skill_icons_by_quintino_pixels/24x24/skill_icons12.png" type="Texture" id=5]
 
 [resource]
 script = ExtResource( 1 )
 type = 6
+icon = ExtResource( 5 )
 on_tick_function = ExtResource( 2 )
 on_applied_function = ExtResource( 3 )
 on_expired_function = ExtResource( 4 )

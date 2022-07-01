@@ -44,6 +44,7 @@ export(Resource) var agent_brain = null # Type: Agent
 export(NodePath) var NP_HpBar = null
 export(NodePath) var NP_StateLabel = null
 export(NodePath) var NP_ModListDisplay = null
+export(NodePath) var NP_StatusListDisplay = null
 
 ### PUBLIC VAR ###
 var grid_pos setget set_grid_pos, get_grid_pos
@@ -75,6 +76,7 @@ var _low_life_already_reached : bool = false
 onready var hpBar = get_node(NP_HpBar) as AnimatedHpBar
 onready var stateLabel = get_node(NP_StateLabel) as Label
 onready var modListDisplay = get_node(NP_ModListDisplay) as ModListDisplay
+onready var statusListDisplay = get_node(NP_StatusListDisplay) as StatusListDisplay
 
 
 onready var spriteParent = $SpriteParent as Node2D
@@ -98,6 +100,7 @@ func _to_string():
 
 
 func _ready():
+	statusListDisplay.bind_container(_status_container)
 	_status_container.start(self)
 
 	SIGNAL.bind(
@@ -156,6 +159,8 @@ func init_with_data(unit_recipe : UnitRecipe) -> void:
 	_base_cost = unit_data.get_cost()
 	_enhance_cost = unit_recipe.enhance_cost
 
+	if OS.is_debug_build():
+		_stats.set_stat(StatContainer.STATS.MAX_HP, get_stat(StatContainer.STATS.MAX_HP) * 10.0)
 	# Set hp to max
 	_stats.set_stat(StatContainer.STATS.HP, get_stat(StatContainer.STATS.MAX_HP))
 
@@ -215,7 +220,8 @@ func multiply_stat(id : int, amount):
 
 func apply_status_effect(status_effect):
 	assert(status_effect is StatusEffect)
-	status_effect.apply(_status_container, self)
+	_status_container.add_status(status_effect)
+#	status_effect.apply(_status_container, self)
 	return self
 
 # Getters

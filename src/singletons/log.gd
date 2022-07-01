@@ -1,6 +1,9 @@
 tool
 extends Node
 
+export(bool) var file_logging = false
+const LOG_PATH = "example/blacksmith.log"
+var _log_file : File
 # masks
 const _FLAG_PREFIX = "_log_flags/"
 var _log_flag_data = {}
@@ -78,6 +81,16 @@ func _ready() -> void:
 		var log_flag = _get_log_flag(1 << idx)
 		runtime_mask += int(log_flag) * (1 << idx)
 
+
+	if file_logging:
+		_log_file = File.new()
+		var full_path = LOG_PATH
+		var err = _log_file.open(full_path, File.WRITE)
+		if err == OK:
+			pr(LOG_TYPE.INTERNAL, "LOG FILE OPENED [%s]" % [full_path], "LOG")
+		else:
+			pr(LOG_TYPE.INTERNAL, "LOG FILE COULD NOT BE OPENED [%s]" % [err], "LOG")
+
 	pr(LOG_TYPE.INTERNAL, "READY [log_mask:%s]" % [runtime_mask], "LOG")
 
 
@@ -87,7 +100,11 @@ func pr(log_mask: int, log_msg, caller:String = "") -> void:
 
 	var msg = str(log_msg) + " -- \t\t\t\t[%s]"%caller
 	msg = get_log_type_name(log_mask, "UNK") + " -- " + msg
+
 	print(msg)
+	if file_logging:
+		_log_file.store_line(msg)
+
 
 
 func err(err_msg, caller:String = "") -> void:

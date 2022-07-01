@@ -4,6 +4,8 @@ class_name StatusEffectContainer
 """
 
 ### SIGNAL ###
+signal statuses_changed(statuses)
+
 ### ENUM ###
 ### CONST ###
 ### EXPORT ###
@@ -61,13 +63,16 @@ func tick(_timer) -> void:
 
 
 func add_status(status): # This should get already cloned res so no need to duplicate
+	LOG.pr(LOG.LOG_TYPE.INTERNAL, "Adding status: [%s]" % [status])
+
 	SIGNAL.bind(
 		status, "expired",
 		self, "_on_status_expired",
 		[status]
 	)
-
 	status.apply(self, get_owner())
+
+	emit_signal("statuses_changed", _statuses)
 	return self
 
 
@@ -83,3 +88,4 @@ func get_owner():
 ### SIGNAL RESPONSES ###
 func _on_status_expired(status) -> void:
 	_statuses.erase(status)
+#	emit_signal("statuses_changed", _statuses)

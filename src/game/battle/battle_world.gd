@@ -126,14 +126,16 @@ func _ready():
 	call_deferred("emit_signal", "material_collected",
 		MaterialData.new(MaterialData.TYPE.IRON), STARTING_IRON_COUNT)
 #
-#	call_deferred("emit_signal", "material_collected",
-#		MaterialData.new(MaterialData.TYPE.COPPER), 44)
-#
-#	call_deferred("emit_signal", "material_collected",
-#		MaterialData.new(MaterialData.TYPE.FIRE), 20)
-#
-#	call_deferred("emit_signal", "material_collected",
-#		MaterialData.new(MaterialData.TYPE.EARTH), 20)
+
+	if OS.is_debug_build():
+		call_deferred("emit_signal", "material_collected",
+			MaterialData.new(MaterialData.TYPE.COPPER), 44)
+
+		call_deferred("emit_signal", "material_collected",
+			MaterialData.new(MaterialData.TYPE.FIRE), 20)
+
+		call_deferred("emit_signal", "material_collected",
+			MaterialData.new(MaterialData.TYPE.EARTH), 20)
 
 
 func _physics_process(_delta):
@@ -185,10 +187,10 @@ func spawn_enemy_at_pos(enemy_data : UnitData, pos : Vector2):
 	enemy.init_with_data(enemy_recipe)
 	enemy.global_position = pos
 
-	enemy.call_deferred(
-		"add_mod",
-		load("res://tres/mods/mock_mod.tres")
-	)
+#	enemy.call_deferred(
+#		"add_mod",
+#		load("res://tres/mods/mock_mod.tres")
+#	)
 
 	SIGNAL.bind(
 		enemy, "selected",
