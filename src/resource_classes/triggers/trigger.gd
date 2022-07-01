@@ -18,7 +18,7 @@ func _init(copied_effect = null, _args = {}) -> void:
 ### PUBLIC FUNCTIONS ###
 func execute(_subject=null, _object=null, _args={}) -> void:
 #	LOG.pr(LOG.LOG_TYPE.INTERNAL, "[Trigger] [%s]" % [self])
-	_effect.trigger(_subject)
+	_effect.trigger(_subject, _object, _args)
 
 ### PRIVATE FUNCTIONS ###
 ### SIGNAL RESPONSES ###

@@ -52,6 +52,16 @@ tracks/0/keys = {
 "method": "attack"
 } ]
 }
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("SpriteParent/Sprite:offset:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 0, -0.25, 0.405963, 0.344409, -0.559269, -8, -0.0555911, 0.73909, 0.0444089, -0.590422, 0, -0.155591, -8.00887, 0.249999, 12.8684 ),
+"times": PoolRealArray( 0, 0.3, 1 )
+}
 
 [node name="EnemyUnit" instance=ExtResource( 1 )]
 script = ExtResource( 3 )

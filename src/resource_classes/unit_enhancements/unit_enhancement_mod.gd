@@ -14,7 +14,8 @@ export(Resource) var mod
 ### VIRTUAL FUNCTIONS (_init ...) ###
 ### PUBLIC FUNCTIONS ###
 func apply_to(_unit) -> void:
-	assert(0) # Should not be called [virtual func]
+	assert(mod is Mod)
+	mod.apply_to(_unit)
 
 ### PRIVATE FUNCTIONS ###
 ### SIGNAL RESPONSES ###

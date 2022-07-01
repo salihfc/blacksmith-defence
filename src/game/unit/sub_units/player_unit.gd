@@ -92,13 +92,3 @@ func _on_weapon_attack_frame(_damage) -> void:
 	LOG.pr(LOG.LOG_TYPE.INTERNAL, "[%s] weapon attack frame casting spells" % [self])
 	for spell in spellSlot.get_children():
 		spell.cast()
-
-
-func _on_enemy_hit(target, damage : CumulativeDamage) -> void:
-	for trigger in _on_hit_triggers:
-		trigger.execute(
-				self, target,
-				{
-					'damage' : damage
-				}
-		)

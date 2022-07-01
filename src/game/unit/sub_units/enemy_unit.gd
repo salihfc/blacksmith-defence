@@ -27,6 +27,10 @@ func init_with_data(unit_recipe : UnitRecipe) -> void:
 		for enh in unit_data.enhancements:
 			enh.call_deferred("apply_to", self)
 
+	if unit_data.mods:
+		for mod in unit_data.mods:
+			mod.call_deferred("apply_to", self)
+
 
 func get_default_dir():
 	return Vector2.LEFT

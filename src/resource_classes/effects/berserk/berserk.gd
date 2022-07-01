@@ -1,0 +1,24 @@
+extends Effect
+class_name BerserkEffect
+"""
+"""
+### SIGNAL ###
+### ENUM ###
+### CONST ###
+### EXPORT ###
+export(float) var berserk_damage_multi = 1.5
+
+### PUBLIC VAR ###
+### PRIVATE VAR ###
+### ONREADY VAR ###
+### VIRTUAL FUNCTIONS (_init ...) ###
+### PUBLIC FUNCTIONS ###
+func trigger(_subject=null, _object=null, _args={}):
+	LOG.pr(LOG.LOG_TYPE.INTERNAL, "BerserkEffect > working")
+	if _subject is EnemyUnit:
+		_subject.multiply_stat(StatContainer.STATS.DAMAGE_MULTI, berserk_damage_multi)
+
+
+### PRIVATE FUNCTIONS ###
+### SIGNAL RESPONSES ###
+

@@ -24,6 +24,7 @@ cost = SubResource( 1 )
 brain = ExtResource( 1 )
 spells = [  ]
 enhancements = [  ]
+mods = [  ]
 stats/max_hp = 60
 stats/res_phys = 30.0
 stats/res_fire = 0.0

@@ -114,7 +114,7 @@ func _ready():
 		[
 			["_context_changed", "_on_context_changed"],
 			["died", "_on_death"],
-			["low_life_reached", "_on_low_life_reached"]
+			["low_life_reached", "_on_low_life_reached"],
 		]
 	)
 
@@ -193,7 +193,7 @@ func set_grid_pos(pos : Vector2) -> void:
 	grid_pos = pos
 
 
-func add_mod(mod):
+func add_mod_display(mod):
 	modListDisplay.add_display_from_icon(mod.icon)
 	return self
 
@@ -205,6 +205,11 @@ func add_on_hit_trigger(on_hit_trigger : Trigger):
 
 func add_on_death_trigger(on_death_trigger : Trigger):
 	_on_death_triggers.append(on_death_trigger)
+	return self
+
+
+func add_on_low_life_trigger(on_low_life_trigger : Trigger):
+	_on_low_life_reached_triggers.append(on_low_life_trigger)
 	return self
 
 
@@ -465,6 +470,8 @@ func _action_idle():
 func _distance_to_another_unit(unit) -> float:
 	return global_position.distance_to(unit.global_position)
 
+###############################################################################
+
 ### SIGNAL RESPONSES ###
 func _on_context_changed() -> void:
 	decide()
@@ -497,6 +504,16 @@ func _on_death() -> void:
 func _on_low_life_reached() -> void:
 	for low_life_trigger in _on_low_life_reached_triggers:
 		low_life_trigger.execute(self)
+
+
+func _on_enemy_hit(target, damage : CumulativeDamage) -> void:
+	for trigger in _on_hit_triggers:
+		trigger.execute(
+				self, target,
+				{
+					'damage' : damage
+				}
+		)
 
 
 # ui stuff

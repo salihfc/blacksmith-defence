@@ -144,7 +144,8 @@ export(Array, Resource) var spells
 
 #
 #export(Resource) var enhancements = MaterialStorage.new()
-export(Array, Resource) var enhancements = []
+export(Array, Resource) var enhancements = []	# For player units
+export(Array, Resource) var mods = []			# For enemy units
 
 # curves
 export(Curve) var curve_add_max_hp

@@ -29,6 +29,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/battle/base_tilemap.gd"
 }, {
+"base": "Effect",
+"class": "BerserkEffect",
+"language": "GDScript",
+"path": "res://src/resource_classes/effects/berserk/berserk.gd"
+}, {
 "base": "StatusEffectFunctionBase",
 "class": "BleedApplyFunction",
 "language": "GDScript",
@@ -163,6 +168,11 @@ _global_script_classes=[ {
 "class": "Mod",
 "language": "GDScript",
 "path": "res://src/resource_classes/mod.gd"
+}, {
+"base": "Mod",
+"class": "ModBerserk",
+"language": "GDScript",
+"path": "res://src/resource_classes/mods/mod_berserk.gd"
 }, {
 "base": "Control",
 "class": "ModDisplay",
@@ -419,6 +429,7 @@ _global_script_class_icons={
 "Agent": "",
 "AnimatedHpBar": "",
 "BaseTilemap": "",
+"BerserkEffect": "",
 "BleedApplyFunction": "",
 "BleedTickFunction": "",
 "CacheDict": "",
@@ -446,6 +457,7 @@ _global_script_class_icons={
 "MaterialPool": "",
 "MaterialStorage": "",
 "Mod": "",
+"ModBerserk": "",
 "ModDisplay": "",
 "ModListDisplay": "",
 "ObjectArea": "",
