@@ -18,7 +18,7 @@ func execute(_status_effect : StatusEffect, _container, _carrier_unit : Unit) ->
 	if _status_effect.get_duration() > 0.0:
 		# Duration is the stack count for poison
 		var total_damage = _calc_damage(_status_effect, _container, _carrier_unit)
-		_carrier_unit.take_damage(total_damage)
+		_carrier_unit.take_damage(total_damage.set_originator(_status_effect.get_originator()))
 
 		LOG.pr(LOG.LOG_TYPE.GAMEPLAY, "[%s] taking [%s] damage from poison" % [
 			_carrier_unit,

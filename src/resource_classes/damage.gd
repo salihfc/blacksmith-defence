@@ -34,6 +34,8 @@ var TEXT_COLORS = {
 
 ### EXPORT ###
 ### PUBLIC VAR ###
+var originator setget set_originator, get_originator
+
 ### PRIVATE VAR ###
 var _type
 var _amount
@@ -51,6 +53,15 @@ func copy_from(other):
 	return self
 
 ### PUBLIC FUNCTIONS ###
+func get_originator():
+	return originator
+
+
+func set_originator(_originator):
+	originator = _originator
+	return self
+
+
 func get_type():
 	return _type
 

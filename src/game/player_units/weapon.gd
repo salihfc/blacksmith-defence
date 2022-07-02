@@ -107,7 +107,10 @@ func get_damage():
 
 	return CumulativeDamage.new(
 		[
-			Damage.new(Damage.TYPE.PHYSICAL, _damage + _get_owner_stat(StatContainer.STATS.BASE_DAMAGE)),
+			Damage.new(
+					Damage.TYPE.PHYSICAL,\
+					_damage + _get_owner_stat(StatContainer.STATS.BASE_DAMAGE)
+			).set_originator(_owner),
 		]
 	)
 

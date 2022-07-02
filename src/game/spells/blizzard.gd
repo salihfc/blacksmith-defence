@@ -70,7 +70,9 @@ func set_owner_unit(_owner):
 
 func get_total_damage():
 	return CumulativeDamage.new([
-		Damage.new().copy_from(damage).increased_by(get_owner().get_stat(StatContainer.STATS.BASE_DAMAGE)),
+		Damage.new().copy_from(damage)\
+				.increased_by(get_owner().get_stat(StatContainer.STATS.BASE_DAMAGE))\
+				.set_originator(get_owner()),
 	])
 
 

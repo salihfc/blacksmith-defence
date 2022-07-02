@@ -9,6 +9,7 @@ signal _context_changed() # Internal signal
 signal info_updated()
 
 signal died()
+signal hit_taken(_damage)
 signal low_life_reached()
 signal selected()
 signal life_fraction_updated(frac)
@@ -69,6 +70,7 @@ var _target_weakref = null
 
 ## Triggered actions
 var _on_hit_triggers = []
+var _on_hit_taken_triggers  = []
 var _on_death_triggers = []
 var _on_low_life_reached_triggers = []
 # book-keeping for low_life_triggers
@@ -117,6 +119,7 @@ func _ready():
 			["_context_changed", "_on_context_changed"],
 			["died", "_on_death"],
 			["low_life_reached", "_on_low_life_reached"],
+			["hit_taken", "_on_hit_taken"],
 		]
 	)
 
@@ -212,6 +215,11 @@ func add_on_death_trigger(on_death_trigger : Trigger):
 
 func add_on_low_life_trigger(on_low_life_trigger : Trigger):
 	_on_low_life_reached_triggers.append(on_low_life_trigger)
+	return self
+
+
+func add_on_hit_taken_trigger(on_hit_taken_trigger : Trigger):
+	_on_hit_taken_triggers.append(on_hit_taken_trigger)
 	return self
 
 
@@ -366,6 +374,8 @@ func take_damage(_damage, pulse = Vector2.ZERO) -> void:
 
 	add_to_stat(StatContainer.STATS.HP, -amount)
 
+	emit_signal("hit_taken", _damage)
+
 	if CONFIG.SHOW_FLOATING_DAMAGE_NUMBERS:
 		FLOATING_TEXT.generate(global_position, str(amount)).set_text_color(_damage.get_text_color())
 
@@ -380,7 +390,6 @@ func take_damage(_damage, pulse = Vector2.ZERO) -> void:
 		emit_signal("died")
 		queue_free()
 	else:
-
 		if not _low_life_already_reached:
 			var hp_frac = get_stat(StatContainer.STATS.HP) / get_stat(StatContainer.STATS.MAX_HP)
 			if hp_frac <= LOW_LIFE_FRACTION:
@@ -390,6 +399,13 @@ func take_damage(_damage, pulse = Vector2.ZERO) -> void:
 
 		if CONFIG.SHOW_HP_BARS:
 			emit_signal("life_fraction_updated", get_hp_fraction())
+
+
+func heal(amount) -> void:
+	var max_hp = _stats.get_stat(StatContainer.STATS.MAX_HP)
+	var hp = _stats.get_stat(StatContainer.STATS.HP)
+	var final_amount = min(max_hp, hp + amount)
+	_stats.set_stat(StatContainer.STATS.HP, final_amount)
 
 
 func set_shader_param_damage_flash_anim(x : float) -> void:
@@ -409,7 +425,7 @@ func attack() -> void:
 			_target = _select_target()
 
 		if _target: # make sure there are enemies around to attack
-			_target.take_damage(Damage.new(Damage.TYPE.PHYSICAL, get_damage()))
+			_target.take_damage(Damage.new(Damage.TYPE.PHYSICAL, get_damage()).set_originator(self))
 
 
 func play_weapon_animation() -> void:
@@ -506,6 +522,15 @@ func _on_death() -> void:
 func _on_low_life_reached() -> void:
 	for low_life_trigger in _on_low_life_reached_triggers:
 		low_life_trigger.execute(self)
+
+
+func _on_hit_taken(damage) -> void:
+	for hit_taken_trigger in _on_hit_taken_triggers:
+		hit_taken_trigger.execute(self, damage.get_originator(),
+				{
+					'damage' : damage
+				}
+		)
 
 
 func _on_enemy_hit(target, damage : CumulativeDamage) -> void:

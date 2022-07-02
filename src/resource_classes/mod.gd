@@ -3,8 +3,8 @@ class_name Mod
 """
 	Mod gives interesting behaviours to units, e.g:
 		[-] Triggered Effects
-			[-] Berserk: Upon reaching low health -> double atk speed
-			[-] Martyr: Upon reaching low health -> ....
+			[+] Berserk: Upon reaching low health -> double atk speed
+			[+] Martyr: Upon reaching low health -> ....
 			[-] Thorns: Upon taking damage
 			[-] Toxic: Upon death
 

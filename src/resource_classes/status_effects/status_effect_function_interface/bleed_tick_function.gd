@@ -17,7 +17,8 @@ func execute(_status_effect : StatusEffect, _container, _carrier_unit : Unit) ->
 	if _status_effect.get_duration() > 0.0:
 		# Duration is the stack count for bleed
 		var total_damage = _calc_damage(_status_effect.get_value())
-		_carrier_unit.take_damage(Damage.new(BLEED_DAMAGE_TYPE, total_damage))
+		_carrier_unit.take_damage(Damage.new(BLEED_DAMAGE_TYPE, total_damage)\
+				.set_originator(_status_effect.get_originator()))
 
 		LOG.pr(LOG.LOG_TYPE.GAMEPLAY, "[%s] taking [%s] damage from bleed" % [
 			_carrier_unit,
