@@ -55,11 +55,21 @@ const SFX_array = [
 
 ]
 
-var bgm_on = false
+var bgm_on = false setget enable_bgm
 var bgm_linear = 0
 
 var sfx_on = true
 var sfx_linear = 0
+
+
+func enable_bgm(on : bool = true):
+	bgm_on = on
+	return self
+
+
+func enable_sfx(on : bool = true):
+	sfx_on = on
+	return self
 
 
 func _ready() -> void:
@@ -92,7 +102,8 @@ func set_sfx_volume(new_value : float) -> void:
 
 func play(sfx_id : int) -> void:
 	LOG.pr(LOG.LOG_TYPE.SFX, "play sfx: [%s]" % [sfx_id])
-	_play_sfx(SFX_array[sfx_id])
+	if sfx_on:
+		_play_sfx(SFX_array[sfx_id])
 
 
 func play_ui_sfx(sfx_id : int) -> void:

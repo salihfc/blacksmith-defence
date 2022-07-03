@@ -14,10 +14,10 @@ _storage = {
 Resource( "res://tres/materials/material_iron.tres" ): 2
 }
 
-[sub_resource type="Resource" id=8]
+[sub_resource type="Resource" id=9]
 script = ExtResource( 1 )
-stat_id = 10
-increase_value = 1
+stat_id = 22
+increase_value = 50
 
 [resource]
 script = ExtResource( 3 )
@@ -29,7 +29,7 @@ cost = SubResource( 7 )
 brain = ExtResource( 4 )
 weapon = ExtResource( 6 )
 spells = [ ExtResource( 5 ) ]
-enhancements = [ SubResource( 8 ) ]
+enhancements = [ SubResource( 9 ) ]
 mods = [  ]
 stats/max_hp = 80
 stats/res_phys = 0.0
@@ -39,9 +39,9 @@ stats/res_earth = 0.0
 stats/base_damage = 40
 stats/move_speed = 1
 stats/atk_speed = 1
-stats/atk_range = 120
+stats/atk_range = 200.0
 stats/damage_multi = 1
-stats/chain_count = 1.0
+stats/chain_count = 5.0
 stats/hp = 0.0
 stats/bleed_chance = 0.0
 stats/ignite_chance = 0.0
@@ -54,6 +54,6 @@ stats/stun_chance = 0.0
 stats/spell_aoe = 0.0
 stats/cast_speed = 0.0
 stats/cast_range = 0.0
-stats/chain_range = 0.0
+stats/chain_range = 120.0
 stats/armor_pen = 0.0
 stats/base_knockback_strength = 0.0

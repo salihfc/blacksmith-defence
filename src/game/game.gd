@@ -11,8 +11,8 @@ signal material_used(mat, count)
 # Prefabs
 ### EXPORT ###
 export(PackedScene) var P_UnitRecipeView
-export(Texture) var mouse_normal_cursor
-export(Texture) var mouse_pressed_cursor
+#export(Texture) var mouse_normal_cursor
+#export(Texture) var mouse_pressed_cursor
 
 
 """
@@ -66,12 +66,12 @@ onready var unitInfoDisplay = get_node(NP_UnitInfoDisplay) as UnitInfoDisplay
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _input(event):
-	if event is InputEventMouseButton:
-		if event.button_index == BUTTON_LEFT:
-			if event.pressed:
-				Input.set_custom_mouse_cursor(mouse_pressed_cursor)
-			else:
-				Input.set_custom_mouse_cursor(mouse_normal_cursor)
+#	if event is InputEventMouseButton:
+#		if event.button_index == BUTTON_LEFT:
+#			if event.pressed:
+#				Input.set_custom_mouse_cursor(mouse_pressed_cursor)
+#			else:
+#				Input.set_custom_mouse_cursor(mouse_normal_cursor)
 
 
 	if event is InputEventKey and event.pressed:
@@ -93,7 +93,7 @@ func _input(event):
 func _ready():
 	add_to_group(str(GROUP.GAME), true)
 	materialList.add_to_group(str(GROUP.PLAYER_MATS))
-	Input.set_custom_mouse_cursor(mouse_normal_cursor)
+#	Input.set_custom_mouse_cursor(mouse_normal_cursor)
 	# Init Player Base
 	assert(player_base)
 	player_base.init()
@@ -135,17 +135,6 @@ func _ready():
 
 	_update_recipe_list()
 
-	var ui_buttons = get_tree().get_nodes_in_group("ui_button")
-	LOG.pr(LOG.LOG_TYPE.SFX, "UI_BUTTONS: %s" % [ui_buttons])
-
-	for button in ui_buttons:
-		SIGNAL.bind_bulk(button, self,
-			[
-				["mouse_entered", "_play_ui_sfx_on_button_interaction", [AUDIO.UI_SFX.HOVER_BLIP]],
-				["pressed", "_play_ui_sfx_on_button_interaction", [AUDIO.UI_SFX.PRESS_BLIP]],
-			]
-		)
-
 
 ### PUBLIC FUNCTIONS ###
 ### PRIVATE FUNCTIONS ###
@@ -172,10 +161,6 @@ func _pause_battle() -> void:
 	UTILS.pause_node(battle, not battle.paused)
 
 ### SIGNAL RESPONSES ###
-func _play_ui_sfx_on_button_interaction(sfx_id = 0):
-	AUDIO.play_ui_sfx(sfx_id)
-
-
 func _on_recipe_selected(unit_recipe : UnitRecipe) -> void:
 	assert(unit_recipe)
 	LOG.pr(LOG.LOG_TYPE.INPUT, "UNIT_VIEW PRESSED WITH [%s] unit_total[%s]\nstorage[%s]" % [unit_recipe, unit_recipe.total_cost(), materialList.get_storage()])

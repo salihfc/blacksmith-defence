@@ -1,47 +1,51 @@
 [gd_resource type="Resource" load_steps=10 format=2]
 
-[ext_resource path="res://src/resource_classes/unit_enhancements/unit_enhancement_stat.gd" type="Script" id=1]
+[ext_resource path="res://tres/atlas_tex/unit_default_sprite.atlastex" type="Texture" id=1]
 [ext_resource path="res://src/resource_classes/material_storage.gd" type="Script" id=2]
 [ext_resource path="res://src/resource_classes/unit_data.gd" type="Script" id=3]
 [ext_resource path="res://src/ai/infinite_axis_utility/agent_tres/agent_player_basic.tres" type="Resource" id=4]
-[ext_resource path="res://src/game/spells/arc_generator.tscn" type="PackedScene" id=5]
-[ext_resource path="res://tres/units/weapons/wand.tres" type="Resource" id=6]
-[ext_resource path="res://tres/atlas_tex/wizard_0.atlastex" type="Texture" id=7]
+[ext_resource path="res://tres/units/weapons/sword.tres" type="Resource" id=5]
+[ext_resource path="res://src/resource_classes/unit_enhancements/unit_enhancement_stat.gd" type="Script" id=6]
 
-[sub_resource type="Resource" id=7]
+[sub_resource type="Resource" id=1]
 script = ExtResource( 2 )
 _storage = {
 Resource( "res://tres/materials/material_iron.tres" ): 2
 }
 
-[sub_resource type="Resource" id=8]
-script = ExtResource( 1 )
-stat_id = 10
+[sub_resource type="Resource" id=2]
+script = ExtResource( 6 )
+stat_id = 20
 increase_value = 1
+
+[sub_resource type="Resource" id=3]
+script = ExtResource( 6 )
+stat_id = 5
+increase_value = 40
 
 [resource]
 script = ExtResource( 3 )
-name = "Arcanist"
-texture = ExtResource( 7 )
+name = "SwordMaster"
+texture = ExtResource( 1 )
 flip_h = false
 sprite_scale = 1.0
-cost = SubResource( 7 )
+cost = SubResource( 1 )
 brain = ExtResource( 4 )
-weapon = ExtResource( 6 )
-spells = [ ExtResource( 5 ) ]
-enhancements = [ SubResource( 8 ) ]
+weapon = ExtResource( 5 )
+spells = [  ]
+enhancements = [ SubResource( 2 ), SubResource( 3 ) ]
 mods = [  ]
-stats/max_hp = 80
+stats/max_hp = 200
 stats/res_phys = 0.0
 stats/res_fire = 0.0
 stats/res_water = 0.0
 stats/res_earth = 0.0
-stats/base_damage = 40
+stats/base_damage = 10
 stats/move_speed = 1
 stats/atk_speed = 1
-stats/atk_range = 120
+stats/atk_range = 70
 stats/damage_multi = 1
-stats/chain_count = 1.0
+stats/chain_count = 0.0
 stats/hp = 0.0
 stats/bleed_chance = 0.0
 stats/ignite_chance = 0.0
@@ -56,4 +60,4 @@ stats/cast_speed = 0.0
 stats/cast_range = 0.0
 stats/chain_range = 0.0
 stats/armor_pen = 0.0
-stats/base_knockback_strength = 0.0
+stats/base_knockback_strength = 25

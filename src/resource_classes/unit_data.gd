@@ -186,7 +186,7 @@ func _set(property: String, value = false) -> bool:
 		_stats.set(property, value)
 
 	for idx in StatContainer.STATS.COUNT:
-		if _stats.get_stat(idx, 0) == 0:
+		if _stats.get_stat(idx, 0) == 0.0:
 			_stats.set_stat(idx, STAT_DEFAULTS[name].get(idx, 0.0))
 
 	return true
@@ -213,11 +213,12 @@ func _init() -> void:
 
 	call_deferred("_load_defaults")
 
+
 func _load_defaults():
 	for idx in StatContainer.STATS.COUNT:
-#		if get_stat(idx, null) == null:
-#		prints (idx, name)
-		_set_stat(idx, STAT_DEFAULTS[name].get(idx, 0.0))
+		if get_stat(idx, null) == null or get_stat(idx) == 0:
+#			prints (idx, name)
+			_set_stat(idx, STAT_DEFAULTS[name].get(idx, 0.0))
 
 
 ### PUBLIC FUNCTIONS ###

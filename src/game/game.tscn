@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://src/ui/h_material_list.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/debug/debug_window.tscn" type="PackedScene" id=2]
@@ -7,13 +7,11 @@
 [ext_resource path="res://src/ui/unit_info_display.tscn" type="PackedScene" id=5]
 [ext_resource path="res://tres/units/pools/player_pool.tres" type="Resource" id=6]
 [ext_resource path="res://src/ui/fps_display.tscn" type="PackedScene" id=7]
-[ext_resource path="res://assets/gfx/ui/cursor/hammer_pressed-outline.png" type="Texture" id=8]
 [ext_resource path="res://tres/default_player_base.tres" type="Resource" id=9]
 [ext_resource path="res://src/game/unit_recipe_view.tscn" type="PackedScene" id=10]
 [ext_resource path="res://src/ui/crafting_menu.tscn" type="PackedScene" id=11]
 [ext_resource path="res://new_test.theme" type="Theme" id=12]
 [ext_resource path="res://src/ui/hp_bar_animated.tscn" type="PackedScene" id=13]
-[ext_resource path="res://assets/gfx/ui/cursor/HammerTool-outline.png" type="Texture" id=14]
 
 [sub_resource type="Environment" id=2]
 resource_local_to_scene = true
@@ -52,8 +50,6 @@ __meta__ = {
 "_edit_lock_": true
 }
 P_UnitRecipeView = ExtResource( 10 )
-mouse_normal_cursor = ExtResource( 14 )
-mouse_pressed_cursor = ExtResource( 8 )
 NP_Battle = NodePath("PanelContainer/HBoxContainer/Control/Viewport/BattleWorld")
 NP_MaterialList = NodePath("PanelContainer/HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/MaterialList")
 NP_UnitRecipeList = NodePath("PanelContainer/HBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/UnitRecipeList")

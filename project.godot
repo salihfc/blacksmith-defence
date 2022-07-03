@@ -259,6 +259,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/debug/range_circle.gd"
 }, {
+"base": "Node",
+"class": "SceneManager",
+"language": "GDScript",
+"path": "res://src/singletons/group_manager.gd"
+}, {
 "base": "Resource",
 "class": "Snippet",
 "language": "GDScript",
@@ -500,6 +505,7 @@ _global_script_class_icons={
 "PoisonApplyFunction": "",
 "PoisonTickFunction": "",
 "RangeCircle": "",
+"SceneManager": "",
 "Snippet": "",
 "SpellBase": "",
 "StatContainer": "",

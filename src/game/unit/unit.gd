@@ -43,6 +43,8 @@ const KNOCKBACK_DAMPING = 0.9
 const BASE_SPEED = 100.0
 
 ### EXPORT ###
+export(Resource) var _unit_data_to_use_as_prefab = null
+
 export(Resource) var agent_brain = null # Type: Agent
 export(NodePath) var NP_HpBar = null
 export(NodePath) var NP_StateLabel = null
@@ -136,6 +138,18 @@ func _ready():
 	stateLabel.visible = CONFIG.SHOW_AI_STATE
 
 	change_state(STATE.IDLE)
+
+	if _unit_data_to_use_as_prefab:
+		init_with_data(UnitRecipe.new(
+				_unit_data_to_use_as_prefab,
+				MaterialStorage.new().add_material(
+						preload("res://tres/materials/material_copper.tres"),
+						3
+				)
+		))
+		multiply_stat(StatContainer.STATS.MAX_HP, 10.0)
+		multiply_stat(StatContainer.STATS.HP, 10.0)
+
 
 
 func _process(_delta):

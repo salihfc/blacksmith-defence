@@ -22,9 +22,12 @@ func init_with_data(unit_recipe : UnitRecipe) -> void:
 
 	var unit_data = unit_recipe.base_unit
 	var enhance_cost = unit_recipe.enhance_cost
-
 	assert(unit_data)
 	assert(unit_data.weapon)
+
+	if unit_data.enhancements:
+		for enh in unit_data.enhancements:
+			enh.call_deferred("apply_to", self)
 
 	var weapon_data = unit_data.weapon
 
