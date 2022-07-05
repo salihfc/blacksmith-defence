@@ -4,6 +4,7 @@
 
 [node name="Log" type="Node"]
 script = ExtResource( 1 )
+console_logging = true
 file_logging = true
 _log_flags/INTERNAL = true
 _log_flags/SIGNAL = false

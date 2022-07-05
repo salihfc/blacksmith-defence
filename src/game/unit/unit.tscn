@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://src/game/unit/unit.gd" type="Script" id=1]
 [ext_resource path="res://tres/atlas_tex/unit_default_sprite.atlastex" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://src/game/unit/weapon_slot.gd" type="Script" id=7]
 [ext_resource path="res://src/ui/hp_bar_animated.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/ui/status_list_display.tscn" type="PackedScene" id=9]
+[ext_resource path="res://src/resource_classes/object_area_circle_shape.gd" type="Script" id=10]
 
 [sub_resource type="Shader" id=9]
 code = "// NOTE: Shader automatically converted from Godot Engine 3.4.stable's CanvasItemMaterial.
@@ -123,8 +124,10 @@ owner_path = NodePath("../../..")
 material = SubResource( 12 )
 collision_layer = 0
 collision_mask = 0
-script = ExtResource( 5 )
+script = ExtResource( 10 )
+dynamic_tracking = true
 owner_path = NodePath("../../..")
+NP_collision_shape = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SpriteParent/Areas/AttackRange"]
 visible = false

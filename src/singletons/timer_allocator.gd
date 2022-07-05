@@ -1,3 +1,4 @@
+tool
 extends Node
 """
 """
@@ -25,8 +26,12 @@ func alloc(object : Object, method : String, duration : float, one_shot = true):
 		_data[timer] = []
 	_data[timer].append([object, method, duration])
 
-	add_child(timer)
-	timer.start(duration)
+	if Engine.editor_hint:
+		print ('autostart true')
+		timer.autostart = true
+	else:
+		add_child(timer)
+		timer.start(duration)
 
 	return timer
 

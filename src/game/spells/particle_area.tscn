@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/game/object_area.gd" type="Script" id=1]
+[ext_resource path="res://src/game/spells/particle_area.gd" type="Script" id=4]
+
+[node name="ParticleArea" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="Particles" type="Node2D" parent="."]
+
+[node name="HitBox" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 0
+script = ExtResource( 1 )
+dynamic_tracking = true
+owner_path = NodePath("../..")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="DurationTimer" type="Timer" parent="."]
+one_shot = true

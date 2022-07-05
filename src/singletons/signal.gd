@@ -1,3 +1,4 @@
+tool
 extends Node
 """
 	Global Signal Helper Functions

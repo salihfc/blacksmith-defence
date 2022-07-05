@@ -139,6 +139,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/resource_classes/status_effects/status_effect_function_interface/ignite_tick_function.gd"
 }, {
+"base": "SpellBase",
+"class": "Incinerate",
+"language": "GDScript",
+"path": "res://src/game/spells/incinerate.gd"
+}, {
 "base": "Button",
 "class": "ItemButton",
 "language": "GDScript",
@@ -204,6 +209,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/object_area.gd"
 }, {
+"base": "ObjectArea",
+"class": "ObjectAreaCircleShape",
+"language": "GDScript",
+"path": "res://src/resource_classes/object_area_circle_shape.gd"
+}, {
 "base": "Effect",
 "class": "OnDeathEffect",
 "language": "GDScript",
@@ -228,6 +238,11 @@ _global_script_classes=[ {
 "class": "OnLowLifeEffect",
 "language": "GDScript",
 "path": "res://src/resource_classes/effects/on_low_life_effects/on_low_life_effect.gd"
+}, {
+"base": "Node2D",
+"class": "ParticleArea",
+"language": "GDScript",
+"path": "res://src/game/spells/particle_area.gd"
 }, {
 "base": "Sprite",
 "class": "PlayerBase",
@@ -318,6 +333,11 @@ _global_script_classes=[ {
 "class": "ThornEffect",
 "language": "GDScript",
 "path": "res://src/resource_classes/effects/thorns/thorn_effect.gd"
+}, {
+"base": "Node2D",
+"class": "ThrowableWeapon",
+"language": "GDScript",
+"path": "res://src/game/player_units/throwable_weapon.gd"
 }, {
 "base": "Resource",
 "class": "Trigger",
@@ -481,6 +501,7 @@ _global_script_class_icons={
 "IAUSObject": "",
 "IgniteApplyFunction": "",
 "IgniteTickFunction": "",
+"Incinerate": "",
 "ItemButton": "",
 "ItemPool": "",
 "MaterialData": "",
@@ -494,11 +515,13 @@ _global_script_class_icons={
 "ModMartyr": "",
 "ModThorns": "",
 "ObjectArea": "",
+"ObjectAreaCircleShape": "",
 "OnDeathEffect": "",
 "OnDeathEffectSummonUnit": "",
 "OnHitApplyStatus": "",
 "OnHitEffect": "",
 "OnLowLifeEffect": "",
+"ParticleArea": "",
 "PlayerBase": "",
 "PlayerMainBase": "",
 "PlayerUnit": "",
@@ -517,6 +540,7 @@ _global_script_class_icons={
 "StatusIconDisplay": "",
 "StatusListDisplay": "",
 "ThornEffect": "",
+"ThrowableWeapon": "",
 "Trigger": "",
 "Unit": "",
 "UnitData": "",

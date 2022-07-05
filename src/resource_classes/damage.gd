@@ -37,8 +37,8 @@ var TEXT_COLORS = {
 var originator setget set_originator, get_originator
 
 ### PRIVATE VAR ###
-var _type
-var _amount
+export(TYPE) var _type
+export(float) var _amount
 
 ### ONREADY VAR ###
 ### VIRTUAL FUNCTIONS (_init ...) ###

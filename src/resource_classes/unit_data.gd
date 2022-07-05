@@ -34,6 +34,18 @@ const STAT_DEFAULTS = {
 		StatContainer.STATS.ATK_RANGE : 160,
 	},
 
+
+	"FlameWeaver" : {
+		StatContainer.STATS.MAX_HP : 70,
+		StatContainer.STATS.BASE_DAMAGE : 0,
+		StatContainer.STATS.DAMAGE_MULTI : 1,
+		StatContainer.STATS.MOVE_SPEED : 1,
+		StatContainer.STATS.ATK_SPEED : 1,
+		StatContainer.STATS.SPELL_AOE : 1.0,
+
+		StatContainer.STATS.ATK_RANGE : 160,
+	},
+
 	"Duelist" : {
 		StatContainer.STATS.MAX_HP : 140,
 		StatContainer.STATS.BASE_DAMAGE : 20,

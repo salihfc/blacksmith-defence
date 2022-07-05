@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://src/game/player_units/weapon.gd" type="Script" id=1]
 [ext_resource path="res://src/game/object_area.gd" type="Script" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://src/game/vfx/vfx_weapon_particles.tscn" type="PackedScene" id=6]
 [ext_resource path="res://tres/anim/weapon/weapon_strike_thrust.anim" type="Animation" id=7]
 [ext_resource path="res://tres/anim/weapon/weapon_strike_wand_swing.anim" type="Animation" id=8]
+[ext_resource path="res://tres/anim/weapon/weapon_idle_lower_back.anim" type="Animation" id=9]
+[ext_resource path="res://tres/anim/weapon/weapon_hold_lower_back.anim" type="Animation" id=10]
 
 [sub_resource type="Animation" id=2]
 length = 0.001
@@ -122,12 +124,13 @@ disabled = true
 visible = false
 position = Vector2( -1.41428, -18.3848 )
 rotation = 2.35619
-scale = Vector2( 0.4, 0.4 )
 auto_free = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 method_call_mode = 1
 anims/RESET = SubResource( 2 )
+anims/weapon_hold_lower_back = ExtResource( 10 )
+anims/weapon_idle_lower_back = ExtResource( 9 )
 anims/weapon_strike_swing = ExtResource( 5 )
 anims/weapon_strike_thrust = ExtResource( 7 )
 anims/weapon_strike_wand_swing = ExtResource( 8 )

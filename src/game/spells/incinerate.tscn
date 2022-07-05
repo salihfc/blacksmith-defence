@@ -1,0 +1,286 @@
+[gd_scene load_steps=30 format=2]
+
+[ext_resource path="res://src/game/spells/spell_base.tscn" type="PackedScene" id=1]
+[ext_resource path="res://addons/kenney_particle_pack/smoke_03.png" type="Texture" id=2]
+[ext_resource path="res://src/game/spells/incinerate.gd" type="Script" id=3]
+[ext_resource path="res://addons/kenney_particle_pack/smoke_01.png" type="Texture" id=4]
+[ext_resource path="res://src/resource_classes/damage.gd" type="Script" id=6]
+[ext_resource path="res://src/game/spells/particle_area.tscn" type="PackedScene" id=7]
+
+[sub_resource type="Resource" id=24]
+script = ExtResource( 6 )
+_type = 1
+_amount = 15.0
+
+[sub_resource type="Gradient" id=4]
+offsets = PoolRealArray( 0, 0.21327, 0.511848, 0.914692, 1 )
+colors = PoolColorArray( 0.823529, 0.560784, 0.223529, 0, 0.828994, 0.541272, 0.220187, 0.0479452, 0.9375, 0.153809, 0.153809, 1, 0, 0, 0, 0.0431373, 0, 0, 0, 0 )
+
+[sub_resource type="GradientTexture" id=5]
+gradient = SubResource( 4 )
+
+[sub_resource type="Curve" id=6]
+max_value = 100.0
+_data = [ Vector2( 0.230769, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.602564, 100 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=7]
+curve = SubResource( 6 )
+
+[sub_resource type="Curve" id=2]
+_data = [ Vector2( 0, 0.609091 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.304545 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=3]
+curve = SubResource( 2 )
+
+[sub_resource type="ParticlesMaterial" id=1]
+lifetime_randomness = 0.21
+flag_align_y = true
+flag_disable_z = true
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 100.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+damping = 22.63
+damping_random = 0.1
+damping_curve = SubResource( 7 )
+scale = 0.01
+scale_random = 0.41
+scale_curve = SubResource( 3 )
+color = Color( 1, 1, 1, 0.447059 )
+color_ramp = SubResource( 5 )
+hue_variation = 0.02
+hue_variation_random = 0.01
+
+[sub_resource type="Gradient" id=10]
+offsets = PoolRealArray( 0.303318, 0.734597, 1 )
+colors = PoolColorArray( 0.823529, 0.560784, 0.223529, 0, 0.0957031, 0.0833664, 0.0833664, 1, 0, 0, 0, 0.0313726 )
+
+[sub_resource type="GradientTexture" id=9]
+gradient = SubResource( 10 )
+
+[sub_resource type="CurveTexture" id=11]
+curve = SubResource( 2 )
+
+[sub_resource type="ParticlesMaterial" id=8]
+lifetime_randomness = 0.21
+emission_shape = 1
+emission_sphere_radius = 5.0
+flag_disable_z = true
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 120.0
+initial_velocity_random = 0.4
+angular_velocity = 10.0
+angular_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+damping = 39.2
+damping_random = 0.1
+damping_curve = SubResource( 7 )
+angle = 45.0
+scale = 0.01
+scale_random = 0.41
+scale_curve = SubResource( 11 )
+color = Color( 1, 1, 1, 0.164706 )
+color_ramp = SubResource( 9 )
+hue_variation = 0.02
+hue_variation_random = 0.01
+
+[sub_resource type="Gradient" id=13]
+offsets = PoolRealArray( 0, 0.21327, 0.511848, 0.914692, 1 )
+colors = PoolColorArray( 0.823529, 0.560784, 0.223529, 0, 0.828994, 0.541272, 0.220187, 0.0479452, 0.9375, 0.153809, 0.153809, 1, 0, 0, 0, 0.0431373, 0, 0, 0, 0 )
+
+[sub_resource type="GradientTexture" id=14]
+gradient = SubResource( 13 )
+
+[sub_resource type="Curve" id=15]
+max_value = 100.0
+_data = [ Vector2( 0.230769, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.602564, 100 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=16]
+curve = SubResource( 15 )
+
+[sub_resource type="Curve" id=17]
+_data = [ Vector2( 0, 0.609091 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.304545 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=18]
+curve = SubResource( 17 )
+
+[sub_resource type="ParticlesMaterial" id=19]
+lifetime_randomness = 0.21
+flag_align_y = true
+flag_disable_z = true
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 100.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+damping = 22.63
+damping_random = 0.1
+damping_curve = SubResource( 16 )
+scale = 0.01
+scale_random = 0.41
+scale_curve = SubResource( 18 )
+color = Color( 1, 1, 1, 0.447059 )
+color_ramp = SubResource( 14 )
+hue_variation = 0.02
+hue_variation_random = 0.01
+
+[sub_resource type="Gradient" id=20]
+offsets = PoolRealArray( 0.303318, 0.734597, 1 )
+colors = PoolColorArray( 0.823529, 0.560784, 0.223529, 0, 0.0957031, 0.0833664, 0.0833664, 1, 0, 0, 0, 0.0313726 )
+
+[sub_resource type="GradientTexture" id=21]
+gradient = SubResource( 20 )
+
+[sub_resource type="CurveTexture" id=22]
+curve = SubResource( 17 )
+
+[sub_resource type="ParticlesMaterial" id=23]
+lifetime_randomness = 0.21
+emission_shape = 1
+emission_sphere_radius = 5.0
+flag_disable_z = true
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 120.0
+initial_velocity_random = 0.4
+angular_velocity = 10.0
+angular_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+damping = 39.2
+damping_random = 0.1
+damping_curve = SubResource( 16 )
+angle = 45.0
+scale = 0.01
+scale_random = 0.41
+scale_curve = SubResource( 22 )
+color = Color( 1, 1, 1, 0.164706 )
+color_ramp = SubResource( 21 )
+hue_variation = 0.02
+hue_variation_random = 0.01
+
+[node name="Incinerate" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+damage = SubResource( 24 )
+
+[node name="Forward" parent="." index="0" instance=ExtResource( 7 )]
+damage_frame_time = 1.0
+duration = 2.0
+
+[node name="Particles2D" type="Particles2D" parent="Forward/Particles" index="0"]
+emitting = false
+amount = 256
+lifetime = 2.0
+one_shot = true
+speed_scale = 2.0
+explosiveness = 0.8
+local_coords = false
+draw_order = 1
+process_material = SubResource( 1 )
+texture = ExtResource( 4 )
+
+[node name="Particles2D2" type="Particles2D" parent="Forward/Particles" index="1"]
+emitting = false
+amount = 64
+lifetime = 2.0
+one_shot = true
+speed_scale = 2.0
+explosiveness = 0.8
+local_coords = false
+draw_order = 1
+process_material = SubResource( 8 )
+texture = ExtResource( 2 )
+
+[node name="HitBox" parent="Forward" index="1"]
+modulate = Color( 1, 1, 1, 0.305882 )
+collision_mask = 16
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Forward/HitBox" index="0"]
+polygon = PoolVector2Array( 0, 0, 73, -98, 93, -66, 100, 0 )
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Forward/HitBox" index="1"]
+scale = Vector2( 1, -1 )
+polygon = PoolVector2Array( 0, 0, 73, -98, 93, -66, 100, 0 )
+
+[node name="DurationTimer" parent="Forward" index="3"]
+wait_time = 2.0
+
+[node name="Sides" parent="." index="1" instance=ExtResource( 7 )]
+damage_frame_time = 1.0
+duration = 2.0
+
+[node name="Particles2D" type="Particles2D" parent="Sides/Particles" index="0"]
+rotation = 1.5708
+emitting = false
+amount = 256
+lifetime = 2.0
+one_shot = true
+speed_scale = 2.0
+explosiveness = 0.8
+local_coords = false
+draw_order = 1
+process_material = SubResource( 19 )
+texture = ExtResource( 4 )
+
+[node name="Particles2D2" type="Particles2D" parent="Sides/Particles" index="1"]
+rotation = 1.5708
+emitting = false
+amount = 64
+lifetime = 2.0
+one_shot = true
+speed_scale = 2.0
+explosiveness = 0.8
+local_coords = false
+draw_order = 1
+process_material = SubResource( 23 )
+texture = ExtResource( 2 )
+
+[node name="Particles2D3" type="Particles2D" parent="Sides/Particles" index="2"]
+rotation = -1.5708
+emitting = false
+amount = 256
+lifetime = 2.0
+one_shot = true
+speed_scale = 2.0
+explosiveness = 0.8
+local_coords = false
+draw_order = 1
+process_material = SubResource( 19 )
+texture = ExtResource( 4 )
+
+[node name="Particles2D4" type="Particles2D" parent="Sides/Particles" index="3"]
+rotation = -1.5708
+emitting = false
+amount = 64
+lifetime = 2.0
+one_shot = true
+speed_scale = 2.0
+explosiveness = 0.8
+local_coords = false
+draw_order = 1
+process_material = SubResource( 23 )
+texture = ExtResource( 2 )
+
+[node name="HitBox" parent="Sides" index="1"]
+modulate = Color( 1, 1, 1, 0.305882 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Sides/HitBox" index="0"]
+polygon = PoolVector2Array( 0, -1, -100, -78, -64, -96, 0, -100 )
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Sides/HitBox" index="1"]
+rotation = 3.14159
+scale = Vector2( 1, -1 )
+polygon = PoolVector2Array( 0, -1, -100, -78, -64, -96, 0, -100 )
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="Sides/HitBox" index="2"]
+scale = Vector2( 1, -1 )
+polygon = PoolVector2Array( 0, -1, -100, -78, -64, -96, 0, -100 )
+
+[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="Sides/HitBox" index="3"]
+rotation = 3.14159
+polygon = PoolVector2Array( 0, -1, -100, -78, -64, -96, 0, -100 )
+
+[node name="DurationTimer" parent="Sides" index="3"]
+wait_time = 2.0
+
+[editable path="Forward"]
+[editable path="Sides"]

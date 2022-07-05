@@ -93,14 +93,7 @@ func _cast_on(cast_position : Vector2) -> void:
 
 func _on_damage_frame() -> void:
 	var targets_in_area = UTILS.get_owners(damageArea.get_areas_inside())
-	for target in targets_in_area:
-		if target.has_method("take_damage"):
-			var total = get_total_damage()
-			target.take_damage(total)
-			emit_signal("enemy_hit", target, total)
-		else:
-			push_warning("target cannot take damage")
-
+	_damage_targets(targets_in_area)
 
 func _enable_hitbox(enabled := true):
 	damageArea.disabled = not enabled
