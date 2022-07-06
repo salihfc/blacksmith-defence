@@ -16,4 +16,10 @@ extends Control
 
 
 func _on_PlayButton_pressed() -> void:
-	GROUP.get_global(GROUP.SCENE_MANAGER).change_scene(SceneManager.BATTLE_WORLD)
+	var scene_manager = GROUP.get_global(GROUP.SCENE_MANAGER)
+	scene_manager.change_scene(scene_manager.SCENE.GAME)
+
+
+func _on_SettingsButton_pressed() -> void:
+	var scene_manager = GROUP.get_global(GROUP.SCENE_MANAGER)
+	scene_manager.change_scene(scene_manager.SCENE.SETTINGS)

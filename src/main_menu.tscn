@@ -157,3 +157,4 @@ render_target_update_mode = 3
 [node name="MainMenuBackgroundBattle" parent="MarginContainerRight/ViewportContainer/Viewport" instance=ExtResource( 4 )]
 
 [connection signal="pressed" from="MarginContainerLeft/VBoxContainer/TitleContainerDown/VBoxContainer/MarginContainer/PlayButton" to="." method="_on_PlayButton_pressed"]
+[connection signal="pressed" from="MarginContainerLeft/VBoxContainer/TitleContainerDown/VBoxContainer/MarginContainer2/SettingsButton" to="." method="_on_SettingsButton_pressed"]

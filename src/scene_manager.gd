@@ -1,4 +1,5 @@
 extends CanvasLayer
+class_name SceneManager
 
 """
 
@@ -10,12 +11,14 @@ extends CanvasLayer
 ### ENUM ###
 enum SCENE {
 	MAIN_MENU,
+	SETTINGS,
 
 	GAME,
 }
 
 const SCENES = {
 	SCENE.MAIN_MENU : preload("res://src/main_menu.tscn"),
+	SCENE.SETTINGS : preload("res://src/settings_menu.tscn"),
 	SCENE.GAME : preload("res://src/game/game.tscn"),
 }
 
@@ -26,7 +29,7 @@ const FULL_TRANSPARENT = Color(0.0, 0.0, 0.0, 0.0)
 const FADE_MIN_DELAY = 0.1
 const RECOVERY_MIN_DELAY = 0.5
 
-const STARTING_SCENE = SCENE.MAIN_MENU
+export(SCENE) var STARTING_SCENE = SCENE.MAIN_MENU
 ### EXPORT ###
 export(Texture) var mouse_normal_cursor
 export(Texture) var mouse_pressed_cursor

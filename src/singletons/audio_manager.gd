@@ -7,6 +7,8 @@ export(AudioStream) var BGM
 export(int) var sfx_player_count := 8
 export(float, 0.0, 1.0, 0.01) var default_bgm_volume = 0.0
 export(float, 0.0, 1.0, 0.01) var default_sfx_volume = 0.0
+export(bool) var bgm_on = false setget enable_bgm
+export(bool) var sfx_on = true
 
 # For safety
 const MIN_VOLUME_DB := -60.0
@@ -55,10 +57,8 @@ const SFX_array = [
 
 ]
 
-var bgm_on = false setget enable_bgm
 var bgm_linear = 0
 
-var sfx_on = true
 var sfx_linear = 0
 
 
@@ -87,16 +87,14 @@ func _ready() -> void:
 
 
 func set_bgm_volume(new_value : float) -> void:
-	bgm_linear = new_value
-	_set_audio_stream_db(BGMplayer, linear2db(bgm_linear))
+	_set_audio_stream_db(BGMplayer, linear2db(new_value))
 
 
 func set_sfx_volume(new_value : float) -> void:
-	sfx_linear = new_value
 	var db_eq = linear2db(sfx_linear)
 	LOG.pr(LOG.LOG_TYPE.SFX, "Set SFX volume: (%s), (%s)" % [new_value, db_eq])
 	for SFXplayer in SFXplayers.get_children():
-		_set_audio_stream_db(SFXplayer, db_eq)
+		_set_audio_stream_db(SFXplayer, new_value)
 
 
 

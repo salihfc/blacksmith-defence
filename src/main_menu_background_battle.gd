@@ -7,6 +7,7 @@ extends Node2D
 ### EXPORT ###
 export(PackedScene) var P_EnemyUnit
 export(Resource) var unit_pool
+export(bool) var spawn_enemies
 
 ### PUBLIC VAR ###
 ### PRIVATE VAR ###
@@ -18,7 +19,6 @@ onready var floatingTextContainer = $Containers/FloatingTextContainer as Node2D
 
 func _ready() -> void:
 	add_to_group(str(GROUP.BATTLE_WORLD))
-	AUDIO.enable_sfx(false)
 	for _i in 10:
 		__spawn()
 
@@ -37,10 +37,11 @@ func spawn_random_mat(_pos):
 	return
 
 func __spawn():
-	spawn_enemy_at_pos(
-		unit_pool.get_random(),
-		spawn_points.get_child(randi() % spawn_points.get_child_count()).global_position
-	)
+	if spawn_enemies:
+		spawn_enemy_at_pos(
+			unit_pool.get_random(),
+			spawn_points.get_child(randi() % spawn_points.get_child_count()).global_position
+		)
 
 ### SIGNAL RESPONSES ###
 

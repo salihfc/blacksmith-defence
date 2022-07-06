@@ -1,0 +1,87 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://new_test.theme" type="Theme" id=1]
+[ext_resource path="res://src/settings_menu.gd" type="Script" id=2]
+[ext_resource path="res://src/ui/setting_slider.tscn" type="PackedScene" id=3]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.286275, 0.164706, 0.207843, 1 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color( 0.239216, 0.113725, 0.176471, 1 )
+border_blend = true
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+shadow_size = 4
+shadow_offset = Vector2( 0, 2 )
+
+[node name="Settings" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="BackgroundColor" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.27451, 0.133333, 0.207843, 1 )
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchor_left = 0.2
+anchor_top = 0.2
+anchor_right = 0.8
+anchor_bottom = 0.8
+
+[node name="TabContainer" type="TabContainer" parent="PanelContainer"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 917.6
+margin_bottom = 536.0
+all_tabs_in_front = true
+
+[node name="Sound" type="PanelContainer" parent="PanelContainer/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 55.0
+custom_styles/panel = SubResource( 1 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/TabContainer/Sound"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 909.6
+margin_bottom = 473.0
+
+[node name="pad" type="Control" parent="PanelContainer/TabContainer/Sound/VBoxContainer"]
+margin_right = 905.0
+margin_bottom = 8.0
+rect_min_size = Vector2( 0, 8 )
+
+[node name="BGMSlider" parent="PanelContainer/TabContainer/Sound/VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 12.0
+margin_right = 905.0
+margin_bottom = 68.0
+
+[node name="pad2" type="Control" parent="PanelContainer/TabContainer/Sound/VBoxContainer"]
+margin_top = 72.0
+margin_right = 905.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 0, 8 )
+
+[node name="SFXSlider" parent="PanelContainer/TabContainer/Sound/VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 84.0
+margin_right = 905.0
+margin_bottom = 140.0
+
+[node name="Keybindings" type="PanelContainer" parent="PanelContainer/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 55.0
+custom_styles/panel = SubResource( 1 )
+
+[connection signal="tab_changed" from="PanelContainer/TabContainer" to="." method="_on_TabContainer_tab_changed"]
