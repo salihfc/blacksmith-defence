@@ -37,7 +37,7 @@ margin_bottom = 62.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 value = 40.0
-tick_count = 4
+tick_count = 10
 ticks_on_borders = true
 
 [connection signal="toggled" from="HBoxContainer/CheckButton" to="." method="_on_CheckButton_toggled"]

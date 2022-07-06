@@ -3,17 +3,15 @@ extends Node
 onready var BGMplayer  = get_node("BGMPlayer")
 onready var SFXplayers = get_node("SFXPlayers")
 
+const BGM_BUS = "BGM"
+const SFX_BUS = "SFX"
+
 export(AudioStream) var BGM
 export(int) var sfx_player_count := 8
 export(float, 0.0, 1.0, 0.01) var default_bgm_volume = 0.0
 export(float, 0.0, 1.0, 0.01) var default_sfx_volume = 0.0
 export(bool) var bgm_on = false setget enable_bgm
 export(bool) var sfx_on = true
-
-# For safety
-const MIN_VOLUME_DB := -60.0
-const MAX_VOLUME_DB := 0.0
-const VOLUME_REDUCTION_DB := 30.0
 
 enum UI_SFX {
 	HOVER_BLIP,
@@ -33,7 +31,6 @@ const UI_SFX_ARRAY = [
 	preload("res://assets/sfx/ui/unit_placement_sound.wav"),
 ]
 
-
 enum SFX {
 	SPELL_ARC,
 	SPELL_ICENOVA,
@@ -47,35 +44,19 @@ enum SFX {
 const SFX_start = {
 }
 
-
 const SFX_array = [
 	preload("res://assets/sfx/spells/arc/SFX_zap.wav"),
 	preload("res://assets/sfx/spells/ice-nova/SFX_double_whoosh2.wav"),
 
 	preload("res://assets/sfx/sword/m_SFX_Sword_Draw_and_Swing_01.wav"),
 	preload("res://assets/sfx/rapier/SFX_Dagger_Draw_and_Whoosh_02.wav"),
-
 ]
-
-var bgm_linear = 0
-
-var sfx_linear = 0
-
-
-func enable_bgm(on : bool = true):
-	bgm_on = on
-	return self
-
-
-func enable_sfx(on : bool = true):
-	sfx_on = on
-	return self
-
 
 func _ready() -> void:
 	LOG.pr(LOG.LOG_TYPE.INTERNAL, "READY", "AUDIO")
 	set_sfx_player_count(sfx_player_count)
 
+	BGMplayer.bus = BGM_BUS
 	BGMplayer.stream = AudioStreamRandomPitch.new()
 	BGMplayer.stream.audio_stream = BGM
 
@@ -86,16 +67,27 @@ func _ready() -> void:
 		BGMplayer.play()
 
 
-func set_bgm_volume(new_value : float) -> void:
-	_set_audio_stream_db(BGMplayer, linear2db(new_value))
+func enable_bgm(on : bool = true):
+	bgm_on = on
+	__mute_bus(BGM_BUS, not on)
+	return self
 
 
-func set_sfx_volume(new_value : float) -> void:
-	var db_eq = linear2db(sfx_linear)
-	LOG.pr(LOG.LOG_TYPE.SFX, "Set SFX volume: (%s), (%s)" % [new_value, db_eq])
-	for SFXplayer in SFXplayers.get_children():
-		_set_audio_stream_db(SFXplayer, new_value)
+func enable_sfx(on : bool = true):
+	sfx_on = on
+	__mute_bus(SFX_BUS, not on)
+	return self
 
+
+func set_bgm_volume(volume : float) -> void:
+	assert(0.0 <= volume and volume <= 1.0)
+	__set_bus_volume(BGM_BUS, volume)
+
+
+func set_sfx_volume(volume : float) -> void:
+	assert(0.0 <= volume and volume <= 1.0)
+	__set_bus_volume(SFX_BUS, volume)
+	LOG.pr(LOG.LOG_TYPE.SFX, "bus set to [%s]" % [AudioServer.get_bus_volume_db(AudioServer.get_bus_index(SFX_BUS))])
 
 
 func play(sfx_id : int) -> void:
@@ -118,19 +110,14 @@ func _play_sfx(sfx_audio):
 				break
 
 
-
-
 func set_sfx_player_count(count : int) -> void:
 	var delta = count - SFXplayers.get_child_count()
-
 	if delta > 0: # Add new
 		for _i in range(delta):
 			var new_player = AudioStreamPlayer.new()
+			new_player.bus = SFX_BUS
 			new_player.stream = AudioStreamRandomPitch.new()
-			_set_audio_stream_db(new_player, default_sfx_volume)
-
 			SFXplayers.add_child(new_player)
-
 	elif delta < 0:
 		var sfx_players = SFXplayers.get_children()
 		for _i in range(-delta):
@@ -141,14 +128,17 @@ func set_sfx_player_count(count : int) -> void:
 			last.queue_free()
 
 
-
 func _on_BGMPlayer_finished() -> void:
 	if bgm_on:
 		BGMplayer.play()
 
 
+### PRIVATE
+func __mute_bus(bus_name, mute) -> void:
+	AudioServer.set_bus_mute(AudioServer.get_bus_index(bus_name), mute)
 
-func _set_audio_stream_db(stream_node, db) -> void:
-	db = clamp(db, -60.0 - max(0, VOLUME_REDUCTION_DB), 0.0 - max(0, VOLUME_REDUCTION_DB))
-	LOG.pr(LOG.LOG_TYPE.SFX, "SET audio stream[%s] volume [%s]" % [stream_node, db])
-	stream_node.volume_db = db
+
+func __set_bus_volume(bus_name, volume_frac) -> void:
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(bus_name), linear2db(volume_frac))
+
+###

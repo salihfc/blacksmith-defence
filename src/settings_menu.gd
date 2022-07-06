@@ -36,7 +36,10 @@ func _ready() -> void:
 	SIGNAL.bind_multi(
 		[
 			[bgmSlider, "option_value_changed", self, "_on_bgm_volume_changed"],
+			[bgmSlider, "enabled", self, "_on_bgm_enabled"],
+
 			[sfxSlider, "option_value_changed", self, "_on_sfx_volume_changed"],
+			[sfxSlider, "enabled", self, "_on_sfx_enabled"],
 		]
 	)
 
@@ -53,9 +56,17 @@ func _on_TabContainer_tab_changed(_tab: int) -> void:
 
 # warning-ignore:unused_argument
 func _on_bgm_volume_changed(new_volume_frac) -> void:
-	pass
+	AUDIO.set_bgm_volume(new_volume_frac)
+
+
+func _on_bgm_enabled(enable) -> void:
+	AUDIO.enable_bgm(enable)
 
 
 # warning-ignore:unused_argument
 func _on_sfx_volume_changed(new_volume_frac) -> void:
-	pass
+	AUDIO.set_sfx_volume(new_volume_frac)
+
+
+func _on_sfx_enabled(enable) -> void:
+	AUDIO.enable_sfx(enable)

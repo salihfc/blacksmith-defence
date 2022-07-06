@@ -4,6 +4,7 @@ class_name SettingSlider
 """
 ### SIGNAL ###
 signal option_value_changed(new_frac_value)
+signal enabled(enable)
 
 ### ENUM ###
 ### CONST ###
@@ -43,8 +44,9 @@ func _to_frac_value(slider_value) -> float:
 	return (slider_value - slider.min_value) / (slider.max_value - slider.min_value)
 
 ### SIGNAL RESPONSES ###
-func _on_CheckButton_toggled(button_pressed: bool) -> void:
-	slider.editable = button_pressed
+func _on_CheckButton_toggled(enabled: bool) -> void:
+	slider.editable = enabled
+	emit_signal("enabled", enabled)
 
 
 func _on_HSlider_value_changed(value: float) -> void:

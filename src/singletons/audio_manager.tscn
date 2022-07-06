@@ -8,10 +8,10 @@ script = ExtResource( 1 )
 BGM = ExtResource( 2 )
 sfx_player_count = 16
 default_bgm_volume = 0.1
-default_sfx_volume = 0.3
 
 [node name="BGMPlayer" type="AudioStreamPlayer" parent="."]
 volume_db = -10.0
+bus = "BGM"
 
 [node name="SFXPlayers" type="Node" parent="."]
 
