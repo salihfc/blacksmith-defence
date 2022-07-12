@@ -33,6 +33,8 @@ export(NodePath) var NP_BaseHealthBar
 export(NodePath) var NP_UnitInfoPopupPanel
 export(NodePath) var NP_UnitInfoDisplay
 
+export(NodePath) var NP_ExitConfirmationDialog
+
 export(Resource) var unit_data_pool = null
 export(Resource) var player_base = null
 
@@ -56,13 +58,14 @@ onready var materialList = get_node(NP_MaterialList)
 onready var unitRecipeList = get_node(NP_UnitRecipeList)
 onready var debugWindow = get_node(NP_DebugWindow) as DebugWindow
 onready var craftingMenu = get_node(NP_CraftingMenu)
-onready var popupPanel = get_node(NP_CraftingPopupPanel) as PopupPanel
+onready var craftingPopup = get_node(NP_CraftingPopupPanel) as PopupPanel
 onready var startWaveButton = get_node(NP_StartButton)
 onready var craftButton = get_node(NP_CraftButton)
 onready var baseHealthBar = get_node(NP_BaseHealthBar)
 
 onready var unitInfoPopupPanel = get_node(NP_UnitInfoPopupPanel) as PopupPanel
 onready var unitInfoDisplay = get_node(NP_UnitInfoDisplay) as UnitInfoDisplay
+onready var exitConfirmationDialog = get_node(NP_ExitConfirmationDialog) as ConfirmationDialog
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _input(event):
@@ -72,7 +75,6 @@ func _input(event):
 #				Input.set_custom_mouse_cursor(mouse_pressed_cursor)
 #			else:
 #				Input.set_custom_mouse_cursor(mouse_normal_cursor)
-
 
 	if event is InputEventKey and event.pressed:
 		match event.scancode:
@@ -89,6 +91,19 @@ func _input(event):
 			KEY_A: # Toggle Circles with A
 				CONFIG.SHOW_RANGE_CIRCLES = not CONFIG.SHOW_RANGE_CIRCLES
 
+			KEY_ESCAPE:
+				# Game scene overwrites the effect of ESCAPE KEY
+				# To prevent SceneManager::_unhandled_input from processing this input
+				# mark it handled
+				get_tree().set_input_as_handled()
+				#
+
+				if craftingPopup.visible:
+					_on_crafting_cancelled()
+				else:
+					LOG.pr(LOG.LOG_TYPE.INTERNAL, "Exiting..")
+					exitConfirmationDialog.popup_centered()
+
 
 func _ready():
 	add_to_group(str(GROUP.GAME), true)
@@ -104,6 +119,7 @@ func _ready():
 
 		[startWaveButton, "pressed", self, "_on_wave_start_button_pressed"],
 		[craftButton, "pressed", self, "_on_CraftButton_pressed"],
+		[exitConfirmationDialog, "confirmed", self, "_go_to_main_menu"],
 
 		[battle, "base_damaged", player_base, "take_damage"],
 		[battle, "material_collected", materialList, "_on_material_collected"],
@@ -138,6 +154,11 @@ func _ready():
 
 ### PUBLIC FUNCTIONS ###
 ### PRIVATE FUNCTIONS ###
+func _go_to_main_menu() -> void:
+	var scene_manager = GROUP.get_global(GROUP.SCENE_MANAGER)
+	scene_manager.change_scene(scene_manager.SCENE.MAIN_MENU)
+
+
 func _update_recipe_list() -> void:
 	UTILS.clear_children(unitRecipeList)
 
@@ -201,12 +222,12 @@ func _on_CraftButton_pressed() -> void:
 	# Display Craft Menu
 	craftingMenu.reinit(materialList.get_storage())
 	_pause_battle()
-	popupPanel.popup()
+	craftingPopup.popup()
 
 
 func _on_unit_created(unit_recipe) -> void:
 	LOG.pr(LOG.LOG_TYPE.INTERNAL, "UNIT WITH RECIPE CREATED [%s]" % [unit_recipe])
-	popupPanel.hide()
+	craftingPopup.hide()
 	materialList.reinit(craftingMenu.recover_mat_from_slots().get_storage())
 	_pause_battle()
 	_cached_recipes.append(unit_recipe)
@@ -215,6 +236,6 @@ func _on_unit_created(unit_recipe) -> void:
 
 func _on_crafting_cancelled() -> void:
 	LOG.pr(LOG.LOG_TYPE.INPUT, "CRAFTING CANCELLED")
-	popupPanel.hide()
+	craftingPopup.hide()
 	_pause_battle()
 	materialList.reinit(craftingMenu.recover_mat_from_slots().get_storage())

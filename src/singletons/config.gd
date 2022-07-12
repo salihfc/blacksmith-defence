@@ -25,11 +25,6 @@ func _unhandled_key_input(event: InputEventKey) -> void:
 		LOG.pr(LOG.LOG_TYPE.INPUT, "Toggle DEBUG_ON [%s]" % [not DEBUG_ON])
 		_set_DEBUG_ON(not DEBUG_ON)
 
-	if event.scancode == KEY_ESCAPE and event.pressed:
-		if OS.is_debug_build():
-			LOG.pr(LOG.LOG_TYPE.INPUT, "Exiting..")
-			get_tree().quit()
-
 
 func _ready() -> void:
 	LOG.pr(LOG.LOG_TYPE.INTERNAL, "READY", "CONFIG")

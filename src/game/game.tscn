@@ -61,6 +61,7 @@ NP_CraftButton = NodePath("CraftButton")
 NP_BaseHealthBar = NodePath("BaseHpBar")
 NP_UnitInfoPopupPanel = NodePath("UnitInfoPopup")
 NP_UnitInfoDisplay = NodePath("UnitInfoPopup/UnitInfoDisplay")
+NP_ExitConfirmationDialog = NodePath("ExitConfirmationPopup")
 unit_data_pool = ExtResource( 6 )
 player_base = ExtResource( 9 )
 
@@ -188,6 +189,21 @@ margin_right = 509.0
 margin_bottom = 276.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="ExitConfirmationPopup" type="ConfirmationDialog" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -250.0
+margin_top = -50.0
+margin_right = 250.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 500, 100 )
+theme = ExtResource( 12 )
+popup_exclusive = true
+window_title = "End run?"
+dialog_text = "All progress will be lost"
 
 [node name="UnitInfoPopup" type="PopupPanel" parent="."]
 anchor_left = 1.0

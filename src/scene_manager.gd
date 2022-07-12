@@ -22,6 +22,11 @@ const SCENES = {
 	SCENE.GAME : preload("res://src/game/game.tscn"),
 }
 
+const PREV_SCENE = {
+	SCENE.SETTINGS : SCENE.MAIN_MENU,
+	SCENE.GAME : SCENE.MAIN_MENU,
+}
+
 
 ### CONST ###
 const DEFAULT_FOREGROUND_COLOR = Color("0c0d1d")
@@ -35,10 +40,8 @@ export(Texture) var mouse_normal_cursor
 export(Texture) var mouse_pressed_cursor
 
 ### PUBLIC VAR ###
-
-
 ### PRIVATE VAR ###
-
+var _current_scene = STARTING_SCENE
 
 ### ONREADY VAR ###
 onready var foreground = $Control/Foreground as ColorRect
@@ -53,6 +56,15 @@ func _input(event):
 				Input.set_custom_mouse_cursor(mouse_pressed_cursor)
 			else:
 				Input.set_custom_mouse_cursor(mouse_normal_cursor)
+
+
+func _unhandled_key_input(event: InputEventKey) -> void:
+	if event.scancode == KEY_ESCAPE and event.pressed:
+		if _current_scene in PREV_SCENE:
+			change_scene(PREV_SCENE[_current_scene])
+		else:
+			LOG.pr(LOG.LOG_TYPE.INTERNAL, "Exiting..")
+			get_tree().quit()
 
 
 func _ready() -> void:
@@ -78,6 +90,7 @@ func change_scene(scene_id) -> void:
 	var scene = SCENES[(scene_id)].instance()
 	scene.visible = false
 	sceneSlot.add_child(scene)
+	_current_scene = scene_id
 
 	# TODO: Should wait until scene fully loaded
 	yield(get_tree().create_timer(1.0), "timeout")
