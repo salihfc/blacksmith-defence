@@ -39,6 +39,17 @@ func get_default_dir():
 func set_direction() -> void:
 	spriteParent.scale.x = -_velocity.x / abs(_velocity.x)
 
+
+func attack() -> void:
+	LOG.pr(LOG.LOG_TYPE.GAMEPLAY, "[%s] : Attacking [%s]" % [self, _target_weakref])
+	if _target_weakref:
+		var _target = _target_weakref.get_ref()
+		if _target == null: # reselect target if previous one dies mid animation
+			_target = _select_target()
+
+		if _target: # make sure there are enemies around to attack
+			_target.take_damage(Damage.new(Damage.TYPE.PHYSICAL, get_damage()).set_originator(self))
+
 ### PRIVATE FUNCTIONS ###
 func _set_area_layer_and_masks() -> void:
 	body.collision_layer = COLLISION.ENEMY

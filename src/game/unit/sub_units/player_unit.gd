@@ -61,11 +61,6 @@ func init_with_data(unit_recipe : UnitRecipe) -> void:
 	DBG_range_circle.modulate.a = 0.1
 
 ### PUBLIC FUNCTIONS ###
-# DANGER: Deleting base function
-func attack() -> void:
-	return
-
-
 ### PRIVATE FUNCTIONS ###
 func _set_weapon(weapon : Node) -> void:
 	weaponSlot.add_weapon(weapon)

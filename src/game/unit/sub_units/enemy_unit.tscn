@@ -38,6 +38,8 @@ radius = 14.0
 
 [sub_resource type="Animation" id=3]
 resource_name = "attack"
+length = 1.5
+loop = true
 tracks/0/type = "method"
 tracks/0/path = NodePath(".")
 tracks/0/interp = 1
@@ -59,8 +61,8 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"points": PoolRealArray( 0, -0.25, 0.405963, 0.344409, -0.559269, -8, -0.0555911, 0.73909, 0.0444089, -0.590422, 0, -0.155591, -8.00887, 0.249999, 12.8684 ),
-"times": PoolRealArray( 0, 0.3, 1 )
+"points": PoolRealArray( 0, -0.2, -4.31734, 0.2, 4.31734, -9.8144, 0, 6.46022, 0, -6.46022, 0.145108, -0.1, -0.67294, 0.1, 0.67294, 0.145108, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.2, 0.9, 1.5 )
 }
 
 [node name="EnemyUnit" instance=ExtResource( 1 )]

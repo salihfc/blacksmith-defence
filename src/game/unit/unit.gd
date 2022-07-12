@@ -432,14 +432,7 @@ func set_target(new_target) -> void:
 
 
 func attack() -> void:
-	LOG.pr(LOG.LOG_TYPE.GAMEPLAY, "[%s] : Attacking [%s]" % [self, _target_weakref])
-	if _target_weakref:
-		var _target = _target_weakref.get_ref()
-		if _target == null: # reselect target if previous one dies mid animation
-			_target = _select_target()
-
-		if _target: # make sure there are enemies around to attack
-			_target.take_damage(Damage.new(Damage.TYPE.PHYSICAL, get_damage()).set_originator(self))
+	return
 
 
 func play_weapon_animation() -> void:

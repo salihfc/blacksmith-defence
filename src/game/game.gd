@@ -101,7 +101,8 @@ func _input(event):
 				if craftingPopup.visible:
 					_on_crafting_cancelled()
 				else:
-					LOG.pr(LOG.LOG_TYPE.INTERNAL, "Exiting..")
+					LOG.pr(LOG.LOG_TYPE.INTERNAL, "Confirm Exit?")
+					_pause_battle()
 					exitConfirmationDialog.popup_centered()
 
 
@@ -120,6 +121,7 @@ func _ready():
 		[startWaveButton, "pressed", self, "_on_wave_start_button_pressed"],
 		[craftButton, "pressed", self, "_on_CraftButton_pressed"],
 		[exitConfirmationDialog, "confirmed", self, "_go_to_main_menu"],
+		[exitConfirmationDialog, "popup_hide", self, "_pause_battle"],
 
 		[battle, "base_damaged", player_base, "take_damage"],
 		[battle, "material_collected", materialList, "_on_material_collected"],
