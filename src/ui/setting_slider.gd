@@ -12,7 +12,7 @@ signal enabled(enable)
 ### PUBLIC VAR ###
 ### PRIVATE VAR ###
 ### ONREADY VAR ###
-onready var check_button = $HBoxContainer/CheckButton as CheckButton
+onready var check_button = $HBoxContainer/MarginContainer/CheckButton as CheckButton
 onready var slider = $HBoxContainer/HSlider as HSlider
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
@@ -21,6 +21,14 @@ func set_option(option_name : String = "", option_icon : Texture = null, frac_va
 	_set_name(option_name)
 	_set_icon(option_icon)
 	_set_value(frac_value)
+
+
+# Use carefully
+func silent_config(enabled, slider_frac):
+	check_button.pressed = enabled
+	slider.editable = enabled
+	slider.value = slider_frac
+	return self
 
 ### PRIVATE FUNCTIONS ###
 func _set_name(__name) -> void:
