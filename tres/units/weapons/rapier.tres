@@ -19,3 +19,4 @@ hold_anim = ExtResource( 3 )
 thrust_anim = ExtResource( 4 )
 collision_shape = ExtResource( 5 )
 collision_shape_offset = Vector2( 0, -8 )
+throwable = false

@@ -17,3 +17,4 @@ idle_anim = ExtResource( 4 )
 hold_anim = ExtResource( 5 )
 swing_anim = ExtResource( 3 )
 collision_shape_offset = Vector2( 0, 0 )
+throwable = false

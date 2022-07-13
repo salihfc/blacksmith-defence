@@ -34,6 +34,7 @@ hue_variation_random = 0.1
 
 [node name="Particles2D" parent="." index="0"]
 amount = 32
+one_shot = true
 explosiveness = 1.0
 randomness = 0.1
 visibility_rect = Rect2( -184.306, -183.836, 377.04, 373.829 )

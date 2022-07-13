@@ -1,6 +1,8 @@
 extends Unit
 class_name PlayerUnit
 """
+	NOTE:
+		- PlayerUnits with spells cast their spells on certain frame of weapon swing animation
 """
 ### SIGNAL ###
 ### ENUM ###

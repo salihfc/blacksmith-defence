@@ -355,6 +355,16 @@ _global_script_classes=[ {
 "path": "res://src/game/player_units/throwable_weapon.gd"
 }, {
 "base": "Resource",
+"class": "ThrowableWeaponData",
+"language": "GDScript",
+"path": "res://src/resource_classes/throw_weapon_data.gd"
+}, {
+"base": "SpellBase",
+"class": "Tornado",
+"language": "GDScript",
+"path": "res://src/game/spells/tornado.gd"
+}, {
+"base": "Resource",
 "class": "Trigger",
 "language": "GDScript",
 "path": "res://src/resource_classes/triggers/trigger.gd"
@@ -564,6 +574,8 @@ _global_script_class_icons={
 "StatusListDisplay": "",
 "ThornEffect": "",
 "ThrowableWeapon": "",
+"ThrowableWeaponData": "",
+"Tornado": "",
 "Trigger": "",
 "Unit": "",
 "UnitData": "",

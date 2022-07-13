@@ -53,8 +53,7 @@ func generate_fx_at(fx_id : int, global_pos : Vector2, delay := 0.0) -> void:
 
 	fx.global_position = global_pos
 	yield(get_tree().create_timer(delay), "timeout")
-	if fx:
-		fx.emit()
+	fx.emit()
 
 
 ### PRIVATE FUNCTIONS ###

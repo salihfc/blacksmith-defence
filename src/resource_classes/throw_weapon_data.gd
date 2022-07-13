@@ -1,5 +1,5 @@
 extends Resource
-class_name WeaponData
+class_name ThrowableWeaponData
 """
 """
 ### SIGNAL ###
@@ -16,11 +16,6 @@ export(Animation) var hold_anim
 export(Animation) var swing_anim
 export(Animation) var slam_anim
 export(Animation) var thrust_anim
-
-export(Shape2D) var collision_shape
-export(Vector2) var collision_shape_offset
-
-export(bool) var throwable = false
 
 ### PUBLIC VAR ###
 ### PRIVATE VAR ###
