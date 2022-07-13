@@ -57,13 +57,13 @@ func cast(
 	)
 
 	# Fade-out start after travel time
-#	TWEEN.interpolate_method(
-#		self, "_set_shader_fade",
-#		0.0, 1.0,
-#		fade_out_duration - 0.01,
-#		Tween.TRANS_CUBIC, Tween.EASE_IN_OUT,
-#		travel_time - 0.01
-#	)
+	TWEEN.interpolate_method(
+		self, "_set_shader_fade",
+		0.0, 1.0,
+		fade_out_duration,
+		Tween.TRANS_CUBIC, Tween.EASE_IN_OUT,
+		travel_time
+	)
 
 	# Cleanup happens after total time
 	TIMER_ALLOC.alloc(

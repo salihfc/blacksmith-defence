@@ -325,7 +325,7 @@ modulate = Color( 0.501961, 0.501961, 0.501961, 0.490196 )
 material = SubResource( 63 )
 frames = ExtResource( 4 )
 animation = "loop"
-frame = 52
+frame = 18
 playing = true
 offset = Vector2( 0, -32 )
 flip_h = true
@@ -334,7 +334,7 @@ flip_h = true
 material = SubResource( 69 )
 frames = SubResource( 66 )
 animation = "loop"
-frame = 47
+frame = 13
 playing = true
 offset = Vector2( 0, -32 )
 
