@@ -57,6 +57,17 @@ const STAT_DEFAULTS = {
 		StatContainer.STATS.ATK_RANGE : 360,
 	},
 
+	"SpearThrower" : {
+		StatContainer.STATS.MAX_HP : 70,
+		StatContainer.STATS.BASE_DAMAGE : 0,
+		StatContainer.STATS.DAMAGE_MULTI : 1,
+		StatContainer.STATS.MOVE_SPEED : 1,
+		StatContainer.STATS.ATK_SPEED : 1,
+		StatContainer.STATS.SPELL_AOE : 1.5,
+
+		StatContainer.STATS.ATK_RANGE : 360,
+	},
+
 	"Duelist" : {
 		StatContainer.STATS.MAX_HP : 140,
 		StatContainer.STATS.BASE_DAMAGE : 20,
@@ -164,6 +175,7 @@ var _stats = StatContainer.new()
 #
 export(Resource) var weapon
 export(Array, Resource) var spells
+export(Array, Resource) var throwables
 
 #
 #export(Resource) var enhancements = MaterialStorage.new()
@@ -269,7 +281,9 @@ func scale_to_wave(wave_number : float):
 			value += curve_add.interpolate(wave_number)
 
 			if stat_id == StatContainer.STATS.MAX_HP:
-				LOG.pr(LOG.LOG_TYPE.INTERNAL, "[%s] set_stat [%s] to [%s] | (%s)" % [self, UTILS.get_enum_string_from_id(StatContainer.STATS, stat_id), value, get_stat(stat_id)])
+				LOG.pr(LOG.LOG_TYPE.INTERNAL,\
+						"[%s] set_stat [%s] to [%s] | (%s)"\
+						% [self, UTILS.get_enum_string_from_id(StatContainer.STATS, stat_id), value, get_stat(stat_id)])
 
 		if curve_mult != null:
 			value *= curve_mult.interpolate(wave_number)

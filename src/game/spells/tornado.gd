@@ -26,6 +26,8 @@ onready var frontAnim = $Pivot/FrontAnim as AnimatedSprite
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _ready() -> void:
 	hide()
+	backAnim.playing = true
+	frontAnim.playing = true
 
 ### PUBLIC FUNCTIONS ###
 func cast(
@@ -35,6 +37,7 @@ func cast(
 
 	if not _castable:
 		return
+	_castable = false
 
 	# Tornado cast in a straight line
 	var dir = Vector2.RIGHT
@@ -48,7 +51,7 @@ func cast(
 			self, "set_pos",
 			_starting_point, end_pos,
 			travel_time,
-			Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+			Tween.TRANS_QUART, Tween.EASE_OUT)
 
 	TWEEN.interpolate_property(
 			$Pivot, "global_scale",

@@ -316,7 +316,9 @@ radius = 18.0
 
 [node name="Tornado" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-fade_out_duration = 0.0
+speed = 300.0
+grow_time = 0.1
+travel_distance = 400.0
 
 [node name="Pivot" type="Node2D" parent="." index="0"]
 
@@ -325,8 +327,6 @@ modulate = Color( 0.501961, 0.501961, 0.501961, 0.490196 )
 material = SubResource( 63 )
 frames = ExtResource( 4 )
 animation = "loop"
-frame = 18
-playing = true
 offset = Vector2( 0, -32 )
 flip_h = true
 
@@ -334,8 +334,6 @@ flip_h = true
 material = SubResource( 69 )
 frames = SubResource( 66 )
 animation = "loop"
-frame = 13
-playing = true
 offset = Vector2( 0, -32 )
 
 [node name="Areas" type="Node2D" parent="." index="1"]

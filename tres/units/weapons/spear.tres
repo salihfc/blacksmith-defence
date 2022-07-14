@@ -1,11 +1,18 @@
-[gd_resource type="Resource" load_steps=3 format=2]
+[gd_resource type="Resource" load_steps=5 format=2]
 
-[ext_resource path="res://src/resource_classes/throw_weapon_data.gd" type="Script" id=1]
-[ext_resource path="res://assets/gfx/game/spear_right.png" type="Texture" id=2]
+[ext_resource path="res://assets/gfx/game/spear.png" type="Texture" id=1]
+[ext_resource path="res://src/resource_classes/weapon_data.gd" type="Script" id=2]
+[ext_resource path="res://tres/anim/weapon/weapon_spear_throw.anim" type="Animation" id=3]
+[ext_resource path="res://tres/anim/weapon/weapon_spear_idle.anim" type="Animation" id=4]
 
 [resource]
-script = ExtResource( 1 )
+resource_local_to_scene = true
+script = ExtResource( 2 )
 id = 3
-name = "weapon"
-texture = ExtResource( 2 )
+name = "spear"
+texture = ExtResource( 1 )
 base_damage = 20.0
+idle_anim = ExtResource( 4 )
+swing_anim = ExtResource( 3 )
+collision_shape_offset = Vector2( 0, -8 )
+throwable = false

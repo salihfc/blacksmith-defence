@@ -33,3 +33,6 @@ func init_from_unit(unit : Unit) -> void:
 
 ### PRIVATE FUNCTIONS ###
 ### SIGNAL RESPONSES ###
+func _on_info_updated(_unit) -> void:
+#	LOG.pr(LOG.LOG_TYPE.INTERNAL, "UNIT INFO UPDATED [%s]" % [_unit])
+	init_from_unit(_unit)

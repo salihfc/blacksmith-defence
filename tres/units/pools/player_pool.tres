@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=8 format=2]
+[gd_resource type="Resource" load_steps=9 format=2]
 
 [ext_resource path="res://src/resource_classes/item_pool.gd" type="Script" id=1]
 [ext_resource path="res://tres/units/player_units/SwordMaster.tres" type="Resource" id=2]
@@ -7,7 +7,8 @@
 [ext_resource path="res://tres/units/player_units/WinterMage.tres" type="Resource" id=5]
 [ext_resource path="res://tres/units/player_units/FlameWeaver.tres" type="Resource" id=6]
 [ext_resource path="res://tres/units/player_units/TornadoMage.tres" type="Resource" id=7]
+[ext_resource path="res://tres/units/player_units/SpearThrower.tres" type="Resource" id=8]
 
 [resource]
 script = ExtResource( 1 )
-items = [ ExtResource( 2 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ) ]
+items = [ ExtResource( 2 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ) ]

@@ -59,6 +59,15 @@ func init_with_data(unit_recipe : UnitRecipe) -> void:
 					spell, "enemy_hit",
 					self, "_on_enemy_hit")
 
+	if unit_data.throwables:
+		for throwable_scene in unit_data.throwables:
+			var throwable = throwable_scene.instance()
+			throwSlot.call_deferred("add_child", throwable)
+			throwable.call_deferred("set_owner_unit", self)
+#			SIGNAL.bind(
+#					throwable, "enemy_hit",
+#					self, "_on_enemy_hit")
+
 	DBG_range_circle.modulate = Color.green
 	DBG_range_circle.modulate.a = 0.1
 
@@ -92,3 +101,6 @@ func _on_weapon_attack_frame(_damage) -> void:
 	LOG.pr(LOG.LOG_TYPE.INTERNAL, "[%s] weapon attack frame casting spells" % [self])
 	for spell in spellSlot.get_children():
 		spell.cast()
+
+	for throwable in throwSlot.get_children():
+		throwable.throw()

@@ -22,6 +22,8 @@ export(Curve) var dist_to_height_multi : Curve
 export(PackedScene) var P_LandVFX
 
 ### PUBLIC VAR ###
+var owner_unit_weakref
+
 ### PRIVATE VAR ###
 var _thrown = false
 var _velocity = Vector2.ZERO
@@ -38,6 +40,7 @@ onready var collision_shape = $Pivot/Sprite/HitBox/CollisionShape2D as Collision
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _ready() -> void:
+	hide()
 	SIGNAL.bind(self, "landed", self, "_on_landing")
 
 
@@ -65,17 +68,33 @@ func _physics_process(delta: float) -> void:
 
 
 ### PUBLIC FUNCTIONS ###
+func set_owner_unit(_unit) -> void:
+	owner_unit_weakref = weakref(_unit)
+
+
+func get_owner():
+	if owner_unit_weakref:
+		return owner_unit_weakref.get_ref()
+	return null
+
+
 func stop():
 	_set_offset(0.0)
 	_thrown = false
 	_velocity = Vector2.ZERO
 	emit_signal("landed")
+	position = Vector2.ZERO + Vector2.UP * 16.0
 
 
-func throw(target_pos : Vector2) -> void:
-	if target_pos.distance_to(global_position) < min_dist_to_throw:
+func can_throw() -> bool:
+	return _thrown == false
+
+
+func throw(target_pos : Vector2 = decide_target_pos()) -> void:
+	if target_pos == null or target_pos.distance_to(global_position) < min_dist_to_throw:
 		return
 
+	show()
 	_thrown = true
 	_start_pos = global_position
 	_target_pos = target_pos
@@ -99,6 +118,43 @@ func _set_offset(offset) -> void:
 	$Pivot/Sprite/HitBox.position.y = offset
 
 
+func decide_target_pos(_possible_targets = get_possible_targets()):
+	# Find best place to cast blizzard
+	# Try casting on top of every target: O(n*n)
+	var max_target_count = 0
+	var best_target = null
+	var _starting_point = global_position
+
+	for main_target in _possible_targets:
+		var cast_position = main_target.global_position
+		var ct = 0
+		if cast_position.distance_to(_starting_point) > get_cast_range():
+			continue
+
+		for target in _possible_targets:
+			if cast_position.distance_to(target.global_position) <= get_radius():
+				ct += 1
+
+		if ct > max_target_count:
+			max_target_count = ct
+			best_target = main_target
+
+	if best_target:
+		return (best_target.global_position)
+	return null
+
+
+func get_possible_targets():
+	return get_tree().get_nodes_in_group(CONFIG.ENEMY_GROUP)
+
+
+func get_radius() -> float:
+	return 100.0 # TODO: make dynamic
+
+
+func get_cast_range() -> float:
+	return 280.0
+
 ### SIGNAL RESPONSES ###
 func _on_landing() -> void:
 	LOG.pr(LOG.LOG_TYPE.GAMEPLAY, "on spear landed")
@@ -110,3 +166,5 @@ func _on_landing() -> void:
 		fx.set_as_toplevel(true)
 		fx.global_position = collision_shape.global_position
 		fx.emit()
+
+	hide()

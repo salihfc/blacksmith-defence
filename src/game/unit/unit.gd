@@ -88,8 +88,10 @@ onready var statusListDisplay = get_node(NP_StatusListDisplay) as StatusListDisp
 onready var spriteParent = $SpriteParent as Node2D
 onready var sprite = $SpriteParent/Sprite as Sprite
 onready var animPlayer = $AnimationPlayer as AnimationPlayer
+
 onready var weaponSlot = $SpriteParent/WeaponSlot as WeaponSlot
 onready var spellSlot = $SpriteParent/SpellSlot as Node2D
+onready var throwSlot = $SpriteParent/ThrowableSlot as Node2D
 
 # Areas
 onready var softBody : ObjectArea = $SpriteParent/Areas/SoftBody as ObjectArea
@@ -240,11 +242,13 @@ func add_on_hit_taken_trigger(on_hit_taken_trigger : Trigger):
 func add_to_stat(id : int, amount):
 	assert(amount != null)
 	_stats.set_stat(id, get_stat(id) + amount)
+	emit_signal("info_updated")
 
 
 func multiply_stat(id : int, amount):
 	assert(amount != null)
 	_stats.set_stat(id, get_stat(id) * amount)
+	emit_signal("info_updated")
 
 
 func apply_status_effect(status_effect):
@@ -361,9 +365,7 @@ func set_direction() -> void:
 func apply_impulse(impulse : Vector2) -> void:
 	# Disable y knockback
 	LOG.pr(LOG.LOG_TYPE.PHYSICS, "[%s] IMPULSE applied [%s]" % [self, impulse])
-
 	impulse.y = 0.0
-
 	_knockback += impulse
 
 # TODO: Carry Formulaic stuff into FORMULA class and clean other classes
@@ -410,9 +412,10 @@ func take_damage(_damage, pulse = Vector2.ZERO) -> void:
 				emit_signal("low_life_reached")
 				_low_life_already_reached = true
 
-
 		if CONFIG.SHOW_HP_BARS:
 			emit_signal("life_fraction_updated", get_hp_fraction())
+
+	emit_signal("info_updated")
 
 
 func heal(amount) -> void:
@@ -420,6 +423,7 @@ func heal(amount) -> void:
 	var hp = _stats.get_stat(StatContainer.STATS.HP)
 	var final_amount = min(max_hp, hp + amount)
 	_stats.set_stat(StatContainer.STATS.HP, final_amount)
+	emit_signal("info_updated")
 
 
 func set_shader_param_damage_flash_anim(x : float) -> void:

@@ -23,6 +23,7 @@ cost = SubResource( 1 )
 brain = ExtResource( 4 )
 weapon = ExtResource( 6 )
 spells = [ ExtResource( 7 ) ]
+throwables = [  ]
 enhancements = [  ]
 mods = [  ]
 stats/max_hp = 70

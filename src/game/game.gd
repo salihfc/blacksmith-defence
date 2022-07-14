@@ -206,6 +206,12 @@ func _on_unit_selected(unit) -> void:
 	unitInfoDisplay.init_from_unit(unit)
 	unitInfoPopupPanel.popup()
 
+	if not unit.is_connected("info_updated", unitInfoDisplay, "_on_info_updated"):
+		SIGNAL.bind(
+				unit, "info_updated",
+				unitInfoDisplay, "_on_info_updated",
+				[unit])
+
 
 func _on_wave_start_button_pressed() -> void:
 	battle.start_next_wave()

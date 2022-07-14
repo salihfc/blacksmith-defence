@@ -4,8 +4,8 @@
 [ext_resource path="res://src/resource_classes/material_storage.gd" type="Script" id=2]
 [ext_resource path="res://src/resource_classes/unit_data.gd" type="Script" id=3]
 [ext_resource path="res://src/ai/infinite_axis_utility/agent_tres/agent_player_basic.tres" type="Resource" id=4]
-[ext_resource path="res://src/game/spells/incinerate.tscn" type="PackedScene" id=5]
-[ext_resource path="res://tres/units/weapons/wand.tres" type="Resource" id=6]
+[ext_resource path="res://src/game/player_units/throwable_weapon.tscn" type="PackedScene" id=5]
+[ext_resource path="res://tres/units/weapons/spear.tres" type="Resource" id=6]
 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 2 )
@@ -15,20 +15,20 @@ Resource( "res://tres/materials/material_iron.tres" ): 2
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 1 )
-region = Rect2( 128, 224, 16, 16 )
+region = Rect2( 176, 224, 16, 16 )
 filter_clip = true
 
 [resource]
 script = ExtResource( 3 )
-name = "FlameWeaver"
+name = "SpearThrower"
 texture = SubResource( 2 )
 flip_h = false
 sprite_scale = 1.0
 cost = SubResource( 1 )
 brain = ExtResource( 4 )
 weapon = ExtResource( 6 )
-spells = [ ExtResource( 5 ) ]
-throwables = [  ]
+spells = [  ]
+throwables = [ ExtResource( 5 ) ]
 enhancements = [  ]
 mods = [  ]
 stats/max_hp = 70
@@ -39,7 +39,7 @@ stats/res_earth = 0.0
 stats/base_damage = 0
 stats/move_speed = 1
 stats/atk_speed = 1
-stats/atk_range = 160
+stats/atk_range = 360
 stats/damage_multi = 1
 stats/chain_count = 0.0
 stats/hp = 0.0
@@ -51,7 +51,7 @@ stats/freeze_chance = 0.0
 stats/chill_chance = 0.0
 stats/shock_chance = 0.0
 stats/stun_chance = 0.0
-stats/spell_aoe = 1.0
+stats/spell_aoe = 1.5
 stats/cast_speed = 0.0
 stats/cast_range = 0.0
 stats/chain_range = 0.0

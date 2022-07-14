@@ -30,6 +30,7 @@ sprite_scale = 1.0
 cost = SubResource( 1 )
 brain = ExtResource( 1 )
 spells = [  ]
+throwables = [  ]
 enhancements = [ SubResource( 3 ) ]
 mods = [ ExtResource( 7 ) ]
 stats/max_hp = 200

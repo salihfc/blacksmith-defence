@@ -13,6 +13,7 @@ enum TYPE {
 	RAPIER = 1,
 
 	WAND = 2,
+	SPEAR = 3,
 }
 ### <-- TEMP
 
@@ -66,7 +67,7 @@ func init_with_data(weapon_data : WeaponData) -> void:
 ### PUBLIC FUNCTIONS ###
 func strike() -> void:
 	match _id:
-		TYPE.SWORD:
+		TYPE.SWORD, TYPE.SPEAR:
 			animate(ANIM.SWING)
 		TYPE.RAPIER:
 			animate(ANIM.THRUST)
