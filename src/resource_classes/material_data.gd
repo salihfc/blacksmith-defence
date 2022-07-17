@@ -1,6 +1,10 @@
 tool
 extends Resource
 class_name MaterialData
+func get_base(): return "Resource"
+func get_class(): return "MaterialData"
+func is_class(_name): return _name == "MaterialData" or .is_class(_name)
+
 """
 """
 ### SIGNAL ###

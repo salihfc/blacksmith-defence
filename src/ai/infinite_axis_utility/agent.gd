@@ -1,8 +1,10 @@
+tool
 extends IAUSObject
 class_name Agent
-
+func get_base(): return "IAUSObject"
+func get_class(): return "Agent"
+func is_class(_name): return _name == "Agent" or .is_class(_name)
 """
-
 """
 ### SIGNAL ###
 ### ENUM ###

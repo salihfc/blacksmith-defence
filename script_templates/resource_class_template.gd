@@ -1,12 +1,11 @@
 tool
-extends Resource
-class_name IAUSObject
-func get_base(): return "Resource"
-func get_class(): return "IAUSObject"
-func is_class(_name): return _name == "IAUSObject" or .is_class(_name)
+extends %BASE%
+class_name ClassName
+func get_base(): return "%BASE%"
+func get_class(): return "ClassName"
+func is_class(_name): return _name == "ClassName" or .is_class(_name)
 """
 """
-
 ### SIGNAL ###
 ### ENUM ###
 ### CONST ###
@@ -15,8 +14,6 @@ func is_class(_name): return _name == "IAUSObject" or .is_class(_name)
 ### PRIVATE VAR ###
 ### ONREADY VAR ###
 ### VIRTUAL FUNCTIONS (_init ...) ###
-func _init():
-	resource_local_to_scene = true
 ### PUBLIC FUNCTIONS ###
 ### PRIVATE FUNCTIONS ###
 ### SIGNAL RESPONSES ###

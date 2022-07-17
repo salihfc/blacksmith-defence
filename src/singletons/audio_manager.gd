@@ -95,13 +95,13 @@ func set_sfx_volume(volume : float) -> void:
 
 
 func play(sfx_id : int) -> void:
-	LOG.pr(LOG.LOG_TYPE.SFX, "play sfx: [%s]" % [sfx_id])
+#	LOG.pr(LOG.LOG_TYPE.SFX, "play sfx: [%s]" % [sfx_id])
 	if sfx_on:
 		_play_sfx(SFX_array[sfx_id])
 
 
 func play_ui_sfx(sfx_id : int) -> void:
-	LOG.pr(LOG.LOG_TYPE.SFX, "play sfx: [%s]" % [sfx_id])
+#	LOG.pr(LOG.LOG_TYPE.SFX, "play sfx: [%s]" % [sfx_id])
 	_play_sfx(UI_SFX_ARRAY[sfx_id])
 
 

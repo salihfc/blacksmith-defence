@@ -615,7 +615,6 @@ config/icon="res://icon.png"
 [autoload]
 
 CONFIG="*res://src/singletons/config.gd"
-LOG="*res://src/singletons/log.tscn"
 UTILS="*res://src/singletons/utils.gd"
 SIGNAL="*res://src/singletons/signal.gd"
 TWEEN="*res://src/singletons/tween_manager.tscn"
@@ -628,6 +627,7 @@ FLOATING_TEXT="*res://src/singletons/floating_text_generator.tscn"
 STATUS="*res://src/singletons/status_effect_generator.tscn"
 WEAPON_ENHANCE_DB="*res://src/singletons/weapon_mat_effect_db.gd"
 GROUP="*res://src/singletons/group_manager.gd"
+LOG="*res://src/singletons/log.tscn"
 
 [debug]
 
@@ -645,7 +645,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/godot-plugin-refresher/plugin.cfg", "res://addons/godotoro/plugin.cfg", "res://addons/imrp/plugin.cfg", "res://addons/light_snippet/plugin.cfg", "res://addons/persistent_bookmarks/plugin.cfg", "res://addons/vargen/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/godot-plugin-refresher/plugin.cfg", "res://addons/godotoro/plugin.cfg", "res://addons/imrp/plugin.cfg", "res://addons/light_snippet/plugin.cfg", "res://addons/vargen/plugin.cfg" )
 
 [gdnative]
 

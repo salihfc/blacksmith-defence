@@ -1,5 +1,9 @@
+tool
 extends Resource
 class_name WeaponData
+func get_base(): return "Resource"
+func get_class(): return "WeaponData"
+func is_class(_name): return _name == "WeaponData" or .is_class(_name)
 """
 """
 ### SIGNAL ###

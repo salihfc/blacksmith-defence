@@ -1,6 +1,9 @@
 tool
 extends Resource
 class_name StatusEffect
+func get_base(): return "Resource"
+func get_class(): return "StatusEffect"
+func is_class(_name): return _name == "StatusEffect" or .is_class(_name)
 """
 	Note: Expiration of StatusEffects handled by container
 """
@@ -79,7 +82,7 @@ func clone_from_prototype(prototype):
 
 
 func report():
-	LOG.pr(LOG.LOG_TYPE.INTERNAL, "\n-------------------\n%s\n-------------------\n" % [self])
+#	LOG.pr(LOG.LOG_TYPE.INTERNAL, "\n-------------------\n%s\n-------------------\n" % [self])
 	return self
 
 

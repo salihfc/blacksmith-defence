@@ -1,6 +1,10 @@
 tool
 extends Resource
 class_name UnitData
+func get_base(): return "Resource"
+func get_class(): return "UnitData"
+func is_class(_name): return _name == "UnitData" or .is_class(_name)
+
 """
 """
 ### SIGNAL ###

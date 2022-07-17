@@ -1,8 +1,10 @@
+tool
 extends IAUSObject
 class_name Action
-
+func get_base(): return "IAUSObject"
+func get_class(): return "Action"
+func is_class(_name): return _name == "Action" or .is_class(_name)
 """
-
 """
 
 ### SIGNAL ###

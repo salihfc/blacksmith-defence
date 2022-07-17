@@ -1,6 +1,8 @@
 extends IAUSObject
 class_name Consideration
-
+func get_base(): return "IAUSObject"
+func get_class(): return "Consideration"
+func is_class(_name): return _name == "Consideration" or .is_class(_name)
 """
 
 """
