@@ -1,6 +1,7 @@
 extends Control
-#TODO: - Integrate CraftingMenu
-#		- Update Unit List to have be a list of crafted/craftable unit recipes
+# TODO:
+#		[+] Integrate CraftingMenu
+#		[+] Update Unit List to have be a list of crafted/craftable unit recipes
 #		- Add option to hide uncraftable recipes
 
 ### SIGNAL ###
@@ -13,7 +14,6 @@ signal material_used(mat, count)
 export(PackedScene) var P_UnitRecipeView
 #export(Texture) var mouse_normal_cursor
 #export(Texture) var mouse_pressed_cursor
-
 
 """
 	NOTE:
@@ -39,6 +39,8 @@ export(Resource) var unit_data_pool = null
 export(Resource) var player_base = null
 
 ### PUBLIC VAR ###
+var player_material_storage = MaterialStorage.new()
+
 ### PRIVATE VAR ###
 var _cached_recipes = [
 	UnitRecipe.new(
@@ -107,8 +109,8 @@ func _input(event):
 
 
 func _ready():
-	add_to_group(str(GROUP.GAME), true)
-	materialList.add_to_group(str(GROUP.PLAYER_MATS))
+	GROUP.set_global(GROUP.GAME, self)
+	GROUP.set_global(GROUP.PLAYER_MATS, player_material_storage)
 #	Input.set_custom_mouse_cursor(mouse_normal_cursor)
 	# Init Player Base
 	assert(player_base)
@@ -124,9 +126,11 @@ func _ready():
 		[exitConfirmationDialog, "popup_hide", self, "_pause_battle"],
 
 		[battle, "base_damaged", player_base, "take_damage"],
-		[battle, "material_collected", materialList, "_on_material_collected"],
 
-		[self, "material_used", materialList, "_on_material_used"],
+		[battle, "material_collected", player_material_storage, "add_material"],
+		[self, "material_used", player_material_storage, "use_material"],
+
+		[player_material_storage, "changed", materialList, "reinit", [player_material_storage]]
 	])
 
 	SIGNAL.bind_bulk(
@@ -186,8 +190,11 @@ func _pause_battle() -> void:
 ### SIGNAL RESPONSES ###
 func _on_recipe_selected(unit_recipe : UnitRecipe) -> void:
 	assert(unit_recipe)
-	LOG.pr(LOG.LOG_TYPE.INPUT, "UNIT_VIEW PRESSED WITH [%s] unit_total[%s]\nstorage[%s]" % [unit_recipe, unit_recipe.total_cost(), materialList.get_storage()])
-	if materialList.get_storage().covers_cost(unit_recipe.total_cost()):
+	LOG.pr(LOG.LOG_TYPE.INPUT,\
+			"UNIT_VIEW PRESSED WITH [%s] unit_total[%s]\nstorage[%s]"\
+			% [unit_recipe, unit_recipe.total_cost(), player_material_storage])
+
+	if player_material_storage.covers_cost(unit_recipe.total_cost()):
 		battle.set_dragged_item(unit_recipe)
 	else:
 		LOG.pr(LOG.LOG_TYPE.INPUT, "RECIPE CANNOT BE AFFORDED [%s] \n [%s]" % [unit_recipe, unit_recipe.total_cost()])
@@ -228,7 +235,7 @@ func _on_player_main_base_destroyed() -> void:
 
 func _on_CraftButton_pressed() -> void:
 	# Display Craft Menu
-	craftingMenu.reinit(materialList.get_storage())
+	craftingMenu.reinit(player_material_storage)
 	_pause_battle()
 	craftingPopup.popup()
 

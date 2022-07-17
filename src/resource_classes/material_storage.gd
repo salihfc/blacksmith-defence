@@ -3,6 +3,8 @@ class_name MaterialStorage
 """
 """
 ### SIGNAL ###
+signal changed()
+
 ### ENUM ###
 ### CONST ###
 ### EXPORT ###
@@ -96,6 +98,7 @@ func _use_material(mat : MaterialData, ct : int) -> void:
 
 	assert(key_to_decrease)
 	_storage[key_to_decrease] -= ct
+	_on_change()
 
 
 func _add_material(mat : MaterialData, ct : int) -> void:
@@ -109,6 +112,10 @@ func _add_material(mat : MaterialData, ct : int) -> void:
 	if not key_to_increase in _storage:
 		_storage[key_to_increase] = 0
 	_storage[key_to_increase] += ct
+	_on_change()
 
+
+func _on_change() -> void:
+	emit_signal("changed")
 
 ### SIGNAL RESPONSES ###

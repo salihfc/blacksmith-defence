@@ -28,7 +28,11 @@ func init_from_unit(unit : Unit) -> void:
 	var unit_stats = unit._stats
 
 	baseCostList.reinit(base_cost_storage)
-	enhanceCostList.reinit(enhance_cost_storage)
+
+	# FIX: not sure?
+	if enhance_cost_storage:
+		enhanceCostList.reinit(enhance_cost_storage)
+
 	statList.display_stats(unit_stats)
 
 ### PRIVATE FUNCTIONS ###

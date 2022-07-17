@@ -80,7 +80,7 @@ func _input(event: InputEvent) -> void:
 
 
 func _ready():
-	add_to_group(str(GROUP.BATTLE_WORLD), true)
+	GROUP.set_global(GROUP.BATTLE_WORLD, self)
 	# TODO: Looks bad [clear this in next AI pass]
 	CONFIG.context.set_world(self)
 
@@ -117,15 +117,19 @@ func _ready():
 			self, "_on_spawn_timer_timeout"
 		)
 
+	"""
+		Mat pool init
+	"""
 	LOG.pr(LOG.LOG_TYPE.INTERNAL, "mats:\n[%s]" % [material_pool])
-
 	# Make sure materials show in the UI even if their amount is 0
 	for mat in material_pool.get_items():
 		call_deferred("emit_signal", "material_collected", mat, 0)
 
 	call_deferred("emit_signal", "material_collected",
 		MaterialData.new(MaterialData.TYPE.IRON), STARTING_IRON_COUNT)
-#
+	"""
+		-------------
+	"""
 
 	if OS.is_debug_build():
 		call_deferred("emit_signal", "material_collected",
@@ -301,7 +305,7 @@ func _is_dragged_item_affordable():
 	if drag_item == null:
 		return true
 
-	return GROUP.get_global(GROUP.PLAYER_MATS).get_storage().covers_cost(drag_item.total_cost())
+	return GROUP.get_global(GROUP.PLAYER_MATS).covers_cost(drag_item.total_cost())
 
 ### SIGNAL RESPONSES ###
 # UI signal responses
@@ -321,8 +325,15 @@ func _on_left_button_clicked():
 						LOG.pr(LOG.LOG_TYPE.AI, "pos (%s) OCCUPIED" % [_get_mouse_grid_pos()])
 
 	else:
-		VFX.generate_fx_at(VFX.FX.CLICK_DUST, get_global_mouse_position())
-		AUDIO.play_ui_sfx(AUDIO.UI_SFX.CLICK_DUST)
+		var _game = GROUP.get_global(GROUP.GAME)
+		"""
+			NOTE:
+				this check prevents generating unnecessary vfx and audio,
+				without it vfx and audio causes a 'call on NIL' error.
+		"""
+		if not _game.exitConfirmationDialog.visible:
+			VFX.generate_fx_at(VFX.FX.CLICK_DUST, get_global_mouse_position())
+			AUDIO.play_ui_sfx(AUDIO.UI_SFX.CLICK_DUST)
 
 	call_deferred("_on_mousePointerArea_areas_inside_changed")
 

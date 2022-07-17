@@ -53,7 +53,9 @@ func generate_fx_at(fx_id : int, global_pos : Vector2, delay := 0.0) -> void:
 
 	fx.global_position = global_pos
 	yield(get_tree().create_timer(delay), "timeout")
-	fx.emit()
+
+	if fx != null and not fx.is_queued_for_deletion():
+		fx.emit()
 
 
 ### PRIVATE FUNCTIONS ###

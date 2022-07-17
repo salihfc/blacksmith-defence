@@ -1,17 +1,18 @@
 extends PanelContainer
 class_name DebugWindow
 """
-
 """
 ### SIGNAL ###
 ### ENUM ###
 ### CONST ###
 const P_RowData = preload("res://src/debug/row_data.tscn")
+
 ### EXPORT ###
 ### PUBLIC VAR ###
 ### PRIVATE VAR ###
 ### ONREADY VAR ###
 onready var listView = $VBoxContainer as VBoxContainer
+
 ### VIRTUAL FUNCTIONS (_init ...) ###
 ### PUBLIC FUNCTIONS ###
 func display_unit(unit) -> void:
@@ -30,13 +31,11 @@ func display_unit(unit) -> void:
 			[weakref(unit)]
 		)
 
-
 ### PRIVATE FUNCTIONS ###
 func _add_row_with_data_arr(arr) -> void:
 	var row_data_view = P_RowData.instance()
 	listView.add_child(row_data_view)
 	row_data_view.fill_with(arr)
-
 
 ### SIGNAL RESPONSES ###
 func _on_displayed_unit_update(unit_weakref) -> void:

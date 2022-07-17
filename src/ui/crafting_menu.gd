@@ -46,7 +46,6 @@ func _ready() -> void:
 		self, "_on_material_selected_from_list"
 	)
 
-
 	for idx in materialSlots.get_child_count():
 		var mat_slot = materialSlots.get_child(idx)
 		SIGNAL.bind(
