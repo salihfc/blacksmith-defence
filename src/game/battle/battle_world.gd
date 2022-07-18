@@ -35,6 +35,8 @@ export(Resource) var enemy_pool = null
 export(Resource) var material_pool = null
 export(Resource) var encounter = null
 
+export(Resource) var boss_pool = null
+
 ### PUBLIC VAR ###
 ### PRIVATE VAR ###
 var _current_wave = 0
@@ -149,6 +151,12 @@ func _physics_process(_delta):
 		if Input.is_action_just_pressed("%s" % [i]):
 			spawn_enemy(_get_random_enemy_data(), i-1)
 
+	for i in range(1, 4):
+		var action_string = "spawn_random_boss_lane_%s" % [i]
+		if Input.is_action_just_pressed(action_string):
+			spawn_boss(boss_pool.get_random(), i-1)
+
+
 
 ### PUBLIC FUNCTIONS ###
 func start_next_wave() -> void:
@@ -183,13 +191,40 @@ func spawn_unit(unit_data, pos : Vector2) -> void:
 	emit_signal("unit_spawned", unit_data)
 
 
+func spawn_boss_at_pos(boss_data : BossData, pos : Vector2):
+	assert(boss_data)
+	var enemy_recipe = UnitRecipe.new(boss_data, null)
+	var prefab = boss_data.boss_prefab
+	var enemy = prefab.instance()
+	units.add_child(enemy)
+	enemy.init_with_data(enemy_recipe)
+	enemy.global_position = pos
+	SIGNAL.bind(
+		enemy, "selected",
+		self, "_on_unit_selected",
+		[enemy]
+	)
+
+	return self
+
+
+func spawn_boss(boss_data : BossData, lane : int = _get_random_spawn_idx()):
+	LOG.pr(LOG.LOG_TYPE.GAMEPLAY, "Spawn Enemy (%s) with (%s) pow in [%s]"\
+	% [boss_data, boss_data.calc_power(), lane])
+	return spawn_boss_at_pos(boss_data, _get_lane_spawn_pos(lane))
+
+
 func spawn_enemy_at_pos(enemy_data : UnitData, pos : Vector2):
 	assert(enemy_data)
 	var enemy_recipe = UnitRecipe.new(enemy_data, null)
 	var enemy = P_EnemyUnit.instance()
-	units.add_child(enemy)
-	enemy.init_with_data(enemy_recipe)
-	enemy.global_position = pos
+#	units.add_child(enemy)
+#	enemy.init_with_data(enemy_recipe)
+#	enemy.global_position = pos
+
+	units.call_deferred("add_child", enemy)
+	enemy.call_deferred("init_with_data", enemy_recipe)
+	enemy.set_deferred("global_position", pos)
 
 #	enemy.call_deferred(
 #		"add_mod",

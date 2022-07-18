@@ -6,6 +6,7 @@
 
 [node name="SceneManager" type="CanvasLayer"]
 script = ExtResource( 1 )
+STARTING_SCENE = 2
 mouse_normal_cursor = ExtResource( 3 )
 mouse_pressed_cursor = ExtResource( 2 )
 

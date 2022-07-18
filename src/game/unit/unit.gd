@@ -199,7 +199,7 @@ func init_with_data(unit_recipe : UnitRecipe) -> void:
 
 	assert(unit_data.brain != null)
 #	agent_brain = unit_data.brain.duplicate(true)
-	agent_brain = unit_data.brain
+	agent_brain = unit_data.brain as Agent
 
 
 func is_unit_in_attack_range(unit) -> bool:
@@ -328,6 +328,8 @@ func execute_action(action) -> void:
 
 
 func change_state(new_state):
+
+	pass
 
 	match new_state:
 		STATE.ATTACK:
@@ -463,12 +465,13 @@ func _set_area_layer_and_masks() -> void:
 	pass # TODO: empty?
 
 
-func _collision_update() -> void:
-	var objects_inside = UTILS.get_owners(softBody.get_overlapping_areas())
-	for i in range(min(MAX_SOFTBODY_CALC, objects_inside.size())):
-		var object = objects_inside[i]
-		var push_dir = global_position.direction_to(object.global_position)
-		apply_impulse(-push_dir * COLLISION_PUSH)
+# TODO: clean
+#func _collision_update() -> void:
+#	var objects_inside = UTILS.get_owners(softBody.get_areas_inside())
+#	for i in range(min(MAX_SOFTBODY_CALC, objects_inside.size())):
+#		var object = objects_inside[i]
+#		var push_dir = global_position.direction_to(object.global_position)
+#		apply_impulse(-push_dir * COLLISION_PUSH)
 
 
 func _get_move_speed_multiplier() -> float:

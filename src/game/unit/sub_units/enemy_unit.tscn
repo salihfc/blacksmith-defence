@@ -39,7 +39,6 @@ radius = 14.0
 [sub_resource type="Animation" id=3]
 resource_name = "attack"
 length = 1.5
-loop = true
 tracks/0/type = "method"
 tracks/0/path = NodePath(".")
 tracks/0/interp = 1

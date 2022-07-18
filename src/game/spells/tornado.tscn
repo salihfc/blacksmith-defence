@@ -346,6 +346,7 @@ owner_path = NodePath("../..")
 NP_collision_shape = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Areas/DamageArea" index="0"]
+scale = Vector2( 1, 2 )
 shape = SubResource( 67 )
 
 [connection signal="area_entered" from="Areas/DamageArea" to="." method="_on_DamageArea_area_entered"]

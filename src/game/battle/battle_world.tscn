@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://src/game/battle/battle_world.gd" type="Script" id=1]
 [ext_resource path="res://assets/gfx/game/atlas.png" type="Texture" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://src/game/battle/base_tilemap.gd" type="Script" id=10]
 [ext_resource path="res://assets/gfx/common/cone_light_2048x2048.png" type="Texture" id=11]
 [ext_resource path="res://tres/weighted_material_pool.tres" type="Resource" id=12]
+[ext_resource path="res://tres/units/pools/enemy_bosses.tres" type="Resource" id=13]
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 2 )
@@ -129,6 +130,7 @@ weighted_material_pool = ExtResource( 12 )
 enemy_pool = ExtResource( 6 )
 material_pool = ExtResource( 7 )
 encounter = ExtResource( 8 )
+boss_pool = ExtResource( 13 )
 
 [node name="BG" type="Sprite" parent="."]
 texture = SubResource( 2 )

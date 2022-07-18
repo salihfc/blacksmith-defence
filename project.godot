@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Resource",
+"class": "Accumulator",
+"language": "GDScript",
+"path": "res://src/resource_classes/counters/accumulator.gd"
+}, {
 "base": "IAUSObject",
 "class": "Action",
 "language": "GDScript",
@@ -34,6 +39,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/resource_classes/effects/berserk/berserk.gd"
 }, {
+"base": "BossEnemyUnit",
+"class": "BigSlime",
+"language": "GDScript",
+"path": "res://src/game/unit/sub_units/boss_units/big_slime.gd"
+}, {
+"base": "BossData",
+"class": "BigSlimeData",
+"language": "GDScript",
+"path": "res://src/resource_classes/bosses/big_slime_data.gd"
+}, {
 "base": "StatusEffectFunctionBase",
 "class": "BleedApplyFunction",
 "language": "GDScript",
@@ -43,6 +58,16 @@ _global_script_classes=[ {
 "class": "BleedTickFunction",
 "language": "GDScript",
 "path": "res://src/resource_classes/status_effects/status_effect_function_interface/bleed_tick_function.gd"
+}, {
+"base": "UnitData",
+"class": "BossData",
+"language": "GDScript",
+"path": "res://src/resource_classes/boss_data.gd"
+}, {
+"base": "EnemyUnit",
+"class": "BossEnemyUnit",
+"language": "GDScript",
+"path": "res://src/game/unit/sub_units/boss_enemy_unit.gd"
 }, {
 "base": "Resource",
 "class": "CacheDict",
@@ -88,6 +113,11 @@ _global_script_classes=[ {
 "class": "DebugWindow",
 "language": "GDScript",
 "path": "res://src/debug/debug_window.gd"
+}, {
+"base": "Resource",
+"class": "DevConfig",
+"language": "GDScript",
+"path": "res://src/resource_classes/dev_config.gd"
 }, {
 "base": "Resource",
 "class": "DropItem",
@@ -505,13 +535,18 @@ _global_script_classes=[ {
 "path": "res://script_templates/mod_template.gd"
 } ]
 _global_script_class_icons={
+"Accumulator": "",
 "Action": "",
 "Agent": "",
 "AnimatedHpBar": "",
 "BaseTilemap": "",
 "BerserkEffect": "",
+"BigSlime": "",
+"BigSlimeData": "",
 "BleedApplyFunction": "",
 "BleedTickFunction": "",
+"BossData": "",
+"BossEnemyUnit": "",
 "CacheDict": "",
 "ChanceTrigger": "",
 "ClassName": "",
@@ -521,6 +556,7 @@ _global_script_class_icons={
 "CumulativeDamage": "",
 "Damage": "",
 "DebugWindow": "",
+"DevConfig": "",
 "DropItem": "",
 "Effect": "",
 "EncounterData": "",
@@ -614,7 +650,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
-CONFIG="*res://src/singletons/config.gd"
+CONFIG="*res://src/singletons/config.tscn"
 UTILS="*res://src/singletons/utils.gd"
 SIGNAL="*res://src/singletons/signal.gd"
 TWEEN="*res://src/singletons/tween_manager.tscn"
@@ -719,6 +755,21 @@ toggle_ranges={
 debug_toogle={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":69,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+spawn_random_boss_lane_1={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":55,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+spawn_random_boss_lane_2={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":56,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+spawn_random_boss_lane_3={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":57,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
 

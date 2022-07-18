@@ -1,0 +1,26 @@
+[gd_resource type="Resource" load_steps=7 format=2]
+
+[ext_resource path="res://src/resource_classes/bosses/big_slime_data.gd" type="Script" id=1]
+[ext_resource path="res://assets/gfx/game/atlas.png" type="Texture" id=2]
+[ext_resource path="res://src/ai/infinite_axis_utility/agent_tres/agent_enemy_basic.tres" type="Resource" id=3]
+[ext_resource path="res://tres/units/enemy_units/Basic.tres" type="Resource" id=4]
+[ext_resource path="res://src/game/unit/sub_units/boss_units/big_slime.tscn" type="PackedScene" id=5]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 2 )
+region = Rect2( 132, 176, 24, 32 )
+
+[resource]
+script = ExtResource( 1 )
+name = "BigSlime"
+texture = SubResource( 1 )
+flip_h = false
+sprite_scale = 1.0
+brain = ExtResource( 3 )
+spells = [  ]
+throwables = [  ]
+enhancements = [  ]
+mods = [  ]
+boss_prefab = ExtResource( 5 )
+summon_threshold = 100.0
+unit_to_summon = ExtResource( 4 )

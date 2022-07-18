@@ -31,9 +31,8 @@ func trigger(_subject=null, _object=null, _args={}):
 		for unit_data in to_be_summoned_units:
 			var summon_pos = subject_pos + Vector2.UP * rand_range(-RANDOM_OFFSET_MAG, RANDOM_OFFSET_MAG)
 
-			_subject.get_tree().call_group(
-				"battle_world",
-				"spawn_enemy_at_pos", unit_data, summon_pos
+			GROUP.get_global(GROUP.BATTLE_WORLD).callv(
+					"spawn_enemy_at_pos", [unit_data, summon_pos]
 			)
 
 

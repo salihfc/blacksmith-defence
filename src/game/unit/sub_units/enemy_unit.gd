@@ -46,10 +46,12 @@ func attack() -> void:
 		if _target == null: # reselect target if previous one dies mid animation
 			_target = _select_target()
 
-		if _target: # make sure there are enemies around to attack
-			LOG.pr(LOG.LOG_TYPE.GAMEPLAY, "[%s] : Attacking [%s]" % [self, _target_weakref])
-			_target.take_damage(Damage.new(Damage.TYPE.PHYSICAL, get_damage()).set_originator(self))
+		if _target and is_unit_in_attack_range(_target): # make sure there are enemies around to attack
+			var damage = Damage.new(Damage.TYPE.PHYSICAL, get_damage()).set_originator(self)
+			LOG.pr(LOG.LOG_TYPE.GAMEPLAY, "[%s] : Attacking [%s] for {%s}" % [self, _target, damage])
+			_target.take_damage(damage)
 		else:
+			yield(animPlayer, "animation_finished")
 			emit_signal("_context_changed")
 
 

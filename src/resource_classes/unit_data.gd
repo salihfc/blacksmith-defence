@@ -157,6 +157,20 @@ const STAT_DEFAULTS = {
 
 		StatContainer.STATS.ATK_RANGE : 20,
 	},
+
+
+	###
+	#	BOSS UNITS
+	###
+
+	"BigSlime": {
+		StatContainer.STATS.MAX_HP : 1000,
+		StatContainer.STATS.BASE_DAMAGE : 5,
+		StatContainer.STATS.DAMAGE_MULTI : 1.0,
+		StatContainer.STATS.MOVE_SPEED : 2.3,
+		StatContainer.STATS.ATK_SPEED : 1.0,
+		StatContainer.STATS.ATK_RANGE : 50,
+	},
 }
 
 const CURVE_MULT_NAME_PREFIX	= "curve_mult_"
@@ -310,6 +324,40 @@ func calc_power() -> float:
 	NOTE:
 		CUSTOM RESOURCES require custom duplicate functions like this to ensure copying
 """
+func copy_from(other_data):
+	_stats.from_data(other_data.get_stat_container().get_data_copy())
+
+	name = other_data.name
+	texture = other_data.texture
+	flip_h = other_data.flip_h
+	sprite_scale = other_data.sprite_scale
+	view_texture = other_data.view_texture
+
+	if other_data.cost:
+		cost = other_data.cost.duplicate(true)
+
+	brain = other_data.brain
+
+	if other_data.weapon:
+		weapon = other_data.weapon.duplicate(true)
+	if other_data.spells:
+		spells = other_data.spells.duplicate(true)
+	if other_data.throwables:
+		throwables = other_data.throwables.duplicate(true)
+
+	if other_data.enhancements:
+		enhancements = other_data.enhancements.duplicate(true)
+
+	if other_data.mods:
+		mods = other_data.mods.duplicate(true)
+
+	return self
+
+
+func get_stat_container():
+	return _stats
+
+
 func copy_stats():
 	_load_defaults()
 	var copy_stats = StatContainer.new()

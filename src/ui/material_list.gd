@@ -14,6 +14,7 @@ const P_MaterialView = preload("res://src/ui/material_view.tscn")
 ### VIRTUAL FUNCTIONS (_init ...) ###
 ### PUBLIC FUNCTIONS ###
 func update_list(material_storage : MaterialStorage) -> void:
+	assert(material_storage)
 	UTILS.clear_children(self)
 	for mat in material_storage.get_materials():
 		var count = material_storage.get_material_count(mat)

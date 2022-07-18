@@ -4,18 +4,19 @@ extends Node
 const DEBUG_GROUP = "debug"
 const ENEMY_GROUP = "enemy"
 
-# Debug Settings
-const SPAWN_ENEMIES = false
+export(Resource) var config
 
-const SHOW_VFX = true
-const SHOW_AI_STATE = false
-const SHOW_HP_BARS = true
-const SHOW_FLOATING_DAMAGE_NUMBERS = true
+# Debug Settings
+var SPAWN_ENEMIES
+
+var SHOW_VFX
+var SHOW_AI_STATE
+var SHOW_HP_BARS
+var SHOW_FLOATING_DAMAGE_NUMBERS
 
 # Dynamic Debug
-var SHOW_RANGE_CIRCLES : bool = false setget _set_show_range_circles
-
-var DEBUG_ON = false setget _set_DEBUG_ON
+var SHOW_RANGE_CIRCLES : bool setget _set_show_range_circles
+var DEBUG_ON setget _set_DEBUG_ON
 
 # Vars
 onready var context = Context.new()
@@ -27,6 +28,19 @@ func _unhandled_key_input(event: InputEventKey) -> void:
 
 
 func _ready() -> void:
+	assert(config)
+	config = config as DevConfig
+
+	SPAWN_ENEMIES = config.SPAWN_ENEMIES
+	SHOW_VFX = config.SHOW_VFX
+	SHOW_HP_BARS = config.SHOW_HP_BARS
+	SHOW_FLOATING_DAMAGE_NUMBERS = config.SHOW_FLOATING_DAMAGE_NUMBERS
+	SHOW_AI_STATE = config.SHOW_AI_STATE
+
+	_set_show_range_circles(config.SHOW_RANGE_CIRCLES)
+	_set_DEBUG_ON(config.DEBUG_ON)
+
+
 	LOG.pr(LOG.LOG_TYPE.INTERNAL, "READY", "CONFIG")
 	OS.center_window()
 	Engine.target_fps = 60
