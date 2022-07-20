@@ -114,7 +114,6 @@ offset = Vector2( 0, -8 )
 
 [node name="HitBox" type="Area2D" parent="Sprite"]
 rotation = -1.49012e-08
-scale = Vector2( 1, 1 )
 collision_layer = 0
 collision_mask = 16
 script = ExtResource( 2 )
@@ -129,7 +128,6 @@ disabled = true
 visible = false
 position = Vector2( -1.41428, -18.3848 )
 rotation = 2.35619
-scale = Vector2( 0.4, 0.4 )
 auto_free = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

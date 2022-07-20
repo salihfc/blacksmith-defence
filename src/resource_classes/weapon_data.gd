@@ -24,6 +24,7 @@ export(Animation) var thrust_anim
 export(Shape2D) var collision_shape
 export(Vector2) var collision_shape_offset
 
+export(Color) var particle_color = Color.white
 export(bool) var throwable = false
 
 ### PUBLIC VAR ###

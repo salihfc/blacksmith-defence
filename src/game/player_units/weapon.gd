@@ -39,6 +39,7 @@ var _damage = 0.0
 onready var sprite = $Sprite as Sprite
 onready var animPlayer = $AnimationPlayer as AnimationPlayer
 onready var collisionShape = $Sprite/HitBox/CollisionShape2D as CollisionShape2D
+onready var vfxWeaponParticles = $Sprite/VFXWeaponParticles
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
 # warning-ignore:unused_argument
@@ -46,6 +47,8 @@ func init_with_data(weapon_data : WeaponData) -> void:
 	_id = weapon_data.id
 	sprite.texture = weapon_data.texture
 	# ANIM SETUP
+	vfxWeaponParticles.modulate = weapon_data.particle_color
+
 	for id in ANIM.COUNT:
 		var anim_name = get_anim(id)
 		var member_name = anim_name + "_anim"

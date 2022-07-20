@@ -201,29 +201,29 @@ export(Array, Resource) var enhancements = []	# For player units
 export(Array, Resource) var mods = []			# For enemy units
 
 # curves
-export(Curve) var curve_add_max_hp
-export(Curve) var curve_add_resist_phys
-export(Curve) var curve_add_resist_fire
-export(Curve) var curve_add_resist_water
-export(Curve) var curve_add_resist_earth
-
-export(Curve) var curve_add_base_damage
-export(Curve) var curve_add_move_speed
-export(Curve) var curve_add_atk_speed
-export(Curve) var curve_add_attack_range
-export(Curve) var curve_add_damage_multi
-
-export(Curve) var curve_mult_max_hp
-export(Curve) var curve_mult_resist_phys
-export(Curve) var curve_mult_resist_fire
-export(Curve) var curve_mult_resist_water
-export(Curve) var curve_mult_resist_earth
-
-export(Curve) var curve_mult_base_damage
-export(Curve) var curve_mult_move_speed
-export(Curve) var curve_mult_atk_speed
-export(Curve) var curve_mult_attack_range
-export(Curve) var curve_mult_damage_multi
+#export(Curve) var curve_add_max_hp
+#export(Curve) var curve_add_resist_phys
+#export(Curve) var curve_add_resist_fire
+#export(Curve) var curve_add_resist_water
+#export(Curve) var curve_add_resist_earth
+#
+#export(Curve) var curve_add_base_damage
+#export(Curve) var curve_add_move_speed
+#export(Curve) var curve_add_atk_speed
+#export(Curve) var curve_add_attack_range
+#export(Curve) var curve_add_damage_multi
+#
+#export(Curve) var curve_mult_max_hp
+#export(Curve) var curve_mult_resist_phys
+#export(Curve) var curve_mult_resist_fire
+#export(Curve) var curve_mult_resist_water
+#export(Curve) var curve_mult_resist_earth
+#
+#export(Curve) var curve_mult_base_damage
+#export(Curve) var curve_mult_move_speed
+#export(Curve) var curve_mult_atk_speed
+#export(Curve) var curve_mult_attack_range
+#export(Curve) var curve_mult_damage_multi
 
 ### PUBLIC VAR ###
 ### PRIVATE VAR ###

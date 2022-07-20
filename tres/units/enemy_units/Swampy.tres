@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=11 format=2]
+[gd_resource type="Resource" load_steps=10 format=2]
 
 [ext_resource path="res://src/ai/infinite_axis_utility/agent_tres/agent_enemy_basic.tres" type="Resource" id=1]
 [ext_resource path="res://src/resource_classes/material_storage.gd" type="Script" id=2]
@@ -6,7 +6,6 @@
 [ext_resource path="res://assets/gfx/game/units/swampy_run_anim.png" type="Texture" id=4]
 [ext_resource path="res://src/resource_classes/unit_enhancements/unit_enhancement_attach_on_death_effect.gd" type="Script" id=5]
 [ext_resource path="res://tres/on_death_effects/on_death_effect_prototype.tres" type="Resource" id=6]
-[ext_resource path="res://tres/mods/mod_berserk.tres" type="Resource" id=7]
 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 2 )
@@ -32,7 +31,7 @@ brain = ExtResource( 1 )
 spells = [  ]
 throwables = [  ]
 enhancements = [ SubResource( 3 ) ]
-mods = [ ExtResource( 7 ) ]
+mods = [  ]
 stats/max_hp = 200
 stats/res_phys = 40.0
 stats/res_fire = 0.0

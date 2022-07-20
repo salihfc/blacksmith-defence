@@ -15,4 +15,5 @@ base_damage = 20.0
 idle_anim = ExtResource( 4 )
 swing_anim = ExtResource( 3 )
 collision_shape_offset = Vector2( 0, -8 )
+particle_color = Color( 1, 1, 1, 1 )
 throwable = false
