@@ -22,7 +22,7 @@ export(NodePath) var NP_UnitRecipeViewPanel
 onready var unitTexture = get_node(NP_UnitTexture) as TextureRect
 onready var button = get_node(NP_Button) as Button
 onready var baseCostList = get_node(NP_BaseCostList) as HBoxContainer
-onready var enhanceCostList = get_node(NP_EnhanceCostList) as HBoxContainer
+onready var enhanceCostList = get_node(NP_EnhanceCostList)
 onready var unitRecipeViewPanel = get_node(NP_UnitRecipeViewPanel)
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
@@ -39,7 +39,8 @@ func _ready() -> void:
 func set_data(unit_recipe : UnitRecipe) -> void:
 	var unit_data = unit_recipe.base_unit
 	var enhance_cost = unit_recipe.enhance_cost
-	unitTexture.texture = unit_data.get_view_texture()
+#	unitTexture.texture = unit_data.get_view_texture()
+	unitTexture.texture = unit_data.weapon.texture
 
 	if unit_data.cost:
 		for mat in unit_data.cost.get_materials():

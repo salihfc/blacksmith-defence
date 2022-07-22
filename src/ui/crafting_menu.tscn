@@ -245,8 +245,8 @@ custom_constants/separation = 10
 alignment = 1
 
 [node name="CraftButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
-margin_left = 368.0
-margin_right = 448.0
+margin_left = 365.0
+margin_right = 445.0
 margin_bottom = 55.0
 rect_min_size = Vector2( 80, 20 )
 focus_mode = 0
@@ -256,8 +256,8 @@ enabled_focus_mode = 0
 text = "CRAFT"
 
 [node name="CancelButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
-margin_left = 458.0
-margin_right = 538.0
+margin_left = 455.0
+margin_right = 540.0
 margin_bottom = 55.0
 rect_min_size = Vector2( 80, 20 )
 focus_mode = 0

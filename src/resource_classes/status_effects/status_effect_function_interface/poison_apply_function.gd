@@ -1,5 +1,10 @@
+tool
 extends StatusEffectFunctionBase
 class_name PoisonApplyFunction
+func get_base(): return "StatusEffectFunctionBase"
+func get_class(): return "PoisonApplyFunction"
+func is_class(_class_name): return _class_name == get_class() or .is_class(_class_name)
+func _to_string(): return "[%s :: %s]" % [get_class(), resource_path]
 """
 	Poison Effect stacks cumulatively
 	-> there can be at most 1 instance of Poison in _container{StatusEffectContainer}

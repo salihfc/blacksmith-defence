@@ -1,5 +1,10 @@
+tool
 extends StatusEffectFunctionBase
 class_name IgniteApplyFunction
+func get_base(): return "StatusEffectFunctionBase"
+func get_class(): return "IgniteApplyFunction"
+func is_class(_class_name): return _class_name == get_class() or .is_class(_class_name)
+func _to_string(): return "[%s :: %s]" % [get_class(), resource_path]
 """
 	Ignites stack seperately and every tick strongest k {default:3}
 	ignite damages the carrier.

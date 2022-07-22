@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=10 format=2]
+[gd_resource type="Resource" load_steps=13 format=2]
 
 [ext_resource path="res://src/ai/infinite_axis_utility/agent_tres/agent_enemy_basic.tres" type="Resource" id=1]
 [ext_resource path="res://src/resource_classes/material_storage.gd" type="Script" id=2]
@@ -6,11 +6,70 @@
 [ext_resource path="res://assets/gfx/game/units/swampy_run_anim.png" type="Texture" id=4]
 [ext_resource path="res://src/resource_classes/unit_enhancements/unit_enhancement_attach_on_death_effect.gd" type="Script" id=5]
 [ext_resource path="res://tres/on_death_effects/on_death_effect_prototype.tres" type="Resource" id=6]
+[ext_resource path="res://src/resource_classes/stat_container.gd" type="Script" id=7]
+
+[sub_resource type="Resource" id=5]
+script = ExtResource( 7 )
+stats/max_hp = 200
+stats/res_phys = 40.0
+stats/res_fire = 0.0
+stats/res_water = 0.0
+stats/res_earth = 0.0
+stats/base_damage = 15
+stats/move_speed = 0.8
+stats/atk_speed = 0.8
+stats/atk_range = 40
+stats/damage_multi = 1
+stats/chain_count = 0.0
+stats/hp = 0.0
+stats/bleed_chance = 0.0
+stats/ignite_chance = 0.0
+stats/armor_break_chance = 0.0
+stats/poison_chance = 0.0
+stats/freeze_chance = 0.0
+stats/chill_chance = 0.0
+stats/shock_chance = 0.0
+stats/stun_chance = 0.0
+stats/spell_aoe = 0.0
+stats/cast_speed = 0.0
+stats/cast_range = 0.0
+stats/chain_range = 0.0
+stats/armor_pen = 0.0
+stats/base_knockback_strength = 0.0
 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 2 )
 _storage = {
 }
+
+[sub_resource type="Resource" id=4]
+script = ExtResource( 7 )
+stats/max_hp = null
+stats/res_phys = null
+stats/res_fire = null
+stats/res_water = null
+stats/res_earth = null
+stats/base_damage = null
+stats/move_speed = null
+stats/atk_speed = null
+stats/atk_range = null
+stats/damage_multi = null
+stats/chain_count = null
+stats/hp = null
+stats/bleed_chance = null
+stats/ignite_chance = null
+stats/armor_break_chance = null
+stats/poison_chance = null
+stats/freeze_chance = null
+stats/chill_chance = null
+stats/shock_chance = null
+stats/stun_chance = null
+stats/spell_aoe = null
+stats/cast_speed = null
+stats/cast_range = null
+stats/chain_range = null
+stats/armor_pen = null
+stats/base_knockback_strength = null
 
 [sub_resource type="Resource" id=3]
 script = ExtResource( 5 )
@@ -28,6 +87,8 @@ flip_h = true
 sprite_scale = 1.0
 cost = SubResource( 1 )
 brain = ExtResource( 1 )
+_stats = SubResource( 5 )
+default_stats = SubResource( 4 )
 spells = [  ]
 throwables = [  ]
 enhancements = [ SubResource( 3 ) ]

@@ -97,6 +97,7 @@ func _display_craftable_weapons(_craftable_units : ItemPool):
 	weaponList.clear()
 	for unit in _craftable_units.get_items():
 		var item = unit.weapon
+		LOG.pr(LOG.LOG_TYPE.INTERNAL, "Displaying [%s]" % [item.name])
 		weaponList.add_item(item.name, item.texture)
 
 

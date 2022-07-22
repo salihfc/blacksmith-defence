@@ -3,7 +3,8 @@ extends Resource
 class_name UnitData
 func get_base(): return "Resource"
 func get_class(): return "UnitData"
-func is_class(_name): return _name == "UnitData" or .is_class(_name)
+func is_class(_class_name): return _class_name == get_class() or .is_class(_class_name)
+#func _to_string(): return "[%s :: %s]" % [get_class(), resource_path]
 
 """
 """
@@ -188,7 +189,8 @@ export(Resource) var cost = MaterialStorage.new() # MaterialStorage
 export(Resource) var brain = null # Type: Agent
 
 # Battle
-var _stats = StatContainer.new()
+export(Resource) var _stats = StatContainer.new()
+export(Resource) var default_stats = StatContainer.new()
 
 #
 export(Resource) var weapon

@@ -45,7 +45,11 @@ var player_material_storage = MaterialStorage.new()
 var _cached_recipes = [
 	UnitRecipe.new(
 		preload("res://tres/units/player_units/Duelist.tres"),
-		MaterialStorage.new().add_material(preload("res://tres/materials/material_fire_rune.tres"), 1)
+		MaterialStorage.new()\
+			.add_material(preload("res://tres/materials/material_fire_rune.tres"), 1)\
+			.add_material(preload("res://tres/materials/material_earth_rune.tres"), 1)\
+			.add_material(preload("res://tres/materials/material_copper.tres"), 1)\
+#			.add_material(preload("res://tres/materials/material_water_rune.tres"), 1)\
 	),
 
 	UnitRecipe.new(
@@ -191,8 +195,8 @@ func _pause_battle() -> void:
 func _on_recipe_selected(unit_recipe : UnitRecipe) -> void:
 	assert(unit_recipe)
 	LOG.pr(LOG.LOG_TYPE.INPUT,\
-			"UNIT_VIEW PRESSED WITH [%s] unit_total[%s]\nstorage[%s]"\
-			% [unit_recipe, unit_recipe.total_cost(), player_material_storage])
+		"UNIT_VIEW PRESSED WITH [%s] unit_total[%s]\nstorage[%s]"\
+		% [unit_recipe, unit_recipe.total_cost(), player_material_storage])
 
 	if player_material_storage.covers_cost(unit_recipe.total_cost()):
 		battle.set_dragged_item(unit_recipe)
@@ -215,9 +219,9 @@ func _on_unit_selected(unit) -> void:
 
 	if not unit.is_connected("info_updated", unitInfoDisplay, "_on_info_updated"):
 		SIGNAL.bind(
-				unit, "info_updated",
-				unitInfoDisplay, "_on_info_updated",
-				[unit])
+			unit, "info_updated",
+			unitInfoDisplay, "_on_info_updated",
+			[unit])
 
 
 func _on_wave_start_button_pressed() -> void:

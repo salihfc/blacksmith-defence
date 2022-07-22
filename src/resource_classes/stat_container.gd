@@ -68,6 +68,23 @@ var _data = {}
 
 ### ONREADY VAR ###
 ### VIRTUAL FUNCTIONS (_init ...) ###
+var _props = []
+func _get_property_list() -> Array:
+	return _props
+
+
+### ONREADY VAR ###
+### VIRTUAL FUNCTIONS (_init ...) ###
+func _init() -> void:
+	for idx in STATS.COUNT:
+		_props.append(
+			{
+				'name' : get_stat_name(idx),
+				'type' : get_stat_type(idx),
+			}
+		)
+
+
 ### PUBLIC FUNCTIONS ###
 func increase_stat(id : int, amount) -> void:
 	assert(has_stat(id))
@@ -118,5 +135,4 @@ func _get(property: String, default = null):
 func _set(property: String, value) -> bool:
 	_data[property] = value
 	return true
-
 ### SIGNAL RESPONSES ###

@@ -179,6 +179,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/spells/incinerate.gd"
 }, {
+"base": "Resource",
+"class": "InheritanceGraph",
+"language": "GDScript",
+"path": "res://addons/tres-explorer/inheritance_graph.gd"
+}, {
 "base": "Button",
 "class": "ItemButton",
 "language": "GDScript",
@@ -188,6 +193,11 @@ _global_script_classes=[ {
 "class": "ItemPool",
 "language": "GDScript",
 "path": "res://src/resource_classes/item_pool.gd"
+}, {
+"base": "Resource",
+"class": "MatEnhanceData",
+"language": "GDScript",
+"path": "res://src/resource_classes/mat_enhance_data.gd"
 }, {
 "base": "Resource",
 "class": "MaterialData",
@@ -309,6 +319,21 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/debug/range_circle.gd"
 }, {
+"base": "PanelContainer",
+"class": "ResLink",
+"language": "GDScript",
+"path": "res://addons/tres-explorer/scenes/res_link.gd"
+}, {
+"base": "ScrollContainer",
+"class": "ResList",
+"language": "GDScript",
+"path": "res://addons/tres-explorer/scenes/res_list.gd"
+}, {
+"base": "HBoxContainer",
+"class": "ResRow",
+"language": "GDScript",
+"path": "res://addons/tres-explorer/scenes/res_row.gd"
+}, {
 "base": "CanvasLayer",
 "class": "SceneManager",
 "language": "GDScript",
@@ -373,6 +398,11 @@ _global_script_classes=[ {
 "class": "StatusListDisplay",
 "language": "GDScript",
 "path": "res://src/ui/status_list_display.gd"
+}, {
+"base": "Panel",
+"class": "TableDock",
+"language": "GDScript",
+"path": "res://addons/tres-explorer/scenes/table_dock.gd"
 }, {
 "base": "Effect",
 "class": "ThornEffect",
@@ -519,6 +549,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/resource_classes/weapon_data.gd"
 }, {
+"base": "Resource",
+"class": "WeaponEnhancementData",
+"language": "GDScript",
+"path": "res://src/resource_classes/weapon_enhancement_data.gd"
+}, {
 "base": "Node2D",
 "class": "WeaponSlot",
 "language": "GDScript",
@@ -569,8 +604,10 @@ _global_script_class_icons={
 "IgniteApplyFunction": "",
 "IgniteTickFunction": "",
 "Incinerate": "",
+"InheritanceGraph": "",
 "ItemButton": "",
 "ItemPool": "",
+"MatEnhanceData": "",
 "MaterialData": "",
 "MaterialList": "",
 "MaterialPool": "",
@@ -595,6 +632,9 @@ _global_script_class_icons={
 "PoisonApplyFunction": "",
 "PoisonTickFunction": "",
 "RangeCircle": "",
+"ResLink": "",
+"ResList": "",
+"ResRow": "",
 "SceneManager": "",
 "SettingSlider": "",
 "SettingsMenu": "",
@@ -608,6 +648,7 @@ _global_script_class_icons={
 "StatusEffectGenericExpire": "",
 "StatusIconDisplay": "",
 "StatusListDisplay": "",
+"TableDock": "",
 "ThornEffect": "",
 "ThrowableWeapon": "",
 "ThrowableWeaponData": "",
@@ -637,6 +678,7 @@ _global_script_class_icons={
 "WaveGenerator": "",
 "Weapon": "",
 "WeaponData": "",
+"WeaponEnhancementData": "",
 "WeaponSlot": "",
 "WeightedPool": "",
 "_MOD": ""
@@ -681,7 +723,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/godot-plugin-refresher/plugin.cfg", "res://addons/godotoro/plugin.cfg", "res://addons/imrp/plugin.cfg", "res://addons/light_snippet/plugin.cfg", "res://addons/vargen/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/godot-plugin-refresher/plugin.cfg", "res://addons/godotoro/plugin.cfg", "res://addons/imrp/plugin.cfg", "res://addons/light_snippet/plugin.cfg", "res://addons/tres-explorer/plugin.cfg", "res://addons/vargen/plugin.cfg" )
 
 [gdnative]
 

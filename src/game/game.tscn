@@ -114,12 +114,12 @@ margin_bottom = 884.0
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
-[node name="UnitRecipeList" type="VBoxContainer" parent="PanelContainer/HBoxContainer/PanelContainer/VBoxContainer/ScrollContainer"]
+[node name="UnitRecipeList" type="GridContainer" parent="PanelContainer/HBoxContainer/PanelContainer/VBoxContainer/ScrollContainer"]
 margin_right = 500.0
 margin_bottom = 860.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/separation = 20
+columns = 2
 
 [node name="Control" type="ViewportContainer" parent="PanelContainer/HBoxContainer"]
 margin_left = 512.0
@@ -152,13 +152,16 @@ margin_right = 0.0
 [node name="StartWaveButton" type="Button" parent="." groups=["ui_button"]]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -480.0
+margin_left = -454.0
 margin_top = 32.0
-margin_right = -393.0
+margin_right = -355.0
 margin_bottom = 116.0
 focus_mode = 0
 enabled_focus_mode = 0
-text = "START"
+text = " START "
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="CraftButton" type="Button" parent="." groups=["ui_button"]]
 margin_left = 779.0
@@ -167,7 +170,10 @@ margin_right = 918.0
 margin_bottom = 93.0
 focus_mode = 0
 enabled_focus_mode = 0
-text = "Create unit recipe"
+text = " Create unit recipe "
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="CraftingPopup" type="PopupPanel" parent="."]
 anchor_left = 0.5

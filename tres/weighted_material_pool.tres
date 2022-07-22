@@ -6,8 +6,8 @@
 script = ExtResource( 1 )
 items = {
 Resource( "res://tres/materials/material_copper.tres" ): 20.0,
+Resource( "res://tres/materials/material_earth_rune.tres" ): 10.0,
 Resource( "res://tres/materials/material_fire_rune.tres" ): 10.0,
 Resource( "res://tres/materials/material_iron.tres" ): 100.0,
-Resource( "res://tres/materials/material_earth_rune.tres" ): 10.0,
 Resource( "res://tres/materials/material_water_rune.tres" ): 10.0
 }

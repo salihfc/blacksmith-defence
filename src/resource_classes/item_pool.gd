@@ -1,5 +1,10 @@
+tool
 extends Resource
 class_name ItemPool
+func get_base(): return "Resource"
+func get_class(): return "ItemPool"
+func is_class(_class_name): return _class_name == get_class() or .is_class(_class_name)
+func _to_string(): return "[%s :: %s]" % [get_class(), resource_path]
 """
 """
 ### SIGNAL ###

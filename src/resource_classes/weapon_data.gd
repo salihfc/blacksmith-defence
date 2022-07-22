@@ -27,6 +27,8 @@ export(Vector2) var collision_shape_offset
 export(Color) var particle_color = Color.white
 export(bool) var throwable = false
 
+export(Resource) var mat_hint = WeaponEnhancementData.new()
+
 ### PUBLIC VAR ###
 ### PRIVATE VAR ###
 ### ONREADY VAR ###
