@@ -347,28 +347,29 @@ func _is_dragged_item_affordable():
 ### SIGNAL RESPONSES ###
 # UI signal responses
 func _on_left_button_clicked():
-	LOG.pr(LOG.LOG_TYPE.INPUT, "battle_world action event: {left click pressed}")
-	_set_mouse_pointer_area_pos() # Update mouse pointer area to guarantee sync
-	# Left_click pressed put down dragged item if there is one
-	var drag_item = get_drag_item_data()
-	if drag_item:
-			if _is_dragged_item_affordable():
-				var areas = playerSpawnPositions.get_overlapping_areas()
-				if areas.size():
-					if not grid_pos_cache.is_occupied(_get_mouse_grid_pos()): # mouse is overlapping with spawn area
-						spawn_unit(drag_item, mousePointerArea.global_position)
-		#				clear_dragged_item()
-					else:
-						LOG.pr(LOG.LOG_TYPE.AI, "pos (%s) OCCUPIED" % [_get_mouse_grid_pos()])
+	var _game = GROUP.get_global(GROUP.GAME)
 
-	else:
-		var _game = GROUP.get_global(GROUP.GAME)
-		"""
-			NOTE:
-				this check prevents generating unnecessary vfx and audio,
-				without it vfx and audio causes a 'call on NIL' error.
-		"""
-		if not _game.exitConfirmationDialog.visible:
+	"""
+		NOTE:
+			this check prevents generating unnecessary vfx and audio,
+			without it vfx and audio causes a 'call on NIL' error.
+	"""
+	if not _game.is_any_popup_visible():
+		LOG.pr(LOG.LOG_TYPE.INPUT, "battle_world action event: {left click pressed}")
+		_set_mouse_pointer_area_pos() # Update mouse pointer area to guarantee sync
+		# Left_click pressed put down dragged item if there is one
+		var drag_item = get_drag_item_data()
+		if drag_item:
+				if _is_dragged_item_affordable():
+					var areas = playerSpawnPositions.get_overlapping_areas()
+					if areas.size():
+						if not grid_pos_cache.is_occupied(_get_mouse_grid_pos()): # mouse is overlapping with spawn area
+							spawn_unit(drag_item, mousePointerArea.global_position)
+			#				clear_dragged_item()
+						else:
+							LOG.pr(LOG.LOG_TYPE.AI, "pos (%s) OCCUPIED" % [_get_mouse_grid_pos()])
+
+		else:
 			VFX.generate_fx_at(VFX.FX.CLICK_DUST, get_global_mouse_position())
 			AUDIO.play_ui_sfx(AUDIO.UI_SFX.CLICK_DUST)
 

@@ -54,6 +54,7 @@ size_flags_vertical = 5
 text = "Increase chain count"
 align = 1
 valign = 1
+autowrap = true
 
 [node name="TextureButton" type="TextureButton" parent="PanelContainer"]
 margin_left = 7.0

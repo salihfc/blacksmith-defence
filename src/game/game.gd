@@ -169,6 +169,13 @@ func _ready():
 
 
 ### PUBLIC FUNCTIONS ###
+func is_any_popup_visible() -> bool:
+	return UTILS.any([
+			craftingPopup.visible,
+			exitConfirmationDialog.visible,
+	])
+
+
 ### PRIVATE FUNCTIONS ###
 func _go_to_main_menu() -> void:
 	var scene_manager = GROUP.get_global(GROUP.SCENE_MANAGER)

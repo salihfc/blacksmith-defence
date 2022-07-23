@@ -99,6 +99,7 @@ func _display_craftable_weapons(_craftable_units : ItemPool):
 		var item = unit.weapon
 		LOG.pr(LOG.LOG_TYPE.INTERNAL, "Displaying [%s]" % [item.name])
 		weaponList.add_item(item.name, item.texture)
+		weaponList.set_item_tooltip_enabled(weaponList.get_item_count() - 1, false)
 
 
 func _get_mat_effect(_mat) -> String:

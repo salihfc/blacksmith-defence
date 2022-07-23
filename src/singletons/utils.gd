@@ -63,6 +63,19 @@ func eval(expression_string, param_names, param_values):
 	return -1
 
 
+func any(bool_array : Array) -> bool:
+	for boolean in bool_array:
+		if boolean:
+			return true
+	return false
+
+
+func all(bool_array : Array) -> bool:
+	for boolean in bool_array:
+		if boolean == false:
+			return false
+	return true
+
 """
 	Math
 """
