@@ -10,6 +10,7 @@ func _to_string(): return "[%s :: %s]" % [get_class(), resource_path]
 ### SIGNAL ###
 signal encounter_completed()
 signal wave_ended(wave_idx)
+signal wave_started(wave_idx)
 signal enemy_encountered(unit_data)
 
 ### ENUM ###
@@ -31,6 +32,8 @@ func start_wave(wave_number) -> void:
 		emit_signal("encounter_completed")
 		return
 
+
+	emit_signal("wave_started", wave_number + 1)
 	_current_wave = wave_generator.generate_wave(wave_number, total_wave_count)
 
 

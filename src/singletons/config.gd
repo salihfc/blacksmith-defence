@@ -43,7 +43,7 @@ func _ready() -> void:
 
 	LOG.pr(LOG.LOG_TYPE.INTERNAL, "READY", "CONFIG")
 	OS.center_window()
-	Engine.target_fps = 60
+#	Engine.target_fps = 60
 
 	var _err = get_tree().connect("node_added", self, "_on_node_added")
 

@@ -30,6 +30,8 @@ export(NodePath) var NP_StartButton
 export(NodePath) var NP_CraftButton
 export(NodePath) var NP_BaseHealthBar
 
+export(NodePath) var NP_WaveCounter
+
 export(NodePath) var NP_UnitInfoPopupPanel
 export(NodePath) var NP_UnitInfoDisplay
 
@@ -72,6 +74,8 @@ onready var baseHealthBar = get_node(NP_BaseHealthBar)
 onready var unitInfoPopupPanel = get_node(NP_UnitInfoPopupPanel) as PopupPanel
 onready var unitInfoDisplay = get_node(NP_UnitInfoDisplay) as UnitInfoDisplay
 onready var exitConfirmationDialog = get_node(NP_ExitConfirmationDialog) as ConfirmationDialog
+
+onready var waveCounter = get_node(NP_WaveCounter) as WaveCounter
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _input(event):
@@ -128,6 +132,8 @@ func _ready():
 		[craftButton, "pressed", self, "_on_CraftButton_pressed"],
 		[exitConfirmationDialog, "confirmed", self, "_go_to_main_menu"],
 		[exitConfirmationDialog, "popup_hide", self, "_pause_battle"],
+
+		[battle, "wave_started", waveCounter, "set_value"],
 
 		[battle, "base_damaged", player_base, "take_damage"],
 
@@ -235,6 +241,7 @@ func _on_wave_completed() -> void:
 
 func _on_player_main_base_destroyed() -> void:
 	LOG.pr(LOG.LOG_TYPE.GAMEPLAY, "PLAYER LOST")
+	_pause_battle()
 
 
 func _on_CraftButton_pressed() -> void:

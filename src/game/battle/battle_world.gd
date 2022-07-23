@@ -15,6 +15,7 @@ signal drag_grid_pos_changed(is_new_grid_pos_valid)
 ## emitted when base damaged
 signal base_damaged(damage)
 signal wave_completed()
+signal wave_started(wave)
 signal unit_spawned(unit)
 
 ### ENUM ###
@@ -111,6 +112,7 @@ func _ready():
 			[
 				["enemy_encountered", "spawn_enemy"],
 				["wave_ended", "_on_wave_ended"],
+				["wave_started", "_on_wave_started"],
 			]
 		)
 
@@ -395,6 +397,10 @@ func _on_mousePointerArea_areas_inside_changed() -> void:
 			dragged_item_holo.set_valid(_is_dragged_item_affordable())
 
 # Gameplay signal responses
+func _on_wave_started(_wave_idx):
+	emit_signal("wave_started", _wave_idx)
+
+
 func _on_wave_ended(_wave_idx):
 	spawnTimer.stop()
 	emit_signal("wave_completed")

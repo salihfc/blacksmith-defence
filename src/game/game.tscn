@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://src/ui/h_material_list.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/debug/debug_window.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://src/ui/unit_info_display.tscn" type="PackedScene" id=5]
 [ext_resource path="res://tres/units/pools/player_pool.tres" type="Resource" id=6]
 [ext_resource path="res://src/ui/fps_display.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/ui/wave_counter.tscn" type="PackedScene" id=8]
 [ext_resource path="res://tres/default_player_base.tres" type="Resource" id=9]
 [ext_resource path="res://src/game/unit_recipe_view.tscn" type="PackedScene" id=10]
 [ext_resource path="res://src/ui/crafting_menu.tscn" type="PackedScene" id=11]
@@ -59,6 +60,7 @@ NP_CraftingPopupPanel = NodePath("CraftingPopup")
 NP_StartButton = NodePath("StartWaveButton")
 NP_CraftButton = NodePath("CraftButton")
 NP_BaseHealthBar = NodePath("BaseHpBar")
+NP_WaveCounter = NodePath("WaveCounter")
 NP_UnitInfoPopupPanel = NodePath("UnitInfoPopup")
 NP_UnitInfoDisplay = NodePath("UnitInfoPopup/UnitInfoDisplay")
 NP_ExitConfirmationDialog = NodePath("ExitConfirmationPopup")
@@ -174,6 +176,14 @@ text = " Create unit recipe "
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="WaveCounter" parent="." instance=ExtResource( 8 )]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -251.0
+margin_top = 44.0
+margin_right = -107.0
+margin_bottom = 84.0
 
 [node name="CraftingPopup" type="PopupPanel" parent="."]
 anchor_left = 0.5
