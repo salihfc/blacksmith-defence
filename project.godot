@@ -340,6 +340,16 @@ _global_script_classes=[ {
 "path": "res://src/scene_manager.gd"
 }, {
 "base": "Control",
+"class": "ScreenErrorText",
+"language": "GDScript",
+"path": "res://src/ui/screen_error_text.gd"
+}, {
+"base": "Control",
+"class": "ScreenTextCreator",
+"language": "GDScript",
+"path": "res://src/ui/screen_text_creator.gd"
+}, {
+"base": "Control",
 "class": "SettingSlider",
 "language": "GDScript",
 "path": "res://src/ui/setting_slider.gd"
@@ -641,6 +651,8 @@ _global_script_class_icons={
 "ResList": "",
 "ResRow": "",
 "SceneManager": "",
+"ScreenErrorText": "",
+"ScreenTextCreator": "",
 "SettingSlider": "",
 "SettingsMenu": "",
 "Snippet": "",

@@ -138,6 +138,31 @@ func interpolate_method_to_and_back(
 	tween.start()
 
 
+func interpolate_callback(
+		object : Object, callback : String,
+		wait_duration,
+		args = []) -> void:
+
+	var tween = _request_worker() as Tween
+
+	if args.size() > 3:
+		push_error("CANNOT USE MORE THAN 3 ARGS FOR INTERPOLATE CALLBACK")
+	else:
+		match args.size():
+			0:
+				tween.interpolate_callback(object, wait_duration, callback)
+			1:
+				tween.interpolate_callback(object, wait_duration, callback, args[0])
+			2:
+				tween.interpolate_callback(object, wait_duration, callback, args[0], args[1])
+			3:
+				tween.interpolate_callback(object, wait_duration, callback, args[0], args[1], args[2])
+			_:
+				assert(0)
+
+	tween.start()
+
+
 ### PRIVATE FUNCTIONS ###
 func _add_passive_workers(count : int) -> void:
 	for _i in count:

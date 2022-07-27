@@ -160,6 +160,9 @@ func _ready():
 		]
 	)
 
+	if OS.has_feature("standalone"):
+		_cached_recipes.clear()
+
 	for item in unit_data_pool.get_items():
 		_cached_recipes.append(
 			UnitRecipe.new(item)
@@ -174,6 +177,11 @@ func is_any_popup_visible() -> bool:
 			craftingPopup.visible,
 			exitConfirmationDialog.visible,
 	])
+
+
+func send_screen_error(screen_pos : Vector2, text : String):
+	$ScreenTextCreator.create_text(screen_pos, text)
+	return self
 
 
 ### PRIVATE FUNCTIONS ###
@@ -215,7 +223,7 @@ func _on_recipe_selected(unit_recipe : UnitRecipe) -> void:
 		battle.set_dragged_item(unit_recipe)
 	else:
 		LOG.pr(LOG.LOG_TYPE.INPUT, "RECIPE CANNOT BE AFFORDED [%s] \n [%s]" % [unit_recipe, unit_recipe.total_cost()])
-
+		send_screen_error(get_global_mouse_position() + Vector2.UP * 40.0, "Not Enough Materials")
 
 func _on_unit_spawned(unit_recipe : UnitRecipe):
 	# Spend the material cost of the unit

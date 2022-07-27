@@ -80,7 +80,7 @@ func strike() -> void:
 		TYPE.RAPIER:
 			animate(ANIM.THRUST)
 
-		TYPE.WAND:
+		TYPE.WAND, TYPE.FLAME_STAFF, TYPE.WINTER_STAFF, TYPE.TORNADO_STAFF:
 			animate(ANIM.SWING)
 
 		_:

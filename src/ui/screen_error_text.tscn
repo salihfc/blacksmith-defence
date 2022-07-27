@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://new_test.theme" type="Theme" id=1]
+[ext_resource path="res://assets/fonts/ttf/UbuntuMono-R2.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://src/ui/screen_error_text.gd" type="Script" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 20
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 2 )
+
+[node name="ScreenErrorText" type="Control"]
+margin_right = 268.0
+margin_bottom = 41.0
+theme = ExtResource( 1 )
+script = ExtResource( 3 )
+
+[node name="Label" type="Label" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_colors/font_color = Color( 0.980392, 0.219608, 0.219608, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 0.564706 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0.509804 )
+custom_constants/shadow_offset_x = 4
+custom_constants/shadow_offset_y = 4
+custom_fonts/font = SubResource( 1 )
+text = "Not Enough Materials"
+align = 1
+valign = 1
+autowrap = true
