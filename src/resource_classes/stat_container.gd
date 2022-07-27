@@ -91,9 +91,10 @@ func increase_stat(id : int, amount) -> void:
 	set_stat(id, get_stat(id) + amount)
 
 
-func multiply_stat(id : int, amount) -> void:
+func multiply_stat(id : int, amount):
 	assert(has_stat(id))
 	set_stat(id, get_stat(id) * amount)
+	return self
 
 
 func has(property : String) -> bool:
@@ -109,9 +110,18 @@ func get_stat(id : int, default = 0):
 	return _data.get(property, default)
 
 
-func set_stat(id : int, value) -> void:
+func set_stat(id : int, value):
 	var property = get_stat_name(id)
 	_data[property] = value
+	return self
+
+
+func set_stat_equal_to_other_stat(id : int, other_stat_id : int):
+	set_stat(
+			other_stat_id,
+			get_stat(id)
+	)
+	return self
 
 
 func get_data_copy():

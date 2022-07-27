@@ -1,0 +1,26 @@
+[gd_resource type="Resource" load_steps=8 format=2]
+
+[ext_resource path="res://src/resource_classes/weapon_enhancement_data.gd" type="Script" id=1]
+[ext_resource path="res://src/resource_classes/weapon_data.gd" type="Script" id=2]
+[ext_resource path="res://tres/anim/weapon/weapon_idle_up.anim" type="Animation" id=3]
+[ext_resource path="res://tres/anim/weapon/weapon_strike_wand_swing.anim" type="Animation" id=4]
+[ext_resource path="res://tres/anim/weapon/weapon_hold_up.anim" type="Animation" id=5]
+[ext_resource path="res://tres/atlas_tex/weapons/tornado_staff.tres" type="Texture" id=6]
+
+[sub_resource type="Resource" id=4]
+script = ExtResource( 1 )
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource( 2 )
+id = 5
+name = "tornado staff"
+texture = ExtResource( 6 )
+base_damage = 30.0
+idle_anim = ExtResource( 3 )
+hold_anim = ExtResource( 5 )
+swing_anim = ExtResource( 4 )
+collision_shape_offset = Vector2( 0, 0 )
+particle_color = Color( 0.564706, 0.992157, 0.133333, 1 )
+throwable = false
+mat_hint = SubResource( 4 )

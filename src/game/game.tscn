@@ -186,7 +186,6 @@ margin_right = -107.0
 margin_bottom = 84.0
 
 [node name="CraftingPopup" type="PopupPanel" parent="."]
-visible = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5

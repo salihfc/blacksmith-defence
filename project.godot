@@ -715,6 +715,7 @@ LOG="*res://src/singletons/log.tscn"
 
 [debug]
 
+settings/gdscript/max_call_stack=4096
 gdscript/warnings/treat_warnings_as_errors=true
 gdscript/warnings/unused_signal=false
 
@@ -726,6 +727,10 @@ window/size/resizable=false
 mouse_cursor/custom_image="res://assets/gfx/ui/cursor/HammerTool.png"
 mouse_cursor/custom_image_hotspot=Vector2( 0, 32 )
 window/stretch/aspect="keep"
+
+[editor]
+
+convert_text_resources_to_binary_on_export=true
 
 [editor_plugins]
 
@@ -831,6 +836,12 @@ spawn_random_boss_lane_3={
 2d_physics/layer_11="soft_body"
 2d_physics/layer_12="player_body"
 2d_physics/layer_13="enemy_body"
+
+[memory]
+
+limits/multithreaded_server/rid_pool_prealloc=480
+limits/message_queue/max_size_kb=16384
+limits/command_queue/multithreading_queue_size_kb=1024
 
 [physics]
 

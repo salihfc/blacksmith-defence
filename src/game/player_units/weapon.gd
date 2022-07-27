@@ -9,11 +9,16 @@ signal enemy_hit_with_damage(target, damage)
 ### ENUM ###
 ### TODO: fix this
 enum TYPE {
-	SWORD = 0,
-	RAPIER = 1,
+	SWORD = 0, # SwordMaster
+	RAPIER = 1, # Duelist
 
-	WAND = 2,
-	SPEAR = 3,
+	WAND = 2, # Arcanist
+	SPEAR = 3, # SpearThrower
+
+	FLAME_STAFF = 4, # FlameWeaver
+	TORNADO_STAFF = 5, # TornadoMage
+	WINTER_STAFF = 6, # WinterMage
+
 }
 ### <-- TEMP
 

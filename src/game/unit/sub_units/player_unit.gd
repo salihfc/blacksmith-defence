@@ -20,7 +20,7 @@ func init_with_data(unit_recipe : UnitRecipe) -> void:
 	.init_with_data(unit_recipe)
 	#
 	# Set hp to max
-	_stats.set_stat(StatContainer.STATS.HP, get_stat(StatContainer.STATS.MAX_HP))
+#	_stats.set_stat(StatContainer.STATS.HP, get_stat(StatContainer.STATS.MAX_HP))
 
 	var unit_data = unit_recipe.base_unit
 	var enhance_cost = unit_recipe.enhance_cost
@@ -70,6 +70,9 @@ func init_with_data(unit_recipe : UnitRecipe) -> void:
 
 	DBG_range_circle.modulate = Color.green
 	DBG_range_circle.modulate.a = 0.1
+
+	_stats.call_deferred("set_stat_equal_to_other_stat", StatContainer.STATS.MAX_HP, StatContainer.STATS.HP)
+
 
 ### PUBLIC FUNCTIONS ###
 ### PRIVATE FUNCTIONS ###

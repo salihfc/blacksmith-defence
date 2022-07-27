@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://assets/gfx/game/spear_right.png" type="Texture" id=1]
 [ext_resource path="res://src/game/player_units/throwable_weapon.gd" type="Script" id=2]
@@ -8,9 +8,15 @@
 [ext_resource path="res://tres/curves/dist_to_height_multi_curve.tres" type="Curve" id=6]
 [ext_resource path="res://tres/curves/throwable_weapon_height_curve.tres" type="Curve" id=7]
 [ext_resource path="res://src/game/vfx/vfx_spear_landing.tscn" type="PackedScene" id=8]
+[ext_resource path="res://src/resource_classes/damage.gd" type="Script" id=9]
+
+[sub_resource type="Resource" id=3]
+script = ExtResource( 9 )
+_type = 0
+_amount = 20.0
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 79.0063
+radius = 40.0
 
 [node name="ThrowableWeapon" type="Node2D"]
 script = ExtResource( 2 )
@@ -18,7 +24,8 @@ __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true
 }
-min_dist_to_throw = 100.0
+damage = SubResource( 3 )
+min_dist_to_throw = 50.0
 max_velocity = 800.0
 height_scale = 80.0
 height_curve = ExtResource( 7 )
@@ -41,6 +48,7 @@ position = Vector2( 9, 0 )
 shape = SubResource( 2 )
 
 [node name="VFXWeaponParticles" parent="Pivot/Sprite/HitBox" instance=ExtResource( 4 )]
+visible = false
 position = Vector2( 9, 0 )
 auto_free = false
 

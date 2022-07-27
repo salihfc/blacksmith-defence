@@ -7,8 +7,8 @@ func is_class(_class_name): return _class_name == get_class() or .is_class(_clas
 func _to_string(): return "[%s :: %s]" % [get_class(), resource_path]
 """
 	Bleed stacks just like poison,
-	the difference is that when new bleed applied duration resets to new bleeds duration
-	when duration reaches 0. All bleed expires
+	the difference is that when new bleed applied duration resets to new bleeds duration.
+	When duration reaches 0, All bleed expires
 	{which is just one because new bleeds just transfer their stacks and duration}
 """
 ### SIGNAL ###

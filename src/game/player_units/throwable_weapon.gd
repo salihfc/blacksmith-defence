@@ -4,12 +4,15 @@ class_name ThrowableWeapon
 """
 ### SIGNAL ###
 signal landed()
+signal enemy_hit(target, damage)
 
 ### ENUM ###
 ### CONST ###
 const EPSILON = 0.1
 
 ### EXPORT ###
+export(Resource) var damage = Damage.new()
+
 export(float) var min_dist_to_throw
 export(float) var max_velocity
 export(float) var height_scale
@@ -33,10 +36,14 @@ var _max_dist = INF
 var _t = 0.0
 var _h_multi = 1.0
 
+var base_radius = 80.0
+var _radius = 80.0
+
 ### ONREADY VAR ###
 onready var sprite = $Pivot/Sprite as Sprite
 onready var pivot = $Pivot as Node2D
 onready var collision_shape = $Pivot/Sprite/HitBox/CollisionShape2D as CollisionShape2D
+onready var hitBox = $Pivot/Sprite/HitBox as ObjectArea
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _ready() -> void:
@@ -64,12 +71,17 @@ func _physics_process(delta: float) -> void:
 			pivot.rotation = rads
 
 			# Fix the horizontal look direction
-			scale.x = sign(_velocity.x)
+			scale.x *= sign(_velocity.x)
 
 
 ### PUBLIC FUNCTIONS ###
 func set_owner_unit(_unit) -> void:
 	owner_unit_weakref = weakref(_unit)
+	var owner_spell_aoe = _unit.get_stat(StatContainer.STATS.SPELL_AOE)
+
+	LOG.pr(LOG.LOG_TYPE.INTERNAL, "|||||||||||||owner_aoe|||||||||||| > [%s]" % [owner_spell_aoe])
+	if owner_spell_aoe:
+		_set_radius(get_radius() * owner_spell_aoe)
 
 
 func get_owner():
@@ -148,23 +160,54 @@ func get_possible_targets():
 	return get_tree().get_nodes_in_group(CONFIG.ENEMY_GROUP)
 
 
+func _set_radius(_rad):
+	_radius = _rad
+	hitBox.scale = Vector2.ONE * float(_radius / base_radius)
+	return self
+
+
 func get_radius() -> float:
-	return 100.0 # TODO: make dynamic
+	return _radius
 
 
 func get_cast_range() -> float:
-	return 280.0
+	return 280.0 # TODO: make dynamic
+
+
+func get_total_damage():
+	return CumulativeDamage.new([
+		Damage.new().copy_from(damage)\
+				.increased_by(get_owner().get_stat(StatContainer.STATS.BASE_DAMAGE))\
+				.set_originator(get_owner()),
+	])
+
+
+func _damage_targets(targets) -> void:
+	for target in targets:
+		if target.has_method("take_damage"):
+			var total = get_total_damage()
+			target.take_damage(total)
+			emit_signal("enemy_hit", target, total)
+		else:
+			push_warning("target cannot take damage")
+
 
 ### SIGNAL RESPONSES ###
 func _on_landing() -> void:
 	LOG.pr(LOG.LOG_TYPE.GAMEPLAY, "on spear landed")
 
-	if P_LandVFX:
+	var areas = hitBox.get_areas_inside()
+	var targets = UTILS.get_owners(areas)
+	_damage_targets(targets)
+
+	if false and P_LandVFX:
 		var fx = P_LandVFX.instance()
 #		GROUP.get_global(GROUP.BATTLE_WORLD).vfxContainer.add_child(fx)
 		add_child(fx)
 		fx.set_as_toplevel(true)
 		fx.global_position = collision_shape.global_position
+#		fx.global_scale = Vector2.ONE * (collision_shape.shape.radius / 450.0)
+#		print (fx.global_scale)
 		fx.emit()
 
 	hide()

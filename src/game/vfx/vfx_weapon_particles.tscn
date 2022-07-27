@@ -33,5 +33,6 @@ emitting = true
 amount = 16
 speed_scale = 4.0
 local_coords = false
+draw_order = 1
 process_material = SubResource( 1 )
 texture = ExtResource( 2 )

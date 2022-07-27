@@ -23,6 +23,25 @@ var _default_data = {
 			'enhancement' : UnitEnhancementStat.new(StatContainer.STATS.BASE_KNOCKBACK_STRENGTH, 20),
 			'hint' : "increase knockback by 20",
 		},
+
+		"FIRE" : {
+			'enhancement' : UnitEnhancementStat.new(StatContainer.STATS.MAX_HP, 100),
+			'hint' : "increase hp by 100",
+		},
+
+		"WATER" : {
+			'enhancement' : UnitEnhancementStat.new(StatContainer.STATS.RES_PHYS, 20),
+			'hint' : "increase hp physical resist by 20",
+		},
+
+		"EARTH" : {
+			'enhancement' : UnitEnhancementStatusChanceOnHit.new(
+				0.5,
+				STATUS.create_status(StatusEffect.TYPE.POISON, 4.0, 0.0)
+			),
+			'hint' : "50% chance to poison for 4 seconds",
+		},
+
 	},
 
 ####################################
@@ -32,12 +51,30 @@ var _default_data = {
 			'hint' : "increase damage by 10",
 		},
 
-		"FIRE" : {
+		"COPPER" : {
 			'enhancement' : UnitEnhancementStatusChanceOnHit.new(
 				1.0,
-				STATUS.create_status(StatusEffect.TYPE.IGNITE, 2.0, 0.0)
+				STATUS.create_status(StatusEffect.TYPE.BLEED, 4.0, 0.0)
 			),
-			'hint' : "100% chance to ignite on hit",
+			'hint' : "100% chance to bleed on hit for 4 stacks",
+		},
+
+		"FIRE" : {
+			'enhancement' : UnitEnhancementStatusChanceOnHit.new(
+				0.5,
+				STATUS.create_status(StatusEffect.TYPE.IGNITE, 2.0, 20.0)
+			),
+			'hint' : "50% chance to ignite on hit for 20 damage for 2 seconds",
+		},
+
+		"WATER" : {
+			'enhancement' : UnitEnhancementStat.new(StatContainer.STATS.CHILL_CHANCE, 0.4),
+			'hint' : "increase chill chance by 40%",
+		},
+
+		"EARTH" : {
+			'enhancement' : UnitEnhancementStat.new(StatContainer.STATS.ATK_RANGE, 0.4),
+			'hint' : "increase attack range by 40%",
 		},
 	},
 
@@ -63,13 +100,113 @@ var _default_data = {
 
 		"EARTH" : {
 			'enhancement' : UnitEnhancementStat.new(
-				StatContainer.STATS.SPELL_AOE,
-				1.0
+				StatContainer.STATS.CHAIN_RANGE,
+				100.0
 			),
-			'hint' : "increase spell area of effect by 100%",
+			'hint' : "increase chain range by 100 units",
+		},
+
+		"WATER" : {
+			'enhancement' : UnitEnhancementStat.new(
+				StatContainer.STATS.FREEZE_CHANCE,
+				0.5
+			),
+			'hint' : "increase chance to freeze by 50%",
 		},
 	},
+
+
+####################################
+	"SPEAR" : {
+		"IRON" : {
+			'enhancement' : UnitEnhancementStat.new(StatContainer.STATS.BASE_DAMAGE, 10),
+			'hint' : "increase damage by 10",
+		},
+
+		"COPPER" : {
+			'enhancement' : UnitEnhancementStat.new(StatContainer.STATS.ATK_RANGE, 100),
+			'hint' : "increase attack range by 100",
+		},
+
+		"FIRE" : {
+			'enhancement' : UnitEnhancementStatusChanceOnHit.new(
+				1.0,
+				STATUS.create_status(StatusEffect.TYPE.IGNITE, 2.0, 0.0)
+			),
+			'hint' : "100% chance to ignite on hit",
+		},
+
+		"WATER" : {
+			'enhancement' : UnitEnhancementStat.new(StatContainer.STATS.SPELL_AOE, 0.4),
+			'hint' : "increase spell area by 40%",
+		},
+
+		"EARTH" : {
+			'enhancement' : UnitEnhancementStat.new(StatContainer.STATS.CAST_SPEED, 0.4),
+			'hint' : "increase cast speed by 40%",
+		},
+	},
+
+####################################
+
+
+####################################
+	"FLAME_STAFF" : {
+		"IRON" : {
+			'enhancement' : UnitEnhancementStat.new(StatContainer.STATS.BASE_DAMAGE, 10),
+			'hint' : "increase damage by 10",
+		},
+
+		"FIRE" : {
+			'enhancement' : UnitEnhancementStatusChanceOnHit.new(
+				1.0,
+				STATUS.create_status(StatusEffect.TYPE.IGNITE, 2.0, 0.0)
+			),
+			'hint' : "100% chance to ignite on hit",
+		},
+	},
+
+####################################
+
+
+####################################
+	"TORNADO_STAFF" : {
+		"IRON" : {
+			'enhancement' : UnitEnhancementStat.new(StatContainer.STATS.BASE_DAMAGE, 10),
+			'hint' : "increase damage by 10",
+		},
+
+		"FIRE" : {
+			'enhancement' : UnitEnhancementStatusChanceOnHit.new(
+				1.0,
+				STATUS.create_status(StatusEffect.TYPE.IGNITE, 2.0, 0.0)
+			),
+			'hint' : "100% chance to ignite on hit",
+		},
+	},
+
+####################################
+
+
+####################################
+	"WINTER_STAFF" : {
+		"IRON" : {
+			'enhancement' : UnitEnhancementStat.new(StatContainer.STATS.BASE_DAMAGE, 10),
+			'hint' : "increase damage by 10",
+		},
+
+		"FIRE" : {
+			'enhancement' : UnitEnhancementStatusChanceOnHit.new(
+				1.0,
+				STATUS.create_status(StatusEffect.TYPE.IGNITE, 2.0, 0.0)
+			),
+			'hint' : "100% chance to ignite on hit",
+		},
+	},
+
+####################################
 }
+
 
 ### ONREADY VAR ###
 ### VIRTUAL FUNCTIONS (_init ...) ###
