@@ -17,4 +17,6 @@ bus = "BGM"
 
 [node name="SFXPlayers" type="Node" parent="."]
 
+[node name="BattleSFXPlayers" type="Node" parent="."]
+
 [connection signal="finished" from="BGMPlayer" to="." method="_on_BGMPlayer_finished"]

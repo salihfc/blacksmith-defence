@@ -2,9 +2,11 @@ extends Node
 
 onready var BGMplayer  = get_node("BGMPlayer")
 onready var SFXplayers = get_node("SFXPlayers")
+onready var BattleSFXplayers = get_node("BattleSFXPlayers")
 
 const BGM_BUS = "BGM"
 const SFX_BUS = "SFX"
+const BATTLE_SFX_BUS = "SFX_BATTLE"
 
 export(AudioStream) var BGM
 export(int) var sfx_player_count := 8
@@ -52,9 +54,17 @@ const SFX_array = [
 	preload("res://assets/sfx/rapier/SFX_Dagger_Draw_and_Whoosh_02.wav"),
 ]
 
+func _input(event: InputEvent) -> void:
+	var key_event = event as InputEventKey
+	if key_event:
+		if key_event.pressed and key_event.scancode == KEY_P:
+			play(SFX.SPELL_ARC)
+
+
 func _ready() -> void:
 	LOG.pr(LOG.LOG_TYPE.INTERNAL, "READY", "AUDIO")
-	set_sfx_player_count(sfx_player_count)
+	set_sfx_player_count(sfx_player_count, SFXplayers)
+	set_sfx_player_count(sfx_player_count, BattleSFXplayers)
 
 	BGMplayer.bus = BGM_BUS
 	BGMplayer.stream = AudioStreamRandomPitch.new()
@@ -97,38 +107,47 @@ func set_sfx_volume(volume : float) -> void:
 func play(sfx_id : int) -> void:
 #	LOG.pr(LOG.LOG_TYPE.SFX, "play sfx: [%s]" % [sfx_id])
 	if sfx_on:
-		_play_sfx(SFX_array[sfx_id])
+		_play_sfx(SFX_array[sfx_id], BattleSFXplayers)
 
 
 func play_ui_sfx(sfx_id : int) -> void:
 #	LOG.pr(LOG.LOG_TYPE.SFX, "play sfx: [%s]" % [sfx_id])
-	_play_sfx(UI_SFX_ARRAY[sfx_id])
+	_play_sfx(UI_SFX_ARRAY[sfx_id], SFXplayers)
 
 
-func _play_sfx(sfx_audio):
+func _play_sfx(sfx_audio, player_container):
 	if sfx_on:
-		for SFXplayer in SFXplayers.get_children():
+		for SFXplayer in player_container.get_children():
 			if not SFXplayer.is_playing():
 				SFXplayer.stream.audio_stream = sfx_audio
 				SFXplayer.play()
 				break
 
 
-func set_sfx_player_count(count : int) -> void:
-	var delta = count - SFXplayers.get_child_count()
+
+func get_sfx_bux(player_container):
+	match player_container:
+		BattleSFXplayers:
+			return BATTLE_SFX_BUS
+		SFXplayers:
+			return SFX_BUS
+	assert(0)
+
+func set_sfx_player_count(count : int, player_container) -> void:
+	var delta = count - player_container.get_child_count()
 	if delta > 0: # Add new
 		for _i in range(delta):
 			var new_player = AudioStreamPlayer.new()
-			new_player.bus = SFX_BUS
+			new_player.bus = get_sfx_bux(player_container)
 			new_player.stream = AudioStreamRandomPitch.new()
-			SFXplayers.add_child(new_player)
+			player_container.add_child(new_player)
 	elif delta < 0:
-		var sfx_players = SFXplayers.get_children()
+		var sfx_players = player_container.get_children()
 		for _i in range(-delta):
 			var last = sfx_players.back()
 			sfx_players.pop_back()
 
-			SFXplayers.remove_child(last)
+			player_container.remove_child(last)
 			last.queue_free()
 
 
