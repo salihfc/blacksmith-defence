@@ -1,7 +1,6 @@
-[gd_resource type="Resource" load_steps=14 format=2]
+[gd_resource type="Resource" load_steps=12 format=2]
 
 [ext_resource path="res://tres/atlas_tex/winter_mage.atlastex" type="Texture" id=1]
-[ext_resource path="res://src/resource_classes/material_storage.gd" type="Script" id=2]
 [ext_resource path="res://src/resource_classes/unit_data.gd" type="Script" id=3]
 [ext_resource path="res://src/ai/infinite_axis_utility/agent_tres/agent_player_basic.tres" type="Resource" id=4]
 [ext_resource path="res://src/resource_classes/unit_enhancements/unit_enhancement_stat.gd" type="Script" id=5]
@@ -37,12 +36,6 @@ stats/cast_range = 0.0
 stats/chain_range = 0.0
 stats/armor_pen = 0.0
 stats/base_knockback_strength = 0.0
-
-[sub_resource type="Resource" id=1]
-script = ExtResource( 2 )
-_storage = {
-Resource( "res://tres/materials/material_iron.tres" ): 2
-}
 
 [sub_resource type="Resource" id=6]
 script = ExtResource( 8 )
@@ -89,7 +82,6 @@ name = "WinterMage"
 texture = ExtResource( 1 )
 flip_h = false
 sprite_scale = 1.0
-cost = SubResource( 1 )
 brain = ExtResource( 4 )
 _stats = SubResource( 5 )
 default_stats = SubResource( 6 )

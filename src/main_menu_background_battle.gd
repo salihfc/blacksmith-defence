@@ -33,7 +33,7 @@ func spawn_enemy_at_pos(enemy_data : UnitData, pos : Vector2):
 	return self
 
 ### PRIVATE FUNCTIONS ###
-func spawn_random_mat(_pos):
+func spawn_random_mat_drop(_pos):
 	return
 
 func __spawn():

@@ -5,14 +5,6 @@
 [ext_resource path="res://src/main_menu_background_battle.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/main_menu.gd" type="Script" id=5]
 
-[sub_resource type="DynamicFont" id=15]
-size = 36
-outline_size = 1
-outline_color = Color( 0, 0, 0, 1 )
-use_mipmaps = true
-use_filter = true
-font_data = ExtResource( 3 )
-
 [sub_resource type="Environment" id=14]
 background_mode = 4
 tonemap_mode = 4
@@ -22,6 +14,14 @@ glow_enabled = true
 
 [sub_resource type="World" id=13]
 environment = SubResource( 14 )
+
+[sub_resource type="DynamicFont" id=15]
+size = 36
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 3 )
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
@@ -37,6 +37,27 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.27451, 0.133333, 0.207843, 1 )
+
+[node name="MarginContainerRight" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ViewportContainer" type="ViewportContainer" parent="MarginContainerRight"]
+margin_right = 1536.0
+margin_bottom = 900.0
+stretch = true
+
+[node name="Viewport" type="Viewport" parent="MarginContainerRight/ViewportContainer"]
+size = Vector2( 1436, 900 )
+size_override_stretch = true
+own_world = true
+world = SubResource( 13 )
+handle_input_locally = false
+disable_3d = true
+usage = 0
+render_target_update_mode = 3
+
+[node name="MainMenuBackgroundBattle" parent="MarginContainerRight/ViewportContainer/Viewport" instance=ExtResource( 4 )]
 
 [node name="MarginContainerLeft" type="MarginContainer" parent="."]
 anchor_right = 0.314453
@@ -129,32 +150,6 @@ margin_bottom = 178.0
 focus_mode = 0
 custom_fonts/font = SubResource( 15 )
 text = "Credits"
-
-[node name="MarginContainerRight" type="MarginContainer" parent="."]
-anchor_left = 0.4
-anchor_top = 0.1
-anchor_right = 0.9
-anchor_bottom = 0.9
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="ViewportContainer" type="ViewportContainer" parent="MarginContainerRight"]
-margin_right = 767.0
-margin_bottom = 720.0
-stretch = true
-
-[node name="Viewport" type="Viewport" parent="MarginContainerRight/ViewportContainer"]
-size = Vector2( 767, 720 )
-size_override_stretch = true
-own_world = true
-world = SubResource( 13 )
-handle_input_locally = false
-disable_3d = true
-usage = 0
-render_target_update_mode = 3
-
-[node name="MainMenuBackgroundBattle" parent="MarginContainerRight/ViewportContainer/Viewport" instance=ExtResource( 4 )]
 
 [connection signal="pressed" from="MarginContainerLeft/VBoxContainer/TitleContainerDown/VBoxContainer/MarginContainer/PlayButton" to="." method="_on_PlayButton_pressed"]
 [connection signal="pressed" from="MarginContainerLeft/VBoxContainer/TitleContainerDown/VBoxContainer/MarginContainer2/SettingsButton" to="." method="_on_SettingsButton_pressed"]

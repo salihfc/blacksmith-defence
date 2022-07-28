@@ -1,6 +1,5 @@
-[gd_resource type="Resource" load_steps=13 format=2]
+[gd_resource type="Resource" load_steps=11 format=2]
 
-[ext_resource path="res://src/resource_classes/material_storage.gd" type="Script" id=1]
 [ext_resource path="res://src/resource_classes/unit_data.gd" type="Script" id=2]
 [ext_resource path="res://src/ai/infinite_axis_utility/agent_tres/agent_player_basic.tres" type="Resource" id=3]
 [ext_resource path="res://tres/atlas_tex/rapier_player_sprite.atlastex" type="Texture" id=4]
@@ -36,12 +35,6 @@ stats/cast_range = 0.0
 stats/chain_range = 0.0
 stats/armor_pen = 0.0
 stats/base_knockback_strength = 20
-
-[sub_resource type="Resource" id=1]
-script = ExtResource( 1 )
-_storage = {
-Resource( "res://tres/materials/material_iron.tres" ): 2
-}
 
 [sub_resource type="Resource" id=5]
 script = ExtResource( 7 )
@@ -88,7 +81,6 @@ name = "Duelist"
 texture = ExtResource( 4 )
 flip_h = false
 sprite_scale = 1.0
-cost = SubResource( 1 )
 brain = ExtResource( 3 )
 _stats = SubResource( 4 )
 default_stats = SubResource( 5 )

@@ -26,7 +26,7 @@ func _ready():
 			else:
 				child.offset += UTILS.random_unit_vec2() * rand_range(0.2, 1.6)
 
-	$Sprite7/Light2D.visible = light_on
+#	$Sprite7/Light2D.visible = light_on
 
 ### PUBLIC FUNCTIONS ###
 func take_damage(_damage) -> void:

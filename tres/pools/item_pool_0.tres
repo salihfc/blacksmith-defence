@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=9 format=2]
+
+[ext_resource path="res://src/resource_classes/item_pool.gd" type="Script" id=1]
+[ext_resource path="res://tres/units/weapons/sword.tres" type="Resource" id=2]
+[ext_resource path="res://tres/units/weapons/wand.tres" type="Resource" id=3]
+[ext_resource path="res://tres/units/weapons/rapier.tres" type="Resource" id=4]
+[ext_resource path="res://tres/units/weapons/spear.tres" type="Resource" id=5]
+[ext_resource path="res://tres/units/weapons/winter_staff.tres" type="Resource" id=6]
+[ext_resource path="res://tres/units/weapons/flame_staff.tres" type="Resource" id=7]
+[ext_resource path="res://tres/units/weapons/tornado_staff.tres" type="Resource" id=8]
+
+[resource]
+script = ExtResource( 1 )
+items = [ ExtResource( 2 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 5 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 6 ) ]

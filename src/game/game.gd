@@ -41,22 +41,21 @@ export(Resource) var unit_data_pool = null
 export(Resource) var player_base = null
 
 ### PUBLIC VAR ###
-var player_material_storage = MaterialStorage.new()
+var player_material_storage = MaterialCost.new()
 
 ### PRIVATE VAR ###
 var _cached_recipes = [
 	UnitRecipe.new(
 		preload("res://tres/units/player_units/Duelist.tres"),
-		MaterialStorage.new()\
-			.add_material(preload("res://tres/materials/material_fire_rune.tres"), 1)\
-			.add_material(preload("res://tres/materials/material_earth_rune.tres"), 1)\
-			.add_material(preload("res://tres/materials/material_copper.tres"), 1)\
-#			.add_material(preload("res://tres/materials/material_water_rune.tres"), 1)\
+		MaterialCost.new()\
+			.add_material(MAT.TYPE.FIRE, 1)\
+			.add_material(MAT.TYPE.EARTH, 1)\
+			.add_material(MAT.TYPE.COPPER, 1)\
 	),
 
 	UnitRecipe.new(
 		preload("res://tres/units/player_units/Arcanist.tres"),
-		MaterialStorage.new().add_material(preload("res://tres/materials/material_fire_rune.tres"), 1)
+		MaterialCost.new().add_material(MAT.TYPE.FIRE, 1)
 	),
 ]
 
@@ -160,10 +159,13 @@ func _ready():
 		]
 	)
 
-	if OS.has_feature("standalone"):
-		_cached_recipes.clear()
+#	if OS.has_feature("standalone"):
+#	_cached_recipes.clear()
+
+	LOG.pr(LOG.LOG_TYPE.INTERNAL, "UNIT_DATA_POOL:")
 
 	for item in unit_data_pool.get_items():
+		LOG.pr(LOG.LOG_TYPE.INTERNAL, "ITEM: (\n%s\n)" % [item])
 		_cached_recipes.append(
 			UnitRecipe.new(item)
 		)

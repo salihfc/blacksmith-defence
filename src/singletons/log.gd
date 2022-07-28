@@ -90,7 +90,7 @@ func _ready() -> void:
 		if err == OK:
 			pr(LOG_TYPE.INTERNAL, "LOG FILE OPENED [%s]" % [full_path], "LOG")
 		else:
-			pr(LOG_TYPE.INTERNAL, "LOG FILE COULD NOT BE OPENED [%s]" % [err], "LOG")
+			pr(LOG_TYPE.INTERNAL, "LOG FILE (%s) COULD NOT BE OPENED [%s]" % [full_path, err], "LOG")
 
 	pr(LOG_TYPE.INTERNAL, "READY [log_mask:%s {%s}]" % [runtime_mask, _decomposed_mask()], "LOG")
 
@@ -108,7 +108,7 @@ func pr(log_mask: int, log_msg, caller:String = "") -> void:
 	if console_logging:
 		print(msg)
 
-	if file_logging:
+	if file_logging and _log_file.is_open():
 		_log_file.store_line(msg)
 
 

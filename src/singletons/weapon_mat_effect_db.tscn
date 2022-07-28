@@ -1,48 +1,171 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://src/singletons/weapon_mat_effect_db.gd" type="Script" id=1]
 [ext_resource path="res://src/resource_classes/unit_enhancements/unit_enhancement_stat.gd" type="Script" id=2]
-[ext_resource path="res://tres/units/player_units/SwordMaster.tres" type="Resource" id=3]
-[ext_resource path="res://tres/units/player_units/Duelist.tres" type="Resource" id=4]
-[ext_resource path="res://tres/units/player_units/Arcanist.tres" type="Resource" id=5]
+[ext_resource path="res://src/resource_classes/unit_enhancements/unit_enhancement_status_chance_on_hit.gd" type="Script" id=3]
+[ext_resource path="res://tres/units/player_units/SwordMaster.tres" type="Resource" id=4]
+[ext_resource path="res://tres/units/player_units/Duelist.tres" type="Resource" id=5]
+[ext_resource path="res://tres/units/player_units/Arcanist.tres" type="Resource" id=6]
+[ext_resource path="res://tres/units/player_units/SpearThrower.tres" type="Resource" id=7]
+[ext_resource path="res://tres/units/player_units/FlameWeaver.tres" type="Resource" id=8]
+[ext_resource path="res://tres/units/player_units/TornadoMage.tres" type="Resource" id=9]
+[ext_resource path="res://tres/units/player_units/WinterMage.tres" type="Resource" id=10]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 2 )
+stat_id = 5
+increase_value = 10
 
 [sub_resource type="Resource" id=2]
 script = ExtResource( 2 )
-stat_id = 5
-increase_value = 10
+stat_id = 25
+increase_value = 20
 
 [sub_resource type="Resource" id=3]
 script = ExtResource( 2 )
-stat_id = 5
-increase_value = 10
+stat_id = 0
+increase_value = 100
 
 [sub_resource type="Resource" id=4]
+script = ExtResource( 3 )
+
+[sub_resource type="Resource" id=5]
+script = ExtResource( 2 )
+stat_id = 1
+increase_value = 20
+
+[sub_resource type="Resource" id=6]
 script = ExtResource( 2 )
 stat_id = 5
 increase_value = 10
 
-[sub_resource type="Resource" id=1]
+[sub_resource type="Resource" id=7]
+script = ExtResource( 3 )
+
+[sub_resource type="Resource" id=8]
+script = ExtResource( 3 )
+
+[sub_resource type="Resource" id=9]
+script = ExtResource( 2 )
+stat_id = 8
+increase_value = 0.4
+
+[sub_resource type="Resource" id=10]
+script = ExtResource( 2 )
+stat_id = 17
+increase_value = 0.4
+
+[sub_resource type="Resource" id=11]
+script = ExtResource( 2 )
+stat_id = 5
+increase_value = 10
+
+[sub_resource type="Resource" id=12]
 script = ExtResource( 2 )
 stat_id = 10
 increase_value = 1
 
+[sub_resource type="Resource" id=13]
+script = ExtResource( 3 )
+
+[sub_resource type="Resource" id=14]
+script = ExtResource( 2 )
+stat_id = 23
+increase_value = 100.0
+
+[sub_resource type="Resource" id=15]
+script = ExtResource( 2 )
+stat_id = 16
+increase_value = 0.5
+
+[sub_resource type="Resource" id=16]
+script = ExtResource( 2 )
+stat_id = 5
+increase_value = 10
+
+[sub_resource type="Resource" id=17]
+script = ExtResource( 2 )
+stat_id = 8
+increase_value = 100
+
+[sub_resource type="Resource" id=18]
+script = ExtResource( 3 )
+
+[sub_resource type="Resource" id=19]
+script = ExtResource( 2 )
+stat_id = 21
+increase_value = 0.4
+
+[sub_resource type="Resource" id=20]
+script = ExtResource( 2 )
+stat_id = 20
+increase_value = 0.4
+
+[sub_resource type="Resource" id=21]
+script = ExtResource( 2 )
+stat_id = 5
+increase_value = 10
+
+[sub_resource type="Resource" id=22]
+script = ExtResource( 3 )
+
+[sub_resource type="Resource" id=23]
+script = ExtResource( 2 )
+stat_id = 5
+increase_value = 10
+
+[sub_resource type="Resource" id=24]
+script = ExtResource( 3 )
+
+[sub_resource type="Resource" id=25]
+script = ExtResource( 2 )
+stat_id = 5
+increase_value = 10
+
+[sub_resource type="Resource" id=26]
+script = ExtResource( 3 )
+
 [node name="WeaponMatEffectDB" type="Node"]
 script = ExtResource( 1 )
-owner/SWORD = ExtResource( 3 )
-owner/RAPIER = ExtResource( 4 )
-owner/WAND = ExtResource( 5 )
-SWORD/IRON = SubResource( 2 )
-SWORD/COPPER = null
-SWORD/FIRE = null
-SWORD/EARTH = null
-SWORD/WATER = null
-RAPIER/IRON = SubResource( 3 )
-RAPIER/COPPER = null
-RAPIER/FIRE = null
-RAPIER/EARTH = null
-RAPIER/WATER = null
-WAND/IRON = SubResource( 4 )
-WAND/COPPER = SubResource( 1 )
-WAND/FIRE = null
-WAND/EARTH = null
-WAND/WATER = null
+owner/SWORD = ExtResource( 4 )
+owner/RAPIER = ExtResource( 5 )
+owner/WAND = ExtResource( 6 )
+owner/SPEAR = ExtResource( 7 )
+owner/FLAME_STAFF = ExtResource( 8 )
+owner/TORNADO_STAFF = ExtResource( 9 )
+owner/WINTER_STAFF = ExtResource( 10 )
+SWORD/IRON = SubResource( 1 )
+SWORD/COPPER = SubResource( 2 )
+SWORD/FIRE = SubResource( 3 )
+SWORD/EARTH = SubResource( 4 )
+SWORD/WATER = SubResource( 5 )
+RAPIER/IRON = SubResource( 6 )
+RAPIER/COPPER = SubResource( 7 )
+RAPIER/FIRE = SubResource( 8 )
+RAPIER/EARTH = SubResource( 9 )
+RAPIER/WATER = SubResource( 10 )
+WAND/IRON = SubResource( 11 )
+WAND/COPPER = SubResource( 12 )
+WAND/FIRE = SubResource( 13 )
+WAND/EARTH = SubResource( 14 )
+WAND/WATER = SubResource( 15 )
+SPEAR/IRON = SubResource( 16 )
+SPEAR/COPPER = SubResource( 17 )
+SPEAR/FIRE = SubResource( 18 )
+SPEAR/EARTH = SubResource( 19 )
+SPEAR/WATER = SubResource( 20 )
+FLAME_STAFF/IRON = SubResource( 21 )
+FLAME_STAFF/COPPER = null
+FLAME_STAFF/FIRE = SubResource( 22 )
+FLAME_STAFF/EARTH = null
+FLAME_STAFF/WATER = null
+TORNADO_STAFF/IRON = SubResource( 23 )
+TORNADO_STAFF/COPPER = null
+TORNADO_STAFF/FIRE = SubResource( 24 )
+TORNADO_STAFF/EARTH = null
+TORNADO_STAFF/WATER = null
+WINTER_STAFF/IRON = SubResource( 25 )
+WINTER_STAFF/COPPER = null
+WINTER_STAFF/FIRE = SubResource( 26 )
+WINTER_STAFF/EARTH = null
+WINTER_STAFF/WATER = null

@@ -15,13 +15,13 @@ const P_CraftingMenuMaterial = preload("res://src/ui/crafting_menu_material.tscn
 ### ONREADY VAR ###
 ### VIRTUAL FUNCTIONS (_init ...) ###
 ### PUBLIC FUNCTIONS ###
-func add_material(mat : MaterialData, ct : int, mat_effect_on_weapon : String) -> void:
-	var new_mat = P_CraftingMenuMaterial.instance()
-	add_child(new_mat)
-	new_mat.set_mat(mat, ct, mat_effect_on_weapon)
+func add_material(mat : int, ct : int, mat_effect_on_weapon : String) -> void:
+	var mat_view = P_CraftingMenuMaterial.instance()
+	add_child(mat_view)
+	mat_view.set_mat(mat, ct, mat_effect_on_weapon)
 
 	SIGNAL.bind(
-		new_mat, "material_selected",
+		mat_view, "material_selected",
 		self, "_on_material_selected"
 	)
 

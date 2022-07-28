@@ -172,6 +172,13 @@ func get_enum_hint_string(enum_ref) -> String:
 	return string
 
 
+func get_enum_strings_array(enum_ref) -> Array:
+	var arr = enum_ref.keys() as Array
+	if "COUNT" in arr:
+		arr.erase("COUNT")
+	return arr
+
+
 """
 	Data-transforms
 """

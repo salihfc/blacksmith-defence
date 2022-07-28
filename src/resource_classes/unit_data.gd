@@ -184,7 +184,7 @@ export(Texture) var texture
 export(bool) var flip_h = false
 export(float) var sprite_scale = 1.0
 export(Texture) var view_texture
-export(Resource) var cost = MaterialStorage.new() # MaterialStorage
+export(Resource) var cost # MaterialStorage
 # AI
 export(Resource) var brain = null # Type: Agent
 
@@ -198,7 +198,6 @@ export(Array, Resource) var spells
 export(Array, Resource) var throwables
 
 #
-#export(Resource) var enhancements = MaterialStorage.new()
 export(Array, Resource) var enhancements = []	# For player units
 export(Array, Resource) var mods = []			# For enemy units
 
@@ -336,7 +335,9 @@ func copy_from(other_data):
 	view_texture = other_data.view_texture
 
 	if other_data.cost:
-		cost = other_data.cost.duplicate(true)
+		if cost == null:
+			cost = MaterialCost.new()
+		cost.copy_from(other_data.cost)
 
 	brain = other_data.brain
 

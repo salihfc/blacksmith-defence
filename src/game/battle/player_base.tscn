@@ -1,12 +1,10 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/gfx/game/atlas.png" type="Texture" id=1]
 [ext_resource path="res://src/game/battle/player_base.gd" type="Script" id=2]
-[ext_resource path="res://assets/gfx/common/light_2048x2048.png" type="Texture" id=3]
-[ext_resource path="res://assets/gfx/common/light.png" type="Texture" id=4]
+[ext_resource path="res://src/ui/cosmetic_torch.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/game/object_area.gd" type="Script" id=5]
 [ext_resource path="res://tres/atlas_tex/player_base_elixir.atlastex" type="Texture" id=6]
-[ext_resource path="res://assets/gfx/game/bowl_fire_full.png" type="Texture" id=8]
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 1 )
@@ -16,58 +14,6 @@ filter_clip = true
 [sub_resource type="CapsuleShape2D" id=13]
 radius = 17.0
 height = 29.0
-
-[sub_resource type="Shader" id=16]
-code = "// NOTE: Shader automatically converted from Godot Engine 3.4.4.stable's CanvasItemMaterial.
-
-shader_type canvas_item;
-render_mode unshaded;
-"
-
-[sub_resource type="ShaderMaterial" id=17]
-shader = SubResource( 16 )
-
-[sub_resource type="Gradient" id=1]
-offsets = PoolRealArray( 0, 0.142349, 0.302491, 0.608541, 1 )
-colors = PoolColorArray( 0.972656, 0.972656, 0.972656, 0.972549, 1, 0.901961, 0.901961, 0.623529, 0.929412, 0.180392, 0.180392, 0.67451, 0.933594, 0.436027, 0.072937, 0.586351, 0, 0, 0, 0.0431373 )
-
-[sub_resource type="GradientTexture" id=14]
-gradient = SubResource( 1 )
-
-[sub_resource type="Curve" id=6]
-min_value = -1.0
-_data = [ Vector2( 0, 0.218182 ), 0.0, 0.0, 0, 0, Vector2( 1, -0.0545454 ), 0.0, 0.0, 0, 0 ]
-
-[sub_resource type="CurveTexture" id=7]
-curve = SubResource( 6 )
-
-[sub_resource type="Curve" id=4]
-_data = [ Vector2( 0, 0.795455 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.522727 ), 0.0, 0.0, 0, 0 ]
-
-[sub_resource type="CurveTexture" id=5]
-curve = SubResource( 4 )
-
-[sub_resource type="ParticlesMaterial" id=3]
-emission_shape = 1
-emission_sphere_radius = 10.0
-flag_disable_z = true
-direction = Vector3( 0, -1, 0 )
-spread = 15.0
-gravity = Vector3( 0, -100, 0 )
-initial_velocity = 60.0
-angular_velocity = 100.0
-orbit_velocity = 0.0
-orbit_velocity_random = 0.0
-radial_accel = 10.0
-damping = 90.0
-damping_random = 0.1
-scale = 0.15
-scale_curve = SubResource( 5 )
-color = Color( 0.819608, 0.180392, 0.0980392, 0.517647 )
-color_ramp = SubResource( 14 )
-hue_variation = 0.1
-hue_variation_random = 0.2
-hue_variation_curve = SubResource( 7 )
 
 [sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 1 )
@@ -95,36 +41,7 @@ owner_path = NodePath("..")
 visible = false
 shape = SubResource( 13 )
 
-[node name="Sprite7" type="Sprite" parent="."]
-position = Vector2( 7.5, 22.5 )
-z_index = 1
-texture = ExtResource( 8 )
-offset = Vector2( 0, -11.5 )
-hframes = 8
-vframes = 2
-frame = 8
-
-[node name="Light2D" type="Light2D" parent="Sprite7"]
-position = Vector2( -0.5, -9 )
-texture = ExtResource( 3 )
-texture_scale = 0.5
-mode = 2
-shadow_gradient_length = 10.0
-shadow_filter = 2
-shadow_filter_smooth = 50.0
-
-[node name="Particles2D" type="Particles2D" parent="Sprite7"]
-material = SubResource( 17 )
-position = Vector2( -0.5, -17 )
-scale = Vector2( 0.2, 0.2 )
-amount = 96
-lifetime = 1.6
-explosiveness = 0.1
-randomness = 0.4
-local_coords = false
-draw_order = 1
-process_material = SubResource( 3 )
-texture = ExtResource( 4 )
+[node name="Torch" parent="." instance=ExtResource( 3 )]
 
 [node name="Randomized" type="Node2D" parent="."]
 

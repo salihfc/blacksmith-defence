@@ -120,6 +120,11 @@ _global_script_classes=[ {
 "path": "res://src/resource_classes/dev_config.gd"
 }, {
 "base": "Resource",
+"class": "DictContainer",
+"language": "GDScript",
+"path": "res://src/resource_classes/dict_container.gd"
+}, {
+"base": "Resource",
 "class": "DropItem",
 "language": "GDScript",
 "path": "res://src/resource_classes/drop_item.gd"
@@ -200,9 +205,9 @@ _global_script_classes=[ {
 "path": "res://src/resource_classes/mat_enhance_data.gd"
 }, {
 "base": "Resource",
-"class": "MaterialData",
+"class": "MaterialCost",
 "language": "GDScript",
-"path": "res://src/resource_classes/material_data.gd"
+"path": "res://src/resource_classes/material_cost.gd"
 }, {
 "base": "HBoxContainer",
 "class": "MaterialList",
@@ -213,11 +218,6 @@ _global_script_classes=[ {
 "class": "MaterialPool",
 "language": "GDScript",
 "path": "res://src/resource_classes/material_pool.gd"
-}, {
-"base": "Reference",
-"class": "MaterialStorage",
-"language": "GDScript",
-"path": "res://src/resource_classes/material_storage.gd"
 }, {
 "base": "Resource",
 "class": "Mod",
@@ -607,6 +607,7 @@ _global_script_class_icons={
 "Damage": "",
 "DebugWindow": "",
 "DevConfig": "",
+"DictContainer": "",
 "DropItem": "",
 "Effect": "",
 "EncounterData": "",
@@ -623,10 +624,9 @@ _global_script_class_icons={
 "ItemButton": "",
 "ItemPool": "",
 "MatEnhanceData": "",
-"MaterialData": "",
+"MaterialCost": "",
 "MaterialList": "",
 "MaterialPool": "",
-"MaterialStorage": "",
 "Mod": "",
 "ModBerserk": "",
 "ModDisplay": "",
@@ -721,6 +721,7 @@ VFX="*res://src/singletons/vfx_generator.tscn"
 AUDIO="*res://src/singletons/audio_manager.tscn"
 FLOATING_TEXT="*res://src/singletons/floating_text_generator.tscn"
 STATUS="*res://src/singletons/status_effect_generator.tscn"
+MAT="*res://src/singletons/material_interface.tscn"
 WEAPON_ENHANCE_DB="*res://src/singletons/weapon_mat_effect_db.gd"
 GROUP="*res://src/singletons/group_manager.gd"
 LOG="*res://src/singletons/log.tscn"
@@ -735,9 +736,9 @@ gdscript/warnings/unused_signal=false
 
 window/size/width=1536
 window/size/height=900
-window/size/resizable=false
 mouse_cursor/custom_image="res://assets/gfx/ui/cursor/HammerTool.png"
 mouse_cursor/custom_image_hotspot=Vector2( 0, 32 )
+window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
 [editor]

@@ -20,15 +20,15 @@ export(Resource) var earth = MatEnhanceData.new()
 func get_hint(mat_type : int):
 
 	match mat_type:
-		MaterialData.TYPE.IRON:
+		MAT.TYPE.IRON:
 			return iron
-		MaterialData.TYPE.COPPER:
+		MAT.TYPE.COPPER:
 			return copper
-		MaterialData.TYPE.FIRE:
+		MAT.TYPE.FIRE:
 			return fire
-		MaterialData.TYPE.WATER:
+		MAT.TYPE.WATER:
 			return water
-		MaterialData.TYPE.EARTH:
+		MAT.TYPE.EARTH:
 			return earth
 
 	assert(0)

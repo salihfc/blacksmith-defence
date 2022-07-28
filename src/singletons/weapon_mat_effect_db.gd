@@ -228,7 +228,7 @@ func _init() -> void:
 		if not weapon_name in _data:
 			_data[weapon_name] = {}
 
-		for mat_name in MaterialData.TYPE.keys():
+		for mat_name in UTILS.get_enum_strings_array(MAT.TYPE):
 			if not mat_name in _data[weapon_name]:
 				if _default_data.get(weapon_name) and _default_data[weapon_name].get(mat_name):
 					_data[weapon_name][mat_name] = _default_data[weapon_name][mat_name]
@@ -286,7 +286,7 @@ func _get_property_list() -> Array:
 			{
 				'name' : 'owner' + "/" + weapon_name,
 				'type' : TYPE_OBJECT,
-				'hint' : PROPERTY_HINT_RESOURCE_TYPE,
+#				'hint' : PROPERTY_HINT_RESOURCE_TYPE,
 			}
 		)
 
@@ -294,7 +294,7 @@ func _get_property_list() -> Array:
 		if not weapon_name in _data:
 			_data[weapon_name] = {}
 
-		for mat_name in MaterialData.TYPE.keys():
+		for mat_name in UTILS.get_enum_strings_array(MAT.TYPE):
 			if not mat_name in _data[weapon_name]:
 				if _default_data.get(weapon_name) and _default_data[weapon_name].get(mat_name):
 					_data[weapon_name][mat_name] = _default_data[weapon_name][mat_name]
@@ -305,10 +305,11 @@ func _get_property_list() -> Array:
 				{
 					'name' : weapon_name + "/" + mat_name,
 					'type' : TYPE_OBJECT,
-					'hint' : PROPERTY_HINT_RESOURCE_TYPE,
-					'hint_string' : 'UnitEnhancementBase',
+#					'hint' : PROPERTY_HINT_RESOURCE_TYPE,
+#					'hint_string' : 'UnitEnhancementBase',
 				}
 			)
+
 #	print (_data)
 	return props
 

@@ -33,7 +33,9 @@ func _ready() -> void:
 
 ### PUBLIC FUNCTIONS ###]
 func get_owner():
-	return get_node_or_null(owner_path)
+	if is_inside_tree():
+		return get_node_or_null(owner_path)
+	return null
 
 
 func get_areas_inside() -> Array:

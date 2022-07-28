@@ -20,7 +20,7 @@ export(NodePath) var NP_CraftButton
 export(NodePath) var NP_CancelButton
 
 export(Resource) var craftable_units
-export(Resource) var owned_materials = MaterialStorage.new()
+export(Resource) var owned_materials
 
 ### PUBLIC VAR ###
 ### PRIVATE VAR ###
@@ -58,6 +58,9 @@ func _ready() -> void:
 
 ### PUBLIC FUNCTIONS ###
 func reinit(mat_storage) -> void:
+	if owned_materials == null:
+		owned_materials = MaterialCost.new()
+
 	owned_materials.copy_from(mat_storage)
 
 	assert(craftable_units)
@@ -85,7 +88,7 @@ func get_storage():
 	return owned_materials
 
 ### PRIVATE FUNCTIONS ###
-func _init_material_list(mat_storage : MaterialStorage) -> void:
+func _init_material_list(mat_storage) -> void:
 	UTILS.clear_children(materialList)
 	for mat in mat_storage.get_materials():
 		var ct = mat_storage.get_material_count(mat)
@@ -102,9 +105,12 @@ func _display_craftable_weapons(_craftable_units : ItemPool):
 		weaponList.set_item_tooltip_enabled(weaponList.get_item_count() - 1, false)
 
 
-func _get_mat_effect(_mat) -> String:
+func _get_mat_effect(_mat : int) -> String:
 	if _selected_unit:
-		var hint = WEAPON_ENHANCE_DB.get_hint(UTILS.get_enum_string_from_id(Weapon.TYPE, _selected_unit.weapon.get_id()), _mat.name)
+		var hint = WEAPON_ENHANCE_DB.get_hint(
+				UTILS.get_enum_string_from_id(Weapon.TYPE, _selected_unit.weapon.get_id()),
+				MAT.get_type_name(_mat)
+		)
 		if hint:
 			return hint
 	return "no effect"
@@ -117,7 +123,7 @@ func _is_craf_valid() -> bool:
 func _get_craft():
 	return UnitRecipe.new(
 		_selected_unit,
-		MaterialStorage.new().add_from_array(_mat_slots)
+		MaterialCost.new().add_from_array(_mat_slots)
 	)
 
 ### SIGNAL RESPONSES ###
@@ -127,12 +133,11 @@ func _on_WeaponList_item_selected(index: int) -> void:
 	_init_material_list(owned_materials)
 
 
-func _on_material_selected_from_list(mat : MaterialData) -> void:
-	assert(mat)
-	LOG.pr(LOG.LOG_TYPE.INTERNAL, "mat selected [%s]" % [MaterialData.TYPE.keys()[mat.type]])
+func _on_material_selected_from_list(mat : int) -> void:
+	LOG.pr(LOG.LOG_TYPE.INTERNAL, "mat selected [%s]" % [MAT.get_type_name(mat)])
 
 	for idx in _mat_slots.size():
-		if _mat_slots[idx] == null:
+		if _mat_slots[idx] == null: # Empty Slot found
 			# Update data
 			_mat_slots[idx] = mat
 			owned_materials.use_material(mat, 1)
@@ -146,8 +151,8 @@ func _on_material_selected_from_list(mat : MaterialData) -> void:
 func _on_mats_in_slots_updated() -> void:
 	var t = 0
 	for mat in _mat_slots:
-		if mat:
-			materialSlots.get_child(t).get_child(0).texture = mat.sprite
+		if mat != null:
+			materialSlots.get_child(t).get_child(0).texture = MAT.get_texture(mat)
 		else:
 			materialSlots.get_child(t).get_child(0).texture = null
 		t += 1

@@ -63,6 +63,6 @@ func _set_area_layer_and_masks() -> void:
 ### SIGNAL RESPONSES ###
 func _on_death() -> void:
 	if UTILS.check(drop_chance):
-		GROUP.get_global(GROUP.BATTLE_WORLD).spawn_random_mat(global_position)
+		GROUP.get_global(GROUP.BATTLE_WORLD).spawn_random_mat_drop(global_position)
 
 	._on_death()

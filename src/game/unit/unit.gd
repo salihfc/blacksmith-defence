@@ -144,8 +144,8 @@ func _ready():
 	if _unit_data_to_use_as_prefab:
 		init_with_data(UnitRecipe.new(
 				_unit_data_to_use_as_prefab,
-				MaterialStorage.new().add_material(
-						preload("res://tres/materials/material_copper.tres"),
+				MaterialCost.new().add_material(
+						MAT.TYPE.COPPER,
 						3
 				)
 		))

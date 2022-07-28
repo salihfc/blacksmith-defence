@@ -13,8 +13,8 @@ onready var label = $HBoxContainer/Label as Label
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
 ### PUBLIC FUNCTIONS ###
-func set_data(mat : MaterialData, count : int):
-	texture.texture = mat.sprite
+func set_data(mat : int, count : int):
+	texture.texture = MAT.get_texture(mat)
 	label.text = str(count)
 	return self
 

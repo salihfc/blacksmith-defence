@@ -38,12 +38,16 @@ func start_wave(wave_number) -> void:
 
 
 func request_spawn_enemy() -> void:
-	LOG.pr(LOG.LOG_TYPE.GAMEPLAY, "Request spawn enemy")
-	if _current_wave.empty():
+	if is_wave_done():
 		_waves_completed += 1
 		emit_signal("wave_ended", _waves_completed)
 	else:
+		LOG.pr(LOG.LOG_TYPE.GAMEPLAY, "Request spawn enemy")
 		emit_signal("enemy_encountered", _current_wave.pop())
+
+
+func is_wave_done() -> bool:
+	return _current_wave.empty()
 
 ### PRIVATE FUNCTIONS ###
 ### SIGNAL RESPONSES ###

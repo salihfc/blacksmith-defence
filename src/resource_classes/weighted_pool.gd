@@ -18,6 +18,9 @@ export(Dictionary) var items
 ### PRIVATE VAR ###
 ### ONREADY VAR ###
 ### VIRTUAL FUNCTIONS (_init ...) ###
+func _init(_items = {}) -> void:
+	items = _items.duplicate()
+
 ### PUBLIC FUNCTIONS ###
 func get_items():
 	return items.keys()

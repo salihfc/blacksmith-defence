@@ -11,7 +11,7 @@ export(float) var auto_collect_after = 1.0
 
 ### PUBLIC VAR ###
 ### PRIVATE VAR ###
-var _mat : MaterialData
+var _mat : int
 var _ct : int
 var _collected = false
 
@@ -20,11 +20,11 @@ onready var sprite = $Sprite as Sprite
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _ready() -> void:
-	sprite.texture = _mat.sprite
+	sprite.texture = MAT.get_texture(_mat)
 
 
 ### PUBLIC FUNCTIONS ###
-func set_data(mat : MaterialData, ct : int) -> void:
+func set_data(mat : int, ct : int) -> void:
 	_mat = mat
 	_ct = ct
 

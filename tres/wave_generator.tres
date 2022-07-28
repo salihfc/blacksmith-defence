@@ -1,7 +1,7 @@
 [gd_resource type="Resource" load_steps=4 format=2]
 
 [ext_resource path="res://src/resource_classes/wave_generator.gd" type="Script" id=1]
-[ext_resource path="res://tres/units/pools/enemy_pool.tres" type="Resource" id=2]
+[ext_resource path="res://tres/pools/enemy_pool.tres" type="Resource" id=2]
 
 [sub_resource type="Curve" id=1]
 min_value = 1.0

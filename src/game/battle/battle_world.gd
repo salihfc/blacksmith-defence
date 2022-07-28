@@ -31,9 +31,7 @@ const CELL_SIZE = Vector2(32.0, 32.0)
 export(float) var MIN_SPAWN_DELAY = 0.5
 export(float) var MAX_SPAWN_DELAY = 2.0
 
-export(Resource) var weighted_material_pool = null
 export(Resource) var enemy_pool = null
-export(Resource) var material_pool = null
 export(Resource) var encounter = null
 
 export(Resource) var boss_pool = null
@@ -124,29 +122,29 @@ func _ready():
 	"""
 		Mat pool init
 	"""
-	LOG.pr(LOG.LOG_TYPE.INTERNAL, "mats:\n[%s]" % [material_pool])
+	LOG.pr(LOG.LOG_TYPE.INTERNAL, "mats:\n[%s]" % [UTILS.get_enum_strings_array(MAT.TYPE)])
 	# Make sure materials show in the UI even if their amount is 0
-	for mat in material_pool.get_items():
+	for mat in MAT.TYPE.COUNT:
 		call_deferred("emit_signal", "material_collected", mat, 0)
 
-	call_deferred("emit_signal", "material_collected",
-		MaterialData.new(MaterialData.TYPE.IRON), STARTING_IRON_COUNT)
+	call_deferred("emit_signal", "material_collected",\
+			MAT.TYPE.IRON, STARTING_IRON_COUNT)
 	"""
 		-------------
 	"""
 
 	if OS.is_debug_build():
 		call_deferred("emit_signal", "material_collected",
-			MaterialData.new(MaterialData.TYPE.COPPER), 44)
+			MAT.TYPE.COPPER, 44)
 
 		call_deferred("emit_signal", "material_collected",
-			MaterialData.new(MaterialData.TYPE.FIRE), 20)
+			MAT.TYPE.FIRE, 20)
 
 		call_deferred("emit_signal", "material_collected",
-			MaterialData.new(MaterialData.TYPE.EARTH), 20)
+			MAT.TYPE.EARTH, 20)
 
 		call_deferred("emit_signal", "material_collected",
-			MaterialData.new(MaterialData.TYPE.WATER), 20)
+			MAT.TYPE.WATER, 20)
 
 
 func _physics_process(_delta):
@@ -252,14 +250,14 @@ func spawn_enemy(enemy_data : UnitData, lane : int = _get_random_spawn_idx()):
 	return spawn_enemy_at_pos(enemy_data, _get_lane_spawn_pos(lane))
 
 
-func spawn_random_mat(spawn_pos):
-	var material_data = weighted_material_pool.get_random()
+func spawn_random_mat_drop(spawn_pos):
+	var mat_id = MAT.get_weighted_random()
 	var new_mat = P_Material.instance()
 
 #	units.add_child(new_mat)
 	units.call_deferred("add_child", new_mat)
 
-	new_mat.set_data(material_data, 2)
+	new_mat.set_data(mat_id, 2)
 	new_mat.play_drop_animation()
 
 #	new_mat.global_position = spawn_pos

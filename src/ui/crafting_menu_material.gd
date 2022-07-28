@@ -28,12 +28,12 @@ func _ready() -> void:
 	)
 
 ### PUBLIC FUNCTIONS ###
-func set_mat(mat : MaterialData, ct : int, mat_effect_on_weapon : String):
+func set_mat(mat : int, ct : int, mat_effect_on_weapon : String):
 	_mat = mat
 	_ct = ct
 
 	effectText.text = mat_effect_on_weapon
-	matTexture.texture = mat.sprite
+	matTexture.texture = MAT.get_texture(mat)
 	_update_visual()
 
 
@@ -43,7 +43,7 @@ func set_count(ct : int) -> void:
 
 ### PRIVATE FUNCTIONS ###
 func _update_visual() -> void:
-	assert(_mat)
+	assert(_mat != null)
 	countText.text = str(_ct)
 
 

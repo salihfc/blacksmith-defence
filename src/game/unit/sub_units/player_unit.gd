@@ -33,14 +33,14 @@ func init_with_data(unit_recipe : UnitRecipe) -> void:
 
 	var weapon_data = unit_data.weapon
 
-	assert(enhance_cost == null or enhance_cost is MaterialStorage)
+	assert(enhance_cost == null or enhance_cost is MaterialCost)
 
 	if enhance_cost:
 		var materials = enhance_cost.get_materials()
 		for mat in materials:
 			var ct = enhance_cost.get_material_count(mat)
 			for _i in ct:
-				var enh = WEAPON_ENHANCE_DB.get_enhancement(weapon_data.name, mat.get_name())
+				var enh = WEAPON_ENHANCE_DB.get_enhancement(weapon_data.name, MAT.get_type_name(mat))
 				if enh:
 					enh.call_deferred("apply_to", self)
 

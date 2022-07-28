@@ -1,13 +1,9 @@
 extends CanvasLayer
 class_name SceneManager
-
 """
-
 """
 
 ### SIGNAL ###
-
-
 ### ENUM ###
 enum SCENE {
 	MAIN_MENU,

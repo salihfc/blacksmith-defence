@@ -1,3 +1,4 @@
+tool
 extends Resource
 class_name UnitRecipe
 """
@@ -19,14 +20,15 @@ var _total_cost
 func _to_string() -> String:
 	return str(base_unit) + " enh[" + str(enhance_cost) + "]"
 
-func _init(_unit : UnitData = null, _cost : MaterialStorage = null) -> void:
+func _init(_unit : UnitData = null, _cost = null) -> void:
 	base_unit = _unit
 	enhance_cost = _cost
 
-	_total_cost = MaterialStorage.new()
+	_total_cost = MaterialCost.new()
 #	LOG.pr(LOG.LOG_TYPE.INTERNAL, "total[%s]" % [_total_cost])
-	assert(base_unit.cost)
-	_total_cost.add_storage(base_unit.cost)
+
+	if base_unit and base_unit.cost:
+		_total_cost.add_storage(base_unit.cost)
 #	LOG.pr(LOG.LOG_TYPE.INTERNAL, "total[%s]" % [_total_cost])
 
 	if enhance_cost:
