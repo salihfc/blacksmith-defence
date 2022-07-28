@@ -71,7 +71,7 @@ func enable_bgm(on : bool = true):
 	bgm_on = on
 	__mute_bus(BGM_BUS, not on)
 
-	if bgm_on and not BGMplayer.playing:
+	if bgm_on and BGMplayer and not BGMplayer.playing:
 		BGMplayer.play()
 
 	return self

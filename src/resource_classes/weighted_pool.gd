@@ -34,7 +34,7 @@ func get_random():
 
 		if rand < 0.0:
 			return item
-	return items.keys.back()
+	return get_items().back()
 
 ### PRIVATE FUNCTIONS ###
 func _total_weight():

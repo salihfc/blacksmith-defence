@@ -16,7 +16,13 @@ enum TYPE {
 }
 
 ### CONST ###
-export(Dictionary) var WEIGHTS = {}
+export(Dictionary) var WEIGHTS = {
+	TYPE.IRON : 100.0,
+	TYPE.COPPER : 50.0,
+	TYPE.FIRE : 20.0,
+	TYPE.EARTH : 20.0,
+	TYPE.WATER : 20.0,
+}
 
 ### EXPORT ###
 ### PUBLIC VAR ###
@@ -26,6 +32,7 @@ var _weighted_pool = null
 ### ONREADY VAR ###
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _ready() -> void:
+	assert(WEIGHTS.size() == TYPE.COUNT)
 	_weighted_pool = WeightedPool.new(WEIGHTS)
 
 ### PUBLIC FUNCTIONS ###
