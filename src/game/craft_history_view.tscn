@@ -1,0 +1,57 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/game/craft_history_view.gd" type="Script" id=1]
+[ext_resource path="res://src/game/unit_recipe_view.tscn" type="PackedScene" id=2]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[node name="CraftHistoryView" type="Panel"]
+anchor_right = 0.758464
+anchor_bottom = 0.158889
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": true
+}
+P_UnitRecipeView = ExtResource( 2 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Recipes" type="HBoxContainer" parent="HBoxContainer"]
+margin_bottom = 144.0
+
+[node name="Control" type="Control" parent="HBoxContainer"]
+margin_left = 8.0
+margin_right = 8.0
+margin_bottom = 144.0
+rect_min_size = Vector2( 0, 144 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+margin_left = 16.0
+margin_right = 56.0
+margin_bottom = 144.0
+rect_min_size = Vector2( 40, 144 )
+size_flags_vertical = 3
+custom_constants/margin_top = 10
+custom_constants/margin_bottom = 10
+
+[node name="Button" type="Button" parent="HBoxContainer/MarginContainer"]
+margin_top = 10.0
+margin_right = 40.0
+margin_bottom = 134.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = ">"
+
+[node name="TempRecipeContainer" type="Control" parent="HBoxContainer"]
+visible = false
+margin_left = 61.0
+margin_right = 61.0
+margin_bottom = 144.0
+
+[connection signal="pressed" from="HBoxContainer/MarginContainer/Button" to="." method="_on_Button_pressed"]

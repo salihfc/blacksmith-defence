@@ -10,6 +10,7 @@ enum SCENE {
 	SETTINGS,
 
 	GAME,
+	GAME_3,
 }
 
 const SCENES = {
@@ -17,6 +18,8 @@ const SCENES = {
 	SCENE.SETTINGS : preload("res://src/settings_menu.tscn"),
 #	SCENE.GAME : preload("res://src/game/game.tscn"),
 	SCENE.GAME : preload("res://src/game/game_v2.tscn"),
+
+	SCENE.GAME_3 : preload("res://src/game/game_v3.tscn"),
 }
 
 const PREV_SCENE = {

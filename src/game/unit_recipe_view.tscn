@@ -33,20 +33,14 @@ color = Color( 0.290196, 0.156863, 0.215686, 1 )
 thickness = 4
 
 [node name="UnitRecipeView" type="MarginContainer"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -209.0
-margin_top = -80.0
-margin_right = 209.0
-margin_bottom = 80.0
-rect_min_size = Vector2( 248, 162 )
+margin_right = 171.0
+margin_bottom = 144.0
+rect_min_size = Vector2( 172, 144 )
 size_flags_horizontal = 3
-custom_constants/margin_right = 20
-custom_constants/margin_top = 10
-custom_constants/margin_left = 20
-custom_constants/margin_bottom = 10
+custom_constants/margin_right = 0
+custom_constants/margin_top = 0
+custom_constants/margin_left = 0
+custom_constants/margin_bottom = 0
 script = ExtResource( 1 )
 NP_UnitTexture = NodePath("PanelContainer/Button/MarginContainer/HBoxContainer/MarginContainer/UnitTexture")
 NP_BaseCostList = NodePath("PanelContainer/Button/MarginContainer/HBoxContainer/CostList/BaseCostList")
@@ -55,10 +49,8 @@ NP_Button = NodePath("PanelContainer/Button")
 NP_UnitRecipeViewPanel = NodePath("PanelContainer")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
-margin_left = 20.0
-margin_top = 10.0
-margin_right = 398.0
-margin_bottom = 152.0
+margin_right = 172.0
+margin_bottom = 144.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -67,8 +59,8 @@ custom_styles/panel = SubResource( 1 )
 [node name="Button" type="Button" parent="PanelContainer" groups=["ui_button"]]
 margin_left = 8.0
 margin_top = 8.0
-margin_right = 370.0
-margin_bottom = 134.0
+margin_right = 164.0
+margin_bottom = 136.0
 focus_mode = 0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -81,33 +73,32 @@ anchor_bottom = 1.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/margin_right = 20
-custom_constants/margin_left = 20
+custom_constants/margin_right = 10
+custom_constants/margin_left = 10
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/Button/MarginContainer"]
-margin_left = 20.0
-margin_right = 342.0
-margin_bottom = 126.0
+margin_left = 10.0
+margin_right = 146.0
+margin_bottom = 128.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/Button/MarginContainer/HBoxContainer"]
-margin_right = 157.0
-margin_bottom = 126.0
+margin_right = 64.0
+margin_bottom = 128.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/margin_right = 20
-custom_constants/margin_top = 20
-custom_constants/margin_left = 20
-custom_constants/margin_bottom = 20
+custom_constants/margin_right = 0
+custom_constants/margin_top = 10
+custom_constants/margin_left = 0
+custom_constants/margin_bottom = 10
 
 [node name="UnitTexture" type="TextureRect" parent="PanelContainer/Button/MarginContainer/HBoxContainer/MarginContainer"]
-margin_left = 20.0
-margin_top = 20.0
-margin_right = 137.0
-margin_bottom = 106.0
+margin_top = 10.0
+margin_right = 64.0
+margin_bottom = 118.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -116,30 +107,30 @@ expand = true
 stretch_mode = 6
 
 [node name="CostList" type="VBoxContainer" parent="PanelContainer/Button/MarginContainer/HBoxContainer"]
-margin_left = 165.0
-margin_right = 322.0
-margin_bottom = 126.0
+margin_left = 72.0
+margin_right = 136.0
+margin_bottom = 128.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="BaseCostList" type="HBoxContainer" parent="PanelContainer/Button/MarginContainer/HBoxContainer/CostList"]
-margin_right = 157.0
-margin_bottom = 51.0
+margin_right = 64.0
+margin_bottom = 52.0
 mouse_filter = 2
 size_flags_vertical = 3
 
 [node name="HSeparator" type="HSeparator" parent="PanelContainer/Button/MarginContainer/HBoxContainer/CostList"]
-margin_top = 59.0
-margin_right = 157.0
-margin_bottom = 67.0
+margin_top = 60.0
+margin_right = 64.0
+margin_bottom = 68.0
 mouse_filter = 2
 custom_styles/separator = SubResource( 3 )
 
 [node name="EnhanceCostList" type="GridContainer" parent="PanelContainer/Button/MarginContainer/HBoxContainer/CostList"]
-margin_top = 75.0
-margin_right = 157.0
-margin_bottom = 126.0
+margin_top = 76.0
+margin_right = 64.0
+margin_bottom = 128.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3

@@ -68,8 +68,9 @@ func add_material(mat : int, ct : int):
 
 func add_from_array(mat_arr : Array):
 	for item in mat_arr:
-		assert(item != null)
-		add_material(item, 1)
+		if item != null:
+			add_material(item, 1)
+
 	return self
 
 

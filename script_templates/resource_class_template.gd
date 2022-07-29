@@ -3,7 +3,7 @@ extends %BASE%
 class_name ClassName
 func get_base(): return "%BASE%"
 func get_class(): return "ClassName"
-func is_class(_name): return _name == "ClassName" or .is_class(_name)
+func is_class(_name): return get_class() == _name or .is_class(_name)
 """
 """
 ### SIGNAL ###

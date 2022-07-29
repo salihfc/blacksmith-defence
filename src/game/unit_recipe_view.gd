@@ -18,6 +18,7 @@ export(NodePath) var NP_UnitRecipeViewPanel
 
 ### PUBLIC VAR ###
 ### PRIVATE VAR ###
+var _recipe = null
 ### ONREADY VAR ###
 onready var unitTexture = get_node(NP_UnitTexture) as TextureRect
 onready var button = get_node(NP_Button) as Button
@@ -34,9 +35,17 @@ func _ready() -> void:
 		self, "_on_TextureButton_pressed"
 	)
 
+	if _recipe != null:
+		_set_data(_recipe.get_ref())
 
 ### PUBLIC FUNCTIONS ###
-func set_data(unit_recipe : UnitRecipe) -> void:
+func set_data_pre(unit_recipe : UnitRecipe):
+	_recipe = weakref(unit_recipe)
+	return self
+
+
+### PRIVATE FUNCTIONS ###
+func _set_data(unit_recipe : UnitRecipe) -> void:
 	var unit_data = unit_recipe.base_unit
 	var enhance_cost = unit_recipe.enhance_cost
 #	unitTexture.texture = unit_data.get_view_texture()
@@ -53,22 +62,17 @@ func set_data(unit_recipe : UnitRecipe) -> void:
 			var count = unit_data.cost.get_material_count(mat)
 #			LOG.pr(LOG.LOG_TYPE.INTERNAL, "(%s) >> (%s)" % [mat, count])
 
-			var material_view = P_MaterialView.instance()
+			var material_view = P_MaterialView.instance().set_data(mat, count)
 			baseCostList.add_child(material_view)
-			material_view.set_data(mat, count)
 
 #		LOG.pr(LOG.LOG_TYPE.INTERNAL, "XXXXXXXXXXXXXXXXXXXXXXXXXXX :")
 
 	if enhance_cost:
 		for mat in enhance_cost.get_materials():
 			var count = enhance_cost.get_material_count(mat)
-			var material_view = P_MaterialView.instance()
+			var material_view = P_MaterialView.instance().set_data(mat, count)
 			enhanceCostList.add_child(material_view)
-			material_view.set_data(mat, count)
 
-### PRIVATE FUNCTIONS ###
 ### SIGNAL RESPONSES ###
-
-
 func _on_TextureButton_pressed() -> void:
 	emit_signal("recipe_selected")

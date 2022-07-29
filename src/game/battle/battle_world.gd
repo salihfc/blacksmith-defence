@@ -38,7 +38,10 @@ export(Resource) var boss_pool = null
 
 ### PUBLIC VAR ###
 ### PRIVATE VAR ###
-var _current_wave = 0
+var _current_wave : int = 0
+var _wave_summon_in_progress : bool = false
+var _enemy_count : int = 0
+
 var _drag_item_data = null
 var _prev_drag_grid_pos = Vector2.ZERO
 var paused = false
@@ -211,6 +214,7 @@ func spawn_boss_at_pos(boss_data : BossData, pos : Vector2):
 		[enemy]
 	)
 
+	_enemy_count += 1
 	return self
 
 
@@ -237,12 +241,15 @@ func spawn_enemy_at_pos(enemy_data : UnitData, pos : Vector2):
 #		load("res://tres/mods/mock_mod.tres")
 #	)
 
-	SIGNAL.bind(
-		enemy, "selected",
-		self, "_on_unit_selected",
-		[enemy]
+	SIGNAL.bind_bulk(
+		enemy, self,
+		[
+			["selected", "_on_unit_selected", [enemy]],
+			["died", "_on_enemy_unit_died", [enemy]],
+		]
 	)
 
+	_enemy_count += 1
 	return self
 
 
@@ -304,6 +311,9 @@ func clear_dragged_item() -> void:
 	playerSpawnPositions.hide()
 	gridTilemap.hide()
 
+
+func get_alive_enemy_count() -> int:
+	return _enemy_count
 
 ### PRIVATE FUNCTIONS ###
 func _set_mouse_pointer_area_pos() -> void:
@@ -391,6 +401,12 @@ func _on_left_button_clicked():
 						else:
 							LOG.pr(LOG.LOG_TYPE.AI, "pos (%s) OCCUPIED" % [_get_mouse_grid_pos()])
 
+				else:
+					GROUP.get_global(GROUP.GAME).\
+					send_screen_error(
+							get_global_mouse_position() + Vector2.UP * 40.0, "Not Enough Materials"
+					)
+
 		else:
 			VFX.generate_fx_at(VFX.FX.CLICK_DUST, get_global_mouse_position())
 			AUDIO.play_ui_sfx(AUDIO.UI_SFX.CLICK_DUST)
@@ -421,12 +437,19 @@ func _on_mousePointerArea_areas_inside_changed() -> void:
 
 # Gameplay signal responses
 func _on_wave_started(_wave_idx):
+	_wave_summon_in_progress = true
 	emit_signal("wave_started", _wave_idx)
 
 
 func _on_wave_ended(_wave_idx):
 	spawnTimer.stop()
-	emit_signal("wave_completed")
+	_wave_summon_in_progress = false
+
+
+func _on_enemy_unit_died(_enemy) -> void:
+	_enemy_count -= 1
+	if not _wave_summon_in_progress and get_alive_enemy_count() == 0:
+		emit_signal("wave_completed")
 
 
 func _on_spawn_timer_timeout() -> void:

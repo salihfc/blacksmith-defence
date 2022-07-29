@@ -12,7 +12,6 @@ signal material_used(mat, count)
 ### CONST ###
 # Prefabs
 ### EXPORT ###
-export(PackedScene) var P_UnitRecipeView
 #export(Texture) var mouse_normal_cursor
 #export(Texture) var mouse_pressed_cursor
 
@@ -192,16 +191,13 @@ func _go_to_main_menu() -> void:
 
 
 func _update_recipe_list() -> void:
-	UTILS.clear_children(unitRecipeList)
+	unitRecipeList.clear()
 
 	for recipe in _cached_recipes:
 		assert(recipe is UnitRecipe)
 #		LOG.pr(LOG.LOG_TYPE.INTERNAL, "recipe:\n[%s]" % [recipe])
 
-		var new_recipe_view = P_UnitRecipeView.instance()
-		unitRecipeList.add_child(new_recipe_view)
-		new_recipe_view.set_data(recipe)
-
+		var new_recipe_view = unitRecipeList.add_recipe_view(recipe)
 		SIGNAL.bind(
 			new_recipe_view, "recipe_selected",
 			self, "_on_recipe_selected",

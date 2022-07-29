@@ -17,7 +17,7 @@ enum TYPE {
 
 ### CONST ###
 export(Dictionary) var WEIGHTS = {
-	TYPE.IRON : 100.0,
+	TYPE.IRON : 1000.0,
 	TYPE.COPPER : 50.0,
 	TYPE.FIRE : 20.0,
 	TYPE.EARTH : 20.0,

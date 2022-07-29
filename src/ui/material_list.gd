@@ -14,14 +14,15 @@ const P_MaterialView = preload("res://src/ui/material_view.tscn")
 ### VIRTUAL FUNCTIONS (_init ...) ###
 ### PUBLIC FUNCTIONS ###
 func update_list(material_storage) -> void:
-	assert(material_storage)
 	UTILS.clear_children(self)
-	for mat in material_storage.get_materials():
-		var count = material_storage.get_material_count(mat)
-		var material_view = P_MaterialView.instance()
-		add_child(material_view)
-		assert(mat != null)
-		material_view.set_data(mat, count)
+
+	if material_storage:
+		for mat in material_storage.get_materials():
+			assert(mat != null)
+
+			var count = material_storage.get_material_count(mat)
+			var material_view = P_MaterialView.instance().set_data(mat, count)
+			add_child(material_view)
 
 
 func reinit(other_storage):
