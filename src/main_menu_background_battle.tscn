@@ -121,7 +121,8 @@ atlas = ExtResource( 1 )
 position = Vector2( -100, 0 )
 script = ExtResource( 12 )
 __meta__ = {
-"_edit_group_": true
+"_edit_group_": true,
+"_edit_lock_": true
 }
 P_EnemyUnit = ExtResource( 14 )
 unit_pool = ExtResource( 13 )
@@ -164,6 +165,7 @@ shadow_filter_smooth = 50.0
 [node name="Units" type="YSort" parent="."]
 position = Vector2( 264, 0 )
 __meta__ = {
+"_edit_group_": true,
 "_edit_lock_": true
 }
 

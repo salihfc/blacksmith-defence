@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://src/ui/h_material_list.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/debug/debug_window.tscn" type="PackedScene" id=2]
@@ -15,17 +15,7 @@
 [ext_resource path="res://src/ui/hp_bar_animated.tscn" type="PackedScene" id=13]
 [ext_resource path="res://src/ui/screen_text_creator.gd" type="Script" id=14]
 [ext_resource path="res://src/ui/screen_error_text.tscn" type="PackedScene" id=15]
-
-[sub_resource type="Environment" id=2]
-resource_local_to_scene = true
-background_mode = 4
-tonemap_mode = 4
-auto_exposure_scale = 1.0
-auto_exposure_speed = 0.4
-glow_enabled = true
-
-[sub_resource type="World" id=1]
-environment = SubResource( 2 )
+[ext_resource path="res://battle_env.world" type="World" id=16]
 
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.239216, 0.113725, 0.176471, 1 )
@@ -91,6 +81,7 @@ margin_bottom = 892.0
 margin_right = 508.0
 margin_bottom = 892.0
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer/PanelContainer"]
 margin_left = 4.0
@@ -130,15 +121,14 @@ margin_left = 512.0
 margin_right = 1528.0
 margin_bottom = 892.0
 mouse_filter = 1
-size_flags_horizontal = 7
-size_flags_vertical = 7
-size_flags_stretch_ratio = 2.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 stretch = true
 
 [node name="Viewport" type="Viewport" parent="PanelContainer/HBoxContainer/Control"]
 size = Vector2( 1016, 892 )
 own_world = true
-world = SubResource( 1 )
+world = ExtResource( 16 )
 handle_input_locally = false
 debanding = true
 disable_3d = true
@@ -146,6 +136,7 @@ usage = 0
 render_target_update_mode = 3
 
 [node name="BattleWorld" parent="PanelContainer/HBoxContainer/Control/Viewport" instance=ExtResource( 4 )]
+position = Vector2( 0, 100 )
 
 [node name="FpsDisplay" parent="." instance=ExtResource( 7 )]
 anchor_left = 1.0

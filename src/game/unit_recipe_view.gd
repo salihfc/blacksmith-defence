@@ -43,21 +43,21 @@ func set_data(unit_recipe : UnitRecipe) -> void:
 	unitTexture.texture = unit_data.weapon.texture
 
 	if unit_data.cost:
-		LOG.pr(LOG.LOG_TYPE.INTERNAL, "XXXXXXXXXXXXXXXXXXXXXXXXXXX :")
-		LOG.pr(LOG.LOG_TYPE.INTERNAL, "UNIT_DATA: (%s)" % [unit_data])
-		LOG.pr(LOG.LOG_TYPE.INTERNAL, "COST: (%s)" % [unit_data.cost])
-		LOG.pr(LOG.LOG_TYPE.INTERNAL, "MATS: (%s)" % [unit_data.cost.get_materials()])
+#		LOG.pr(LOG.LOG_TYPE.INTERNAL, "XXXXXXXXXXXXXXXXXXXXXXXXXXX :")
+#		LOG.pr(LOG.LOG_TYPE.INTERNAL, "UNIT_DATA: (%s)" % [unit_data])
+#		LOG.pr(LOG.LOG_TYPE.INTERNAL, "COST: (%s)" % [unit_data.cost])
+#		LOG.pr(LOG.LOG_TYPE.INTERNAL, "MATS: (%s)" % [unit_data.cost.get_materials()])
 
 		for mat in unit_data.cost.get_materials():
 			assert(mat != null)
 			var count = unit_data.cost.get_material_count(mat)
-			LOG.pr(LOG.LOG_TYPE.INTERNAL, "(%s) >> (%s)" % [mat, count])
+#			LOG.pr(LOG.LOG_TYPE.INTERNAL, "(%s) >> (%s)" % [mat, count])
 
 			var material_view = P_MaterialView.instance()
 			baseCostList.add_child(material_view)
 			material_view.set_data(mat, count)
 
-		LOG.pr(LOG.LOG_TYPE.INTERNAL, "XXXXXXXXXXXXXXXXXXXXXXXXXXX :")
+#		LOG.pr(LOG.LOG_TYPE.INTERNAL, "XXXXXXXXXXXXXXXXXXXXXXXXXXX :")
 
 	if enhance_cost:
 		for mat in enhance_cost.get_materials():

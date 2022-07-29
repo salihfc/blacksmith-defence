@@ -122,7 +122,6 @@ extents = Vector2( 303.5, 80 )
 radius = 8.0
 
 [node name="BattleWorld" type="Node2D"]
-position = Vector2( -2, 100 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true,
@@ -244,7 +243,6 @@ position = Vector2( 57, 659 )
 [node name="Units" type="YSort" parent="."]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 color = Color( 0, 0, 0, 1 )
 
 [node name="Sun" type="Light2D" parent="."]
@@ -255,6 +253,8 @@ texture_scale = 50.0
 color = Color( 0.376471, 0.482353, 0.972549, 1 )
 energy = 0.5
 range_height = 100.0
+range_layer_min = -5
+range_layer_max = 5
 shadow_color = Color( 0.0862745, 0.0862745, 0.0862745, 0 )
 shadow_gradient_length = 256.0
 shadow_filter = 5
@@ -266,6 +266,8 @@ position = Vector2( 0, 360 )
 texture = ExtResource( 11 )
 texture_scale = 1.2
 mode = 2
+range_layer_min = -5
+range_layer_max = 5
 
 [node name="MousePointerArea" type="Area2D" parent="."]
 collision_layer = 512

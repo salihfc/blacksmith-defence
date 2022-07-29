@@ -1,4 +1,5 @@
-extends Control
+#extends Control
+extends Node2D
 # TODO:
 #		[+] Integrate CraftingMenu
 #		[+] Update Unit List to have be a list of crafted/craftable unit recipes
@@ -31,6 +32,7 @@ export(NodePath) var NP_CraftButton
 export(NodePath) var NP_BaseHealthBar
 
 export(NodePath) var NP_WaveCounter
+export(NodePath) var NP_ScreenTextCreator
 
 export(NodePath) var NP_UnitInfoPopupPanel
 export(NodePath) var NP_UnitInfoDisplay
@@ -63,7 +65,7 @@ var _cached_recipes = [
 onready var battle = get_node(NP_Battle)
 onready var materialList = get_node(NP_MaterialList)
 onready var unitRecipeList = get_node(NP_UnitRecipeList)
-onready var debugWindow = get_node(NP_DebugWindow) as DebugWindow
+onready var debugWindow = get_node(NP_DebugWindow)
 onready var craftingMenu = get_node(NP_CraftingMenu)
 onready var craftingPopup = get_node(NP_CraftingPopupPanel) as PopupPanel
 onready var startWaveButton = get_node(NP_StartButton)
@@ -75,20 +77,16 @@ onready var unitInfoDisplay = get_node(NP_UnitInfoDisplay) as UnitInfoDisplay
 onready var exitConfirmationDialog = get_node(NP_ExitConfirmationDialog) as ConfirmationDialog
 
 onready var waveCounter = get_node(NP_WaveCounter) as WaveCounter
+onready var screenTextCreator = get_node(NP_ScreenTextCreator)
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _input(event):
-#	if event is InputEventMouseButton:
-#		if event.button_index == BUTTON_LEFT:
-#			if event.pressed:
-#				Input.set_custom_mouse_cursor(mouse_pressed_cursor)
-#			else:
-#				Input.set_custom_mouse_cursor(mouse_normal_cursor)
 
 	if event is InputEventKey and event.pressed:
 		match event.scancode:
 			KEY_QUOTELEFT: # Toggle DebugWindow
-				debugWindow.visible = !debugWindow.visible
+				pass
+#				debugWindow.visible = !debugWindow.visible
 
 			KEY_SPACE: # Wave start shortcut
 				_on_wave_start_button_pressed()
@@ -116,9 +114,10 @@ func _input(event):
 
 
 func _ready():
+#	get_viewport().world = preload("res://battle_env.world")
+
 	GROUP.set_global(GROUP.GAME, self)
 	GROUP.set_global(GROUP.PLAYER_MATS, player_material_storage)
-#	Input.set_custom_mouse_cursor(mouse_normal_cursor)
 	# Init Player Base
 	assert(player_base)
 	player_base.init()
@@ -162,10 +161,10 @@ func _ready():
 #	if OS.has_feature("standalone"):
 #	_cached_recipes.clear()
 
-	LOG.pr(LOG.LOG_TYPE.INTERNAL, "UNIT_DATA_POOL:")
+#	LOG.pr(LOG.LOG_TYPE.INTERNAL, "UNIT_DATA_POOL:")
 
 	for item in unit_data_pool.get_items():
-		LOG.pr(LOG.LOG_TYPE.INTERNAL, "ITEM: (\n%s\n)" % [item])
+#		LOG.pr(LOG.LOG_TYPE.INTERNAL, "ITEM: (\n%s\n)" % [item])
 		_cached_recipes.append(
 			UnitRecipe.new(item)
 		)
@@ -182,7 +181,7 @@ func is_any_popup_visible() -> bool:
 
 
 func send_screen_error(screen_pos : Vector2, text : String):
-	$ScreenTextCreator.create_text(screen_pos, text)
+	screenTextCreator.create_text(screen_pos, text)
 	return self
 
 
@@ -197,7 +196,7 @@ func _update_recipe_list() -> void:
 
 	for recipe in _cached_recipes:
 		assert(recipe is UnitRecipe)
-		LOG.pr(LOG.LOG_TYPE.INTERNAL, "recipe:\n[%s]" % [recipe])
+#		LOG.pr(LOG.LOG_TYPE.INTERNAL, "recipe:\n[%s]" % [recipe])
 
 		var new_recipe_view = P_UnitRecipeView.instance()
 		unitRecipeList.add_child(new_recipe_view)
@@ -236,7 +235,7 @@ func _on_unit_spawned(unit_recipe : UnitRecipe):
 
 
 func _on_unit_selected(unit) -> void:
-	debugWindow.display_unit(unit)
+#	debugWindow.display_unit(unit)
 	unitInfoDisplay.init_from_unit(unit)
 	unitInfoPopupPanel.popup()
 

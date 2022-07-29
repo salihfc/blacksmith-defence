@@ -133,6 +133,7 @@ func get_sfx_bux(player_container):
 			return SFX_BUS
 	assert(0)
 
+
 func set_sfx_player_count(count : int, player_container) -> void:
 	var delta = count - player_container.get_child_count()
 	if delta > 0: # Add new

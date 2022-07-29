@@ -50,18 +50,18 @@ func copy_from(other_storage):
 
 ### PUBLIC FUNCTIONS ###
 func add_storage(other_storage):
-	LOG.pr(LOG.LOG_TYPE.INTERNAL, "OTHER STORAGE (%s) (%s)\n MATS: (%s)" % [other_storage.resource_path, other_storage, other_storage.get_materials()])
+#	LOG.pr(LOG.LOG_TYPE.INTERNAL, "OTHER STORAGE (%s) (%s)\n MATS: (%s)" % [other_storage.resource_path, other_storage, other_storage.get_materials()])
 
 
 	for mat in other_storage.get_materials():
 		var count = other_storage.get_material_count(mat)
-		LOG.pr(LOG.LOG_TYPE.INTERNAL, "(%s) ADD STORAGE MAT (%s) [%s]" % [self, mat, count])
+#		LOG.pr(LOG.LOG_TYPE.INTERNAL, "(%s) ADD STORAGE MAT (%s) [%s]" % [self, mat, count])
 		_add_material(mat, count)
 	return self
 
 
 func add_material(mat : int, ct : int):
-	LOG.pr(LOG.LOG_TYPE.INTERNAL, "(%s) ADD MAT (%s) [%s]" % [self, mat, ct])
+#	LOG.pr(LOG.LOG_TYPE.INTERNAL, "(%s) ADD MAT (%s) [%s]" % [self, mat, ct])
 	_add_material(mat, ct)
 	return self
 

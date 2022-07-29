@@ -15,7 +15,8 @@ enum SCENE {
 const SCENES = {
 	SCENE.MAIN_MENU : preload("res://src/main_menu.tscn"),
 	SCENE.SETTINGS : preload("res://src/settings_menu.tscn"),
-	SCENE.GAME : preload("res://src/game/game.tscn"),
+#	SCENE.GAME : preload("res://src/game/game.tscn"),
+	SCENE.GAME : preload("res://src/game/game_v2.tscn"),
 }
 
 const PREV_SCENE = {
@@ -48,10 +49,11 @@ onready var sceneSlot = $CurrentSceneSlot as Control
 func _input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT:
-			if event.pressed:
-				Input.set_custom_mouse_cursor(mouse_pressed_cursor)
-			else:
-				Input.set_custom_mouse_cursor(mouse_normal_cursor)
+			pass
+#			if event.pressed:
+#				Input.set_custom_mouse_cursor(mouse_pressed_cursor)
+#			else:
+#				Input.set_custom_mouse_cursor(mouse_normal_cursor)
 
 
 func _unhandled_key_input(event: InputEventKey) -> void:
@@ -68,7 +70,7 @@ func _ready() -> void:
 	randomize()
 	LOG.pr(LOG.LOG_TYPE.INTERNAL, "READY", "SCENE_MANAGER")
 	set_foreground_color(DEFAULT_FOREGROUND_COLOR)
-	Input.set_custom_mouse_cursor(mouse_normal_cursor)
+#	Input.set_custom_mouse_cursor(mouse_normal_cursor)
 	change_scene(STARTING_SCENE)
 
 

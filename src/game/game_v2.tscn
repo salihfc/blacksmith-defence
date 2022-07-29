@@ -1,0 +1,233 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://src/game/battle/battle_world.tscn" type="PackedScene" id=1]
+[ext_resource path="res://new_test.theme" type="Theme" id=5]
+[ext_resource path="res://src/game/game.gd" type="Script" id=6]
+[ext_resource path="res://src/ui/h_material_list.tscn" type="PackedScene" id=9]
+[ext_resource path="res://src/ui/unit_info_display.tscn" type="PackedScene" id=10]
+[ext_resource path="res://src/ui/fps_display.tscn" type="PackedScene" id=11]
+[ext_resource path="res://src/ui/hp_bar_animated.tscn" type="PackedScene" id=12]
+[ext_resource path="res://tres/default_player_base.tres" type="Resource" id=15]
+[ext_resource path="res://tres/pools/player_pool.tres" type="Resource" id=16]
+[ext_resource path="res://src/game/unit_recipe_view.tscn" type="PackedScene" id=19]
+[ext_resource path="res://src/ui/screen_error_text.tscn" type="PackedScene" id=20]
+[ext_resource path="res://src/ui/screen_text_creator.gd" type="Script" id=21]
+[ext_resource path="res://src/ui/wave_counter.tscn" type="PackedScene" id=23]
+[ext_resource path="res://src/ui/crafting_menu.tscn" type="PackedScene" id=24]
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.239216, 0.113725, 0.176471, 1 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color( 0.0352941, 0.054902, 0.0705882, 1 )
+border_blend = true
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 4
+shadow_offset = Vector2( 2, 2 )
+
+[node name="Game_V2" type="Node2D"]
+modulate = Color( 1, 0.807843, 0.854902, 1 )
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_lock_": true
+}
+P_UnitRecipeView = ExtResource( 19 )
+NP_Battle = NodePath("BattleWorld")
+NP_MaterialList = NodePath("CanvasLayer/UI/PanelContainer/HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/MaterialList")
+NP_UnitRecipeList = NodePath("CanvasLayer/UI/PanelContainer/HBoxContainer/PanelContainer/VBoxContainer/ScrollContainer/UnitRecipeList")
+NP_DebugWindow = NodePath("CanvasLayer/UI/DebugWindow")
+NP_CraftingMenu = NodePath("CanvasLayer/UI/CraftingPopup/CraftingMenu")
+NP_CraftingPopupPanel = NodePath("CanvasLayer/UI/CraftingPopup")
+NP_StartButton = NodePath("CanvasLayer/UI/StartWaveButton")
+NP_CraftButton = NodePath("CanvasLayer/UI/CraftButton")
+NP_BaseHealthBar = NodePath("CanvasLayer/UI/BaseHpBar")
+NP_WaveCounter = NodePath("CanvasLayer/UI/WaveCounter")
+NP_ScreenTextCreator = NodePath("CanvasLayer/UI/ScreenTextCreator")
+NP_UnitInfoPopupPanel = NodePath("CanvasLayer/UI/UnitInfoPopup")
+NP_UnitInfoDisplay = NodePath("CanvasLayer/UI/UnitInfoPopup/UnitInfoDisplay")
+NP_ExitConfirmationDialog = NodePath("CanvasLayer/UI/ExitConfirmationPopup")
+unit_data_pool = ExtResource( 16 )
+player_base = ExtResource( 15 )
+
+[node name="BattleWorld" parent="." instance=ExtResource( 1 )]
+position = Vector2( 542, 90 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 7
+follow_viewport_enable = true
+
+[node name="UI" type="Control" parent="CanvasLayer"]
+self_modulate = Color( 0.290196, 0.156863, 0.215686, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 5 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/UI"]
+anchor_right = 0.355469
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/PanelContainer"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 542.0
+margin_bottom = 896.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/UI/PanelContainer/HBoxContainer"]
+margin_right = 538.0
+margin_bottom = 892.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/PanelContainer/HBoxContainer/PanelContainer"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 534.0
+margin_bottom = 888.0
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI/PanelContainer/HBoxContainer/PanelContainer/VBoxContainer"]
+margin_right = 530.0
+margin_bottom = 20.0
+custom_constants/margin_right = 40
+custom_constants/margin_top = 20
+custom_constants/margin_left = 40
+
+[node name="MaterialList" parent="CanvasLayer/UI/PanelContainer/HBoxContainer/PanelContainer/VBoxContainer/MarginContainer" instance=ExtResource( 9 )]
+margin_left = 40.0
+margin_top = 20.0
+margin_right = 490.0
+margin_bottom = 20.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/UI/PanelContainer/HBoxContainer/PanelContainer/VBoxContainer"]
+margin_top = 28.0
+margin_right = 530.0
+margin_bottom = 884.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="UnitRecipeList" type="GridContainer" parent="CanvasLayer/UI/PanelContainer/HBoxContainer/PanelContainer/VBoxContainer/ScrollContainer"]
+margin_right = 530.0
+margin_bottom = 856.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 2
+
+[node name="FpsDisplay" parent="CanvasLayer/UI" instance=ExtResource( 11 )]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -100.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 100, 60 )
+
+[node name="StartWaveButton" type="Button" parent="CanvasLayer/UI" groups=["ui_button"]]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -454.0
+margin_top = 32.0
+margin_right = -355.0
+margin_bottom = 116.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = " START "
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CraftButton" type="Button" parent="CanvasLayer/UI" groups=["ui_button"]]
+margin_left = 779.0
+margin_top = 44.0
+margin_right = 1047.0
+margin_bottom = 93.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = " Create unit recipe "
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="WaveCounter" parent="CanvasLayer/UI" instance=ExtResource( 23 )]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -251.0
+margin_top = 44.0
+margin_right = -107.0
+margin_bottom = 84.0
+
+[node name="CraftingPopup" type="PopupPanel" parent="CanvasLayer/UI"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -513.0
+margin_top = -280.0
+margin_right = 513.0
+margin_bottom = 280.0
+rect_min_size = Vector2( 1026, 560 )
+custom_styles/panel = SubResource( 3 )
+popup_exclusive = true
+
+[node name="CraftingMenu" parent="CanvasLayer/UI/CraftingPopup" instance=ExtResource( 24 )]
+margin_left = -509.0
+margin_top = -276.0
+margin_right = 509.0
+margin_bottom = 276.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ExitConfirmationPopup" type="ConfirmationDialog" parent="CanvasLayer/UI"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -250.0
+margin_top = -50.0
+margin_right = 250.0
+margin_bottom = 70.0
+rect_min_size = Vector2( 500, 100 )
+theme = ExtResource( 5 )
+popup_exclusive = true
+window_title = "End run?"
+dialog_text = "All progress will be lost"
+
+[node name="UnitInfoPopup" type="PopupPanel" parent="CanvasLayer/UI"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -251.0
+margin_right = -4.0
+margin_bottom = 459.0
+custom_styles/panel = SubResource( 3 )
+
+[node name="UnitInfoDisplay" parent="CanvasLayer/UI/UnitInfoPopup" instance=ExtResource( 10 )]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 243.0
+margin_bottom = 455.0
+
+[node name="BaseHpBar" parent="CanvasLayer/UI" instance=ExtResource( 12 )]
+margin_left = 556.0
+margin_top = 44.0
+margin_right = 743.0
+margin_bottom = 88.0
+
+[node name="ScreenTextCreator" type="Control" parent="CanvasLayer/UI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 21 )
+P_ScreenErrorText = ExtResource( 20 )
+
+[node name="DebugWindow" type="Control" parent="CanvasLayer/UI"]

@@ -32,17 +32,17 @@ func _ready() -> void:
 
 
 func init(snippet_dict) -> void:
-	
+
 	for key in snippet_dict.keys():
 		var snip_name = key
 		var snip_path = snippet_dict[key]
-		
+
 		var snippet = load(snip_path)
-		
+
 		prints (snippet, snippet.get_class())
 		if snippet == null or snippet.get_class() != SNIPPET_CLASS_NAME:
 			continue
-		
+
 		snippet_data_cache[snip_name] = snippet
 		snippet_path_cache[snip_name] = snip_path
 
@@ -65,10 +65,10 @@ func create_snippet_button(snippet) -> void:
 
 
 func _on_snip_button_pressed(snip_name) -> void:
-	# Copy snip text to clipboard 
+	# Copy snip text to clipboard
 	var snippet = snippet_data_cache[snip_name]
 	var snippet_text = snippet.get_data()
-	
+
 	OS.set_clipboard(snippet_text)
 	print ("COPY: (%s)" % [snippet.get_name()])
 
@@ -88,10 +88,10 @@ func create_new_snip(snip_name, snip_data) -> void:
 func read_file_as_string(filepath) -> String:
 	var file = File.new()
 	file.open(filepath, File.READ)
-	
+
 	var data = file.get_as_text()
 	file.close()
-	
+
 	return data
 
 
@@ -114,7 +114,7 @@ func is_valid_snippet_data(snip_data : String) -> bool:
 func _on_SearchInput_text_changed(new_text: String) -> void:
 	searchTimer.start(SEARCH_DELAY)
 	recent_text = new_text
-	
+
 
 
 func _on_SearchTimer_timeout() -> void:
@@ -132,7 +132,7 @@ func _on_AddButton_pressed() -> void:
 func _on_OkButton_pressed() -> void:
 	var new_snippet_name = snippetNameInput.get_text()
 	var new_snippet_data = snippetDataInput.get_text()
-	 
+
 	if not is_valid_snippet_name(new_snippet_name):
 		push_error("Snippet name [%s] is not valid!" % [new_snippet_name])
 
@@ -140,7 +140,7 @@ func _on_OkButton_pressed() -> void:
 		push_error("Snippet data [%s] is not valid!" % [new_snippet_data])
 
 	create_new_snip(new_snippet_name, new_snippet_data)
-	
+
 	snippetDataInput.clear_undo_history()
 	snippetDataInput.text = ""
 	snippetNameInput.clear()

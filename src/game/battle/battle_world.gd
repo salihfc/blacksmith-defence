@@ -81,6 +81,9 @@ func _input(event: InputEvent) -> void:
 
 
 func _ready():
+	LOG.pr(LOG.LOG_TYPE.INTERNAL, "WINDOW POS: [%s]" % [OS.window_position])
+	LOG.pr(LOG.LOG_TYPE.INTERNAL, "BATTLE WORLD POS: [%s]" % [global_position])
+
 	GROUP.set_global(GROUP.BATTLE_WORLD, self)
 	# TODO: Looks bad [clear this in next AI pass]
 	CONFIG.context.set_world(self)
@@ -304,9 +307,27 @@ func clear_dragged_item() -> void:
 
 ### PRIVATE FUNCTIONS ###
 func _set_mouse_pointer_area_pos() -> void:
+#	mousePointerArea.global_position = get_global_mouse_position() - global_position
+#	mousePointerArea.global_position = get_viewport_transform().xform(get_global_mouse_position())
+#	mousePointerArea.position = get_viewport().get_mouse_position()
+	# FIX: make dynamic
+#	var default_size = Vector2(1536, 900)
+#	var root_size = get_tree().root.size
+#	var ratio = default_size / root_size
+#	var correction = (OS.get_window_size() - root_size) / 2.0
+## warning-ignore:unused_variable
+#	var real_mouse_position = correction + (get_viewport().get_mouse_position()-correction)*ratio
+#	LOG.pr(LOG.LOG_TYPE.INTERNAL, "VIEWPORT_SIZE: (%s)" % [get_viewport().size])
+#	LOG.pr(LOG.LOG_TYPE.INTERNAL, "WINDOW POS: (%s)" % [OS.window_position])
+#	LOG.pr(LOG.LOG_TYPE.INTERNAL, "WINDOW SIZE: (%s)" % [OS.window_size])
+#	LOG.pr(LOG.LOG_TYPE.INTERNAL, "RATIO: (%s)" % [ratio])
+
+#	mousePointerArea.global_position = get_viewport().get_mouse_position()
+#	mousePointerArea.global_position = real_mouse_position
 	mousePointerArea.global_position = get_global_mouse_position()
 	if _drag_item_data: # Snap to grid if holding/dragging an item
 		mousePointerArea.global_position = gridTilemap.get_center_of_cell_containing(mousePointerArea.global_position)
+		pass
 
 	if _get_mouse_grid_pos() != _prev_drag_grid_pos:
 		_prev_drag_grid_pos = _get_mouse_grid_pos()
