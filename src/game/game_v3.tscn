@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://src/ui/hp_bar_animated.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/ui/crafting_menu.tscn" type="PackedScene" id=2]
@@ -10,11 +10,13 @@
 [ext_resource path="res://src/ui/screen_text_creator.gd" type="Script" id=8]
 [ext_resource path="res://tres/pools/player_pool.tres" type="Resource" id=9]
 [ext_resource path="res://src/ui/screen_error_text.tscn" type="PackedScene" id=10]
+[ext_resource path="res://src/ui/scene_gratz_text.tscn" type="PackedScene" id=11]
 [ext_resource path="res://src/ui/unit_info_display.tscn" type="PackedScene" id=12]
 [ext_resource path="res://src/game/battle/battle_world.tscn" type="PackedScene" id=13]
 [ext_resource path="res://src/ui/wave_counter.tscn" type="PackedScene" id=14]
 [ext_resource path="res://assets/gfx/ui/hammer_icon.png" type="Texture" id=15]
 [ext_resource path="res://src/game/craft_history_view.tscn" type="PackedScene" id=16]
+[ext_resource path="res://src/ui/game_over_dialog.tscn" type="PackedScene" id=17]
 
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.239216, 0.113725, 0.176471, 1 )
@@ -51,6 +53,8 @@ NP_ScreenTextCreator = NodePath("CanvasLayer/UI/ScreenTextCreator")
 NP_UnitInfoPopupPanel = NodePath("CanvasLayer/UI/UnitInfoPopup")
 NP_UnitInfoDisplay = NodePath("CanvasLayer/UI/UnitInfoPopup/UnitInfoDisplay")
 NP_ExitConfirmationDialog = NodePath("CanvasLayer/UI/ExitConfirmationPopup")
+NP_GameOverPopup = NodePath("CanvasLayer/UI/GameOverPopup")
+NP_GameOverDialog = NodePath("CanvasLayer/UI/GameOverPopup/GameOverDialog")
 unit_data_pool = ExtResource( 9 )
 player_base = ExtResource( 6 )
 
@@ -142,6 +146,25 @@ margin_bottom = 276.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
+[node name="GameOverPopup" type="PopupPanel" parent="CanvasLayer/UI"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -513.0
+margin_top = -280.0
+margin_right = 513.0
+margin_bottom = 280.0
+rect_min_size = Vector2( 1026, 560 )
+custom_styles/panel = SubResource( 3 )
+popup_exclusive = true
+
+[node name="GameOverDialog" parent="CanvasLayer/UI/GameOverPopup" instance=ExtResource( 17 )]
+margin_left = -509.0
+margin_top = -276.0
+margin_right = 509.0
+margin_bottom = 276.0
+
 [node name="ExitConfirmationPopup" type="ConfirmationDialog" parent="CanvasLayer/UI"]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -188,3 +211,4 @@ anchor_bottom = 1.0
 mouse_filter = 2
 script = ExtResource( 8 )
 P_ScreenErrorText = ExtResource( 10 )
+P_ScreenGratzText = ExtResource( 11 )

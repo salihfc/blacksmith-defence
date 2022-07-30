@@ -14,7 +14,7 @@ signal drag_grid_pos_changed(is_new_grid_pos_valid)
 # gameplay signals
 ## emitted when base damaged
 signal base_damaged(damage)
-signal wave_completed()
+signal wave_completed(_wave_number)
 signal wave_started(wave)
 signal unit_spawned(unit)
 
@@ -71,6 +71,9 @@ var _left_button_down = false
 var _right_button_down = false
 
 func _input(event: InputEvent) -> void:
+	if GROUP.get_global(GROUP.SCENE_MANAGER).is_loading():
+		return
+
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT:
 			if event.pressed and not _left_button_down: # Just pressed
@@ -140,6 +143,9 @@ func _ready():
 	"""
 
 	if OS.is_debug_build():
+		call_deferred("emit_signal", "material_collected",
+			MAT.TYPE.IRON, 44)
+
 		call_deferred("emit_signal", "material_collected",
 			MAT.TYPE.COPPER, 44)
 
@@ -315,6 +321,10 @@ func clear_dragged_item() -> void:
 func get_alive_enemy_count() -> int:
 	return _enemy_count
 
+
+func get_current_wave():
+	return _current_wave
+
 ### PRIVATE FUNCTIONS ###
 func _set_mouse_pointer_area_pos() -> void:
 #	mousePointerArea.global_position = get_global_mouse_position() - global_position
@@ -449,7 +459,7 @@ func _on_wave_ended(_wave_idx):
 func _on_enemy_unit_died(_enemy) -> void:
 	_enemy_count -= 1
 	if not _wave_summon_in_progress and get_alive_enemy_count() == 0:
-		emit_signal("wave_completed")
+		emit_signal("wave_completed", _current_wave)
 
 
 func _on_spawn_timer_timeout() -> void:

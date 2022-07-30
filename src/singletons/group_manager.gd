@@ -35,7 +35,10 @@ func get_global(id):
 	if nodes.size() == 1:
 		return nodes[0]
 	else:
-		return _ref_dict.get(str(id)).get_ref()
+		var ref = _ref_dict.get(str(id))
+		if ref:
+			return ref.get_ref()
+		return null
 
 ### PRIVATE FUNCTIONS ###
 ### SIGNAL RESPONSES ###

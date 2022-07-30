@@ -21,6 +21,19 @@ func _ready() -> void:
 """
 	Node Manipulations
 """
+func transfer_children(from : Node, to : Node, children : Array = []) -> void:
+
+	# Warning: Smelly!
+	# Setup Defaul call
+	if children.size() == 0:
+		children = from.get_children()
+
+	for ch in children:
+		assert(ch.get_parent() == from)
+		from.remove_child(ch)
+		to.add_child(ch)
+
+
 func clear_children(node : Node) -> void:
 	var children = node.get_children()
 	for child in children:

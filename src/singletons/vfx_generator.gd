@@ -45,17 +45,19 @@ func generate_fx_at(fx_id : int, global_pos : Vector2, delay := 0.0) -> void:
 		return
 
 	assert(fx_id in _effects)
+	yield(get_tree().create_timer(delay), "timeout")
+
 	LOG.pr(LOG.LOG_TYPE.VFX, "Generate VFX [%s] at [%s]" % [UTILS.get_enum_string_from_id(FX, fx_id), global_pos])
 	var fx = _effects[fx_id].instance()
 
 #	emit_signal("vfx_created", fx)
-	GROUP.get_global(GROUP.BATTLE_WORLD).vfxContainer.add_child(fx)
+	var battle = GROUP.get_global(GROUP.BATTLE_WORLD)
+	if battle:
+		battle.vfxContainer.add_child(fx)
 
-	fx.global_position = global_pos
-	yield(get_tree().create_timer(delay), "timeout")
-
-	if fx != null and not fx.is_queued_for_deletion():
-		fx.emit()
+		fx.global_position = global_pos
+		if fx != null and not fx.is_queued_for_deletion():
+			fx.emit()
 
 
 ### PRIVATE FUNCTIONS ###

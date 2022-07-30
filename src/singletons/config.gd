@@ -23,6 +23,9 @@ var DEBUG_ON setget _set_DEBUG_ON
 onready var context = Context.new()
 
 func _unhandled_key_input(event: InputEventKey) -> void:
+	if GROUP.get_global(GROUP.SCENE_MANAGER).is_loading():
+		return
+
 	if event.scancode == KEY_E and event.pressed:
 		LOG.pr(LOG.LOG_TYPE.INPUT, "Toggle DEBUG_ON [%s]" % [not DEBUG_ON])
 		_set_DEBUG_ON(not DEBUG_ON)

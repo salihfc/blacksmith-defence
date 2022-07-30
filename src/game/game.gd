@@ -38,6 +38,9 @@ export(NodePath) var NP_UnitInfoDisplay
 
 export(NodePath) var NP_ExitConfirmationDialog
 
+export(NodePath) var NP_GameOverPopup
+export(NodePath) var NP_GameOverDialog
+
 export(Resource) var unit_data_pool = null
 export(Resource) var player_base = null
 
@@ -45,6 +48,8 @@ export(Resource) var player_base = null
 var player_material_storage = MaterialCost.new()
 
 ### PRIVATE VAR ###
+var _player_lost = false
+
 var _cached_recipes = [
 	UnitRecipe.new(
 		preload("res://tres/units/player_units/Duelist.tres"),
@@ -75,27 +80,40 @@ onready var unitInfoPopupPanel = get_node(NP_UnitInfoPopupPanel) as PopupPanel
 onready var unitInfoDisplay = get_node(NP_UnitInfoDisplay) as UnitInfoDisplay
 onready var exitConfirmationDialog = get_node(NP_ExitConfirmationDialog) as ConfirmationDialog
 
+onready var gameOverPopup = get_node(NP_GameOverPopup) as PopupPanel
+onready var gameOverDialog = get_node(NP_GameOverDialog) as GameOverDialog
+
 onready var waveCounter = get_node(NP_WaveCounter) as WaveCounter
-onready var screenTextCreator = get_node(NP_ScreenTextCreator)
+onready var screenTextCreator = get_node(NP_ScreenTextCreator) as ScreenTextCreator
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _input(event):
+	if GROUP.get_global(GROUP.SCENE_MANAGER).is_loading():
+		return
 
 	if event is InputEventKey and event.pressed:
+
 		match event.scancode:
 			KEY_QUOTELEFT: # Toggle DebugWindow
 				pass
 #				debugWindow.visible = !debugWindow.visible
 
 			KEY_SPACE: # Wave start shortcut
-				_on_wave_start_button_pressed()
+				if OS.is_debug_build():
+					_on_wave_start_button_pressed()
+					screenTextCreator.create_gratz_text(_get_center(), "Wave started")
 
 			KEY_P: # Pause with P
 				LOG.pr(LOG.LOG_TYPE.INTERNAL, "PAUSED")
 				_pause_battle()
 
 			KEY_A: # Toggle Circles with A
-				CONFIG.SHOW_RANGE_CIRCLES = not CONFIG.SHOW_RANGE_CIRCLES
+				if OS.is_debug_build():
+					CONFIG.SHOW_RANGE_CIRCLES = not CONFIG.SHOW_RANGE_CIRCLES
+
+			KEY_S:
+				if OS.is_debug_build():
+					player_base.take_damage(Damage.new(Damage.TYPE.PHYSICAL, 100.0))
 
 			KEY_ESCAPE:
 				# Game scene overwrites the effect of ESCAPE KEY
@@ -141,6 +159,14 @@ func _ready():
 	])
 
 	SIGNAL.bind_bulk(
+		gameOverDialog, self,
+		[
+			["main_menu_requested", "_on_main_menu_requested"],
+			["restart_requested", "_on_battle_restart_requested"],
+		]
+	)
+
+	SIGNAL.bind_bulk(
 		battle, self,
 		[
 			["unit_selected", "_on_unit_selected"],
@@ -169,6 +195,7 @@ func _ready():
 		)
 
 	_update_recipe_list()
+	GROUP.get_global(GROUP.SCENE_MANAGER).scene_loaded()
 
 
 ### PUBLIC FUNCTIONS ###
@@ -176,11 +203,12 @@ func is_any_popup_visible() -> bool:
 	return UTILS.any([
 			craftingPopup.visible,
 			exitConfirmationDialog.visible,
+			gameOverPopup.visible,
 	])
 
 
 func send_screen_error(screen_pos : Vector2, text : String):
-	screenTextCreator.create_text(screen_pos, text)
+	screenTextCreator.create_error_text(screen_pos, text)
 	return self
 
 
@@ -208,6 +236,13 @@ func _update_recipe_list() -> void:
 func _pause_battle() -> void:
 	battle.paused = not battle.paused
 	UTILS.pause_node(battle, not battle.paused)
+
+
+func _get_center():
+	return screenTextCreator.get_global_rect().position\
+			+ screenTextCreator.get_global_rect().size / 2.0\
+			- Vector2(524, 188) / 2.0
+
 
 ### SIGNAL RESPONSES ###
 func _on_recipe_selected(unit_recipe : UnitRecipe) -> void:
@@ -247,13 +282,18 @@ func _on_wave_start_button_pressed() -> void:
 	startWaveButton.hide()
 
 
-func _on_wave_completed() -> void:
+func _on_wave_completed(_wave_number) -> void:
+	screenTextCreator.create_gratz_text(_get_center(), "Wave %s cleared" % [_wave_number])
 	startWaveButton.show()
 
 
 func _on_player_main_base_destroyed() -> void:
 	LOG.pr(LOG.LOG_TYPE.GAMEPLAY, "PLAYER LOST")
+	_player_lost = true
 	_pause_battle()
+
+	gameOverDialog.set_waves_survived(battle.get_current_wave())
+	gameOverPopup.popup()
 
 
 func _on_CraftButton_pressed() -> void:
@@ -277,3 +317,16 @@ func _on_crafting_cancelled() -> void:
 	craftingPopup.hide()
 	_pause_battle()
 	materialList.reinit(craftingMenu.recover_mat_from_slots().get_storage())
+
+
+func _on_battle_restart_requested() -> void:
+	var scene_manager = GROUP.get_global(GROUP.SCENE_MANAGER)
+	scene_manager.change_scene(scene_manager.SCENE.GAME_3)
+	_pause_battle()
+
+
+
+func _on_main_menu_requested() -> void:
+	var scene_manager = GROUP.get_global(GROUP.SCENE_MANAGER)
+	scene_manager.change_scene(scene_manager.SCENE.MAIN_MENU)
+	_pause_battle()

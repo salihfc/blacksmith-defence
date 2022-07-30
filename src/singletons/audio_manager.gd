@@ -54,13 +54,6 @@ const SFX_array = [
 	preload("res://assets/sfx/rapier/SFX_Dagger_Draw_and_Whoosh_02.wav"),
 ]
 
-func _input(event: InputEvent) -> void:
-	var key_event = event as InputEventKey
-	if key_event:
-		if key_event.pressed and key_event.scancode == KEY_P:
-			play(SFX.SPELL_ARC)
-
-
 func _ready() -> void:
 	LOG.pr(LOG.LOG_TYPE.INTERNAL, "READY", "AUDIO")
 	set_sfx_player_count(sfx_player_count, SFXplayers)

@@ -17,14 +17,14 @@ const SCENES = {
 	SCENE.MAIN_MENU : preload("res://src/main_menu.tscn"),
 	SCENE.SETTINGS : preload("res://src/settings_menu.tscn"),
 #	SCENE.GAME : preload("res://src/game/game.tscn"),
-	SCENE.GAME : preload("res://src/game/game_v2.tscn"),
+#	SCENE.GAME : preload("res://src/game/game_v2.tscn"),
 
 	SCENE.GAME_3 : preload("res://src/game/game_v3.tscn"),
 }
 
 const PREV_SCENE = {
 	SCENE.SETTINGS : SCENE.MAIN_MENU,
-	SCENE.GAME : SCENE.MAIN_MENU,
+#	SCENE.GAME : SCENE.MAIN_MENU,
 	SCENE.GAME_3 : SCENE.MAIN_MENU,
 }
 
@@ -32,7 +32,7 @@ const PREV_SCENE = {
 ### CONST ###
 const DEFAULT_FOREGROUND_COLOR = Color("0c0d1d")
 const FULL_TRANSPARENT = Color(0.0, 0.0, 0.0, 0.0)
-const FADE_MIN_DELAY = 0.1
+const FADE_MIN_DELAY = 0.3
 const RECOVERY_MIN_DELAY = 0.5
 
 export(SCENE) var STARTING_SCENE = SCENE.MAIN_MENU
@@ -43,14 +43,18 @@ export(Texture) var mouse_pressed_cursor
 ### PUBLIC VAR ###
 ### PRIVATE VAR ###
 var _current_scene = STARTING_SCENE
+var _loading = false
 
 ### ONREADY VAR ###
-onready var foreground = $Control/Foreground as ColorRect
+onready var foreground = $FadeRectLayer/Control/Foreground as ColorRect
 onready var sceneSlot = $CurrentSceneSlot as Control
-
+onready var dumpSlot = $DumpSlot as Control
 
 ### VIRTUAL FUNCTIONS (_init ...) ###
 func _input(event):
+	if GROUP.get_global(GROUP.SCENE_MANAGER).is_loading():
+		return
+
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT:
 			if CONFIG.CUSTOM_MOUSE:
@@ -82,26 +86,42 @@ func _ready() -> void:
 
 
 ### PUBLIC FUNCTIONS ###
+func is_loading():
+	return _loading
+
+
+func scene_loaded():
+	_loading = false
+	fade_in()
+
+
 func set_foreground_color(new_color : Color) -> void:
 	foreground.color = new_color
 
 
 func change_scene(scene_id) -> void:
+	_loading = true
+	fade_out(scene_id)
+
+
+func fade_out(scene_id):
 	fade(1.0, FADE_MIN_DELAY)
+	TWEEN.interpolate_callback(self, "add_scene", FADE_MIN_DELAY, [scene_id])
+
+
+func add_scene(scene_id):
 	if sceneSlot.get_child_count():
-		var current_scene = sceneSlot.get_child(0)
-		current_scene.queue_free()
+		UTILS.transfer_children(sceneSlot, dumpSlot)
+		UTILS.call_deferred("clear_children", dumpSlot)
 
-	var scene = SCENES[(scene_id)].instance()
-	scene.visible = false
-	sceneSlot.add_child(scene)
 	_current_scene = scene_id
+	var scene = SCENES[(scene_id)].instance()
+	sceneSlot.add_child(scene)
 
-	# TODO: Should wait until scene fully loaded
-	yield(get_tree().create_timer(1.0), "timeout")
+
+func fade_in():
 	bind_ui_buttons()
 	fade(0.0, RECOVERY_MIN_DELAY)
-	scene.visible = true
 
 
 func fade(alpha, duration := 0.5) -> void:
