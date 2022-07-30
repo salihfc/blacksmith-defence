@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://new_test.theme" type="Theme" id=1]
+[ext_resource path="res://src/ui/title.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/fonts/ttf/UbuntuMono-B.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://src/main_menu_background_battle.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/main_menu.gd" type="Script" id=5]
@@ -60,25 +61,44 @@ render_target_update_mode = 3
 [node name="MainMenuBackgroundBattle" parent="MarginContainerRight/ViewportContainer/Viewport" instance=ExtResource( 4 )]
 
 [node name="MarginContainerLeft" type="MarginContainer" parent="."]
-anchor_right = 0.314453
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -332.0
+margin_top = -450.0
+margin_right = 332.0
+margin_bottom = 450.0
+custom_constants/margin_top = 40
+custom_constants/margin_bottom = 40
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainerLeft"]
-margin_right = 482.0
-margin_bottom = 900.0
+margin_top = 40.0
+margin_right = 664.0
+margin_bottom = 860.0
+custom_constants/separation = 0
 
-[node name="TitleContainerUp" type="MarginContainer" parent="MarginContainerLeft/VBoxContainer"]
-margin_right = 482.0
-margin_bottom = 254.0
+[node name="Control2" type="Control" parent="MarginContainerLeft/VBoxContainer"]
+margin_right = 664.0
+margin_bottom = 149.0
 size_flags_vertical = 3
 
+[node name="TitleContainerUp" type="MarginContainer" parent="MarginContainerLeft/VBoxContainer"]
+margin_top = 149.0
+margin_right = 664.0
+margin_bottom = 298.0
+size_flags_vertical = 3
+
+[node name="Title" parent="MarginContainerLeft/VBoxContainer/TitleContainerUp" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 664.0
+margin_bottom = 149.0
+
 [node name="TitleContainerDown" type="MarginContainer" parent="MarginContainerLeft/VBoxContainer"]
-margin_top = 262.0
-margin_right = 482.0
-margin_bottom = 900.0
+margin_top = 298.0
+margin_right = 664.0
+margin_bottom = 670.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.5
 custom_constants/margin_right = 20
@@ -89,67 +109,73 @@ custom_constants/margin_bottom = 20
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainerLeft/VBoxContainer/TitleContainerDown"]
 margin_left = 20.0
 margin_top = 20.0
-margin_right = 462.0
-margin_bottom = 618.0
+margin_right = 644.0
+margin_bottom = 352.0
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainerLeft/VBoxContainer/TitleContainerDown/VBoxContainer"]
-margin_right = 442.0
-margin_bottom = 194.0
+margin_right = 624.0
+margin_bottom = 105.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/margin_right = 200
 custom_constants/margin_top = 20
-custom_constants/margin_left = 10
+custom_constants/margin_left = 200
 custom_constants/margin_bottom = 20
 
 [node name="PlayButton" type="Button" parent="MarginContainerLeft/VBoxContainer/TitleContainerDown/VBoxContainer/MarginContainer" groups=["ui_button"]]
-margin_left = 10.0
+margin_left = 200.0
 margin_top = 20.0
-margin_right = 242.0
-margin_bottom = 174.0
+margin_right = 424.0
+margin_bottom = 85.0
 focus_mode = 0
 custom_fonts/font = SubResource( 15 )
 text = "Play"
 
 [node name="MarginContainer2" type="MarginContainer" parent="MarginContainerLeft/VBoxContainer/TitleContainerDown/VBoxContainer"]
-margin_top = 202.0
-margin_right = 442.0
-margin_bottom = 396.0
+margin_top = 113.0
+margin_right = 624.0
+margin_bottom = 218.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/margin_right = 130
+custom_constants/margin_right = 200
 custom_constants/margin_top = 20
-custom_constants/margin_left = 80
+custom_constants/margin_left = 200
 custom_constants/margin_bottom = 20
 
 [node name="SettingsButton" type="Button" parent="MarginContainerLeft/VBoxContainer/TitleContainerDown/VBoxContainer/MarginContainer2" groups=["ui_button"]]
-margin_left = 80.0
+margin_left = 200.0
 margin_top = 20.0
-margin_right = 312.0
-margin_bottom = 174.0
+margin_right = 424.0
+margin_bottom = 85.0
 focus_mode = 0
 custom_fonts/font = SubResource( 15 )
 text = "Settings"
 
 [node name="MarginContainer3" type="MarginContainer" parent="MarginContainerLeft/VBoxContainer/TitleContainerDown/VBoxContainer"]
-margin_top = 404.0
-margin_right = 442.0
-margin_bottom = 598.0
+margin_top = 226.0
+margin_right = 624.0
+margin_bottom = 332.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/margin_right = 60
+custom_constants/margin_right = 200
 custom_constants/margin_top = 20
-custom_constants/margin_left = 150
+custom_constants/margin_left = 200
 custom_constants/margin_bottom = 20
 
 [node name="CreditsButton" type="Button" parent="MarginContainerLeft/VBoxContainer/TitleContainerDown/VBoxContainer/MarginContainer3" groups=["ui_button"]]
-margin_left = 150.0
+margin_left = 200.0
 margin_top = 20.0
-margin_right = 382.0
-margin_bottom = 174.0
+margin_right = 424.0
+margin_bottom = 86.0
 focus_mode = 0
 custom_fonts/font = SubResource( 15 )
 text = "Credits"
+
+[node name="Control" type="Control" parent="MarginContainerLeft/VBoxContainer"]
+margin_top = 670.0
+margin_right = 664.0
+margin_bottom = 820.0
+size_flags_vertical = 3
 
 [connection signal="pressed" from="MarginContainerLeft/VBoxContainer/TitleContainerDown/VBoxContainer/MarginContainer/PlayButton" to="." method="_on_PlayButton_pressed"]
 [connection signal="pressed" from="MarginContainerLeft/VBoxContainer/TitleContainerDown/VBoxContainer/MarginContainer2/SettingsButton" to="." method="_on_SettingsButton_pressed"]

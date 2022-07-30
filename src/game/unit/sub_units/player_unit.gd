@@ -25,30 +25,31 @@ func init_with_data(unit_recipe : UnitRecipe) -> void:
 	var unit_data = unit_recipe.base_unit
 	var enhance_cost = unit_recipe.enhance_cost
 	assert(unit_data)
-	assert(unit_data.weapon)
+#	assert(unit_data.weapon)
 
-	if unit_data.enhancements:
-		for enh in unit_data.enhancements:
-			enh.call_deferred("apply_to", self)
+	if unit_data.weapon:
+		if unit_data.enhancements:
+			for enh in unit_data.enhancements:
+				enh.call_deferred("apply_to", self)
 
-	var weapon_data = unit_data.weapon
+		var weapon_data = unit_data.weapon
 
-	assert(enhance_cost == null or enhance_cost is MaterialCost)
+		assert(enhance_cost == null or enhance_cost is MaterialCost)
 
-	if enhance_cost:
-		var materials = enhance_cost.get_materials()
-		for mat in materials:
-			var ct = enhance_cost.get_material_count(mat)
-			for _i in ct:
-				var enh = WEAPON_ENHANCE_DB.get_enhancement(weapon_data.name, MAT.get_type_name(mat))
-				if enh:
-					enh.call_deferred("apply_to", self)
+		if enhance_cost:
+			var materials = enhance_cost.get_materials()
+			for mat in materials:
+				var ct = enhance_cost.get_material_count(mat)
+				for _i in ct:
+					var enh = WEAPON_ENHANCE_DB.get_enhancement(weapon_data.name, MAT.get_type_name(mat))
+					if enh:
+						enh.call_deferred("apply_to", self)
 
-	if unit_data.weapon is WeaponData:
-		var new_weapon = P_Weapon.instance()
-		_set_weapon(new_weapon)
-		new_weapon.init_with_data(unit_data.weapon)
-		new_weapon.set_animation_speed(unit_data.get_stat(StatContainer.STATS.ATK_SPEED))
+		if unit_data.weapon is WeaponData:
+			var new_weapon = P_Weapon.instance()
+			_set_weapon(new_weapon)
+			new_weapon.init_with_data(unit_data.weapon)
+			new_weapon.set_animation_speed(unit_data.get_stat(StatContainer.STATS.ATK_SPEED))
 
 	if unit_data.spells:
 		for spell_scene in unit_data.spells:

@@ -69,6 +69,7 @@ var _knockback = Vector2.ZERO
 var _state = default_state
 var _under_mouse = false
 var _target_weakref = null
+var _ai_active = true
 
 ## Triggered actions
 var _on_hit_triggers = []
@@ -142,13 +143,8 @@ func _ready():
 	change_state(STATE.IDLE)
 
 	if _unit_data_to_use_as_prefab:
-		init_with_data(UnitRecipe.new(
-				_unit_data_to_use_as_prefab,
-				MaterialCost.new().add_material(
-						MAT.TYPE.COPPER,
-						3
-				)
-		))
+		_ai_active = false
+		init_with_data(UnitRecipe.new(_unit_data_to_use_as_prefab))
 		multiply_stat(StatContainer.STATS.MAX_HP, 10.0)
 		multiply_stat(StatContainer.STATS.HP, 10.0)
 
@@ -302,6 +298,9 @@ func normalized_distance_to_unit(unit) -> float:
 """
 # Modifiers
 func decide() -> void:
+	if not _ai_active:
+		return
+
 	var enemies_in_range = get_enemies_in_attack_range()
 	var action = agent_brain.decide_action(CONFIG.context, self, enemies_in_range)
 	LOG.pr(LOG.LOG_TYPE.AI, "[%s] : selected [%s]" % [self, action])
