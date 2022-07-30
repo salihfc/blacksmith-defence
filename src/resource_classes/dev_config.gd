@@ -21,6 +21,8 @@ export(bool) var SHOW_HP_BARS = true
 export(bool) var SHOW_FLOATING_DAMAGE_NUMBERS = true
 export(bool) var SHOW_RANGE_CIRCLES = false
 
+export(bool) var CUSTOM_MOUSE = true
+
 ### PUBLIC VAR ###
 ### PRIVATE VAR ###
 ### ONREADY VAR ###

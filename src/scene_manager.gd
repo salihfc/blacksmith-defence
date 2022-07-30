@@ -25,6 +25,7 @@ const SCENES = {
 const PREV_SCENE = {
 	SCENE.SETTINGS : SCENE.MAIN_MENU,
 	SCENE.GAME : SCENE.MAIN_MENU,
+	SCENE.GAME_3 : SCENE.MAIN_MENU,
 }
 
 
@@ -52,11 +53,11 @@ onready var sceneSlot = $CurrentSceneSlot as Control
 func _input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT:
-			pass
-#			if event.pressed:
-#				Input.set_custom_mouse_cursor(mouse_pressed_cursor)
-#			else:
-#				Input.set_custom_mouse_cursor(mouse_normal_cursor)
+			if CONFIG.CUSTOM_MOUSE:
+				if event.pressed:
+					Input.set_custom_mouse_cursor(mouse_pressed_cursor)
+				else:
+					Input.set_custom_mouse_cursor(mouse_normal_cursor)
 
 
 func _unhandled_key_input(event: InputEventKey) -> void:
@@ -73,7 +74,10 @@ func _ready() -> void:
 	randomize()
 	LOG.pr(LOG.LOG_TYPE.INTERNAL, "READY", "SCENE_MANAGER")
 	set_foreground_color(DEFAULT_FOREGROUND_COLOR)
-#	Input.set_custom_mouse_cursor(mouse_normal_cursor)
+
+	if CONFIG.CUSTOM_MOUSE:
+		Input.set_custom_mouse_cursor(mouse_normal_cursor)
+
 	change_scene(STARTING_SCENE)
 
 

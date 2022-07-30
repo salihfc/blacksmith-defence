@@ -13,6 +13,7 @@ var SHOW_VFX
 var SHOW_AI_STATE
 var SHOW_HP_BARS
 var SHOW_FLOATING_DAMAGE_NUMBERS
+var CUSTOM_MOUSE
 
 # Dynamic Debug
 var SHOW_RANGE_CIRCLES : bool setget _set_show_range_circles
@@ -36,6 +37,7 @@ func _ready() -> void:
 	SHOW_HP_BARS = config.SHOW_HP_BARS
 	SHOW_FLOATING_DAMAGE_NUMBERS = config.SHOW_FLOATING_DAMAGE_NUMBERS
 	SHOW_AI_STATE = config.SHOW_AI_STATE
+	CUSTOM_MOUSE = config.CUSTOM_MOUSE
 
 	_set_show_range_circles(config.SHOW_RANGE_CIRCLES)
 	_set_DEBUG_ON(config.DEBUG_ON)
