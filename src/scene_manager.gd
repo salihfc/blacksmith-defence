@@ -145,7 +145,9 @@ func bind_ui_buttons():
 			[
 				["mouse_entered", "play_ui_sfx", [AUDIO.UI_SFX.HOVER_BLIP]],
 				["pressed", "play_ui_sfx", [AUDIO.UI_SFX.PRESS_BLIP]],
-			]
+			],
+
+			true # check_before
 		)
 
 	return self

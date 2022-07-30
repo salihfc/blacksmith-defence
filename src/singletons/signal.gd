@@ -9,7 +9,8 @@ var relays = {}
 
 func bind_bulk(
 		source_node : Object, target_node : Object,
-		signal_method_bind_arr : Array = []) -> void:
+		signal_method_bind_arr : Array = [],
+		check_before : bool = false) -> void:
 
 	for signal_method_bind in signal_method_bind_arr:
 		var signal_name = signal_method_bind[0]
@@ -17,6 +18,11 @@ func bind_bulk(
 		var binds = []
 		if signal_method_bind.size() > 2:
 			binds = signal_method_bind[2]
+
+		if check_before\
+				and is_bound(source_node, signal_name, target_node, method_name):
+			continue
+
 		bind(source_node, signal_name, target_node, method_name, binds)
 
 
@@ -33,6 +39,11 @@ func bind(
 		LOG.pr(LOG.LOG_TYPE.SIGNAL, "Bind Signal: (%s:%s) -> (%s:%s)" %\
 				[source_node, signal_name, target_node, method_name])
 
+
+func is_bound(
+		source_node : Object, signal_name : String,
+		target_node : Object, method_name : String) -> bool:
+	return source_node.is_connected(signal_name, target_node, method_name)
 
 func bind_multi(connection_array : Array) -> void:
 	for data in connection_array:

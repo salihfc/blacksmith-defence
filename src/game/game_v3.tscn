@@ -59,8 +59,7 @@ unit_data_pool = ExtResource( 9 )
 player_base = ExtResource( 6 )
 
 [node name="BattleWorld" parent="." instance=ExtResource( 13 )]
-position = Vector2( 0, 90 )
-scale = Vector2( 1, 0.8 )
+position = Vector2( 0, 41 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 7
@@ -197,8 +196,9 @@ margin_bottom = 455.0
 [node name="DebugWindow" type="Control" parent="CanvasLayer/UI"]
 
 [node name="CraftHistoryView" parent="CanvasLayer/UI" instance=ExtResource( 16 )]
+anchor_top = 0.0388889
 anchor_right = 0.0
-anchor_bottom = 0.0
+anchor_bottom = 0.0388889
 margin_left = 20.0
 margin_top = 714.0
 margin_right = 790.0
