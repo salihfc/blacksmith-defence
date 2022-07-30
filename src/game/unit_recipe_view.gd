@@ -46,6 +46,9 @@ func set_data_pre(unit_recipe : UnitRecipe):
 
 ### PRIVATE FUNCTIONS ###
 func _set_data(unit_recipe : UnitRecipe) -> void:
+	UTILS.clear_children(baseCostList)
+	UTILS.clear_children(enhanceCostList)
+
 	var unit_data = unit_recipe.base_unit
 	var enhance_cost = unit_recipe.enhance_cost
 #	unitTexture.texture = unit_data.get_view_texture()
