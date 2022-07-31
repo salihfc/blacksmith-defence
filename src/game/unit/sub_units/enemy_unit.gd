@@ -15,6 +15,7 @@ export(float) var drop_chance = 0.5
 func _ready():
 	add_to_group(CONFIG.ENEMY_GROUP)
 	default_state = STATE.WALK
+	change_state(STATE.WALK)
 
 ### PUBLIC FUNCTIONS ###
 func init_with_data(unit_recipe : UnitRecipe) -> void:

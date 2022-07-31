@@ -148,13 +148,15 @@ var _default_data = {
 	},
 
 ####################################
-
-
-####################################
 	"FLAME_STAFF" : {
 		"IRON" : {
 			'enhancement' : UnitEnhancementStat.new(StatContainer.STATS.BASE_DAMAGE, 10),
 			'hint' : "increase damage by 10",
+		},
+
+		"COPPER" : {
+			'enhancement' : UnitEnhancementStat.new(StatContainer.STATS.SPELL_AOE, 0.4),
+			'hint' : "increase spell area by 40%",
 		},
 
 		"FIRE" : {
@@ -164,10 +166,17 @@ var _default_data = {
 			),
 			'hint' : "100% chance to ignite on hit",
 		},
+
+		"WATER" : {
+			'enhancement' : UnitEnhancementStat.new(StatContainer.STATS.CAST_SPEED, 0.4),
+			'hint' : "increase cast speed by 40%",
+		},
+
+		"EARTH" : {
+			'enhancement' : UnitEnhancementStat.new(StatContainer.STATS.DAMAGE_MULTI, 0.4),
+			'hint' : "40% more damage",
+		},
 	},
-
-####################################
-
 
 ####################################
 	"TORNADO_STAFF" : {
@@ -176,6 +185,11 @@ var _default_data = {
 			'hint' : "increase damage by 10",
 		},
 
+		"COPPER" : {
+			'enhancement' : UnitEnhancementStat.new(StatContainer.STATS.SPELL_AOE, 0.4),
+			'hint' : "increase spell area by 40%",
+		},
+
 		"FIRE" : {
 			'enhancement' : UnitEnhancementStatusChanceOnHit.new(
 				1.0,
@@ -183,10 +197,17 @@ var _default_data = {
 			),
 			'hint' : "100% chance to ignite on hit",
 		},
+
+		"WATER" : {
+			'enhancement' : UnitEnhancementStat.new(StatContainer.STATS.CAST_SPEED, 0.4),
+			'hint' : "increase cast speed by 40%",
+		},
+
+		"EARTH" : {
+			'enhancement' : UnitEnhancementStat.new(StatContainer.STATS.DAMAGE_MULTI, 0.4),
+			'hint' : "40% more damage",
+		},
 	},
-
-####################################
-
 
 ####################################
 	"WINTER_STAFF" : {
@@ -195,6 +216,11 @@ var _default_data = {
 			'hint' : "increase damage by 10",
 		},
 
+		"COPPER" : {
+			'enhancement' : UnitEnhancementStat.new(StatContainer.STATS.SPELL_AOE, 0.4),
+			'hint' : "increase spell area by 40%",
+		},
+
 		"FIRE" : {
 			'enhancement' : UnitEnhancementStatusChanceOnHit.new(
 				1.0,
@@ -202,9 +228,18 @@ var _default_data = {
 			),
 			'hint' : "100% chance to ignite on hit",
 		},
+
+		"WATER" : {
+			'enhancement' : UnitEnhancementStat.new(StatContainer.STATS.CAST_SPEED, 0.4),
+			'hint' : "increase cast speed by 40%",
+		},
+
+		"EARTH" : {
+			'enhancement' : UnitEnhancementStat.new(StatContainer.STATS.DAMAGE_MULTI, 0.4),
+			'hint' : "40% more damage",
+		},
 	},
 
-####################################
 }
 
 

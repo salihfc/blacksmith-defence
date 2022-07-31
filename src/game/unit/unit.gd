@@ -328,8 +328,6 @@ func execute_action(action) -> void:
 
 func change_state(new_state):
 
-	pass
-
 	match new_state:
 		STATE.ATTACK:
 			if _target_weakref == null or _target_weakref.get_ref() == null:

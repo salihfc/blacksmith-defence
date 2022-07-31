@@ -5,9 +5,9 @@ class_name MaterialList
 ### SIGNAL ###
 ### ENUM ###
 ### CONST ###
-const P_MaterialView = preload("res://src/ui/material_view.tscn")
-
 ### EXPORT ###
+export(PackedScene) var P_MaterialView
+
 ### PUBLIC VAR ###
 ### PRIVATE VAR ###
 ### ONREADY VAR ###
