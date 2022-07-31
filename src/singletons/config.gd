@@ -18,6 +18,7 @@ var CUSTOM_MOUSE
 # Dynamic Debug
 var SHOW_RANGE_CIRCLES : bool setget _set_show_range_circles
 var DEBUG_ON setget _set_DEBUG_ON
+var CREDITS_ON = true
 
 # Vars
 onready var context = Context.new()

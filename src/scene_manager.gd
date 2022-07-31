@@ -8,6 +8,8 @@ class_name SceneManager
 enum SCENE {
 	MAIN_MENU,
 	SETTINGS,
+	HOWTO,
+	CREDITS,
 
 	GAME,
 	GAME_3,
@@ -16,6 +18,8 @@ enum SCENE {
 const SCENES = {
 	SCENE.MAIN_MENU : preload("res://src/main_menu.tscn"),
 	SCENE.SETTINGS : preload("res://src/settings_menu.tscn"),
+	SCENE.HOWTO : preload("res://src/how_to.tscn"),
+	SCENE.CREDITS : preload("res://src/credits.tscn"),
 #	SCENE.GAME : preload("res://src/game/game.tscn"),
 #	SCENE.GAME : preload("res://src/game/game_v2.tscn"),
 
@@ -24,6 +28,8 @@ const SCENES = {
 
 const PREV_SCENE = {
 	SCENE.SETTINGS : SCENE.MAIN_MENU,
+	SCENE.HOWTO : SCENE.MAIN_MENU,
+	SCENE.CREDITS : SCENE.MAIN_MENU,
 #	SCENE.GAME : SCENE.MAIN_MENU,
 	SCENE.GAME_3 : SCENE.MAIN_MENU,
 }

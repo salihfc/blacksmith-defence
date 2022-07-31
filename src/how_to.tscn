@@ -1,0 +1,184 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/gfx/game/how-to/game_ss.png" type="Texture" id=1]
+[ext_resource path="res://assets/fonts/ttf/UbuntuMono-B.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://new_test.theme" type="Theme" id=3]
+[ext_resource path="res://src/how_to.gd" type="Script" id=4]
+[ext_resource path="res://assets/gfx/game/how-to/crafting_menu_ss.png" type="Texture" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 48
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+extra_spacing_top = 1
+extra_spacing_bottom = 1
+extra_spacing_char = 1
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 44
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+extra_spacing_top = 1
+extra_spacing_bottom = 1
+extra_spacing_char = 1
+font_data = ExtResource( 2 )
+
+[node name="HowTo" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 3 )
+script = ExtResource( 4 )
+
+[node name="TabContainer" type="TabContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+tabs_visible = false
+use_hidden_tabs_for_min_size = true
+
+[node name="0" type="Control" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="TextureRect" type="TextureRect" parent="TabContainer/0"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 1 )
+
+[node name="Labels" type="Control" parent="TabContainer/0"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="Label" type="Label" parent="TabContainer/0/Labels"]
+margin_left = 258.0
+margin_top = 70.0
+margin_right = 552.0
+margin_bottom = 130.0
+custom_colors/font_color = Color( 0.913725, 0.984314, 0.0823529, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 2
+custom_constants/shadow_offset_y = 4
+custom_fonts/font = SubResource( 1 )
+text = "< craft new recipes "
+valign = 1
+
+[node name="Label2" type="Label" parent="TabContainer/0/Labels"]
+margin_left = 176.0
+margin_top = 130.0
+margin_right = 676.0
+margin_bottom = 190.0
+custom_colors/font_color = Color( 0.913725, 0.984314, 0.0823529, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 2
+custom_constants/shadow_offset_y = 4
+custom_fonts/font = SubResource( 1 )
+text = "< summon units from this list"
+valign = 1
+
+[node name="Label3" type="Label" parent="TabContainer/0/Labels"]
+margin_left = 662.0
+margin_top = 12.0
+margin_right = 1386.0
+margin_bottom = 72.0
+custom_colors/font_color = Color( 0.913725, 0.984314, 0.0823529, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 2
+custom_constants/shadow_offset_y = 4
+custom_fonts/font = SubResource( 1 )
+text = "< owned materials"
+valign = 1
+
+[node name="Label4" type="Label" parent="TabContainer/0/Labels"]
+margin_left = 475.0
+margin_top = 413.0
+margin_right = 1274.0
+margin_bottom = 473.0
+custom_colors/font_color = Color( 0.913725, 0.984314, 0.0823529, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 2
+custom_constants/shadow_offset_y = 4
+custom_fonts/font = SubResource( 1 )
+text = "start the next wave when ready >"
+align = 2
+valign = 1
+
+[node name="1" type="Control" parent="TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="TextureRect" type="TextureRect" parent="TabContainer/1"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 5 )
+
+[node name="Labels" type="Control" parent="TabContainer/1"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="Label" type="Label" parent="TabContainer/1/Labels"]
+margin_left = 1.0
+margin_top = 193.0
+margin_right = 326.0
+margin_bottom = 301.0
+custom_colors/font_color = Color( 0.913725, 0.984314, 0.0823529, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 2
+custom_constants/shadow_offset_y = 4
+custom_fonts/font = SubResource( 1 )
+text = "Select weapon
+to craft >"
+valign = 1
+
+[node name="Label2" type="Label" parent="TabContainer/1/Labels"]
+margin_left = 900.0
+margin_top = 70.0
+margin_right = 1225.0
+margin_bottom = 178.0
+custom_colors/font_color = Color( 0.913725, 0.984314, 0.0823529, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 2
+custom_constants/shadow_offset_y = 4
+custom_fonts/font = SubResource( 1 )
+text = "Select material to 
+enhance with"
+valign = 1
+
+[node name="NextButton" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -150.0
+margin_top = 291.0
+margin_right = 150.0
+margin_bottom = 350.0
+custom_fonts/font = SubResource( 2 )
+text = "next"
+
+[node name="Button" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -207.0
+margin_top = 363.0
+margin_right = 207.0
+margin_bottom = 422.0
+custom_fonts/font = SubResource( 2 )
+text = "back to main menu"
+
+[connection signal="pressed" from="NextButton" to="." method="_on_NextButton_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
