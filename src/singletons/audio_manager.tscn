@@ -1,14 +1,17 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://src/singletons/audio_manager.gd" type="Script" id=1]
 [ext_resource path="res://assets/music/common/blacksmith_bg_enriched.mp3" type="AudioStream" id=2]
+[ext_resource path="res://assets/music/blacksmith_battle_music-long.wav" type="AudioStream" id=3]
 
 [node name="AudioManager" type="Node"]
 script = ExtResource( 1 )
-BGM = ExtResource( 2 )
+BGM_MENU = ExtResource( 2 )
+BGM_BATTLE = ExtResource( 3 )
 sfx_player_count = 16
-default_bgm_volume = 0.1
+default_bgm_volume = 0.2
 default_sfx_volume = 0.1
+bgm_on = true
 
 [node name="BGMPlayer" type="AudioStreamPlayer" parent="."]
 volume_db = -10.0

@@ -41,7 +41,6 @@ tabs_visible = false
 use_hidden_tabs_for_min_size = true
 
 [node name="0" type="Control" parent="TabContainer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -112,6 +111,7 @@ align = 2
 valign = 1
 
 [node name="1" type="Control" parent="TabContainer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -165,7 +165,9 @@ margin_left = -150.0
 margin_top = 291.0
 margin_right = 150.0
 margin_bottom = 350.0
+focus_mode = 0
 custom_fonts/font = SubResource( 2 )
+enabled_focus_mode = 0
 text = "next"
 
 [node name="Button" type="Button" parent="."]
@@ -177,7 +179,9 @@ margin_left = -207.0
 margin_top = 363.0
 margin_right = 207.0
 margin_bottom = 422.0
+focus_mode = 0
 custom_fonts/font = SubResource( 2 )
+enabled_focus_mode = 0
 text = "back to main menu"
 
 [connection signal="pressed" from="NextButton" to="." method="_on_NextButton_pressed"]

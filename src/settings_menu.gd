@@ -21,20 +21,24 @@ func _ready() -> void:
 		var title = tabContainer.get_tab_title(_i)
 		tabContainer.set_tab_title(_i, UTILS.wrap_str(title, " ", " "))
 
-	bgmSlider.silent_config(AUDIO.bgm_on, AUDIO.default_bgm_volume)
-	sfxSlider.silent_config(AUDIO.sfx_on, AUDIO.default_sfx_volume)
+	LOG.pr(LOG.LOG_TYPE.SFX, "Volumes: bgm: [%s] <<>> sfx: [%s]" %\
+			[AUDIO.get_bgm_volume(), AUDIO.get_sfx_volume()])
+
+	bgmSlider.silent_config(AUDIO.bgm_on, AUDIO.get_bgm_volume())
+	sfxSlider.silent_config(AUDIO.sfx_on, AUDIO.get_sfx_volume())
 
 	bgmSlider.set_option(
 		"Background music",
 		preload("res://assets/gfx/ui/bgm_icon.png"),
-		0.0
+		AUDIO.get_bgm_volume()
 	)
 
 	sfxSlider.set_option(
 		"Sound effects",
 		preload("res://assets/gfx/ui/sfx_icon.png"),
-		0.0
+		AUDIO.get_sfx_volume()
 	)
+
 
 	SIGNAL.bind_multi(
 		[

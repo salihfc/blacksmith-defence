@@ -196,6 +196,7 @@ func _ready():
 
 	_update_recipe_list()
 	GROUP.get_global(GROUP.SCENE_MANAGER).scene_loaded()
+	AUDIO.play_bgm(AUDIO.BGM.BATTLE)
 
 
 ### PUBLIC FUNCTIONS ###
@@ -329,4 +330,4 @@ func _on_battle_restart_requested() -> void:
 func _on_main_menu_requested() -> void:
 	var scene_manager = GROUP.get_global(GROUP.SCENE_MANAGER)
 	scene_manager.change_scene(scene_manager.SCENE.MAIN_MENU)
-	_pause_battle()
+#	_pause_battle()

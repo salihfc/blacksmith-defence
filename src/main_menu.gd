@@ -14,6 +14,7 @@ onready var creditsButton = $MarginContainerLeft/VBoxContainer/TitleContainerDow
 func _ready() -> void:
 	GROUP.get_global(GROUP.SCENE_MANAGER).scene_loaded()
 	creditsButton.visible = CONFIG.CREDITS_ON
+	AUDIO.play_bgm(AUDIO.BGM.MENU)
 
 ### PUBLIC FUNCTIONS ###
 ### PRIVATE FUNCTIONS ###

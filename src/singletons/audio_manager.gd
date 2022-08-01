@@ -8,12 +8,18 @@ const BGM_BUS = "BGM"
 const SFX_BUS = "SFX"
 const BATTLE_SFX_BUS = "SFX_BATTLE"
 
-export(AudioStream) var BGM
+export(AudioStream) var BGM_MENU
+export(AudioStream) var BGM_BATTLE
 export(int) var sfx_player_count := 8
 export(float, 0.0, 1.0, 0.01) var default_bgm_volume = 0.0
 export(float, 0.0, 1.0, 0.01) var default_sfx_volume = 0.0
 export(bool) var bgm_on = false setget enable_bgm
 export(bool) var sfx_on = true
+
+enum BGM {
+	MENU,
+	BATTLE,
+}
 
 enum UI_SFX {
 	HOVER_BLIP,
@@ -61,13 +67,9 @@ func _ready() -> void:
 
 	BGMplayer.bus = BGM_BUS
 	BGMplayer.stream = AudioStreamRandomPitch.new()
-	BGMplayer.stream.audio_stream = BGM
 
 	set_sfx_volume(default_sfx_volume)
 	set_bgm_volume(default_bgm_volume)
-
-	if bgm_on:
-		BGMplayer.play()
 
 
 func enable_bgm(on : bool = true):
@@ -91,10 +93,34 @@ func set_bgm_volume(volume : float) -> void:
 	__set_bus_volume(BGM_BUS, volume)
 
 
+func get_bgm_volume() -> float: # [0..1]
+	return __get_bus_volume(BGM_BUS)
+
+
 func set_sfx_volume(volume : float) -> void:
 	assert(0.0 <= volume and volume <= 1.0)
 	__set_bus_volume(SFX_BUS, volume)
 	LOG.pr(LOG.LOG_TYPE.SFX, "bus set to [%s]" % [AudioServer.get_bus_volume_db(AudioServer.get_bus_index(SFX_BUS))])
+
+
+func get_sfx_volume() -> float: # [0..1]
+	return __get_bus_volume(SFX_BUS)
+
+
+
+func play_bgm(bgm_id) -> void:
+	if bgm_on:
+		var bgm = null
+		match bgm_id:
+			BGM.MENU:
+				bgm = BGM_MENU
+
+			BGM.BATTLE:
+				bgm = BGM_BATTLE
+
+		if bgm and bgm != BGMplayer.stream.audio_stream:
+			BGMplayer.stream.audio_stream = bgm
+			BGMplayer.play()
 
 
 func play(sfx_id : int) -> void:
@@ -118,7 +144,7 @@ func _play_sfx(sfx_audio, player_container):
 
 
 
-func get_sfx_bux(player_container):
+func get_sfx_bus(player_container):
 	match player_container:
 		BattleSFXplayers:
 			return BATTLE_SFX_BUS
@@ -132,7 +158,7 @@ func set_sfx_player_count(count : int, player_container) -> void:
 	if delta > 0: # Add new
 		for _i in range(delta):
 			var new_player = AudioStreamPlayer.new()
-			new_player.bus = get_sfx_bux(player_container)
+			new_player.bus = get_sfx_bus(player_container)
 			new_player.stream = AudioStreamRandomPitch.new()
 			player_container.add_child(new_player)
 	elif delta < 0:
@@ -157,5 +183,10 @@ func __mute_bus(bus_name, mute) -> void:
 
 func __set_bus_volume(bus_name, volume_frac) -> void:
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(bus_name), linear2db(volume_frac))
+
+
+func __get_bus_volume(bus_name) -> float:
+	var db = AudioServer.get_bus_volume_db(AudioServer.get_bus_index(bus_name))
+	return db2linear(db)
 
 ###
